@@ -1,6 +1,41 @@
-.toplevel_page_uix .wrap > h1 {
+.wrap > h1 {
   background-color: #fff;
-  box-shadow: 0 0 2px rgba(0, 2, 0, 0.1);
+  box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 rgb(127, 191, 0) inset;
   margin: -10px -20px 0 -22px;
   padding: 12px 22px;
+}
+
+nav.uix-sub-nav {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border-radius: 0 0 0 3px;
+  box-shadow: 0 1px 2px rgba(0, 2, 0, 0.05), 0 2px 2px rgba(0, 2, 0, 0.03) inset;
+  margin: 0 -20px 0 0;
+}
+nav.uix-sub-nav > a {
+  display: inline-block;
+  padding: 6px 12px;
+  text-decoration: none;
+  color: #808080;
+}
+
+.uix-sub-nav > a.active,
+.uix-sub-nav > a:hover {
+  background: #ffffff none repeat scroll 0 0;
+  box-shadow: 0 1px 1px rgba(0, 2, 0, 0.05);
+}
+.uix-sub-nav > a:first-child.active ,
+.uix-sub-nav > a:first-child:hover {
+	border-radius: 0 0 0 3px;
+}
+
+.uix-tab-canvas {
+  margin: 14px 12px 0;
+  display: none;
+}
+
+.uix-tab-canvas h4 small {
+  font-size: 0.9em;
+  font-style: oblique;
+  font-weight: normal;
+  opacity: 0.7;
 }
