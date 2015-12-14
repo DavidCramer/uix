@@ -5,8 +5,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg     : grunt.file.readJSON( 'package.json' ),
         curl: {
-            'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js',
-            'assets/js/jquery.textcomplete.min.js' : 'https://raw.githubusercontent.com/yuku-t/jquery-textcomplete/master/dist/jquery.textcomplete.min.js'
+            'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
         },
         uglify: {
             min: {
