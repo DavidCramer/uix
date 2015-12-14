@@ -1,6 +1,6 @@
 {
   "name": "uix",
-  "namespace": "uix_example",
+  "namespace": "uix",
   "version": "1.0.0",
   "description": "UI eXample for using Javascript User Interfaces",
   "repository": {
@@ -14,15 +14,9 @@
   },
   "devDependencies": {
     "grunt": "~0.4.2",
-    "grunt-cli": "~0.1.11",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-compress": "^0.13.0",
-    "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-uglify": "~0.2.4",
     "grunt-curl": "~2.2.0",
     "grunt-contrib-cssmin": "~0.6.2",
-    "grunt-git": "^0.3.3",
-    "grunt-shell": "^1.1.1",
     "grunt-text-replace": "^0.4.0"
   }
 }

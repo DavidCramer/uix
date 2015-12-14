@@ -11,9 +11,9 @@ module.exports = function (grunt) {
         uglify: {
             min: {
                 files: grunt.file.expandMapping( [
-                    'assets/js/*.js',
-                    '!assets/js/*.min.js',
-                    '!assets/js/*.min-latest.js'
+                    'src/assets/js/*.js',
+                    '!src/assets/js/*.min.js',
+                    '!src/assets/js/*.min-latest.js'
                 ], 'assets/js/', {
                     rename : function ( destBase, destPath ) {
                         return destBase + destPath.replace( '.js', '.min.js' );
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
             },
             minify : {
                 expand: true,
-                cwd   : 'assets/css/',
+                cwd   : 'src/assets/css/',
                 src   : ['*.css', '!*.min.css'],
                 dest  : 'assets/css/',
                 ext   : '.min.css'
@@ -48,9 +48,6 @@ module.exports = function (grunt) {
     });
 
     //load modules
-    grunt.loadNpmTasks( 'grunt-contrib-compress' );
-    grunt.loadNpmTasks( 'grunt-contrib-clean' );
-    grunt.loadNpmTasks( 'grunt-contrib-copy' );
     grunt.loadNpmTasks( 'grunt-curl' );
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
