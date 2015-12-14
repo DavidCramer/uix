@@ -45,6 +45,40 @@ class admin extends core{
 
 	}
 
+	public function add_help(){
+		
+
+		$page = $this->get_page();
+		
+		if( !empty( $page['help'] ) ){
+
+			$screen = get_current_screen();
+			
+			foreach( (array) $page['help'] as $help_slug => $help ){
+
+				if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
+					ob_start();
+					include $help['content'];
+					$content = ob_get_clean();
+				}else{
+					$content = $help['content'];
+				}
+
+				$screen->add_help_tab( array(
+					'id'       =>	$help_slug,
+					'title'    =>	$help['title'],
+					'content'  =>	$content
+				));
+			}
+			
+			// Help sidebars are optional
+			if(!empty( $page['help_sidebar'] ) ){
+				$screen->set_help_sidebar( $page['help_sidebar'] );
+			}
+		}
+
+		}
+
 
 	
 	/**
@@ -110,11 +144,19 @@ class admin extends core{
 				 */
 				$pages = apply_filters( 'uix_get_admin_pages', array() );
 				$page_slug = sanitize_text_field( $_POST['page_slug'] );
-				if( !empty( $pages[ $page_slug ] ) ){
-					$option_tag = '_uix_' . $page_slug;
-					update_option( $option_tag, $config );
-					wp_send_json_success( $config );
 
+				if( !empty( $pages[ $page_slug ] ) ){
+					$success = __('Settings saved.', 'uix');
+					if( !empty( $pages[ $page_slug ]['saved_message'] ) ){
+						$success = $pages[ $page_slug ]['saved_message'];
+					}
+					$option_tag = '_uix_' . $page_slug;
+					if( !empty( $pages[ $page_slug ]['option_name'] ) ){
+						$option_tag = $pages[ $page_slug ]['option_name'];
+					}
+
+					update_option( $option_tag, $config );
+					wp_send_json_success( $success );
 				}
 
 			}
@@ -184,6 +226,14 @@ class admin extends core{
 		if( !defined( 'DEBUG_SCRIPTS' ) ){
 			$prefix = '.min';
 		}
+
+		// base styles
+		wp_enqueue_style( 'uix-base-styles', UIX_URL . 'assets/css/admin' . $prefix . '.css' );
+		// enqueue scripts
+		wp_enqueue_script( 'handlebars', UIX_URL . 'assets/js/handlebars.min-latest.js', array(), null, true );
+		wp_enqueue_script( 'uix-helpers', UIX_URL . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
+		wp_enqueue_script( 'uix-core-admin', UIX_URL . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+
 		// enqueue admin runtime styles
 		if( !empty( $uix[ 'styles'] ) ){
 			foreach( $uix[ 'styles'] as $style_key => $style ){
@@ -204,10 +254,6 @@ class admin extends core{
 				}
 			}
 		}
-		// enqueue
-		wp_enqueue_script( 'handlebars', UIX_URL . 'assets/js/handlebars.min-latest.js', array(), null, true );
-		wp_enqueue_script( 'uix-helpers', UIX_URL . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
-		wp_enqueue_script( 'uix-core-admin', UIX_URL . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
 		wp_localize_script( 'uix-core-admin', 'uix', $uix );
 	}
@@ -267,6 +313,7 @@ class admin extends core{
 		
 		// check that the scrren object is valid to be safe.
 		$screen = get_current_screen();
+
 		if( empty( $screen ) || !is_object( $screen ) ){
 			return false;
 		}
@@ -285,9 +332,11 @@ class admin extends core{
 		}
 		// return the base array
 		$uix = $pages[ $page_slug ];
-
+		if( empty( $uix['option_name'] ) ){
+			$uix['option_name'] = '_uix_' . sanitize_text_field( $page_slug );
+		}
 		// get config object
-		$config_object = get_option( '_uix_' . sanitize_text_field( $page_slug ), array() );
+		$config_object = get_option( $uix['option_name'], array() );
 
 		/**
 		 * Filter config object
@@ -318,13 +367,25 @@ class admin extends core{
 		$pages = apply_filters( 'uix_get_admin_pages', array() );
 
 		foreach( (array) $pages as $page_slug => $page ){
+			
+			if( empty( $page[ 'page_title' ] ) || empty( $page['menu_title'] ) ){
+				continue;
+			}
+
+			$args = array(
+				'capability'	=> 'manage_options',
+				'icon'			=>	null,
+				'position'		=> null
+			);
+			$args = array_merge( $args, $page );
+
 			if( !empty( $page['parent'] ) ){
 
 				$this->plugin_screen_hook_suffix[ $page_slug ] = add_submenu_page(
-					$page[ 'parent' ],
-					$page[ 'page_title' ],
-					$page[ 'menu_title' ],
-					$page[ 'capability' ], 
+					$args[ 'parent' ],
+					$args[ 'page_title' ],
+					$args[ 'menu_title' ],
+					$args[ 'capability' ], 
 					$page_slug,
 					array( $this, 'create_admin_page' )
 				);
@@ -332,18 +393,17 @@ class admin extends core{
 			}else{
 
 				$this->plugin_screen_hook_suffix[ $page_slug ] = add_menu_page(
-					$page[ 'page_title' ],
-					$page[ 'menu_title' ],
-					$page[ 'capability' ], 
+					$args[ 'page_title' ],
+					$args[ 'menu_title' ],
+					$args[ 'capability' ], 
 					$page_slug,
 					array( $this, 'create_admin_page' ),
-					$page[ 'icon' ],
-					$page[ 'position' ]
+					$args[ 'icon' ],
+					$args[ 'position' ]
 				);
-
-				add_action( 'admin_print_styles-' . $this->plugin_screen_hook_suffix[ $page_slug ], array( $this, 'enqueue_admin_stylescripts' ) );
-
 			}
+			add_action( 'admin_print_styles-' . $this->plugin_screen_hook_suffix[ $page_slug ], array( $this, 'enqueue_admin_stylescripts' ) );
+			add_action( 'load-' . $this->plugin_screen_hook_suffix[ $page_slug ], array( $this, 'add_help' ) );
 		}
 	}
 

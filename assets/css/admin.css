@@ -1,8 +1,57 @@
+.metabox-prefs {
+  margin: 0 20px 0 -21px !important;
+}
+.contextual-help-tabs {
+  margin: 0 0 0 23px;
+  width: 172px;
+}
+.contextual-help-tabs .active a {
+  border-color: #e1e1e1;
+  color: #32373c;
+  padding-left: 8px;
+}
+.contextual-help-tabs .active {
+  background: #f4f4f4 none repeat scroll 0 0;
+  border-left: 6px solid #7fbf00;
+}
+#contextual-help-back {
+  background: #f4f4f4 none repeat scroll 0 0;
+  left: 195px;
+}
+.contextual-help-tabs-wrap {
+  padding: 10px 20px 20px;
+}
+.contextual-help-sidebar {
+  padding: 5px 12px 20px;
+}
+#screen-meta-links .screen-meta-toggle {
+  top: -1px;
+}
+.contextual-help-tabs a {
+  color: #808080;
+}
+
 .wrap > h1 {
   background-color: #fff;
   box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 rgb(127, 191, 0) inset;
+  color: #505050;
+  font-weight: 300;
   margin: -10px -20px 0 -22px;
   padding: 12px 22px;
+}
+.page-title-action .spinner.uix-save-spinner{
+  float: none;
+  margin: -2px 4px 0 0;
+  visibility: visible;
+  display: none;
+}
+.page-title-action.saving {
+  color: #8f8f8f;
+  cursor: wait;
+}
+.wrap a.page-title-action.saving:hover{
+  background-color: #e0e0e0;
+  color: #8f8f8f;
 }
 
 nav.uix-sub-nav {
@@ -38,4 +87,8 @@ nav.uix-sub-nav > a {
   font-style: oblique;
   font-weight: normal;
   opacity: 0.7;
+}
+
+.form-table th label{
+  font-size: 13px;
 }

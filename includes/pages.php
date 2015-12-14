@@ -9,60 +9,67 @@
  * @copyright 2015 David Cramer
  */
 
-
 return array(
-	'uix_base'	=>	array(
+	'uix-base'	=>	array(
 		'page_title'	=>	__( 'UIX Admin', 'uix' ),
 		'menu_title'	=>	__( 'UIX Admin', 'uix' ),
-		//'parent'		=>	'caldera-forms',
 		'capability'	=>	'manage_options',
 		'icon'			=>	'dashicons-welcome-widgets-menus',
-		'position'		=>	3.1,
+		'position'		=>	null,
+		'save_button'	=>  __('Update Settings', 'uix'),
+		'saved_message'	=>	__('UIX Updated Successfully!', 'uix'),
 		'styles'		=>	array(
-			'uix-base-styles' => UIX_URL . 'assets/css/admin.css'
+			'textcomplete' => UIX_URL . 'assets/css/textcomplete.css',
 		),
-		'scripts'		=>	array(),
+		'scripts'		=>	array(
+			'textcomplete' => UIX_URL . 'assets/js/jquery.textcomplete.min.js',
+		),
 		'tabs'			=>	array(
 			'main'		=>	array(
 				'page_title'	=> 	__('General Settings and Options', 'uix'),
-				'page_description'	=> 	__('Condifure general setup requirens', 'uix'),
+				'page_description'	=> 	__('setup requirements', 'uix'),
 				'menu_title'	=> 	__('General', 'uix'),
-				//'default'		=>	true,
+				'default'		=>	true,
 				'template'		=>	UIX_PATH . 'templates/general-ui.php',
 				'partials'		=>	array(
 					'user-row' => UIX_PATH . 'templates/user-row-ui.php'
 				)
 			),
-			'news'		=>	array(
-				'page_title'	=> 	__('News and Stuff', 'uix'),
-				'menu_title'	=> 	__('News', 'uix'),
-				'default'		=>	true,
-				'template'		=>	UIX_PATH . 'templates/other-ui.php'
+			'extra'		=>	array(
+				'page_title'	=> 	__('Extras', 'uix'),
+				'page_description'	=> 	__('Additional settings', 'uix'),
+				'menu_title'	=> 	__('Extras', 'uix'),
+				
 			),
-			'options'		=>	array(
-				'page_title'	=> 	__('options and things', 'uix'),
-				'menu_title'	=> 	__('options', 'uix'),
-				'default'		=>	true,
-				'template'		=>	UIX_PATH . 'templates/other-ui.php'
+		),
+		'help'	=> array(
+			'default-help' => array(
+				'title'		=> 	esc_html__( 'Easy to add Help' , 'uix' ),
+				'content'	=>	"sd fgsdfg sfdg sdgfe."
 			),
-			'people'		=>	array(
-				'page_title'	=> 	__('People', 'uix'),
-				'menu_title'	=> 	__('People and pets', 'uix'),
-				'default'		=>	true,
-				'template'		=>	UIX_PATH . 'templates/other-ui.php'
-			)			
-		)
+			'seconds-help' => array(
+				'title'		=> 	esc_html__( 'Easy to add Help' , 'uix' ),
+				'content'	=>	"we rtwert sfdg dsfg sdfg ret er"
+			),
+			'third-help' => array(
+				'title'		=> 	esc_html__( 'Easy to add Help' , 'uix' ),
+				'content'	=>	"Yew ertwert re."
+			),
+			'fortu-help' => array(
+				'title'		=> 	esc_html__( 'Easy to add Help' , 'uix' ),
+				'content'	=>	"Ye, I'm lazy. stuff goes here."
+			),
+		),
+		'help_sidebar' => 's ashdkj haskjd hasd f fdsg fda sdfg sfdg sfdg sfdg '
 	),
 	'news_pages'	=>	array(
 		'page_title'	=>	__( 'News System', 'uix' ),
 		'menu_title'	=>	__( 'News System', 'uix' ),
-		//'parent'		=>	'caldera-forms',
+		'parent'		=>	'uix-base',
 		'capability'	=>	'manage_options',
 		'icon'			=>	'dashicons-welcome-widgets-menus',
 		'position'		=>	36,
-		'styles'		=>	array(
-			'uix-base-styles' => UIX_URL . 'assets/css/admin.css'
-		),
+		'styles'		=>	array(),
 		'scripts'		=>	array(),
 		'tabs'			=>	array(
 			'news'		=>	array(
@@ -70,7 +77,7 @@ return array(
 				'menu_title'	=> 	__('News', 'uix'),
 				'default'		=>	true,
 				'template'		=>	UIX_PATH . 'templates/other-ui.php'
-			)		
-		)
-	)
+			)
+		),
+	),
 );

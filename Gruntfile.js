@@ -22,13 +22,9 @@ module.exports = function (grunt) {
                 cmd: './composer'
             }
         },
-        downloadfile: {
-            options: {
-                dest: 'assets/js'
-            },
-            files: [
-                'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
-            ],
+        curl: {
+            'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js',
+            'assets/js/jquery.textcomplete.min.js' : 'https://raw.githubusercontent.com/yuku-t/jquery-textcomplete/master/dist/jquery.textcomplete.min.js'
         },
         uglify: {
             min: {
@@ -159,7 +155,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks( 'grunt-contrib-compress' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
-    grunt.loadNpmTasks( 'grunt-downloadfile');
+    grunt.loadNpmTasks( 'grunt-curl' );
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-git' );
@@ -171,11 +167,12 @@ module.exports = function (grunt) {
 
     //release tasks
     grunt.registerTask( 'version_number', [ 'replace:core_file' ] );
-    grunt.registerTask( 'pre_vcs', [ 'shell:composer', 'downloadfile', 'cssmin', 'uglify', 'version_number', 'copy', 'compress' ] );
+    grunt.registerTask( 'pre_vcs', [ 'shell:composer', 'curl', 'cssmin', 'uglify', 'version_number', 'copy', 'compress' ] );
     grunt.registerTask( 'do_git', [ 'gitadd', 'gitcommit', 'gittag', 'gitpush' ] );
-    grunt.registerTask( 'just_build', [  'shell:composer', 'downloadfile', 'cssmin', 'uglify', 'copy', 'compress' ] );
+    grunt.registerTask( 'just_build', [  'shell:composer', 'curl', 'cssmin', 'uglify', 'copy', 'compress' ] );
 
     grunt.registerTask( 'release', [ 'pre_vcs', 'do_git', 'clean:post_build' ] );
 
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify' ] );
 
 };

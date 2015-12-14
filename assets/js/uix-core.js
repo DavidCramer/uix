@@ -8,10 +8,16 @@ var conduitApp = {},
 
 	$.fn.conduitTrigger = function( obj ){
 		var defaults = {
-			method	:	'GET'
+			method	:	'GET',
+			url		:	ajaxurl
 		};
 
 		$.extend(true, defaults, obj);
+
+		$.ajax( defaults ).success( function(){
+			console.log( arguments );
+		} );
+
 
 		return this;
 	}
@@ -115,7 +121,6 @@ var conduitApp = {},
 				}
 			}
 		}
-		
 		return obj;
 	}
 
@@ -277,14 +282,19 @@ var conduitApp = {},
 		e.preventDefault();
 		var clicked = $( this ),
 			app = $( this ).data('saveObject'),
+			spinner = $('.page-title-action .spinner'),
+			title = $('.uix-title'),
 			obj;
+		
+		$('.uix-notice .notice-dismiss').trigger('click');
 
 		if( true === app ){
 			obj = conduitPrepObject();
 		}else{
 			obj = conduitPrepObject( app );
 		}
-
+		clicked.addClass('saving');
+		spinner.slideDown(100);
 		var data = {
 			action		:	"uix_save_config",
 			uix_setup	:	$('#uix_setup').val(),
@@ -292,7 +302,10 @@ var conduitApp = {},
 			config		:	JSON.stringify( obj ),
 		};
 		$.post( ajaxurl, data, function(response) {
-			console.log( response );
+			spinner.slideUp(100);
+			clicked.removeClass('saving');
+			var notice = $( coduitTemplates.__notice( response ) );
+			notice.hide().insertAfter( title ).slideDown( 200 );
 		});
 
 	});
@@ -301,6 +314,12 @@ var conduitApp = {},
 	$(document).on('change', '[data-live-sync]', function(e){
 		var app = $(this).closest('[data-app]').data('app');
 		conduitSyncData( app );
+	});
+	$(document).on('click', '.uix-notice .notice-dismiss', function(){
+		var parent =  $( this ).closest( '.uix-notice' );
+		parent.slideUp(200, function(){
+			parent.remove();
+		});
 	});
 
 	$(document).on( 'click', '[data-tab]', function( e ){
