@@ -1,8 +1,8 @@
 {
   "name": "uix",
-  "namespace": "uix",
+  "namespace": "plugin_slug",
   "version": "1.0.0",
-  "description": "UI eXample for using Javascript User Interfaces",
+  "description": "Admin UI Framework for WordPress",
   "repository": {
     "type": "git",
     "url": "https://github.com/Desertsnowman/UIX"

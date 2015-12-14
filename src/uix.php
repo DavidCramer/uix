@@ -8,7 +8,7 @@
  * @link
  * @copyright 2015 David Cramer
  */
-namespace uix;
+namespace ui;
 
 /**
  * Settings class
