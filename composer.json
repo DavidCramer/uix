@@ -1,7 +1,7 @@
 {
     "name": "desertsnowman/uix",
-    "description": "UI eXample for using Javascript User Interfaces",
-    "type": "wordpress-plugin",
+    "description": "UI system for using Javascript User Interfaces",
+    "type": "wordpress-framework",
     "keywords": [
         "wordpress"
     ],
@@ -12,7 +12,5 @@
             "homepage": "http://cramer.co.za",
             "role": "Developer"
         }
-    ],
-    "require": {
-    }
+    ]
 }

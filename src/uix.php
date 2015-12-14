@@ -15,15 +15,57 @@ namespace uix;
  * @package uix
  * @author  David Cramer
  */
-class admin extends core{
-
+class uix{
 
 	/**
-	 * Constructor for class
+	 * The slug for this plugin
 	 *
-	 * @since 0.0.1
+	 * @since 1.0.0
+	 *
+	 * @var      string
 	 */
-	public function __construct(){
+	protected $plugin_slug = null;
+
+	/**
+	 * List of registered pages
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var      array
+	 */
+	protected $pages = array();
+
+	/**
+	 * Holds class instance
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var      object|\uix\core
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Holds the option screen prefix
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var      string
+	 */
+	protected $plugin_screen_hook_suffix = null;
+
+	/**
+	 * Initialize the plugin by setting localization, filters, and administration functions.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access private
+	 */
+	private function __construct( $pages, $slug = 'uix' ) {
+
+		// register pages
+		$this->pages = $pages;
+		// set slug
+		$this->plugin_slug = $slug;
 
 		// add admin page
 		add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 25 );
@@ -31,20 +73,32 @@ class admin extends core{
 		// save config
 		add_action( 'wp_ajax_uix_save_config', array( $this, 'save_config') );
 
-		// exporter
-		add_action( 'init', array( $this, 'check_exporter' ) );
+	}
 
-		// create new
-		add_action( 'wp_ajax_uix_create_uix', array( $this, 'create_new_uix') );
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return    object|\uix\uix    A single instance of this class.
+	 */
+	public static function get_instance( $pages ) {
 
-		// delete
-		add_action( 'wp_ajax_uix_delete_uix', array( $this, 'delete_uix') );
+		// If the single instance hasn't been set, set it now.
+		if ( null == self::$instance ) {
+			self::$instance = new self( $pages );
+		}
 
-		// add pages filter
-		add_filter( 'uix_get_admin_pages', array( $this, 'get_admin_pages') );
+		return self::$instance;
 
 	}
 
+
+	/**
+	 * Add defined contextual help to admin page
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_help(){
 		
 
@@ -77,51 +131,8 @@ class admin extends core{
 			}
 		}
 
-		}
-
-
-	
-	/**
-	 * builds an export
-	 *
-	 * @uses "wp_ajax_uix_check_exporter" hook
-	 *
-	 * @since 0.0.1
-	 */
-	public function check_exporter(){
-
-		if( current_user_can( 'manage_options' ) ){
-
-			if( !empty( $_REQUEST['download'] ) && !empty( $_REQUEST['cf-io-export'] ) && wp_verify_nonce( $_REQUEST['cf-io-export'], 'cf-io' ) ){
-
-				$data = options::get_single( $_REQUEST['download'] );
-
-				header( 'Content-Type: application/json' );
-				header( 'Content-Disposition: attachment; filename="cf-io-export.json"' );
-				echo wp_json_encode( $data );
-				exit;
-
-			}
-			
-		}
 	}
 
-	/**
-	 * Saves a config
-	 *
-	 * @uses "uix_get_admin_pages" hook
-	 *	 
-	 * @since 0.0.1
-	 * @param array $pre_pages  Array structure of pages to be created
-	 *
-	 * @return array $pages Array structure of pages to be created
-	 */
-	public function get_admin_pages( array $pre_pages ){
-
-		$pages = include UIX_PATH . 'includes/pages.php';
-
-		return array_merge( $pre_pages, $pages );
-	}
 
 	/**
 	 * Saves a config
@@ -146,7 +157,7 @@ class admin extends core{
 				$page_slug = sanitize_text_field( $_POST['page_slug'] );
 
 				if( !empty( $pages[ $page_slug ] ) ){
-					$success = __('Settings saved.', 'uix');
+					$success = __( 'Settings saved.', $this->plugin_slug );
 					if( !empty( $pages[ $page_slug ]['saved_message'] ) ){
 						$success = $pages[ $page_slug ]['saved_message'];
 					}
@@ -165,44 +176,6 @@ class admin extends core{
 
 		// nope
 		wp_send_json_error( $config );
-
-	}
-
-	/**
-	 * Array of "internal" fields not to mess with
-	 *
-	 * @since 0.0.1
-	 *
-	 * @return array
-	 */
-	public function internal_config_fields() {
-		return array( '_wp_http_referer', 'id', '_current_tab' );
-
-	}
-
-
-	/**
-	 * Deletes an item
-	 *
-	 *
-	 * @uses 'wp_ajax_uix_create_uix' action
-	 *
-	 * @since 0.0.1
-	 */
-	public function delete_uix(){
-		$can = options::can();
-		if ( ! $can ) {
-			status_header( 500 );
-			wp_die( __( 'Access denied', 'cf-io' ) );
-		}
-
-		$deleted = options::delete( strip_tags( $_POST[ 'block' ] ) );
-
-		if ( $deleted ) {
-			wp_send_json_success( $_POST );
-		}else{
-			wp_send_json_error( $_POST );
-		}
 
 	}
 
@@ -228,11 +201,11 @@ class admin extends core{
 		}
 
 		// base styles
-		wp_enqueue_style( 'uix-base-styles', UIX_URL . 'assets/css/admin' . $prefix . '.css' );
+		wp_enqueue_style( 'uix-base-styles', plugin_dir_url( __FILE__ ) . 'assets/css/admin' . $prefix . '.css' );
 		// enqueue scripts
-		wp_enqueue_script( 'handlebars', UIX_URL . 'assets/js/handlebars.min-latest.js', array(), null, true );
-		wp_enqueue_script( 'uix-helpers', UIX_URL . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
-		wp_enqueue_script( 'uix-core-admin', UIX_URL . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+		wp_enqueue_script( 'handlebars', plugin_dir_url( __FILE__ ) . 'assets/js/handlebars.min-latest.js', array(), null, true );
+		wp_enqueue_script( 'uix-helpers', plugin_dir_url( __FILE__ ) . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
+		wp_enqueue_script( 'uix-core-admin', plugin_dir_url( __FILE__ ) . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
 		// enqueue admin runtime styles
 		if( !empty( $uix[ 'styles'] ) ){
@@ -258,50 +231,6 @@ class admin extends core{
 		wp_localize_script( 'uix-core-admin', 'uix', $uix );
 	}
 
-
-	/**
-	 * Create a new item
-	 *
-	 * @uses "wp_ajax_uix_create_uix"  action
-	 *
-	 * @since 0.0.1
-	 */
-	public function create_new_uix(){
-
-		$can = options::can();
-		if ( ! $can ) {
-			status_header( 500 );
-			wp_die( __( 'Access denied', 'cf-io' ) );
-		}
-
-
-		if( !empty( $_POST['import'] ) ){
-			$config = json_decode( stripslashes_deep( $_POST[ 'import' ] ), true );
-
-			if( empty( $config['name'] ) || empty( $config['slug'] ) ){
-				wp_send_json_error( $_POST );
-			}
-			$id = null;
-			if( !empty( $config['id'] ) ){
-				$id = $config['id'];
-			}
-			options::create( $config[ 'name' ], $config[ 'slug' ] );
-			options::update( $config );
-			wp_send_json_success( $config );
-		}
-
-		$new = options::create( $_POST[ 'name' ], $_POST[ 'slug' ], $_POST[ 'formid' ] );
-
-		if ( is_array( $new ) ) {
-			wp_send_json_success( $new );
-
-		}else {
-			wp_send_json_error( $_POST );
-
-		}
-
-	}
-
 	/**
 	 * get the config for the current page
 	 *
@@ -323,7 +252,7 @@ class admin extends core{
 		 *
 		 * @param array $pages Page structures to be created
 		 */
-		$pages = apply_filters( 'uix_get_admin_pages', array() );
+		$pages = apply_filters( 'uix_get_admin_pages', $this->pages );
 
 		// get the page slug from base ID
 		$page_slug = array_search( $screen->base, $this->plugin_screen_hook_suffix );
@@ -364,7 +293,7 @@ class admin extends core{
 		 *
 		 * @param array $pages Page structures to be created
 		 */
-		$pages = apply_filters( 'uix_get_admin_pages', array() );
+		$pages = apply_filters( 'uix_get_admin_pages-' . $this->plugin_slug, $this->pages );
 
 		foreach( (array) $pages as $page_slug => $page ){
 			
@@ -415,9 +344,74 @@ class admin extends core{
 	public function create_admin_page(){
 		
 		$uix = $this->get_page();
+		?>
+		<div class="wrap">
+			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , 'uix' ); ?>
+				<?php if( !empty( $uix['save_button'] ) ){ ?>
+				<a class="page-title-action" href="#save-object" data-save-object="true">
+					<span class="spinner uix-save-spinner"></span>
+					<?php esc_html_e( $uix['save_button'], 'uix' ); ?>
+				</a>
+				<?php } ?>
+			</h1>
+			<?php if( !empty( $uix['tabs'] ) ){ ?>
+			<nav class="uix-sub-nav" <?php if( count( $uix['tabs'] ) === 1 ){ ?>style="display:none;"<?php } ?>>
+				<?php foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?><a data-tab="<?php echo esc_attr( $tab_slug ); ?>" href="#<?php echo esc_attr( $tab_slug ) ?>"><?php echo esc_html( $tab['menu_title'] ); ?></a><?php } ?>
+			</nav>
+			<?php } ?>
+			<?php wp_nonce_field( 'uix', 'uix_setup' ); ?>
+			<?php 
+			if( !empty( $uix['tabs'] ) ){
+				foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?>
+					<div class="uix-tab-canvas" data-app="<?php echo esc_attr( $tab_slug ); ?>"></div>
+					<script type="text/html" data-template="<?php echo esc_attr( $tab_slug ); ?>">
+						<h4><?php 
+							echo esc_attr( $tab['page_title'] ); 
+							if( !empty( $tab['page_description'] ) ){ ?> <small><?php echo $tab['page_description']; ?></small> <?php } 
+						?></h4>
+						<?php
+							// include this tabs template
+							if( !empty( $tab['template'] ) && file_exists( $tab['template'] ) ){
+								include $tab['template'];
+							}else{
+								echo esc_html__( 'Template not found: ', 'uix' ) . $tab['page_title'];
+							}
+						?>
+					</script>
+					<?php if( !empty( $tab['partials'] ) ){
+						foreach( $tab['partials'] as $partial_id => $partial ){
+							?>
+							<script type="text/html" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
+								<?php
+									// include this tabs template
+									if( !empty( $partial ) && file_exists( $partial ) ){
+										include $partial;
+									}else{
+										echo esc_html__( 'Partial Template not found: ', 'uix' ) . $partial_id;
+									}
+								?>
+							</script>
+							<?php
+						}
+					}
+				}
+			}else{
+				if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
+					include $uix['template'];
+				}
+			}
+			?>
+		</div>
 
-		include UIX_PATH . 'includes/admin-ui.php';
-
+		<script type="text/html" data-template="__notice">
+		<div class="{{#if success}}updated{{else}}error{{/if}} notice uix-notice is-dismissible">
+			<p>{{{data}}}</p>
+			<button class="notice-dismiss" type="button">
+				<span class="screen-reader-text">Dismiss this notice.</span>
+			</button>
+		</div>
+		</script>
+		<?php
 	}
 	
 }

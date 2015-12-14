@@ -1,5 +1,6 @@
 {
   "name": "uix",
+  "namespace": "uix_example",
   "version": "1.0.0",
   "description": "UI eXample for using Javascript User Interfaces",
   "repository": {
