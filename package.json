@@ -1,6 +1,5 @@
 {
   "name": "uix",
-  "namespace": "plugin_slug",
   "version": "1.0.0",
   "description": "Admin UI Framework for WordPress",
   "repository": {
