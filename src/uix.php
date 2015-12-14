@@ -195,17 +195,18 @@ class uix{
 		}
 
 		// allow for minimized scripts
-		$prefix = null;
-		if( !defined( 'DEBUG_SCRIPTS' ) ){
-			$prefix = '.min';
+		$prefix = '.min';
+		$uix_url = plugin_dir_url( __FILE__ );
+		if( defined( 'DEBUG_SCRIPTS' ) ){
+			$prefix = null;
+			$uix_url .= 'src/';
 		}
-
 		// base styles
-		wp_enqueue_style( 'uix-base-styles', plugin_dir_url( __FILE__ ) . 'assets/css/admin' . $prefix . '.css' );
+		wp_enqueue_style( 'uix-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
 		// enqueue scripts
-		wp_enqueue_script( 'handlebars', plugin_dir_url( __FILE__ ) . 'assets/js/handlebars.min-latest.js', array(), null, true );
-		wp_enqueue_script( 'uix-helpers', plugin_dir_url( __FILE__ ) . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
-		wp_enqueue_script( 'uix-core-admin', plugin_dir_url( __FILE__ ) . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
+		wp_enqueue_script( 'uix-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
+		wp_enqueue_script( 'uix-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
 		// enqueue admin runtime styles
 		if( !empty( $uix[ 'styles'] ) ){
