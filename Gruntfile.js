@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                 dest: 'uix.php',
                 replacements: [{
                     from: /namespace \s*(.*)/,
-                    to: "namespace <%= namespace %>\\uix;"
+                    to: "namespace <%= namespace %>\\ui;"
                 }]
             }
         }
