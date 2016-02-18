@@ -249,7 +249,7 @@ class uix{
 		// base styles
 		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
 		// enqueue scripts
-		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min.js', array(), null, true );
+		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
 		wp_enqueue_script( $this->plugin_slug . '-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
 		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
