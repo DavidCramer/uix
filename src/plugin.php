@@ -24,23 +24,23 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define('{{slug}}_PATH',  plugin_dir_path( __FILE__ ) );
-define('{{slug}}_CORE',  __FILE__ );
-define('{{slug}}_URL',  plugin_dir_url( __FILE__ ) );
-define('{{slug}}_VER',  '{{version}}' );
+define('{{prefix}}_PATH',  plugin_dir_path( __FILE__ ) );
+define('{{prefix}}_CORE',  __FILE__ );
+define('{{prefix}}_URL',  plugin_dir_url( __FILE__ ) );
+define('{{prefix}}_VER',  '{{version}}' );
 
 // Load instance
 add_action( 'plugins_loaded', function(){
 	// include the library
-	include_once {{slug}}_PATH . 'classes/uix.php';
+	include_once {{prefix}}_PATH . 'uix/uix.php';
 	// front
 	if( !is_admin() ){
 		// front class
-		include_once {{slug}}_PATH . 'classes/front.php';
+		include_once {{prefix}}_PATH . 'uix/front.php';
 	}
 	
 	// get the pages
-	$pages = include {{slug}}_PATH . 'includes/pages.php';
+	$pages = include {{prefix}}_PATH . 'includes/pages.php';
 
 	// initialize admin UI
 	$uix = \{{namespace}}\ui\uix::get_instance( $pages, '{{namespace}}' );
