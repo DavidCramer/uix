@@ -55,6 +55,10 @@ module.exports = function (grunt) {
                     to: "<%= pkg.slug %>"
                 },
                 {
+                    from: "{{prefix}}",
+                    to: "<%= pkg.prefix %>"
+                },
+                {
                     from: "{{name}}",
                     to: "<%= pkg.name %>"
                 },
