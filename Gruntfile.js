@@ -47,8 +47,8 @@ module.exports = function (grunt) {
                 dest: '../plugin.php',
                 replacements: [
                 {
-                    from: /namespace \s*(.*)/,
-                    to: "namespace <%= pkg.namespace %>\\ui;"
+                    from: "{{namespace}}",
+                    to: "<%= pkg.namespace %>"
                 }
                 ]
             }
