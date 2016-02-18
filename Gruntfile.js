@@ -49,6 +49,30 @@ module.exports = function (grunt) {
                 {
                     from: "{{namespace}}",
                     to: "<%= pkg.namespace %>"
+                },
+                {
+                    from: "{{slug}}",
+                    to: "<%= pkg.slug %>"
+                },
+                {
+                    from: "{{name}}",
+                    to: "<%= pkg.name %>"
+                },
+                {
+                    from: "{{description}}",
+                    to: "<%= pkg.description %>"
+                },
+                {
+                    from: "{{author}}",
+                    to: "<%= pkg.author %>"
+                },
+                {
+                    from: "{{url}}",
+                    to: "<%= pkg.url %>"
+                },
+                {
+                    from: "{{version}}",
+                    to: "<%= pkg.version %>"
                 }
                 ]
             }
