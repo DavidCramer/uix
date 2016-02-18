@@ -1,12 +1,12 @@
 <?php
 /**
- * UIX Setting.
+ * UIX Setting Class.
  *
  * @package   uix
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
- * @copyright 2015 David Cramer
+ * @copyright 2016 David Cramer
  */
 namespace ui;
 
@@ -36,11 +36,20 @@ class uix{
 	protected $pages = array();
 
 	/**
+	 * List of registered metaboxes
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var      array
+	 */
+	protected $metaboxes = array();	
+
+	/**
 	 * Holds class instance
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var      object|\uix\core
+	 * @var      object|\uix
 	 */
 	protected static $instance = null;
 
@@ -60,19 +69,31 @@ class uix{
 	 *
 	 * @access private
 	 */
-	private function __construct( $pages, $slug = 'uix' ) {
+	private function __construct( $pages, $slug ) {
 
-		// register pages
-		$this->pages = $pages;
+
 		// set slug
 		$this->plugin_slug = $slug;
 
 		// add admin page
 		add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 25 );
 
-		// save config
-		add_action( 'wp_ajax_uix_save_config', array( $this, 'save_config') );
+		// add metaboxes
+		add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );
 
+		// save config
+		add_action( 'wp_ajax_' . $this->plugin_slug . '_save_config', array( $this, 'save_config') );
+
+	}
+
+
+	public function add_metaboxes() {
+    	//add_meta_box( 'meta-box-id', __( 'My Meta Box', 'textdomain' ), array( $this, 'render_metabox' ), 'post' );
+	}
+
+	public function render_metabox( $a ){
+		var_dump( $a );
+		die;
 	}
 
 	/**
@@ -82,15 +103,37 @@ class uix{
 	 *
 	 * @return    object|\uix\uix    A single instance of this class.
 	 */
-	public static function get_instance( $pages ) {
+	public static function get_instance( $pages, $slug ) {
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
-			self::$instance = new self( $pages );
+			self::$instance = new self( $pages, $slug );
 		}
 
 		return self::$instance;
 
+	}
+
+	/**
+	 * Register the admin pages
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	public function register_pages( $pages ) {
+		// register pages
+		$this->pages = $pages;
+	}
+
+	/**
+	 * Register metaboxes
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	public function register_metaboxes( $metaboxes ) {
+		// register pages
+		$this->metaboxes = $metaboxes;
 	}
 
 
@@ -147,13 +190,13 @@ class uix{
 
 			$config = json_decode( stripslashes_deep( $_POST[ 'config' ] ), true );
 
-			if(	wp_verify_nonce( $_POST['uix_setup'], 'uix' ) ){
+			if(	wp_verify_nonce( $_POST['uix_setup'], $this->plugin_slug ) ){
 				/**
 				 * Filter settings pages to be created
 				 *
 				 * @param array $pages Page structures to be created
 				 */
-				$pages = apply_filters( 'uix_get_admin_pages', array() );
+				$pages = apply_filters( $this->plugin_slug . '_get_admin_pages', $this->pages );
 				$page_slug = sanitize_text_field( $_POST['page_slug'] );
 
 				if( !empty( $pages[ $page_slug ] ) ){
@@ -161,7 +204,7 @@ class uix{
 					if( !empty( $pages[ $page_slug ]['saved_message'] ) ){
 						$success = $pages[ $page_slug ]['saved_message'];
 					}
-					$option_tag = '_uix_' . $page_slug;
+					$option_tag = '_' . $this->plugin_slug . '_' . $page_slug;
 					if( !empty( $pages[ $page_slug ]['option_name'] ) ){
 						$option_tag = $pages[ $page_slug ]['option_name'];
 					}
@@ -170,13 +213,14 @@ class uix{
 					wp_send_json_success( $success );
 				}
 
+			}else{
+				wp_send_json_error( esc_html__( 'Could not verify nonce', $this->plugin_slug ) );
 			}
 
 		}
 
 		// nope
-		wp_send_json_error( $config );
-
+		wp_send_json_error( esc_html__( 'Could not save, sorry.', $this->plugin_slug ) );
 	}
 
 
@@ -194,19 +238,20 @@ class uix{
 			return;
 		}
 
+		$uix['slug'] = $this->plugin_slug;
+
 		// allow for minimized scripts
 		$prefix = '.min';
-		$uix_url = plugin_dir_url( __FILE__ );
+		$uix_url = plugin_dir_url( dirname( __FILE__ ) );
 		if( defined( 'DEBUG_SCRIPTS' ) ){
 			$prefix = null;
-			$uix_url .= 'src/';
 		}
 		// base styles
-		wp_enqueue_style( 'uix-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
+		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
 		// enqueue scripts
-		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
-		wp_enqueue_script( 'uix-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
-		wp_enqueue_script( 'uix-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min.js', array(), null, true );
+		wp_enqueue_script( $this->plugin_slug . '-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
+		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
 		// enqueue admin runtime styles
 		if( !empty( $uix[ 'styles'] ) ){
@@ -229,7 +274,7 @@ class uix{
 			}
 		}
 
-		wp_localize_script( 'uix-core-admin', 'uix', $uix );
+		wp_localize_script( $this->plugin_slug . '-core-admin', 'uix', $uix );
 	}
 
 	/**
@@ -253,7 +298,7 @@ class uix{
 		 *
 		 * @param array $pages Page structures to be created
 		 */
-		$pages = apply_filters( 'uix_get_admin_pages', $this->pages );
+		$pages = apply_filters( $this->plugin_slug . '_get_admin_pages', $this->pages );
 
 		// get the page slug from base ID
 		$page_slug = array_search( $screen->base, $this->plugin_screen_hook_suffix );
@@ -263,7 +308,7 @@ class uix{
 		// return the base array
 		$uix = $pages[ $page_slug ];
 		if( empty( $uix['option_name'] ) ){
-			$uix['option_name'] = '_uix_' . sanitize_text_field( $page_slug );
+			$uix['option_name'] = '_' . $this->plugin_slug . '_' . sanitize_text_field( $page_slug );
 		}
 		// get config object
 		$config_object = get_option( $uix['option_name'], array() );
@@ -274,7 +319,7 @@ class uix{
 		 * @param array $config_object The object as retrieved from DB
 		 * @param array $page_slug The page slug this object belongs to.
 		 */
-		$uix['config'] = apply_filters( 'uix_get_config', $config_object, $page_slug );
+		$uix['config'] = apply_filters( $this->plugin_slug . '_get_config', $config_object, $page_slug );
 		$uix['page_slug'] = $page_slug;
 
 		return $uix;
@@ -294,7 +339,7 @@ class uix{
 		 *
 		 * @param array $pages Page structures to be created
 		 */
-		$pages = apply_filters( 'uix_get_admin_pages-' . $this->plugin_slug, $this->pages );
+		$pages = apply_filters( $this->plugin_slug . '_get_admin_pages-' . $this->plugin_slug, $this->pages );
 
 		foreach( (array) $pages as $page_slug => $page ){
 			
@@ -345,13 +390,14 @@ class uix{
 	public function create_admin_page(){
 		
 		$uix = $this->get_page();
+		$template_path = plugin_dir_path( dirname( __FILE__ ) );
 		?>
 		<div class="wrap">
-			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , 'uix' ); ?>
+			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , $this->plugin_slug ); ?>
 				<?php if( !empty( $uix['save_button'] ) ){ ?>
 				<a class="page-title-action" href="#save-object" data-save-object="true">
 					<span class="spinner uix-save-spinner"></span>
-					<?php esc_html_e( $uix['save_button'], 'uix' ); ?>
+					<?php esc_html_e( $uix['save_button'], $this->plugin_slug ); ?>
 				</a>
 				<?php } ?>
 			</h1>
@@ -360,35 +406,34 @@ class uix{
 				<?php foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?><a data-tab="<?php echo esc_attr( $tab_slug ); ?>" href="#<?php echo esc_attr( $tab_slug ) ?>"><?php echo esc_html( $tab['menu_title'] ); ?></a><?php } ?>
 			</nav>
 			<?php } ?>
-			<?php wp_nonce_field( 'uix', 'uix_setup' ); ?>
+			<?php wp_nonce_field( $this->plugin_slug, 'uix_setup' ); ?>
 			<?php 
 			if( !empty( $uix['tabs'] ) ){
 				foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?>
 					<div class="uix-tab-canvas" data-app="<?php echo esc_attr( $tab_slug ); ?>"></div>
 					<script type="text/html" data-template="<?php echo esc_attr( $tab_slug ); ?>">
-						<h4><?php 
-							echo esc_attr( $tab['page_title'] ); 
+						<?php 
+							if( !empty( $tab['page_title'] ) ){ echo '<h4>' . $tab['page_title']; }
 							if( !empty( $tab['page_description'] ) ){ ?> <small><?php echo $tab['page_description']; ?></small> <?php } 
-						?></h4>
-						<?php
+							if( !empty( $tab['page_title'] ) ){ echo '</h4>'; }
 							// include this tabs template
-							if( !empty( $tab['template'] ) && file_exists( $tab['template'] ) ){
-								include $tab['template'];
+							if( !empty( $tab['template'] ) && file_exists( $template_path . $tab['template'] ) ){
+								include $template_path . $tab['template'];
 							}else{
-								echo esc_html__( 'Template not found: ', 'uix' ) . $tab['page_title'];
+								echo esc_html__( 'Template not found: ', $this->plugin_slug ) . $tab['page_title'];
 							}
 						?>
 					</script>
 					<?php if( !empty( $tab['partials'] ) ){
 						foreach( $tab['partials'] as $partial_id => $partial ){
 							?>
-							<script type="text/html" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
+							<script type="text/html" id="__partial_<?php echo esc_attr( $partial_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
 								<?php
 									// include this tabs template
-									if( !empty( $partial ) && file_exists( $partial ) ){
-										include $partial;
+									if( !empty( $partial ) && file_exists( $template_path . $partial ) ){
+										include $template_path . $partial;
 									}else{
-										echo esc_html__( 'Partial Template not found: ', 'uix' ) . $partial_id;
+										echo esc_html__( 'Partial Template not found: ', $this->plugin_slug ) . $partial_id;
 									}
 								?>
 							</script>
@@ -401,7 +446,7 @@ class uix{
 					include $uix['template'];
 				}
 			}
-			?>
+			?>			
 		</div>
 
 		<script type="text/html" data-template="__notice">
@@ -411,6 +456,21 @@ class uix{
 				<span class="screen-reader-text">Dismiss this notice.</span>
 			</button>
 		</div>
+		</script>
+		<script type="text/html" id="__partial_save">		
+			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="save">
+				Save Changes
+			</button>
+		</script>
+		<script type="text/html" id="__partial_create">
+			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="add">
+				Create
+			</button>
+		</script>
+		<script type="text/html" id="__partial_delete">
+			<button style="float:left;" class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="delete">
+				Remove
+			</button>
 		</script>
 		<?php
 	}

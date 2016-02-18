@@ -12,7 +12,7 @@
 }
 .contextual-help-tabs .active {
   background: #f4f4f4 none repeat scroll 0 0;
-  border-left: 6px solid #7fbf00;
+  border-left: 6px solid rgb(195, 0, 40);
 }
 #contextual-help-back {
   background: #f4f4f4 none repeat scroll 0 0;
@@ -33,9 +33,10 @@
 
 .wrap > h1 {
   background-color: #fff;
-  box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 rgb(127, 191, 0) inset;
+  box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 rgb(195, 0, 40) inset;
   color: #505050;
   font-weight: 300;
+  min-height: 33px;
   margin: -10px -20px 0 -22px;
   padding: 12px 22px;
 }
@@ -45,7 +46,13 @@
   visibility: visible;
   display: none;
 }
-.page-title-action.saving {
+.wrap a.page-title-action{
+  color: #505050;
+}
+.wrap a.page-title-action:hover{
+  background: rgb(195, 0, 40);
+}
+.wrap a.page-title-action.saving {
   color: #8f8f8f;
   cursor: wait;
 }
@@ -58,7 +65,7 @@ nav.uix-sub-nav {
   background: #f7f7f7 none repeat scroll 0 0;
   border-radius: 0 0 0 3px;
   box-shadow: 0 1px 2px rgba(0, 2, 0, 0.05), 0 2px 2px rgba(0, 2, 0, 0.03) inset;
-  margin: 0 -20px 0 0;
+  margin: 0 -20px 0 -11px;
 }
 nav.uix-sub-nav > a {
   display: inline-block;
@@ -74,7 +81,7 @@ nav.uix-sub-nav > a {
 }
 .uix-sub-nav > a:first-child.active ,
 .uix-sub-nav > a:first-child:hover {
-	border-radius: 0 0 0 3px;
+  border-radius: 0 0 0 3px;
 }
 
 .uix-tab-canvas {
@@ -92,3 +99,37 @@ nav.uix-sub-nav > a {
 .form-table th label{
   font-size: 13px;
 }
+
+
+.uix-field-wrapper{
+  clear: both;
+  margin-bottom: 18px;
+}
+.uix-field-wrapper > label {
+  display: inline-block;
+  float: left;
+  font-weight: bold;
+  padding: 5px 0 8px;
+  width: 280px;
+}
+.uix-field {
+  display: inline-block;
+  width: 352px;
+}
+.uix-check-wrapper {
+  display: inline-block;
+  width: 480px;
+  padding-top: 5px;
+}
+.uix-check-wrapper > label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+
+
+
+
+
+
+

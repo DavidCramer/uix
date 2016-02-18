@@ -1,10 +1,21 @@
+/*!
+This is a prototype of conduit. It still needs a full refactoring.
+This is simply to get the concepts into working order. So ye, I need to work on this still.
+*/
 var conduitApp = {},
 	coduitTemplates = {},
 	conduitRegisterApps,
-	conduitGetData;	
+	conduitModal,
+	conduitModalSave,
+	conduitGenID,
+	conduitGetData;
 
 !( jQuery( function($){
 
+	conduitException = function( message ){
+		this.message = message;
+		this.name = "ConduitException";
+	}
 
 	$.fn.conduitTrigger = function( obj ){
 		var defaults = {
@@ -15,7 +26,7 @@ var conduitApp = {},
 		$.extend(true, defaults, obj);
 
 		$.ajax( defaults ).success( function(){
-			console.log( arguments );
+			//console.log( arguments );
 		} );
 
 
@@ -39,7 +50,10 @@ var conduitApp = {},
 					continue;
 				}
 			}
-
+			if( field.prop('required') && ! field.val().length ){
+				field.focus();
+				throw new conduitException('requiredfield');
+			}
 			for(var i = name.length-1; i >= 0; i--){
 				var nestname = name[i];
 				if( typeof nestname === 'undefined' ){
@@ -124,6 +138,64 @@ var conduitApp = {},
 		return obj;
 	}
 
+	conduitModalFooter = function( opts ){
+		var buttons = opts.buttons ? opts.buttons.split(' ') : ["save"],
+			points 		= opts.modal.split('.'),
+			app 		= opts.app ? opts.app : points.shift(),
+			data 		= { "__node_path" : points.join('.') },
+			template_str = '',
+			template;
+
+		data.__app = app;
+
+		for( var i = 0; i < buttons.length; i ++){
+			template_str += $( '#__partial_' + buttons[ i ] ).length ? $( '#__partial_' + buttons[ i ] ).html() : '';
+		}
+
+		template = Handlebars.compile( template_str, { data : true } );
+			
+		return template( data );
+	}
+
+	conduitModal = function( opts, modal ){
+		var points 		= opts.modal.split('.'),
+			app 		= opts.app ? opts.app : points.shift(),
+			hasDefault	= opts.default ? opts.default : null,
+			template 	= Handlebars.compile( "<div data-app=\"" + opts.template + "\">{{> " + opts.template + "}}</div>", { data : true } );
+			data 		= {};
+
+		// fetch latest data object
+		conduitBuildData( app );
+
+		if( conduitApp[ app ] ){
+			var tmp = conduitApp[ app ].data;
+			if( hasDefault !== null ){
+				data = hasDefault;
+			}else{
+				for( var i = 0; i < points.length; i++ ){
+					if( tmp[ points[ i ] ] ){
+						tmp = tmp[ points[ i ] ];
+					}else{
+						tmp = {};
+					}
+				}
+				data = tmp;
+			}
+		}
+
+		data.__node_path = opts.points;
+		data.__app = app;
+
+		conduitApp[ opts.template ] = {
+			app		:	modal.content,
+			data	:	data
+		};
+		coduitTemplates[ opts.template ] = template;
+
+		return template( data );
+
+	}
+
 	conduitGetData = function( tr ){
 
 		var id = tr.trigger.data('app'),
@@ -137,7 +209,12 @@ var conduitApp = {},
 
 	conduitBuildData = function( app ){
 		if( conduitApp[ app ] && conduitApp[ app ].app ){
-			conduitApp[ app ].data = conduitApp[ app ].app.getObject();
+			try{
+				conduitApp[ app ].data = conduitApp[ app ].app.getObject();
+			}catch (e){
+				return false;
+			}
+			
 		}
 		return conduitApp[ app ].data;
 	}	
@@ -186,18 +263,39 @@ var conduitApp = {},
 			}
 			conduitApp[ app ].app.html( coduitTemplates[ app ]( data ) );
 		}
+		$(window).trigger('modal.init');
 	}
 
-	conduitAddNode = function( node, app ){
+	conduitSetNode = function( node, app, data ){
+		var nodes = node.split('.');
 
-		var id = 'nd' + Math.round(Math.random() * 99866) + Math.round(Math.random() * 99866),
+		var node_string = '{ "' + nodes.join( '": { "') + '" : ' + JSON.stringify( data );
+		for( var cls = 0; cls < nodes.length; cls++){
+			node_string += '}';
+		}
+		var new_nodes = JSON.parse( node_string );
+		$.extend( true, conduitApp[ app ].data, new_nodes );
+		conduitBuildUI( app );		
+	}
+	conduitGenID = function(){
+		var d = new Date().getTime();
+		var id = 'ndxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = (d + Math.random()*16)%16 | 0;
+			d = Math.floor(d/16);
+			return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+		});
+		return id;
+	}
+	conduitAddNode = function( node, app, data ){
+
+		var id = conduitGenID(),
 			newnode = { "_id" : id },
-			nodes = node.data('addNode').split('.'),
-			node_default = node.data('nodeDefault'),
+			nodes = node.data ? node.data('addNode').split('.') : node.split('.'),
+			node_default = data ? data : node.data('nodeDefault'),
 			node_point_record = nodes.join('.') + '.' + id,
 			node_defaults = JSON.parse( '{ "_id" : "' + id + '", "_node_point" : "' + node_point_record + '" }' );
 
-		if( node_default && typeof node_default === 'object' ){				
+		if( node_default && typeof node_default === 'object' ){
 			$.extend( true, node_defaults, node_default );
 		}			
 		var node_string = '{ "' + nodes.join( '": { "') + '" : { "' + id + '" : ' + JSON.stringify( node_defaults );
@@ -283,7 +381,7 @@ var conduitApp = {},
 		var clicked = $( this ),
 			app = $( this ).data('saveObject'),
 			spinner = $('.page-title-action .spinner'),
-			title = $('.uix-title'),
+			sub_nav = $('.uix-sub-nav'),
 			obj;
 		
 		$('.uix-notice .notice-dismiss').trigger('click');
@@ -293,25 +391,31 @@ var conduitApp = {},
 		}else{
 			obj = conduitPrepObject( app );
 		}
+		//console.log( obj );
 		clicked.addClass('saving');
 		spinner.slideDown(100);
 		var data = {
-			action		:	"uix_save_config",
+			action		:	uix.slug + "_save_config",
 			uix_setup	:	$('#uix_setup').val(),
 			page_slug	:	uix.page_slug,
 			config		:	JSON.stringify( obj ),
 		};
 		$.post( ajaxurl, data, function(response) {
+			//console.log( response );
 			spinner.slideUp(100);
 			clicked.removeClass('saving');
 			var notice = $( coduitTemplates.__notice( response ) );
-			notice.hide().insertAfter( title ).slideDown( 200 );
+			notice.hide().insertAfter( sub_nav ).slideDown( 200 );
 		});
 
 	});
 
 	// initialize live sync rebuild
 	$(document).on('change', '[data-live-sync]', function(e){
+		var app = $(this).closest('[data-app]').data('app');
+		conduitSyncData( app );
+	});
+	$(document).on('click', 'button[data-live-sync]', function(e){
 		var app = $(this).closest('[data-app]').data('app');
 		conduitSyncData( app );
 	});
@@ -349,14 +453,52 @@ var conduitApp = {},
 		var element	= $(this),
 			app		= element.data('template');
 
-		coduitTemplates[ app ] = Handlebars.compile( element.html(), { data : true, trackIds : true } );
+		coduitTemplates[ app ] = Handlebars.compile( element.html(), { data : true } );
 	});
 	// init partials
 	$('script[data-handlebars-partial]').each( function(){
 		var partial = $( this );
 		Handlebars.registerPartial( partial.data('handlebarsPartial'), partial.html() );
 	});
+	// modal capture
+	$(document).on( 'click', '[data-modal-node]', function( e ) {
+		
+		var clicked = $( this ),
+			nodes = clicked.data('modal-node').split('.'),		
+			app = clicked.data('app') ? clicked.data('app') : nodes.shift(),
+			type = clicked.data('type') ? clicked.data('type') : 'save',
+			data;
 
+		if( type !== 'delete' ){
+			try{
+				 data = clicked.closest('.caldera-modal-wrap').getObject();
+			}catch (e){
+				return;
+			}
+		}
+		if( type === 'add' ){
+			conduitAddNode( nodes.join('.'), app, data );			
+		}else if( type === 'delete' ){
+			
+			var selector = nodes.shift();
+			if( nodes.length ){
+				selector += '[' + nodes.join('][') + ']';
+			}			
+			$( '[name^="' + selector + '"]' ).remove();
+			conduitBuildData( app );
+			conduitBuildUI( app );
+		}else{
+			conduitSetNode( nodes.join('.'), app, data );
+		}
+		$( window ).trigger('close.modal');
+	})
+	$(window).on('close.modal', function( e ){
+		//console.log( e );
+		var active = $('.active[data-tab]').data('tab')
+		if( active ){
+			conduitBuildUI( active );
+		}
+	});
 
 
 	// register apps
