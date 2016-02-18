@@ -63,6 +63,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks( 'grunt-text-replace' );
 
     //installer tasks
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'replace:core_file' ] );
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'replace' ] );
 
 };
