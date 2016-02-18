@@ -10,7 +10,7 @@
  * Plugin Name: {{name}}
  * Plugin URI:  {{url}}
  * Description: {{description}}
- * Version:     1.0.0
+ * Version:     {{version}}
  * Author:      {{author}}
  * Author URI:  {{url}}
  * Text Domain: {{namespace}}
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 define('{{SLUG}}_PATH',  plugin_dir_path( __FILE__ ) );
 define('{{SLUG}}_CORE',  __FILE__ );
 define('{{SLUG}}_URL',  plugin_dir_url( __FILE__ ) );
-define('{{SLUG}}_VER',  '1.0.0' );
+define('{{SLUG}}_VER',  '{{version}}' );
 
 // Load instance
 add_action( 'plugins_loaded', function(){
