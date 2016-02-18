@@ -2,6 +2,7 @@ module.exports = function (grunt) {
     
     // Project configuration.
     grunt.initConfig({
+        pkg :   grunt.file.readJSON( '../package.json' ),
         namespace     : grunt.option( "slug" ),
         curl: {
             'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
@@ -38,8 +39,18 @@ module.exports = function (grunt) {
                 dest: 'uix.php',
                 replacements: [{
                     from: /namespace \s*(.*)/,
-                    to: "namespace <%= namespace %>\\ui;"
+                    to: "namespace <%= pkg.namespace %>\\ui;"
                 }]
+            },
+            plugin_file: {
+                src: [ 'src/plugin.php' ],
+                dest: '../plugin.php',
+                replacements: [
+                {
+                    from: /namespace \s*(.*)/,
+                    to: "namespace <%= pkg.namespace %>\\ui;"
+                }
+                ]
             }
         }
 
