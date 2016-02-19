@@ -43,7 +43,7 @@ add_action( 'plugins_loaded', function(){
 	$pages = include {{prefix}}_PATH . 'includes/pages.php';
 
 	// initialize admin UI
-	$uix = \{{namespace}}\ui\uix::get_instance( $pages, '{{namespace}}' );
+	$uix = \{{namespace}}\ui\uix::get_instance( '{{namespace}}' );
 	$uix->register_pages( $pages );
 
 	//$metaboxes = include {{namespace}}_PATH . 'includes/metaboxes.php';	
