@@ -82,7 +82,7 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-          build: ["src/", "etc/", "node_modules/",".git/",".gitignore","composer.json","Gruntfile.js","package.json"],
+          build: ["src/**", "etc/**", "node_modules/**",".git/**",".gitignore","composer.json","Gruntfile.js","package.json"],
         },
 
     });
