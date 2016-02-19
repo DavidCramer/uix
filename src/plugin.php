@@ -34,12 +34,7 @@ add_action( 'plugins_loaded', function(){
 	
 	// include the library
 	include_once {{prefix}}_PATH . 'uix/uix.php';
-	// front
-	if( !is_admin() ){
-		// front class
-		include_once {{prefix}}_PATH . 'uix/front.php';
-	}
-	
+
 	// get the pages
 	$pages = include {{prefix}}_PATH . 'includes/pages.php';
 
