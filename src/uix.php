@@ -412,7 +412,7 @@ class uix{
 		$template_path = plugin_dir_path( dirname( __FILE__ ) );
 		if( !empty( $uix['base_color'] ) ){
 		?>
-			<style type="text/css">.contextual-help-tabs .active {border-left: 6px solid <?php echo $uix['base_color']; ?>;}.wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), <?php echo $uix['base_color']; ?> inset;}.wrap a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>;}</style>
+			<style type="text/css">.contextual-help-tabs .active {border-left: 6px solid <?php echo $uix['base_color']; ?>;}.wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;}.wrap a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>;}</style>
 		<?php
 		}
 		?>
