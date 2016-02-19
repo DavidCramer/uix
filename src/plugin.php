@@ -31,6 +31,7 @@ define('{{prefix}}_VER',  '{{version}}' );
 
 // Load instance
 add_action( 'plugins_loaded', function(){
+	
 	// include the library
 	include_once {{prefix}}_PATH . 'uix/uix.php';
 	// front
@@ -46,7 +47,5 @@ add_action( 'plugins_loaded', function(){
 	$uix = \{{namespace}}\ui\uix::get_instance( '{{namespace}}' );
 	$uix->register_pages( $pages );
 
-	//$metaboxes = include {{namespace}}_PATH . 'includes/metaboxes.php';	
-	//$uix->register_metaboxes( $metaboxes );	
 	
 } );
