@@ -69,7 +69,7 @@ class uix{
 	 *
 	 * @access private
 	 */
-	private function __construct( $pages, $slug ) {
+	private function __construct( $slug ) {
 
 
 		// set slug
@@ -103,11 +103,11 @@ class uix{
 	 *
 	 * @return    object|\uix\uix    A single instance of this class.
 	 */
-	public static function get_instance( $pages, $slug ) {
+	public static function get_instance( $slug ) {
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
-			self::$instance = new self( $pages, $slug );
+			self::$instance = new self( $slug );
 		}
 
 		return self::$instance;
@@ -115,14 +115,52 @@ class uix{
 	}
 
 	/**
+	 * Return a setting
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return    string/array    the requested setting
+	 */
+	public static function get_setting( $path ) {
+
+		if ( null == self::$instance ) {
+			trigger_error( 'Cannot request a value without a UIX instance;' );
+			return;
+		}
+		$path = explode( '.', $path );
+		$temp = null;
+		$page_slug = array_shift( $path );
+		if( !empty( self::$instance->pages[ $page_slug ]['option_name'] ) ){
+			$option_tag = self::$instance->pages[ $page_slug ]['option_name'];
+		}else{
+			$option_tag = '_' . self::$instance->plugin_slug . '_' . $page_slug;
+		}
+		$temp = get_option( $option_tag );
+		foreach ($path as $index => $value) {
+			if( !isset( $temp[ $value ] ) ){
+				return null;
+			}
+			$temp = $temp[ $value ];
+		}
+
+		return $temp;
+
+	}
+	/**
 	 * Register the admin pages
 	 *
 	 * @since 1.0.0
 	 *
 	 */
 	public function register_pages( $pages ) {
-		// register pages
-		$this->pages = $pages;
+
+		/**
+		 * Filter settings pages to be created
+		 *
+		 * @param array $pages Page structures to be created
+		 */
+
+		$this->pages = apply_filters( $this->plugin_slug . '_set_admin_pages', $pages );
 	}
 
 	/**
@@ -191,22 +229,17 @@ class uix{
 			$config = json_decode( stripslashes_deep( $_POST[ 'config' ] ), true );
 
 			if(	wp_verify_nonce( $_POST['uix_setup'], $this->plugin_slug ) ){
-				/**
-				 * Filter settings pages to be created
-				 *
-				 * @param array $pages Page structures to be created
-				 */
-				$pages = apply_filters( $this->plugin_slug . '_get_admin_pages', $this->pages );
+
 				$page_slug = sanitize_text_field( $_POST['page_slug'] );
 
-				if( !empty( $pages[ $page_slug ] ) ){
+				if( !empty( $this->pages[ $page_slug ] ) ){
 					$success = __( 'Settings saved.', $this->plugin_slug );
-					if( !empty( $pages[ $page_slug ]['saved_message'] ) ){
-						$success = $pages[ $page_slug ]['saved_message'];
+					if( !empty( $this->pages[ $page_slug ]['saved_message'] ) ){
+						$success = $this->pages[ $page_slug ]['saved_message'];
 					}
 					$option_tag = '_' . $this->plugin_slug . '_' . $page_slug;
-					if( !empty( $pages[ $page_slug ]['option_name'] ) ){
-						$option_tag = $pages[ $page_slug ]['option_name'];
+					if( !empty( $this->pages[ $page_slug ]['option_name'] ) ){
+						$option_tag = $this->pages[ $page_slug ]['option_name'];
 					}
 
 					update_option( $option_tag, $config );
@@ -293,20 +326,13 @@ class uix{
 			return false;
 		}
 
-		/**
-		 * Filter settings pages to be created
-		 *
-		 * @param array $pages Page structures to be created
-		 */
-		$pages = apply_filters( $this->plugin_slug . '_get_admin_pages', $this->pages );
-
 		// get the page slug from base ID
 		$page_slug = array_search( $screen->base, $this->plugin_screen_hook_suffix );
-		if( empty( $page_slug ) || empty( $pages[ $page_slug ] ) ){
+		if( empty( $page_slug ) || empty( $this->pages[ $page_slug ] ) ){
 			return false; // in case its not found or the array item is no longer valid, just leave.
 		}
 		// return the base array
-		$uix = $pages[ $page_slug ];
+		$uix = $this->pages[ $page_slug ];
 		if( empty( $uix['option_name'] ) ){
 			$uix['option_name'] = '_' . $this->plugin_slug . '_' . sanitize_text_field( $page_slug );
 		}
@@ -334,14 +360,7 @@ class uix{
 	 */
 	public function add_settings_pages(){
 
-		/**
-		 * Filter settings pages to be created
-		 *
-		 * @param array $pages Page structures to be created
-		 */
-		$pages = apply_filters( $this->plugin_slug . '_get_admin_pages-' . $this->plugin_slug, $this->pages );
-
-		foreach( (array) $pages as $page_slug => $page ){
+		foreach( (array) $this->pages as $page_slug => $page ){
 			
 			if( empty( $page[ 'page_title' ] ) || empty( $page['menu_title'] ) ){
 				continue;
