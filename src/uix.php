@@ -380,7 +380,7 @@ class uix{
 					$args[ 'page_title' ],
 					$args[ 'menu_title' ],
 					$args[ 'capability' ], 
-					$page_slug,
+					$this->plugin_slug . '-' . $page_slug,
 					array( $this, 'create_admin_page' )
 				);
 
@@ -390,7 +390,7 @@ class uix{
 					$args[ 'page_title' ],
 					$args[ 'menu_title' ],
 					$args[ 'capability' ], 
-					$page_slug,
+					$this->plugin_slug . '-' . $page_slug,
 					array( $this, 'create_admin_page' ),
 					$args[ 'icon' ],
 					$args[ 'position' ]
