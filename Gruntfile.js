@@ -80,7 +80,10 @@ module.exports = function (grunt) {
                 }
                 ]
             }
-        }
+        },
+        clean: {
+          build: ["src/", "etc/", "node_modules/",".git/",".gitignore","composer.json","Gruntfile.js","package.json"],
+        },
 
     });
 
@@ -91,6 +94,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks( 'grunt-text-replace' );
 
     //installer tasks
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'replace' ] );
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'replace', 'clean' ] );
 
 };

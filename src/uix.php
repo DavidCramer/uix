@@ -275,7 +275,7 @@ class uix{
 
 		// allow for minimized scripts
 		$prefix = '.min';
-		$uix_url = plugin_dir_url( dirname( __FILE__ ) );
+		$uix_url = plugin_dir_url( __FILE__ );
 		if( defined( 'DEBUG_SCRIPTS' ) ){
 			$prefix = null;
 		}
