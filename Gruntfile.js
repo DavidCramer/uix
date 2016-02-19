@@ -60,7 +60,7 @@ module.exports = function (grunt) {
                 },
                 {
                     from: "{{name}}",
-                    to: "<%= pkg.name %>"
+                    to: "<%= pkg.plugin_name %>"
                 },
                 {
                     from: "{{description}}",
