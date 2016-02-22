@@ -289,9 +289,7 @@ class uix{
 		}
 		wp_enqueue_script( $this->plugin_slug . '-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
 		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
-		// if has modals
-		var_dump( $uix );
-		die;
+
 		// enqueue admin runtime styles
 		if( !empty( $uix[ 'styles'] ) ){
 			foreach( $uix[ 'styles'] as $style_key => $style ){
