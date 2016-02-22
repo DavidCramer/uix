@@ -283,9 +283,15 @@ class uix{
 		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
 		// enqueue scripts
 		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
+		// if has modals
+		if( !empty( $uix['modals'] ) ){
+			wp_enqueue_script( $this->plugin_slug . '-core-modals', $uix_url . 'assets/js/uix-modals' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+		}
 		wp_enqueue_script( $this->plugin_slug . '-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
 		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
-
+		// if has modals
+		var_dump( $uix );
+		die;
 		// enqueue admin runtime styles
 		if( !empty( $uix[ 'styles'] ) ){
 			foreach( $uix[ 'styles'] as $style_key => $style ){
@@ -468,6 +474,22 @@ class uix{
 			}else{
 				if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
 					include $uix['template'];
+				}
+			}
+			if( !empty( $uix['modals'] ) ){
+				foreach( $uix['modals'] as $modal_id => $modal ){
+					?>
+					<script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
+						<?php
+							// include this tabs template
+							if( !empty( $modal ) && file_exists( $template_path . $modal ) ){
+								include $template_path . $modal;
+							}else{
+								echo esc_html__( 'Modal Template not found: ', $this->plugin_slug ) . $modal_id;
+							}
+						?>
+					</script>
+					<?php
 				}
 			}
 			?>			
