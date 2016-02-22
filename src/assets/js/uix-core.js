@@ -471,7 +471,7 @@ var conduitApp = {},
 
 		if( type !== 'delete' ){
 			try{
-				 data = clicked.closest('.caldera-modal-wrap').getObject();
+				 data = clicked.closest('.uix-modal-wrap').getObject();
 			}catch (e){
 				return;
 			}
