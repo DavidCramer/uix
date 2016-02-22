@@ -141,7 +141,7 @@ var conduitApp = {},
 	conduitModalFooter = function( opts ){
 		var buttons = opts.buttons ? opts.buttons.split(' ') : ["save"],
 			points 		= opts.modal.split('.'),
-			app 		= opts.app ? opts.app : points.shift(),
+			app 		= opts.app ? opts.app : opts.trigger.closest('[data-app]').data('app'),
 			data 		= { "__node_path" : points.join('.') },
 			template_str = '',
 			template;
@@ -159,7 +159,7 @@ var conduitApp = {},
 
 	conduitModal = function( opts, modal ){
 		var points 		= opts.modal.split('.'),
-			app 		= opts.app ? opts.app : points.shift(),
+			app 		= opts.app ? opts.app : opts.trigger.closest('[data-app]').data('app'),
 			hasDefault	= opts.default ? opts.default : null,
 			template 	= Handlebars.compile( "<div data-app=\"" + opts.template + "\">{{> " + opts.template + "}}</div>", { data : true } );
 			data 		= {};
