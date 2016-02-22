@@ -201,6 +201,7 @@
 			width				:	620,
 			padding				:	12,
 			speed				:	250,
+			content				:	conduitModal
 		}, opts );
 		defaults.trigger = trigger;
 		if( !uixBackdrop && ! defaults.sticky ){
@@ -333,8 +334,8 @@
 
 		if( defaults.content ){
 			// function?
-			if( typeof window[defaults.content] === 'function' ){
-				uixModals[ modalId ].content.append( window[defaults.content]( defaults, uixModals[ modalId ] ) );
+			if( typeof defaults.content === 'function' ){
+				uixModals[ modalId ].content.append( defaults.content( defaults, uixModals[ modalId ] ) );
 			}else if( typeof defaults.content === 'string' ){
 				// is jquery selector?
 				  try {
