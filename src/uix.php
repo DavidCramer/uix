@@ -501,17 +501,17 @@ class uix{
 		</div>
 		</script>
 		<script type="text/html" id="__partial_save">		
-			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="save">
+			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="save" {{#if __callback}}data-callback="{{__callback}}"{{/if}}>
 				Save Changes
 			</button>
 		</script>
 		<script type="text/html" id="__partial_create">
-			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="add">
+			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="add" {{#if __callback}}data-callback="{{__callback}}"{{/if}}>
 				Create
 			</button>
 		</script>
 		<script type="text/html" id="__partial_delete">
-			<button style="float:left;" class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="delete">
+			<button style="float:left;" class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="delete" {{#if __callback}}data-callback="{{__callback}}"{{/if}}>
 				Remove
 			</button>
 		</script>

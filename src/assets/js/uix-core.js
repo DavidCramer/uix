@@ -8,6 +8,7 @@ var conduitApp = {},
 	conduitModal,
 	conduitModalSave,
 	conduitGenID,
+	conduitSaveObject,
 	conduitGetData;
 
 !( jQuery( function($){
@@ -121,7 +122,24 @@ var conduitApp = {},
 			}
 		});
 	}
-
+	conduitSaveObject = function( app ){	
+		var obj;
+		if( true === app ){
+			obj = conduitPrepObject();
+		}else{
+			obj = conduitPrepObject( app );
+		}
+		var data = {
+			action		:	uix.slug + "_save_config",
+			uix_setup	:	$('#uix_setup').val(),
+			page_slug	:	uix.page_slug,
+			config		:	JSON.stringify( obj ),
+		};
+		$( window ).trigger('uix.saving');
+		$.post( ajaxurl, data, function(response) {
+			$( window ).trigger('uix.saved');
+		});
+	}
 	conduitPrepObject = function(){
 		var obj = {};
 		for( var app in conduitApp ){
@@ -147,6 +165,9 @@ var conduitApp = {},
 			template;
 
 		data.__app = app;
+		if( opts.trigger.data('callback') ){
+			data.__callback	= opts.trigger.data('callback');
+		}		
 
 		for( var i = 0; i < buttons.length; i ++){
 			template_str += $( '#__partial_' + buttons[ i ] ).length ? $( '#__partial_' + buttons[ i ] ).html() : '';
@@ -184,7 +205,7 @@ var conduitApp = {},
 		}
 
 		data.__node_path = opts.points;
-		data.__app = app;
+		data.__app 		 = app;
 
 		conduitApp[ opts.template ] = {
 			app		:	modal.content,
@@ -476,6 +497,7 @@ var conduitApp = {},
 				return;
 			}
 		}
+
 		if( type === 'add' ){
 			conduitAddNode( nodes.join('.'), app, data );			
 		}else if( type === 'delete' ){
@@ -491,6 +513,13 @@ var conduitApp = {},
 			conduitSetNode( nodes.join('.'), app, data );
 		}
 		$( window ).trigger('close.modal');
+		if( clicked.data('callback') ){
+			if( typeof clicked.data('callback') === 'function' ){
+				clicked.data('callback')( data, clicked );
+			}else if( typeof window[ clicked.data('callback') ] === 'function' ){
+				window[ clicked.data('callback') ]( data, clicked );
+			}
+		}
 	})
 	$(window).on('close.modal', function( e ){
 		//console.log( e );
