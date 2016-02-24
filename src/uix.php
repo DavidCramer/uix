@@ -152,7 +152,6 @@ class uix{
 		return $temp;
 
 	}
-
 	/**
 	 * Register the admin pages
 	 *
@@ -298,28 +297,68 @@ class uix{
 		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
 		// enqueue admin runtime styles
-		if( !empty( $uix[ 'styles'] ) ){
-			foreach( $uix[ 'styles'] as $style_key => $style ){
+		$this->enqueue_set( $uix, $this->plugin_slug . '-' . $uix['page_slug'] );
+
+		// enqueue tab specific runtime styles
+		if( !empty( $uix[ 'tabs'] ) ){
+			foreach( $uix['tabs'] as $tab_slug => $tab ){
+				$this->enqueue_set( $tab, $this->plugin_slug . '-' . $uix['page_slug'] . '-' . $tab_slug );
+			}
+		}	
+
+		wp_localize_script( $this->plugin_slug . '-core-admin', 'uix', $uix );
+	}
+
+	/**
+	 * enqueue a set of styles and scripts
+	 *
+	 * @since 0.0.1
+	 *
+	 */
+	private function enqueue_set( $set, $prefix ){
+		// go over the set to see if it has styles or scripts
+
+		// setup default args for array type includes
+		$arguments_array = array(
+			"src"		=> false,
+			"deps"		=> array(),
+			"ver"		=> false,
+			"in_footer"	=> false,
+			"media"		=> false
+		);
+
+		// enqueue set specific runtime styles
+		if( !empty( $set[ 'styles'] ) ){
+			foreach( $set[ 'styles'] as $style_key => $style ){
 				if( is_int( $style_key ) ){
 					wp_enqueue_style( $style );
 				}else{
-					wp_enqueue_style( $style_key, $style );
+					if( is_array( $style ) ){
+						$args = array_merge( $arguments_array, $style );
+						wp_enqueue_style( $prefix . '-' . $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+					}else{
+						wp_enqueue_style( $prefix . '-' . $style_key, $style );
+					}
 				}
 			}
 		}
-		// enqueue admin runtime scripts
-		if( !empty( $uix[ 'scripts'] ) ){
-			foreach( $uix[ 'scripts'] as $script_key => $script ){
+		// enqueue set specific runtime scripts
+		if( !empty( $set[ 'scripts'] ) ){
+			foreach( $set[ 'scripts'] as $script_key => $script ){
 				if( is_int( $script_key ) ){
 					wp_enqueue_script( $script );
 				}else{
-					wp_enqueue_script( $script_key, $script );
+					if( is_array( $script ) ){
+						$args = array_merge( $arguments_array, $script );
+						wp_enqueue_script( $prefix . '-' . $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+					}else{
+						wp_enqueue_script( $prefix . '-' . $script_key, $script );
+					}
 				}
 			}
 		}
 
-		wp_localize_script( $this->plugin_slug . '-core-admin', 'uix', $uix );
-	}
+	}	
 
 	/**
 	 * get the config for the current page
@@ -526,4 +565,3 @@ class uix{
 	}
 	
 }
-
