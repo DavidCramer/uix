@@ -121,19 +121,25 @@ class uix{
 	 *
 	 * @return    string/array    the requested setting
 	 */
-	public static function get_setting( $path ) {
+	public static function get_setting( $path, $manual = false ) {
 
-		if ( null == self::$instance ) {
-			trigger_error( 'Cannot request a value without a UIX instance;' );
-			return;
-		}
 		$path = explode( '.', $path );
 		$temp = null;
 		$page_slug = array_shift( $path );
-		if( !empty( self::$instance->pages[ $page_slug ]['option_name'] ) ){
-			$option_tag = self::$instance->pages[ $page_slug ]['option_name'];
+
+		if ( null == self::$instance || true === $manual ) {
+			if( false === $manual ){
+				trigger_error( 'Cannot request a value without a UIX instance. Set second argument to TRUE for manual lookup.' );
+				return;
+			}
+			// attempt a manual lookup - requires the full option name
+			$option_tag = $page_slug;
 		}else{
-			$option_tag = '_' . self::$instance->plugin_slug . '_' . $page_slug;
+			if( !empty( self::$instance->pages[ $page_slug ]['option_name'] ) ){
+				$option_tag = self::$instance->pages[ $page_slug ]['option_name'];
+			}else{
+				$option_tag = '_' . self::$instance->plugin_slug . '_' . $page_slug;
+			}
 		}
 		$temp = get_option( $option_tag );
 		foreach ($path as $index => $value) {
@@ -146,6 +152,7 @@ class uix{
 		return $temp;
 
 	}
+
 	/**
 	 * Register the admin pages
 	 *
