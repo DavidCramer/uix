@@ -467,6 +467,7 @@ class uix{
 		?>
 		<div class="wrap">
 			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , $this->plugin_slug ); ?>
+				<?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], $this->plugin_slug ); ?></small><?php } ?>
 				<?php if( !empty( $uix['save_button'] ) ){ ?>
 				<a class="page-title-action" href="#save-object" data-save-object="true">
 					<span class="spinner uix-save-spinner"></span>

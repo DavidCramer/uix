@@ -40,6 +40,10 @@
   margin: -10px -20px 0 -22px;
   padding: 12px 22px;
 }
+.uix-title > small {
+  font-size: 0.5em;
+  line-height: 0;
+}
 .page-title-action .spinner.uix-save-spinner{
   float: none;
   margin: -2px 4px 0 0;
