@@ -52,6 +52,17 @@
 }
 .wrap a.page-title-action{
   color: #505050;
+  margin-left: 28px;
+}
+.wrap a.page-title-action::before {
+  background: #f3f3f3 none repeat scroll 0 0;
+  bottom: -16px;
+  content: "";
+  display: inline-block;
+  left: -18px;
+  position: absolute;
+  top: -15px;
+  width: 1px;
 }
 .wrap a.page-title-action:hover{
   background: rgb(195, 0, 40);

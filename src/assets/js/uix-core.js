@@ -134,6 +134,7 @@ var conduitApp = {},
 			uix_setup	:	$('#uix_setup').val(),
 			page_slug	:	uix.page_slug,
 			config		:	JSON.stringify( obj ),
+			autosave	:	true
 		};
 		$( window ).trigger('uix.saving');
 		$.post( ajaxurl, data, function(response) {

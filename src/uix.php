@@ -247,7 +247,14 @@ class uix{
 					if( !empty( $this->pages[ $page_slug ]['option_name'] ) ){
 						$option_tag = $this->pages[ $page_slug ]['option_name'];
 					}
-
+					// push backup if not autosave
+					if( empty( $_POST['autosave'] ) ){
+						$previous = get_option( $option_tag );
+						if( !empty( $previous ) ){
+							update_option( $option_tag .'-' . current_time( 'timestamp' ), $previous );
+						}
+					}
+					// save object
 					update_option( $option_tag, $config );
 					wp_send_json_success( $success );
 				}
