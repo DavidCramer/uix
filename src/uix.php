@@ -422,14 +422,15 @@ class uix{
 		// get config object
 		$config_object = get_option( $uix['option_name'], array() );
 
+		$uix['page_slug'] = $page_slug;
 		/**
 		 * Filter config object
 		 *
 		 * @param array $config_object The object as retrieved from DB
 		 * @param array $page_slug The page slug this object belongs to.
 		 */
-		$uix['config'] = apply_filters( $this->plugin_slug . '_get_config', $config_object, $page_slug );
-		$uix['page_slug'] = $page_slug;
+		$uix['config'] = apply_filters( $this->plugin_slug . '_get_config', $config_object, $uix );		
+
 
 		return $uix;
 	}
