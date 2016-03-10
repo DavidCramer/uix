@@ -54,6 +54,9 @@
   color: #505050;
   margin-left: 28px;
 }
+.wrap a.page-title-action:active{
+ margin-left: 28px; 
+}
 .wrap a.page-title-action::before {
   background: #f3f3f3 none repeat scroll 0 0;
   bottom: -16px;

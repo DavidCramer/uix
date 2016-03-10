@@ -84,13 +84,6 @@ var conduitApp = {},
 							} catch (e) {
 
 							}
-						}else if( typeof value === 'object' && value.length && field.is('select') ){
-							var new_val = {};
-							for( var i = 0; i < value.length; i++ ){
-								new_val[ 'n' + i ] = value[ i ];
-							}
-
-							value = new_val;
 						}
 					}
 					lineconf[nestname] = value;
@@ -136,6 +129,10 @@ var conduitApp = {},
 			config		:	JSON.stringify( obj ),
 			autosave	:	true
 		};
+		if( uix.save_params ){
+			data.params = uix.save_params;
+		}
+		
 		$( window ).trigger('uix.saving');
 		$.post( ajaxurl, data, function(response) {
 			$( window ).trigger('uix.saved');
@@ -422,6 +419,9 @@ var conduitApp = {},
 			page_slug	:	uix.page_slug,
 			config		:	JSON.stringify( obj ),
 		};
+		if( uix.save_params ){
+			data.params = uix.save_params;
+		}
 		$.post( ajaxurl, data, function(response) {
 			//console.log( response );
 			spinner.slideUp(100);

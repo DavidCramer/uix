@@ -239,13 +239,34 @@ class uix{
 				$page_slug = sanitize_text_field( $_POST['page_slug'] );
 
 				if( !empty( $this->pages[ $page_slug ] ) ){
+					$params = null;
+					if( !empty( $_POST['params'] ) ){
+						$params = $_POST['params'];
+					}
+					/**
+					 * Filter page settings pre save
+					 *
+					 * @param array $page_config the page config array
+					 * @param array $params any defined save_params.
+					 */
+					$page = apply_filters( $this->plugin_slug . '_get_page_save', $this->pages[ $page_slug ], $params );
+
+					/**
+					 * Filter config object
+					 *
+					 * @param array $config the config array to save
+					 * @param array $page the page config to be saved for
+					 */
+					$config = apply_filters( $this->plugin_slug . '_pre_save_config', $config, $page );
+
+
 					$success = __( 'Settings saved.', $this->plugin_slug );
-					if( !empty( $this->pages[ $page_slug ]['saved_message'] ) ){
-						$success = $this->pages[ $page_slug ]['saved_message'];
+					if( !empty( $page['saved_message'] ) ){
+						$success = $page['saved_message'];
 					}
 					$option_tag = '_' . $this->plugin_slug . '_' . $page_slug;
-					if( !empty( $this->pages[ $page_slug ]['option_name'] ) ){
-						$option_tag = $this->pages[ $page_slug ]['option_name'];
+					if( !empty( $page['option_name'] ) ){
+						$option_tag = $page['option_name'];
 					}
 					// push backup if not autosave
 					if( empty( $_POST['autosave'] ) ){
@@ -388,8 +409,13 @@ class uix{
 		if( empty( $page_slug ) || empty( $this->pages[ $page_slug ] ) ){
 			return false; // in case its not found or the array item is no longer valid, just leave.
 		}
-		// return the base array
-		$uix = $this->pages[ $page_slug ];
+		/**
+		 * Filter page object
+		 *
+		 * @param array $page The page object array.
+		 */		
+		$uix = apply_filters( $this->plugin_slug . '_get_page', $this->pages[ $page_slug ] );
+		
 		if( empty( $uix['option_name'] ) ){
 			$uix['option_name'] = '_' . $this->plugin_slug . '_' . sanitize_text_field( $page_slug );
 		}
