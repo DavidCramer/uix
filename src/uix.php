@@ -314,6 +314,7 @@ class uix{
 			$prefix = null;
 		}
 		// base styles
+		wp_enqueue_style( $this->plugin_slug . '-base-icons', $uix_url . 'assets/css/icons' . $prefix . '.css' );
 		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
 		// enqueue scripts
 		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );

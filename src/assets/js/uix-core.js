@@ -13,6 +13,9 @@ var conduitApp = {},
 
 !( jQuery( function($){
 
+
+	var currentAjaxProcess = null;
+
 	conduitException = function( message ){
 		this.message = message;
 		this.name = "ConduitException";
@@ -134,8 +137,12 @@ var conduitApp = {},
 		}
 		
 		$( window ).trigger('uix.saving');
-		$.post( ajaxurl, data, function(response) {
+		if( currentAjaxProcess ){
+			currentAjaxProcess.abort();
+		}
+		currentAjaxProcess = $.post( ajaxurl, data, function(response) {
 			$( window ).trigger('uix.saved');
+			currentAjaxProcess = null;
 		});
 	}
 	conduitPrepObject = function(){
@@ -282,7 +289,8 @@ var conduitApp = {},
 			}
 			conduitApp[ app ].app.html( coduitTemplates[ app ]( data ) );
 		}
-		$(window).trigger('modal.init');
+		$(window).trigger('uix.init');
+		$(window).trigger('modal.init');		
 	}
 
 	conduitSetNode = function( node, app, data ){
@@ -428,6 +436,7 @@ var conduitApp = {},
 			clicked.removeClass('saving');
 			var notice = $( coduitTemplates.__notice( response ) );
 			notice.hide().insertAfter( sub_nav ).slideDown( 200 );
+			$( window ).trigger('uix.saved');
 		});
 
 	});
@@ -533,5 +542,11 @@ var conduitApp = {},
 
 	// register apps
 	conduitRegisterApps();
+
+	window.onbeforeunload = function(){
+		if( currentAjaxProcess ){
+			return false;
+		}
+	};
 
 }) );
