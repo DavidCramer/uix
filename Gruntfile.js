@@ -36,7 +36,7 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 expand: true,
-                src: 'src/assets/css/fonts/',
+                src: 'src/assets/css/fonts/*',
                 dest: 'assets/css/fonts/',
             }
         },        
