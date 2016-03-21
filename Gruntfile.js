@@ -33,6 +33,17 @@ module.exports = function (grunt) {
                 ext   : '.min.css'
             }
         },
+        copy: {
+            build: {
+                options : {
+                    mode :true
+                },
+                src: [
+                    'src/assets/css/fonts/',
+                ],
+                dest: 'assets/css/fonts/'
+            }
+        },        
         replace: {
             core_file: {
                 src: [ 'src/uix.php' ],
@@ -91,10 +102,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks( 'grunt-curl' );
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-contrib-copy' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
     grunt.loadNpmTasks( 'grunt-text-replace' );
 
     //installer tasks
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'replace', 'clean' ] );
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace', 'clean' ] );
 
 };
