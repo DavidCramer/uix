@@ -34,14 +34,10 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            build: {
-                options : {
-                    mode :true
-                },
-                src: [
-                    'src/assets/css/fonts/',
-                ],
-                dest: 'assets/css/fonts/'
+            main: {
+                expand: true,
+                src: 'src/assets/css/fonts/',
+                dest: 'assets/css/fonts/',
             }
         },        
         replace: {
