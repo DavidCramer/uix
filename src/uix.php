@@ -509,14 +509,21 @@ class uix{
 	 *
 	 * @return    null
 	 */
-	public function enqueue_metabox_stylescripts( $config, $post_type ) {
+	public function enqueue_metabox_stylescripts( $metaboxes, $post_type ) {
 		
+
 		$uix = array(
-			'config'	=> $config,
+			'config'	=> array(),
 			'slug'		=> $this->plugin_slug,
 			'page_slug'	=> $post_type
 		);
-		
+		foreach( $metaboxes as $slug=>$metabox ){
+			if( !empty( $metabox['modals'] ) ){
+				$uix['modals'] = true;
+			}
+			$uix['config'][ $slug ] = $metabox['config'];
+		}
+
 		// allow for minimized scripts
 		$prefix = '.min';
 		$uix_url = plugin_dir_url( __FILE__ );
@@ -529,6 +536,7 @@ class uix{
 		// enqueue scripts
 		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
 		// if has modals
+
 		if( !empty( $uix['modals'] ) ){
 			wp_enqueue_script( $this->plugin_slug . '-core-modals', $uix_url . 'assets/js/uix-modals' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 		}
@@ -682,7 +690,9 @@ class uix{
 		 * @param array $config_object The object as retrieved from DB
 		 * @param array $slug The page slug this object belongs to.
 		 */
-		return apply_filters( $this->plugin_slug . '_get_meta_config', $config_object, $uix );		
+		$uix['config'] = apply_filters( $this->plugin_slug . '_get_meta_config', $config_object, $uix );
+
+		return $uix;
 
 	}	
 
