@@ -84,16 +84,148 @@ class uix{
 		// save config
 		add_action( 'wp_ajax_' . $this->plugin_slug . '_save_config', array( $this, 'save_config') );
 
+		// save metabox
+		add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
+
+	}
+
+	/**
+	 * Add metaboxes
+	 *
+	 * @since 0.0.1
+	 *
+	 * @uses "add_meta_boxes" hook
+	 */
+	public function add_metaboxes(){
+
+		$screen = get_current_screen();
+		if( !is_object( $screen ) || $screen->base != 'post' ){
+			return;
+		}
+		// post type metaboxes
+		$configs = array();
+		foreach( (array) $this->metaboxes as $metabox_slug => $metabox ){
+			
+			// only process this post type
+			if( empty($metabox['post_type']) || !in_array( $screen->post_type, (array) $metabox['post_type'] ) || empty( $metabox[ 'name' ] )  ){
+				continue;
+			}
+
+			add_meta_box(
+				$metabox_slug,
+				$metabox['name'],
+				array( $this, 'render_metabox' ),
+				$screen->post_type,
+				$metabox['context'],
+				$metabox['priority'],
+				$metabox
+			);
+
+			// do scripts
+			$uix = $this->get_metabox( $metabox_slug );
+			if( false !== $uix ){
+				$configs[ $metabox_slug ] = $uix;
+			}
+
+		}
+		// scripts
+		$this->enqueue_metabox_stylescripts( $configs, $screen->post_type );
+
 	}
 
 
-	public function add_metaboxes() {
-    	//add_meta_box( 'meta-box-id', __( 'My Meta Box', 'textdomain' ), array( $this, 'render_metabox' ), 'post' );
-	}
+	public function render_metabox( $post, $metabox ){
 
-	public function render_metabox( $a ){
-		var_dump( $a );
-		die;
+		$uix = $metabox['args'];
+		$template_path = plugin_dir_path( dirname( __FILE__ ) );
+
+		?>
+		<input id="uix_<?php echo esc_attr( $metabox['id'] ); ?>" name="uix[<?php echo esc_attr( $metabox['id'] ); ?>]" value="" type="hidden">
+		<div class="uix-tab-canvas" data-app="<?php echo esc_attr( $metabox['id'] ); ?>"></div>
+		<script type="text/html" data-template="<?php echo esc_attr( $metabox['id'] ); ?>">
+			<?php 
+				if( !empty( $uix['template'] ) && file_exists( $template_path . $uix['template'] ) ){
+					include $template_path . $uix['template'];
+				}else{
+					echo esc_html__( 'Template not found: ', $this->plugin_slug ) . $uix['template'];
+				}
+			?>
+		</script>
+		<?php if( !empty( $uix['partials'] ) ){
+			foreach( $uix['partials'] as $partial_id => $partial ){
+				?>
+				<script type="text/html" id="__partial_<?php echo esc_attr( $partial_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
+					<?php
+						// include this tabs template
+						if( !empty( $partial ) && file_exists( $template_path . $partial ) ){
+							include $template_path . $partial;
+						}else{
+							echo esc_html__( 'Partial Template not found: ', $this->plugin_slug ) . $partial_id;
+						}
+					?>
+				</script>
+				<?php
+			}
+		}
+
+
+		if( !empty( $uix['modals'] ) ){
+			foreach( $uix['modals'] as $modal_id => $modal ){
+				?>
+				<script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
+					<?php
+						// include this tabs template
+						if( !empty( $modal ) && file_exists( $template_path . $modal ) ){
+							include $template_path . $modal;
+						}else{
+							echo esc_html__( 'Modal Template not found: ', $this->plugin_slug ) . $modal_id;
+						}
+					?>
+				</script>
+				<?php
+			}
+		}
+		?>			
+
+
+		<script type="text/html" data-template="__notice">
+		<div class="{{#if success}}updated{{else}}error{{/if}} notice uix-notice is-dismissible">
+			<p>{{{data}}}</p>
+			<button class="notice-dismiss" type="button">
+				<span class="screen-reader-text">Dismiss this notice.</span>
+			</button>
+		</div>
+		</script>
+		<script type="text/html" id="__partial_save">		
+			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="save" {{#if __callback}}data-callback="{{__callback}}"{{/if}}>
+				Save Changes
+			</button>
+		</script>
+		<script type="text/html" id="__partial_create">
+			<button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="add" {{#if __callback}}data-callback="{{__callback}}"{{/if}}>
+				Create
+			</button>
+		</script>
+		<script type="text/html" id="__partial_delete">
+			<button style="float:left;" class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="delete" {{#if __callback}}data-callback="{{__callback}}"{{/if}}>
+				Remove
+			</button>
+		</script>
+		<?php if( !empty( $uix['chromeless'] ) ){ ?>
+		<script type="text/javascript">
+			jQuery('#<?php echo $metabox['id']; ?>').addClass('uix-metabox');
+		</script>
+		<?php } ?>
+		<script type="text/javascript">
+			jQuery( document ).on('submit', '#post', function( e ){
+				
+				var uix_config = conduitPrepObject( '<?php echo $metabox['id']; ?>' );
+				jQuery('#uix_<?php echo $metabox['id']; ?>').val( JSON.stringify( uix_config.<?php echo $metabox['id']; ?> ) );
+				
+			});
+		</script>
+		<?php
+		
 	}
 
 	/**
@@ -220,6 +352,38 @@ class uix{
 
 	}
 
+	/**
+	 * Saves a metabox config
+	 *
+	 * @uses "save_post" hook
+	 *
+	 * @since 0.0.1
+	 */
+	public function save_meta( $post_id ){
+		
+		if( !empty( $_POST['uix'] ) ){
+			
+			foreach( ( array) $_POST['uix'] as $slug => $data ){
+				if( empty( $this->metaboxes[ $slug ] ) ){
+					continue;
+				}
+
+				$uix = $this->metaboxes[ $slug ];
+				$config = json_decode( stripslashes_deep( $data ), true );
+
+				if( empty( $uix['meta_name'] ) ){
+					$uix['meta_name'] = '_' . $this->plugin_slug . '_' . sanitize_text_field( $slug );
+				}
+				// get config object
+
+				$config_object = update_post_meta( $post_id, $uix['meta_name'], $config );
+
+			}
+
+		}
+		
+	}
+
 
 	/**
 	 * Saves a config
@@ -339,6 +503,46 @@ class uix{
 	}
 
 	/**
+	 * Register and enqueue admin-specific style sheet.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return    null
+	 */
+	public function enqueue_metabox_stylescripts( $config, $post_type ) {
+		
+		$uix = array(
+			'config'	=> $config,
+			'slug'		=> $this->plugin_slug,
+			'page_slug'	=> $post_type
+		);
+		
+		// allow for minimized scripts
+		$prefix = '.min';
+		$uix_url = plugin_dir_url( __FILE__ );
+		if( defined( 'DEBUG_SCRIPTS' ) ){
+			$prefix = null;
+		}
+		// base styles
+		wp_enqueue_style( $this->plugin_slug . '-base-icons', $uix_url . 'assets/css/icons' . $prefix . '.css' );
+		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/metabox' . $prefix . '.css' );
+		// enqueue scripts
+		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
+		// if has modals
+		if( !empty( $uix['modals'] ) ){
+			wp_enqueue_script( $this->plugin_slug . '-core-modals', $uix_url . 'assets/js/uix-modals' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+		}
+		wp_enqueue_script( $this->plugin_slug . '-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
+		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
+
+		// enqueue admin runtime styles
+		$this->enqueue_set( $uix, $this->plugin_slug . '-' . $uix['slug'] );
+
+		wp_localize_script( $this->plugin_slug . '-core-admin', 'uix', $uix );
+	}
+
+
+	/**
 	 * enqueue a set of styles and scripts
 	 *
 	 * @since 0.0.1
@@ -435,6 +639,52 @@ class uix{
 
 		return $uix;
 	}
+
+	/**
+	 * get the config for the current metabox
+	 *
+	 * @since 0.0.1
+	 *
+	 * @return array $metabox array structure of current uix metabox
+	 */
+	private function get_metabox( $slug ){
+		global $post;
+
+		// check that the scrren object is valid to be safe.
+		$screen = get_current_screen();
+
+		if( empty( $screen ) || !is_object( $screen ) || empty( $screen->post_type ) ){
+			return false;
+		}
+
+		// get the page slug from base ID
+		if( empty( $this->metaboxes[ $slug ] ) ){
+			return false; // in case its not found or the array item is no longer valid, just leave.
+		}
+		/**
+		 * Filter page object
+		 *
+		 * @param array $page The page object array.
+		 */		
+		$uix = apply_filters( $this->plugin_slug . '_get_metabox', $this->metaboxes[ $slug ] );
+		
+		if( empty( $uix['meta_name'] ) ){
+			$uix['meta_name'] = '_' . $this->plugin_slug . '_' . sanitize_text_field( $slug );
+		}
+		// get config object
+
+		$config_object = get_post_meta( $post->ID, $uix['meta_name'], true );
+
+		$uix['slug'] = $slug;
+		/**
+		 * Filter config object
+		 *
+		 * @param array $config_object The object as retrieved from DB
+		 * @param array $slug The page slug this object belongs to.
+		 */
+		return apply_filters( $this->plugin_slug . '_get_meta_config', $config_object, $uix );		
+
+	}	
 
 	/**
 	 * Add options page

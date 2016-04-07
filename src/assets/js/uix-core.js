@@ -267,6 +267,7 @@ var conduitApp = {},
 			};
 
 			appWrapper.addClass('_bound_app');
+			conduitBuildUI( app );
 		})
 
 		if( uix.tabs ){
