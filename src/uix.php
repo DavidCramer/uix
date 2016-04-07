@@ -138,7 +138,10 @@ class uix{
 
 		$uix = $metabox['args'];
 		$template_path = plugin_dir_path( dirname( __FILE__ ) );
-
+		if( !empty( $uix['base_color'] ) ){
+		?><style type="text/css">.uix-modal-title > h3,.wrap a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>;}</style>
+		<?php
+		}
 		?>
 		<input id="uix_<?php echo esc_attr( $metabox['id'] ); ?>" name="uix[<?php echo esc_attr( $metabox['id'] ); ?>]" value="" type="hidden">
 		<div class="uix-tab-canvas" data-app="<?php echo esc_attr( $metabox['id'] ); ?>"></div>
