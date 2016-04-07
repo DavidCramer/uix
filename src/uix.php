@@ -520,12 +520,7 @@ class uix{
 			'slug'		=> $this->plugin_slug,
 			'page_slug'	=> $post_type
 		);
-		foreach( $metaboxes as $slug=>$metabox ){
-			if( !empty( $metabox['modals'] ) ){
-				$uix['modals'] = true;
-			}
-			$uix['config'][ $slug ] = $metabox['config'];
-		}
+
 
 		// allow for minimized scripts
 		$prefix = '.min';
@@ -546,8 +541,15 @@ class uix{
 		wp_enqueue_script( $this->plugin_slug . '-helpers', $uix_url . 'assets/js/uix-helpers' . $prefix . '.js', array( 'handlebars' ), null, true );
 		wp_enqueue_script( $this->plugin_slug . '-core-admin', $uix_url . 'assets/js/uix-core' . $prefix . '.js', array( 'jquery', 'handlebars' ), null, true );
 
-		// enqueue admin runtime styles
-		$this->enqueue_set( $uix, $this->plugin_slug . '-' . $uix['slug'] );
+		foreach( $metaboxes as $slug=>$metabox ){
+			if( !empty( $metabox['modals'] ) ){
+				$uix['modals'] = true;
+			}
+			$uix['config'][ $slug ] = $metabox['config'];
+			// enqueue admin runtime styles
+			$this->enqueue_set( $metabox, $this->plugin_slug . '-' . $slug );
+
+		}
 
 		wp_localize_script( $this->plugin_slug . '-core-admin', 'uix', $uix );
 	}
