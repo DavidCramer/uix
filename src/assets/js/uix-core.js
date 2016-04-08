@@ -170,6 +170,9 @@ var conduitApp = {},
 			template;
 
 		data.__app = app;
+		if( opts.trigger.data('before') ){
+			data.__before	= opts.trigger.data('before');
+		}		
 		if( opts.trigger.data('callback') ){
 			data.__callback	= opts.trigger.data('callback');
 		}		
@@ -500,6 +503,15 @@ var conduitApp = {},
 			app = clicked.data('app') ? clicked.data('app') : nodes.shift(),
 			type = clicked.data('type') ? clicked.data('type') : 'save',
 			data;
+
+		if( clicked.data('before') ){
+			if( typeof clicked.data('before') === 'function' ){
+				clicked.data('before')( clicked );
+			}else if( typeof window[ clicked.data('before') ] === 'function' ){
+				window[ clicked.data('before') ]( clicked );
+			}
+		}
+
 
 		if( type !== 'delete' ){
 			try{

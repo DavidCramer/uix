@@ -115,4 +115,9 @@
     }
 
   });
-
+Handlebars.registerHelper('load_partial', function(name, ctx, hash) {
+    var ps = Handlebars.partials;
+    if(typeof ps[name] !== 'function')
+        ps[name] = Handlebars.compile(ps[name]);
+    return ps[name](ctx, hash);
+});
