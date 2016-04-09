@@ -355,6 +355,7 @@
 		// set position;
 		positionModals();
 		// return main object
+		$( window ).trigger('modal.open');
 		return uixModals[ modalId ];
 	}
 
