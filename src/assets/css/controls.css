@@ -11,7 +11,7 @@
   position: relative;
 }
 .uix-control-box .uix-control-box {
-  margin: 0 -1px;
+  margin: 0 -1px -1px;
 }
 .uix-control-box .uix-control-box-content {
   margin: 12px 12px;
