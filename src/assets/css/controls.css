@@ -30,7 +30,10 @@
 }
 
 .uix-control-bar.hover:hover {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: rgba(0, 0, 0, 0.01);
+}
+.uix-control-bar.active {
+  background-color: rgba(0, 0, 0, 0.01);
 }
 .uix-control-box .uix-control-bar {
   margin: 0 0 -1px 0;
