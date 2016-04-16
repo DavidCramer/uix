@@ -35,12 +35,14 @@ add_action( 'plugins_loaded', function(){
 	// include the library
 	include_once {{prefix}}_PATH . 'uix/uix.php';
 
-	// get the pages
+	// get pages
 	$pages = include {{prefix}}_PATH . 'includes/pages.php';
+	// get metaboxes
+	$metaboxes = include {{prefix}}_PATH . 'includes/metaboxes.php';
 
 	// initialize admin UI
 	$uix = \{{namespace}}\ui\uix::get_instance( '{{namespace}}' );
 	$uix->register_pages( $pages );
-
+	$uix->register_metaboxes( $metaboxes );
 	
 } );
