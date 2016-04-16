@@ -484,8 +484,8 @@ class uix{
 		// base styles
 		wp_enqueue_style( $this->plugin_slug . '-base-icons', $uix_url . 'assets/css/icons' . $prefix . '.css' );
 		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
-		wp_enqueue_style( $this->plugin_slug . '-controls-styles', $uix_url . 'assets/css/controls' . $prefix . '.css' );
-		wp_enqueue_style( $this->plugin_slug . '-grid-styles', $uix_url . 'assets/css/grid' . $prefix . '.css' );
+		wp_enqueue_style( $this->plugin_slug . '-base-controls', $uix_url . 'assets/css/controls' . $prefix . '.css' );
+		wp_enqueue_style( $this->plugin_slug . '-base-grid', $uix_url . 'assets/css/grid' . $prefix . '.css' );
 		// enqueue scripts
 		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
 		// if has modals
@@ -534,8 +534,8 @@ class uix{
 		// base styles
 		wp_enqueue_style( $this->plugin_slug . '-base-icons', $uix_url . 'assets/css/icons' . $prefix . '.css' );
 		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/metabox' . $prefix . '.css' );
-		wp_enqueue_style( $this->plugin_slug . '-controls-styles', $uix_url . 'assets/css/controls' . $prefix . '.css' );
-		wp_enqueue_style( $this->plugin_slug . '-grid-styles', $uix_url . 'assets/css/grid' . $prefix . '.css' );		
+		wp_enqueue_style( $this->plugin_slug . '-base-controls', $uix_url . 'assets/css/controls' . $prefix . '.css' );
+		wp_enqueue_style( $this->plugin_slug . '-base-grid', $uix_url . 'assets/css/grid' . $prefix . '.css' );		
 		// enqueue scripts
 		wp_enqueue_script( 'handlebars', $uix_url . 'assets/js/handlebars.min-latest.js', array(), null, true );
 		// if has modals
