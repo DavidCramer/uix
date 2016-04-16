@@ -137,7 +137,7 @@ class uix{
 	public function render_metabox( $post, $metabox ){
 
 		$uix = $metabox['args'];
-		$template_path = plugin_dir_path( dirname( __FILE__ ) );
+		
 		if( !empty( $uix['base_color'] ) ){
 		?><style type="text/css">.uix-modal-title > h3,.wrap a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>;}</style>
 		<?php
@@ -147,8 +147,8 @@ class uix{
 		<div class="uix-tab-canvas" data-app="<?php echo esc_attr( $metabox['id'] ); ?>"></div>
 		<script type="text/html" data-template="<?php echo esc_attr( $metabox['id'] ); ?>">
 			<?php 
-				if( !empty( $uix['template'] ) && file_exists( $template_path . $uix['template'] ) ){
-					include $template_path . $uix['template'];
+				if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
+					include $uix['template'];
 				}else{
 					echo esc_html__( 'Template not found: ', $this->plugin_slug ) . $uix['template'];
 				}
@@ -160,8 +160,8 @@ class uix{
 				<script type="text/html" id="__partial_<?php echo esc_attr( $partial_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
 					<?php
 						// include this tabs template
-						if( !empty( $partial ) && file_exists( $template_path . $partial ) ){
-							include $template_path . $partial;
+						if( !empty( $partial ) && file_exists( $partial ) ){
+							include $partial;
 						}else{
 							echo esc_html__( 'Partial Template not found: ', $this->plugin_slug ) . $partial_id;
 						}
@@ -178,8 +178,8 @@ class uix{
 				<script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
 					<?php
 						// include this tabs template
-						if( !empty( $modal ) && file_exists( $template_path . $modal ) ){
-							include $template_path . $modal;
+						if( !empty( $modal ) && file_exists( $modal ) ){
+							include $modal;
 						}else{
 							echo esc_html__( 'Modal Template not found: ', $this->plugin_slug ) . $modal_id;
 						}
@@ -764,7 +764,7 @@ class uix{
 	public function create_admin_page(){
 		
 		$uix = $this->get_page();
-		$template_path = plugin_dir_path( dirname( __FILE__ ) );
+		
 		if( !empty( $uix['base_color'] ) ){
 		?><style type="text/css">.contextual-help-tabs .active {border-left: 6px solid <?php echo $uix['base_color']; ?>;}.wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;}.uix-modal-title > h3,.wrap a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>;}</style>
 		<?php
@@ -796,8 +796,8 @@ class uix{
 							if( !empty( $tab['page_description'] ) ){ ?> <small><?php echo $tab['page_description']; ?></small> <?php } 
 							if( !empty( $tab['page_title'] ) ){ echo '</h4>'; }
 							// include this tabs template
-							if( !empty( $tab['template'] ) && file_exists( $template_path . $tab['template'] ) ){
-								include $template_path . $tab['template'];
+							if( !empty( $tab['template'] ) && file_exists( $tab['template'] ) ){
+								include $tab['template'];
 							}else{
 								echo esc_html__( 'Template not found: ', $this->plugin_slug ) . $tab['page_title'];
 							}
@@ -809,8 +809,8 @@ class uix{
 							<script type="text/html" id="__partial_<?php echo esc_attr( $partial_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
 								<?php
 									// include this tabs template
-									if( !empty( $partial ) && file_exists( $template_path . $partial ) ){
-										include $template_path . $partial;
+									if( !empty( $partial ) && file_exists( $partial ) ){
+										include $partial;
 									}else{
 										echo esc_html__( 'Partial Template not found: ', $this->plugin_slug ) . $partial_id;
 									}
@@ -831,8 +831,8 @@ class uix{
 					<script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
 						<?php
 							// include this tabs template
-							if( !empty( $modal ) && file_exists( $template_path . $modal ) ){
-								include $template_path . $modal;
+							if( !empty( $modal ) && file_exists( $modal ) ){
+								include $modal;
 							}else{
 								echo esc_html__( 'Modal Template not found: ', $this->plugin_slug ) . $modal_id;
 							}
