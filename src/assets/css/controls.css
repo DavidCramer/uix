@@ -5,7 +5,7 @@
 /* Control Box */
 .uix-control-box {
   background-color: rgba(0,0,0,0.02);
-  border: 1px solid #c0c0c0;
+  border: 1px solid #ddd;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   min-height: 24px;
   position: relative;
@@ -24,7 +24,7 @@
 }
 /* Control Bar */
 .uix-control-bar {
-  border: 1px solid #c0c0c0;
+  border: 1px solid #ddd;
   width: 100%;
   min-height: 24px;
 }
@@ -32,8 +32,9 @@
 .uix-control-bar.hover:hover {
   background-color: rgba(0, 0, 0, 0.01);
 }
-.uix-control-bar.active {
-  background-color: rgba(0, 0, 0, 0.01);
+.uix-control-bar.active ,
+.uix-control-box .uix-control-bar.active {
+  background-color: rgba(255, 255, 255, 0.49);
 }
 .uix-control-box .uix-control-bar {
   margin: 0 0 -1px 0;
@@ -79,11 +80,11 @@
   vertical-align: middle;
 }
 .uix-control-bar-action.left {
-  border-right: 1px solid #c0c0c0;
+  border-right: 1px solid #ddd;
   float: left;
 }
 .uix-control-bar-action.right {
-  border-left: 1px solid #c0c0c0;
+  border-left: 1px solid #ddd;
   float: right;
 }
 .uix-control-bar-action > .dashicons {

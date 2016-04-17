@@ -5,8 +5,8 @@
   box-sizing: border-box;
 }
 .uix-grid .row {
-  margin-left: -15px;
-  margin-right: -15px;
+  margin-left: -6px;
+  margin-right: -6px;
   clear: both;
 }
 .uix-grid .col-xs-1,
@@ -59,8 +59,8 @@
 .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 7px;
+  padding-right: 7px;
   box-sizing: border-box;
 }
 .uix-grid .col-xs-1,
