@@ -37,7 +37,7 @@ var conduitApp = {},
 		return this;
 	}
 
-	$.fn.getObject = function(){
+	$.fn.getObject = function( forex ){
 		var element = $(this);
 
 		var fields   = element.find('[name]'),
@@ -48,6 +48,12 @@ var conduitApp = {},
 			name    = field.prop('name').replace(/\]/gi,'').split('['),
 			value     = field.val(),
 			lineconf  = {};
+
+			if( forex ){
+				if( name.indexOf('_id') >= 0 || name.indexOf('_node_point') >= 0 ){
+					continue;
+				}
+			}
 
 			if( field.is(':radio') || field.is(':checkbox') ){
 				if( !field.is(':checked') ){
@@ -157,6 +163,9 @@ var conduitApp = {},
 					obj[ app ] = conduitApp[ app ].data;
 				}
 			}
+			if( obj[ app ]._tab ){
+				delete obj[ app ]._tab;
+			}
 		}
 		return obj;
 	}
@@ -245,13 +254,16 @@ var conduitApp = {},
 			}
 			
 		}
+		if( conduitApp[ app ].data._tab ){
+			delete conduitApp[ app ].data._tab;
+		}
 		return conduitApp[ app ].data;
 	}	
 
 
 	conduitSyncData = function( app ){
 		conduitBuildData( app );
-		conduitBuildUI( app );
+		//conduitBuildUI( app );
 	}
 
 	conduitRegisterApps = function(){
@@ -293,6 +305,21 @@ var conduitApp = {},
 			}
 			conduitApp[ app ].app.html( coduitTemplates[ app ]( data ) );
 		}
+
+		// sortables
+		if( $('.uix-sortable').length ){
+			$('.uix-sortable').each( function(){
+				var sort = $(this),
+					options = {
+						forcePlaceholderSize : true,
+						placeholder: "uix-sortable-placeholder"
+					};
+
+				options = $.extend({}, options, sort.data() );
+				$(this).sortable( options );
+			});
+		}
+
 		$(window).trigger('uix.init');
 		$(window).trigger('modal.init');		
 	}
@@ -324,7 +351,8 @@ var conduitApp = {},
 			nodes = node.data ? node.data('addNode').split('.') : node.split('.'),
 			node_default = data ? data : node.data('nodeDefault'),
 			node_point_record = nodes.join('.') + '.' + id,
-			node_defaults = JSON.parse( '{ "_id" : "' + id + '", "_node_point" : "' + node_point_record + '" }' );
+			node_defaults = JSON.parse( '{ "_id" : "' + id + '", "_node_point" : "' + node_point_record + '" }' )
+			node_point_wrappers = $('[data-node-point="' + nodes.join('.') + '"]');
 
 		if( node_default && typeof node_default === 'object' ){
 			$.extend( true, node_defaults, node_default );
@@ -339,18 +367,21 @@ var conduitApp = {},
 
 		$.extend( true, conduitApp[ app ].data, new_nodes );
 
-		conduitBuildUI( app );
+		if( node_point_wrappers.length && node_point_wrappers.data('template') ){ 
+			node_point_wrappers.each( function(){
+				var wrapper = $(this),
+					template = wrapper.data('template');
+				if( template && coduitTemplates[ '__partial_' + template ] ){
+					wrapper.append( coduitTemplates[ '__partial_' + template ]( node_defaults ) );
+				}		
+			});
+			
+		}else{
+			// rebuild all
+			conduitBuildUI( app );
+		}
 	};
 
-
-	// trash 
-	$(document).on('click', '.cf-reports-card-actions .confirm a', function(e){
-		e.preventDefault();
-		var parent = $(this).closest('.cf-reports-card-content');
-			actions = parent.find('.row-actions');
-
-		actions.slideToggle(300);
-	});
 
 	// bind slugs
 	$(document).on('keyup change', '[data-format="slug"]', function(e){
@@ -411,20 +442,22 @@ var conduitApp = {},
 		e.preventDefault();
 		var clicked = $( this ),
 			app = $( this ).data('saveObject'),
-			spinner = $('.page-title-action .spinner'),
+			spinner = $('.uix-save-spinner'),
+			confirm = $('.uix-save-confirm'),
 			sub_nav = $('.uix-sub-nav'),
 			obj;
 		
-		$('.uix-notice .notice-dismiss').trigger('click');
+		//$('.uix-notice .notice-dismiss').trigger('click');
 
 		if( true === app ){
 			obj = conduitPrepObject();
 		}else{
 			obj = conduitPrepObject( app );
 		}
-		//console.log( obj );
+		
 		clicked.addClass('saving');
-		spinner.slideDown(100);
+		confirm.hide();
+		spinner.css({ visibility: "visible", opacity:1, display : "inline-block"});
 		var data = {
 			action		:	uix.slug + "_save_config",
 			uix_setup	:	$('#uix_setup').val(),
@@ -435,11 +468,14 @@ var conduitApp = {},
 			data.params = uix.save_params;
 		}
 		$.post( ajaxurl, data, function(response) {
-			//console.log( response );
-			spinner.slideUp(100);
+			
+			spinner.css({ visibility: '', opacity:0, display: 'none'});
+			confirm.fadeIn();
+			setTimeout( function(){ confirm.fadeOut( 800 );}, 2000 );
 			clicked.removeClass('saving');
-			var notice = $( coduitTemplates.__notice( response ) );
-			notice.hide().insertAfter( sub_nav ).slideDown( 200 );
+			//var notice = $( coduitTemplates.__notice( response ) );
+			//notice.hide().insertAfter( sub_nav ).slideDown( 200 );
+
 			$( window ).trigger('uix.saved');
 		});
 
@@ -494,6 +530,7 @@ var conduitApp = {},
 	$('script[data-handlebars-partial]').each( function(){
 		var partial = $( this );
 		Handlebars.registerPartial( partial.data('handlebarsPartial'), partial.html() );
+		coduitTemplates[ '__partial_' + partial.data('handlebarsPartial') ] = Handlebars.compile( partial.html(), { data : true } );
 	});
 	// modal capture
 	$(document).on( 'click', '[data-modal-node]', function( e ) {
@@ -551,7 +588,6 @@ var conduitApp = {},
 			conduitBuildUI( active );
 		}
 	});
-
 
 	// register apps
 	conduitRegisterApps();
