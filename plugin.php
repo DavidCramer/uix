@@ -7,9 +7,9 @@
  * @copyright 2016 David Cramer
  *
  * @wordpress-plugin
- * Plugin Name: UIX JavaScript
+ * Plugin Name: UIX Framework
  * Plugin URI:  http://cramer.co.za
- * Description: New Javascript UIX system prototype
+ * Description: New Framework UIX system prototype
  * Version:     1.0.0
  * Author:      David Cramer
  * Author URI:  http://cramer.co.za
