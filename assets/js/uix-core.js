@@ -9,12 +9,17 @@ var conduitApp = {},
 	conduitModalSave,
 	conduitGenID,
 	conduitSaveObject,
-	conduitGetData;
+	conduitGetData,
+	uix;
 
 !( jQuery( function($){
 
 
 	var currentAjaxProcess = null;
+	
+	uix_slug = $('.uix-item').data('uix');
+	uix = UIX[ uix_slug ];
+	uix.slug = uix_slug;
 
 	conduitException = function( message ){
 		this.message = message;
@@ -131,6 +136,7 @@ var conduitApp = {},
 		}else{
 			obj = conduitPrepObject( app );
 		}
+
 		var data = {
 			action		:	uix.slug + "_save_config",
 			uix_setup	:	$('#uix_setup').val(),
@@ -254,6 +260,7 @@ var conduitApp = {},
 			}
 			
 		}
+
 		if( conduitApp[ app ].data._tab ){
 			delete conduitApp[ app ].data._tab;
 		}
@@ -263,14 +270,15 @@ var conduitApp = {},
 
 	conduitSyncData = function( app ){
 		conduitBuildData( app );
-		//conduitBuildUI( app );
+		conduitBuildUI( app );
 	}
 
 	conduitRegisterApps = function(){
 
 		var apps = $('[data-app]').not('._bound_app');
+
 		if( ! apps.length ){return;}
-		
+
 		apps.each( function(){
 			
 			var appWrapper = $( this ),
@@ -278,16 +286,16 @@ var conduitApp = {},
 
 			conduitApp[ app ] = {
 				app : appWrapper,
-				data : ( uix.config[ app ] ? uix.config[ app ] : {} )
+				data : ( uix.data[ app ] ? uix.data[ app ] : {} )
 			};
 
 			appWrapper.addClass('_bound_app');
 			conduitBuildUI( app );
 		})
 
-		if( uix.tabs ){
-			for( var tab in uix.tabs ){
-				if( uix.tabs[ tab ].default ){
+		if( uix.structure.tabs ){
+			for( var tab in uix.structure.tabs ){
+				if( uix.structure.tabs[ tab ].default ){
 					$('[data-tab="' + tab + '"]').trigger('click');
 					break;
 				}
@@ -454,14 +462,14 @@ var conduitApp = {},
 		}else{
 			obj = conduitPrepObject( app );
 		}
-		
+
 		clicked.addClass('saving');
 		confirm.hide();
 		spinner.css({ visibility: "visible", opacity:1, display : "inline-block"});
 		var data = {
-			action		:	uix.slug + "_save_config",
+			action		:	"uix_page_save_config",
 			uix_setup	:	$('#uix_setup').val(),
-			page_slug	:	uix.page_slug,
+			page_slug	:	uix.slug,
 			config		:	JSON.stringify( obj ),
 		};
 		if( uix.save_params ){

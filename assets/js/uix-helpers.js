@@ -17,6 +17,9 @@
     }
   });
   Handlebars.registerHelper("json", function(context) {
+      if( context._tab ){
+        delete context._tab;
+      }      
       return JSON.stringify( context, null, 3 );
   });
   Handlebars.registerHelper(":node_point", function(context) {

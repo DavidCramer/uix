@@ -2,7 +2,7 @@
   background: transparent none repeat scroll 0 0;
   border: 0 none;
   box-shadow: none;
-  margin: 0;
+  margin: 0 0 20px 0;
   padding: 0;
 }
 .postbox.uix-metabox .inside {
@@ -51,7 +51,6 @@
 }
 .uix-modal-closer:hover {
   background-color: rgba(0,0,0,.1);
-  color: #fff;
 }
 
 .uix-modal-title > h3 {

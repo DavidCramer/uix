@@ -1,23 +1,26 @@
 {
-  "name": "uix",
-  "version": "1.0.0",
-  "description": "Admin UI Framework for WordPress",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Desertsnowman/UIX"
-  },
-  "author": "David Cramer",
-  "license": "GPLv2+",
-  "bugs": {
-    "url": "https://github.com/Desertsnowman/UIX/issues"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-curl": "~2.2.0",
-    "grunt-contrib-cssmin": "~0.6.2",
-    "grunt-contrib-clean": "~0.7.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-text-replace": "^0.4.0"
-  }
+
+	"name"			: "uix-js",
+	"namespace"		: "uix",
+	"plugin_name"		: "UIX JavaScript",
+	"description"		: "New Javascript UIX system prototype",
+	"prefix"		: "UIX",
+	"version"		: "1.0.0",
+	"author"		: "David Cramer",
+	"url"			: "http://cramer.co.za",
+	"license"		: "GPLv2+",
+
+
+	"repository"	: {
+		"type"		: "git",
+		"url"		: "https://github.com/Desertsnowman/uix-wp"
+	},
+	"bugs"			: {
+		"url"		: "https://github.com/Desertsnowman/uix-wp/issues"
+	},
+	"devDependencies"	: {
+		"grunt"			: "~0.4.2",
+		"grunt-git"		: "^0.3.3",
+		"grunt-shell"	: "^1.1.1"
+	}
 }

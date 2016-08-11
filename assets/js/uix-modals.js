@@ -25,8 +25,17 @@
 
 		if( uixBackdrop ){ pageHTML.addClass('has-uix-modal'); }
 
+		// check modals for %
+		if( typeof modalWidth === 'string' ){
+			modalWidth = parseInt( modalWidth );
+			modalWidth = windowWidth / 100 * parseInt( modalWidth );
+		}
+		if( typeof modalHeight === 'string' ){
+			modalHeight = parseInt( modalHeight );
+			modalHeight = windowHeight / 100 * parseInt( modalHeight );
+		}		
 		// top
-		top = (windowHeight - uixModals[ modalId ].config.height ) / 2.2;
+		top = (windowHeight - modalHeight ) / 2.2;
 
 		if( top < 0 ){
 			top = 0;
