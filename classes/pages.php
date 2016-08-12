@@ -1,6 +1,6 @@
 <?php
 /**
- * UIX Pages.
+ * UIX Pages
  *
  * @package   uix
  * @author    David Cramer
@@ -15,7 +15,7 @@ namespace uixv2;
  * @package uix
  * @author  David Cramer
  */
-class pages extends core{
+class pages extends data\localized implements data\save{
 
 	/**
 	 * The type of object
@@ -78,6 +78,8 @@ class pages extends core{
 	 *
 	 */
 	protected function actions() {
+		// run parent actions ( keep 'admin_head' hook )
+		parent::actions();
 		// add settings page
 		add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 25 );
 		// save config
@@ -117,21 +119,66 @@ class pages extends core{
 	}
 
 	/**
+	 * Save a UIX config
+	 * @since 1.0.0
+	 *
+	 * @return bool true on successful save
+	 */
+	public function save_data( $slug, $config ){
+		
+		$uix = $this->get( $slug );
+
+		/**
+		 * Filter config object
+		 *
+		 * @param array $config the config array to save
+		 * @param array $uix the uix config to be saved for
+		 */
+		$config = apply_filters( 'uix_get_save_config_' . $this->type, $config, $uix );
+
+		$success = __( 'Settings saved.' );
+		if( !empty( $uix['saved_message'] ) ){
+			$success = $uix['saved_message'];
+		}
+		$store_key = $this->store_key( $slug );
+
+		// save object
+		return update_option( $store_key, $config );
+		
+	}
+
+
+	/**
+	 * Loads a UIX config
+	 * @since 1.0.0
+	 *
+	 * @return mixed $data the saved data fro the specific UIX object
+	 */
+	public function get_data( $slug ){
+
+		// get and return config object
+		return get_option( $this->store_key( $slug ), array() );	
+
+	}
+
+	/**
 	 * get page slug
 	 * @since 0.0.1
 	 *
-	 * @return string $slug of current UIX page
+	 * @return string|null $slug of current UIX page
 	 */
 	protected function get_page_slug(){
 		// check that the scrren object is valid to be safe.
 		$screen = get_current_screen();
 			
-		if( empty( $screen ) || !is_object( $screen ) ){
+		if( empty( $screen ) || !is_object( $screen ) || !in_array( $screen->base, $this->plugin_screen_hook_suffix ) ){
 			return null;
 		}
 
 		// get the page slug from base ID
-		return array_search( $screen->base, $this->plugin_screen_hook_suffix );
+		$this->current_page = array_search( $screen->base, $this->plugin_screen_hook_suffix );
+		
+		return $this->current_page;
 	}
 
 
@@ -144,12 +191,9 @@ class pages extends core{
 	protected function locate(){
 
 		// get the page slug from base ID
-		$page_slug = $this->get_page_slug();
-
-		if( !empty( $page_slug ) && !empty( $this->objects[ $page_slug ] ) ){
-			$this->current_page = $page_slug;
-		}
-
+		$page_slug = array(
+			$this->get_page_slug()
+		);
 
 		return $page_slug;
 	}
@@ -263,6 +307,7 @@ class pages extends core{
 	public function create_admin_page(){
 
 		$uix = $this->get_page();
+
 		if( !empty( $uix['base_color'] ) ){
 		?><style type="text/css">.contextual-help-tabs .active {border-left: 6px solid <?php echo $uix['base_color']; ?>;}.wrap > h1.uix-title {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;}.uix-modal-wrap .uix-modal-title > h3,.wrap .uix-title a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>; border-color: <?php echo $uix['base_color']; ?>;}.wrap .uix-title a.page-title-action:focus{box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;border-color: <?php echo $uix['base_color']; ?>;}</style>
 		<?php

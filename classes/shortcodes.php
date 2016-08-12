@@ -15,7 +15,7 @@ namespace uixv2;
  * @package uix
  * @author  David Cramer
  */
-class shortcodes extends core{
+class shortcodes extends data\localized{
 
 	/**
 	 * The type of object
@@ -71,7 +71,7 @@ class shortcodes extends core{
 	protected function actions() {
 		
 		// set action head to front head
-		add_action( 'wp_head', array( $this, 'head' ) );		
+		add_action( 'wp_head', array( $this, 'init' ) );		
 	}
 
 	/**
@@ -88,6 +88,7 @@ class shortcodes extends core{
 		}
 		// remove admin styles
 		unset( $this->styles['styles'] );
+
 		// do parent
 		parent::register( $objects );
 		

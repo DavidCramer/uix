@@ -41,19 +41,6 @@
 					{{#each project}}
 									
 						<div class="uix-control-bar item_{{_id}} hover {{#is @root/active_node value=_id}}active{{/is}}">
-							{{:node_point}}
-							<span class="uix-control-bar-content">
-								{{name}}
-								<input type="hidden" name="{{:name}}" value="{{json this}}">
-							</span>
-							<span class="uix-control-bar-content">
-							{{description}}
-							</span>
-
-							<span class="uix-control-bar-action right">
-								<span class="dashicons dashicons-no" data-remove-element=".item_{{_id}}"></span>
-							</span>
-							
 							<label class="uix-control-bar-action left">
 								<span class="dashicons dashicons-edit"
 
@@ -70,7 +57,20 @@
 
 								></span>
 								<input class="hidden" type="radio" name="active_node" data-live-sync="true" value="{{_id}}" {{#is @root/active_node value=_id}}checked="checked"{{/is}}>
-							</label>
+							</label>						
+							{{:node_point}}
+							<span class="uix-control-bar-content">
+								{{name}}
+								<input type="hidden" name="{{:name}}" value="{{json this}}">
+							</span>
+							<span class="uix-control-bar-content">
+							{{description}}
+							</span>
+
+							<span class="uix-control-bar-action right">
+								<span class="dashicons dashicons-no" data-remove-element=".item_{{_id}}"></span>
+							</span>
+							
 
 						</div>
 

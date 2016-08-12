@@ -15,7 +15,7 @@ namespace uixv2;
  * @package uix
  * @author  David Cramer
  */
-class metaboxes extends core{
+class metaboxes extends data\localized{
 
 	/**
 	 * The type of object
@@ -34,24 +34,6 @@ class metaboxes extends core{
 	 * @var      object|\uix\pages
 	 */
 	private static $instance = null;
-
-	/**
-	 * Holds the option screen prefix
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var      string
-	 */
-	protected $plugin_screen_hook_suffix = null;
-
-	/**
-	 * Holds the current page slug
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var      string
-	 */
-	protected $current_page = null;	
 
 	/**
 	 * Return an instance of this class.
@@ -78,11 +60,11 @@ class metaboxes extends core{
 	 *
 	 */
 	protected function actions() {
+		parent::actions();
 		// add metaboxes
 		add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );
 		// save metabox
 		add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
-
 	}
 
 	/**
@@ -104,7 +86,7 @@ class metaboxes extends core{
 		$styles = array(
 			'styles'		=>	$this->url . 'assets/css/metabox' . $this->debug_styles . '.css'
 		);
-		$this->styles( $styles );	
+		$this->styles( $styles );
 
 		// post type metaboxes
 		$configs = array();
@@ -259,8 +241,8 @@ class metaboxes extends core{
 				
 				$config = json_decode( stripslashes_deep( $data ), true );
 
-				$meta_name = $this->option_name( $slug );
-				// get config object
+				$meta_name = $this->store_key( $slug );
+				// set config object
 				$config_object = update_post_meta( $post_id, $meta_name, $config );
 
 			}
@@ -270,29 +252,13 @@ class metaboxes extends core{
 	}
 
 	/**
-	 * get a UIX config option name
-	 * @since 1.0.0
-	 *
-	 * @return string $option_name the defiuned option name for this UIX object
-	 */
-	public function option_name( $slug ){
-		
-		$uix = $this->get( $slug );
-		$option_name = 'uix-' . $this->type . '-' . sanitize_text_field( $slug );
-		if( !empty( $uix['meta_name'] ) ){
-			$option_name = $uix['meta_name'];
-		}
-
-		return $option_name;
-	}
-
-	/**
 	 * Loads a UIX config
 	 * @since 1.0.0
 	 *
 	 * @return mixed $data the saved data fro the specific UIX object
 	 */
 	public function get_data( $slug, $post_id = null ){
+
 		if( $post_id === null ){
 			global $post;
 			if( empty( $post ) ){ return null; }
@@ -303,7 +269,7 @@ class metaboxes extends core{
 
 		// get config object
 		$config_object = array(
-			$slug => get_post_meta( $post_id, $this->option_name( $slug ), true )
+			$slug => get_post_meta( $post_id, $this->store_key( $slug ), true )
 		);
 
 		/**

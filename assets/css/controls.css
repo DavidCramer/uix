@@ -77,16 +77,13 @@
 }
 
 .uix-control-bar-action {
-  display: inline-block;
   vertical-align: middle;
 }
 .uix-control-bar-action.left {
   border-right: 1px solid #ddd;
-  float: left;
 }
 .uix-control-bar-action.right {
   border-left: 1px solid #ddd;
-  float: right;
 }
 .uix-control-bar-action > .dashicons {
   line-height: 22px;
@@ -100,7 +97,6 @@
 }
 
 .uix-control-bar-content {
-  display: inline-block;
   overflow: hidden;
   padding: 7px 12px 6px;
   text-overflow: ellipsis;
@@ -129,4 +125,46 @@
   margin-right: -600px;
   width: 580px;
 }
-/* Grid */
+
+.uix-control-bar{
+  display: table;
+}
+.uix-control-bar-action, .uix-control-bar-content {
+  display: table-cell;
+}
+
+.uix-control-bar-action.left,
+.uix-control-bar-action.right{
+  float: none;
+  width: 20px;
+}
+.uix-control-box {
+  overflow: hidden;
+}
+@media only screen and (max-width: 782px) {
+  /* responsive */
+  .ol-wp-core-ui .button-group.button-small .button,
+  .ol-wp-core-ui .button.button-small {
+    font-size: 11px;
+    height: 24px;
+    line-height: 22px;
+    padding: 0 8px 1px;
+  }
+
+  .uix-control-bar {
+    min-height: 41px;
+  }
+  .uix-control-bar-action > .dashicons {
+    line-height: 25px;
+    padding: 11px;
+  }
+  .uix-control-bar-content {
+    padding: 11px 12px;
+  }
+  .uix-control-bar .button {
+    margin: 4px;
+  }
+  .uix-control-box .uix-control-box {
+    margin: 0 -2px 0 0;
+  }
+}

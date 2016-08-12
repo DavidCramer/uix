@@ -13,7 +13,7 @@ $plugin_path =  plugin_dir_path( dirname( __FILE__ ) );
 
 $metabox = array(
 	'uix_metabox'   => array(
-		'post_type'			=> 	array( 'cars' ), // array of post types this should be in
+		'post_type'			=> 	array( 'post' ), // array of post types this should be in
 		'name'				=>	'UIX Metabox Example', // the label/name of the metabox 
 		'context'			=>	'normal', // metabox type ( normal , advanced, side )
 		'priority'			=>	'core', // priority of the box in editor		

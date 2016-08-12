@@ -36,22 +36,22 @@ abstract class core{
 	protected $objects = array();
 
 	/**
-	 * Active objects
+	 * Active slugs
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var      array
 	 */
-	protected $active = array();
+	protected $active_slugs = array();
 
 	/**
-	 * Data to be localized
+	 * active objects
 	 *
 	 * @since 1.0.0
 	 *
 	 * @var      array
 	 */
-	protected $data = array();
+	protected $active_objects = array();
 
 	/**
 	 * Base URL of this class
@@ -99,37 +99,106 @@ abstract class core{
 	protected $debug_styles = null;	
 
 	/**
-	 * UIX constructor - override this to remove the core UIX styles and scripts
+	 * UIX constructor - override this to control order of initialization
 	 *
 	 * @since 1.0.0
 	 *
 	 */
 	public function __construct() {
 
-		// init UIX 
-		$this->actions();
-
 		// set up globals vars
 		$this->set_url();
 
-		// detect debug scritps and styles		
+		// enable / disable debug scripts
+		$this->debug_scripts();
+
+		// enable / disable debug styles
+		$this->debug_styles();
+
+		// define then register core styles
+		$this->uix_styles();
+
+		// define then register core scripts
+		$this->uix_scripts();
+
+		// start internal actions to allow for automating post init
+		$this->actions();
+
+	}
+
+	/**
+	 * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	protected function actions() {
+		// init UIX headers
+		add_action( 'admin_head', array( $this, 'init' ) );
+	}
+
+
+	/**
+	 * Enabled debuging of scripts
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	protected function debug_scripts() {
+		// detect debug scripts
 		if( !defined( 'DEBUG_SCRIPTS' ) ){
 			$this->debug_scripts = '.min';
 		}
-		// detect debug scritps and styles		
+	}
+
+	/**
+	 * Enabled debuging of styles
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	protected function debug_styles() {
+		// detect debug styles		
 		if( !defined( 'DEBUG_STYLES' ) ){
 			$this->debug_styles = '.min';
 		}
+	}	
 
+
+	/**
+	 * Define core UIX styles
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	public function uix_styles() {
 		// Initilize core styles
 		$core_styles = array(
-			'icons'		=>	$this->url . 'assets/css/icons' . $this->debug_styles . '.css',
 			'styles'	=>	$this->url . 'assets/css/admin' . $this->debug_styles . '.css',
+			'icons'		=>	$this->url . 'assets/css/icons' . $this->debug_styles . '.css',			
 			'grid'		=>	$this->url . 'assets/css/grid' . $this->debug_styles . '.css',
-			'controls'		=>	$this->url . 'assets/css/controls' . $this->debug_styles . '.css',
+			'controls'	=>	$this->url . 'assets/css/controls' . $this->debug_styles . '.css',
 		);
+
+		/**
+		 * Filter core UIX styles
+		 *
+		 * @param array $core_styles array of core UIX styles to be registered
+		 */
+		$core_styles = apply_filters( 'uix_set_core_styles-' . $this->type, $core_styles );
+		
+		// push to activly register styles
 		$this->styles( $core_styles );
 
+	}
+
+	/**
+	 * Define core UIX scripts
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	public function uix_scripts() {
 		// Initilize core scripts
 		$core_scripts = array(
 			'handlebars'	=>	$this->url . 'assets/js/handlebars.min-latest.js',
@@ -153,33 +222,18 @@ abstract class core{
 				)				
 			)
 		);
+
+		/**
+		 * Filter core UIX scripts
+		 *
+		 * @param array $core_scripts array of core UIX scripts to be registered
+		 */
+		$core_scripts = apply_filters( 'uix_set_core_styles-' . $this->type, $core_scripts );
+
+		// push to activly register scripts
 		$this->scripts( $core_scripts );
-
-
-		// init UIX headers
-		add_action( 'admin_head', array( $this, 'head' ) );
-
 	}
 
-	/**
-	 * setup actions and hooks - ovveride to add specific hooks 
-	 *
-	 * @since 1.0.0
-	 *
-	 */
-	protected function actions() {}
-
-	/**
-	 * Register the core UIX scripts
-	 *
-	 * @since 1.0.0
-	 *
-	 */
-	public function scripts( array $scripts ) {
-
-		$this->scripts = array_merge( $this->scripts, $scripts );
-
-	}
 
 	/**
 	 * Register the core UIX styles
@@ -190,6 +244,19 @@ abstract class core{
 	public function styles( array $styles ) {
 		
 		$this->styles = array_merge( $this->styles, $styles );
+
+	}
+
+
+	/**
+	 * Register the core UIX scripts
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	public function scripts( array $scripts ) {
+
+		$this->scripts = array_merge( $this->scripts, $scripts );
 
 	}
 
@@ -218,7 +285,7 @@ abstract class core{
 	 * @since 1.0.0
 	 *
 	 */
-	public function head() {
+	public function init() {
 
 		// attempt to get a config
 		$slugs = $this->locate();
@@ -228,10 +295,7 @@ abstract class core{
 		}
 
 		// set active
-		$this->active = (array) $slugs;
-
-		// set enqueue prefix
-		$prefix = $this->type;
+		$this->active_slugs = (array) $slugs;
 
 		// enqueue core scripts and styles
 		$assets = array(
@@ -239,11 +303,44 @@ abstract class core{
 			'styles' => $this->styles,
 		);
 		// enqueue core scripts and styles
-		$this->enqueue( $assets, $prefix );
+		$this->enqueue( $assets, $this->type );
 
-		// localize data for this screen
-		$this->localize_data();
+		// setup active objects structures
+		$this->set_active_objects();
 
+		// enque active objects assets
+		$this->enqueue_active_assets();
+	}
+
+	/**
+	 * sets the active objects structures
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	protected function set_active_objects(){
+		// build internal structures of active objects
+		foreach( (array) $this->active_slugs as $slug ){
+			$this->active_objects[ $slug ] = array(
+				'structure'	=> $this->get( $slug )
+			);
+		}
+
+	}
+
+
+	/**
+	 * sets the active objects structures
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	protected function enqueue_active_assets(){
+		// enque active slugs assets
+		foreach( (array) $this->active_objects as $slug => $object ){
+			// enqueue stlyes and scripts
+			$this->enqueue( $object['structure'], $this->type . '-' . $slug );
+		}
 	}
 
 	/**
@@ -256,22 +353,6 @@ abstract class core{
 
 		// setup the base URL
 		$this->url = plugin_dir_url( dirname( __FILE__ ) );
-
-	}
-
-	/**
-	 * Register and enqueue admin-specific style sheet.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return    null
-	 */
-	public function enqueue_object( $slug ) {
-
-		$uix = $this->get( $slug );
-
-		// enqueue UIX structure specific scripts & styles
-		$this->enqueue( $uix, $this->type . '-' . $slug );
 
 	}
 
@@ -325,98 +406,6 @@ abstract class core{
 		}
 
 	}	
-
-	/**
-	 * localize settings for this screen
-	 *
-	 * @since 1.0.0
-	 */
-	protected function localize_data(){		
-		// build data
-		foreach( (array) $this->active as $slug ){
-			// enqueue stlyes and scripts
-			$this->enqueue_object( $slug );
-
-			$this->data[ $slug ] = array(
-				'data' 		=> $this->get_data( $slug ),
-				'structure'	=> $this->get( $slug )
-			);
-		}
-		
-		wp_localize_script( $this->type . '-admin', 'UIX', $this->data );
-	
-	}
-
-	/**
-	 * Save a UIX config
-	 * @since 1.0.0
-	 *
-	 * @return bool true on successful save
-	 */
-	public function save_data( $slug, $config ){
-		
-		$uix = $this->get( $slug );
-
-		/**
-		 * Filter config object
-		 *
-		 * @param array $config the config array to save
-		 * @param array $uix the uix config to be saved for
-		 */
-		$config = apply_filters( 'uix_get_save_config_' . $this->type, $config, $uix );
-
-		$success = __( 'Settings saved.' );
-		if( !empty( $uix['saved_message'] ) ){
-			$success = $uix['saved_message'];
-		}
-		$option_name = $this->option_name( $slug );
-
-		// save object
-		return update_option( $option_name, $config );
-		
-	}
-
-	/**
-	 * Loads a UIX config
-	 * @since 1.0.0
-	 *
-	 * @return mixed $data the saved data fro the specific UIX object
-	 */
-	public function get_data( $slug ){
-
-		$uix = $this->get( $slug );
-
-		// get config object
-		$config_object = get_option( $this->option_name( $slug ), array() );
-
-
-		/**
-		 * Filter config object
-		 *
-		 * @param array $config_object The object as retrieved from data
-		 * @param array $uix the UIX structure
-		 * @param array $slug the UIX object slug
-		 */
-		return apply_filters( 'uix_data-' . $this->type, $config_object, $uix, $slug );		
-
-	}
-
-	/**
-	 * get a UIX config option name
-	 * @since 1.0.0
-	 *
-	 * @return string $option_name the defiuned option name for this UIX object
-	 */
-	public function option_name( $slug ){
-		
-		$uix = $this->get( $slug );
-		$option_name = 'uix-' . $this->type . '-' . sanitize_text_field( $slug );
-		if( !empty( $uix['option_name'] ) ){
-			$option_name = $uix['option_name'];
-		}
-
-		return $option_name;
-	}
 
 	/**
 	 * Determin if a UIX object should be loaded for this screen

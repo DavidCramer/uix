@@ -23,7 +23,7 @@
 
 		<div class="uix-grid">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-sm-6">
 
 					{{#each item}}
 									
@@ -52,24 +52,24 @@
 					{{/each}}
 
 				</div>
-				<div class="col-md-6">
+				<div class="col-sm-6">
 
 				{{#find item active_node}}
 
 					<div class="uix-control-box">
 						<div class="uix-control-bar">
-							<span class="uix-control-bar-action left">
+							<span class="uix-control-bar-action uix-icon left">
 								<span class="dashicons dashicons-plus" data-add-node="{{_node_point}}.parts"></span>
 							</span>
-							<span class="uix-control-bar-action right">
+							<span class="uix-control-bar-action uix-icon left">
 								<span class="dashicons dashicons-admin-generic"></span>
 							</span>
 							<span class="uix-control-bar-content">View Node: {{_id}}</span>
-							<span class="uix-control-bar-action right">
+							<span class="uix-control-bar-action uix-button right">
 								<button type="button" class="button">Button</button>
 							</span>
 
-							<span class="uix-control-bar-action right">
+							<span class="uix-control-bar-action uix-button right">
 								<button type="button" class="button button-small">Small</button>
 							</span>
 
