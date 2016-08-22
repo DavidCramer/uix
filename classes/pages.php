@@ -173,11 +173,36 @@ class pages extends data\localized implements data\save{
 			
 		if( empty( $screen ) || !is_object( $screen ) || !in_array( $screen->base, $this->plugin_screen_hook_suffix ) ){
 			return null;
-		}
+		}		
 
 		// get the page slug from base ID
 		$this->current_page = array_search( $screen->base, $this->plugin_screen_hook_suffix );
-		
+		$uix = $this->get( $this->current_page );
+		if( !empty( $uix['base_color'] ) ){
+		?><style type="text/css">
+			.contextual-help-tabs .active {
+				border-left: 6px solid <?php echo $uix['base_color']; ?>;
+			}
+			.wrap > h1.uix-title {
+				box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;
+			}
+			.uix-modal-wrap .uix-modal-title > h3,
+			.wrap .uix-title a.page-title-action:hover{
+				background: <?php echo $uix['base_color']; ?>;
+				border-color: <?php echo $uix['base_color']; ?>;
+			}
+			.wrap .uix-title a.page-title-action:focus{
+				box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;
+				border-color: <?php echo $uix['base_color']; ?>;
+			}
+			.wwrap > h1.uix-title {
+			  box-shadow: 0 -2px 2px rgba(0, 2, 0, 0.24) inset, 224px 0 0 #b8312f inset;
+			  color: #fff;
+			}			
+		</style>
+		<?php
+		}
+
 		return $this->current_page;
 	}
 
@@ -191,9 +216,7 @@ class pages extends data\localized implements data\save{
 	protected function locate(){
 
 		// get the page slug from base ID
-		$page_slug = array(
-			$this->get_page_slug()
-		);
+		$page_slug = $this->get_page_slug();
 
 		return $page_slug;
 	}
@@ -307,11 +330,6 @@ class pages extends data\localized implements data\save{
 	public function create_admin_page(){
 
 		$uix = $this->get_page();
-
-		if( !empty( $uix['base_color'] ) ){
-		?><style type="text/css">.contextual-help-tabs .active {border-left: 6px solid <?php echo $uix['base_color']; ?>;}.wrap > h1.uix-title {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;}.uix-modal-wrap .uix-modal-title > h3,.wrap .uix-title a.page-title-action:hover{background: <?php echo $uix['base_color']; ?>; border-color: <?php echo $uix['base_color']; ?>;}.wrap .uix-title a.page-title-action:focus{box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;border-color: <?php echo $uix['base_color']; ?>;}</style>
-		<?php
-		}
 		?>
 		<div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->current_page ); ?>">
 			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , $this->type ); ?>

@@ -58,7 +58,7 @@
  margin-left: 28px; 
 }
 .wrap a.page-title-action::before {
-  background: #f3f3f3 none repeat scroll 0 0;
+  background: rgba(0,0,0,0.1) none repeat scroll 0 0;
   bottom: -16px;
   content: "";
   display: inline-block;

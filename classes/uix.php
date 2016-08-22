@@ -15,7 +15,7 @@ namespace uixv2;
  * @package uix
  * @author  David Cramer
  */
-abstract class core{
+abstract class uix{
 
 	/**
 	 * The type of object

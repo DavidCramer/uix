@@ -21,7 +21,7 @@ return array(
 		'capability'  =>  'manage_options',                                              // required capability to access page
 		'icon'        =>  'dashicons-book-alt',                                          // Icon or image to be used on admin menu
 		'save_button' =>  'Save Changes',                                                // If the page required saving settings, Set the text here.
-		'base_color'  => '#B8312F',
+		'base_color'  =>  '#e74c3c',
 		'modals'	  =>  array(
 			//modal templates to be included as an array. slug => file
 			'project'	=> $plugin_path . 'includes/templates/project.php',

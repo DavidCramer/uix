@@ -15,7 +15,7 @@ namespace uixv2\data;
  * @package uix
  * @author  David Cramer
  */
-abstract class localized extends \uixv2\core implements load{
+abstract class localized extends \uixv2\uix implements load{
 
 
 	protected function set_active_objects(){
