@@ -7,32 +7,6 @@
         curl: {
             'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
         },
-        uglify: {
-            min: {
-                files: grunt.file.expandMapping( [
-                    'src/assets/js/*.js',
-                    '!src/assets/js/*.min.js',
-                    '!src/assets/js/*.min-latest.js'
-                ], 'assets/js/', {
-                    rename : function ( destBase, destPath ) {
-                        return destBase + destPath.replace( '.js', '.min.js' );
-                    },
-                    flatten: true
-                } )
-            }
-        },
-        cssmin: {
-            options: {
-                keepSpecialComments: 0
-            },
-            minify : {
-                expand: true,
-                cwd   : 'src/assets/css/',
-                src   : ['*.css', '!*.min.css'],
-                dest  : '../assets/css/',
-                ext   : '.min.css'
-            }
-        },
         copy: {
             main: {
                 files:[
@@ -50,7 +24,7 @@
                     }
                 ]
             }
-        },        
+        },
         replace: {
             core_file: {
                 src: [ '../classes/**/*.php', 'plugin.php' ],
@@ -65,6 +39,32 @@
                         to: "<%= pkg.prefix %>"
                     }
                 ]
+            }
+        },
+        uglify: {
+            min: {
+                files: grunt.file.expandMapping( [
+                    '../assets/js/*.js',
+                    '!../assets/js/*.min.js',
+                    '!../assets/js/*.min-latest.js'
+                ], '../assets/js/', {
+                    rename : function ( destBase, destPath ) {
+                        return destBase + destPath.replace( '.js', '.min.js' );
+                    },
+                    flatten: true
+                } )
+            }
+        },
+        cssmin: {
+            options: {
+                keepSpecialComments: 0
+            },
+            minify : {
+                expand: true,
+                cwd   : '../assets/css/',
+                src   : ['*.css', '!*.min.css'],
+                dest  : '../assets/css/',
+                ext   : '.min.css'
             }
         },
         clean: {
@@ -82,7 +82,6 @@
     grunt.loadNpmTasks( 'grunt-text-replace' );
 
     //installer tasks
-    //grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace', 'clean' ] );
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace' ] );
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace', 'clean' ] );
 
 };
