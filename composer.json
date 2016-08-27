@@ -1,0 +1,16 @@
+ {
+    "name": "desertsnowman/uix",
+    "description": "UI system for using Javascript User Interfaces",
+    "type": "wordpress-framework",
+    "keywords": [
+        "wordpress"
+    ],
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "David Cramer",
+            "homepage": "http://cramer.co.za",
+            "role": "Developer"
+        }
+    ]
+}

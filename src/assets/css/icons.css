@@ -2,9 +2,9 @@
     font-family: 'icons';
     src:    url('fonts/icons.eot?1uzhgv');
     src:    url('fonts/icons.eot?1uzhgv#iefix') format('embedded-opentype'),
-        url('fonts/icons.ttf?1uzhgv') format('truetype'),
-        url('fonts/icons.woff?1uzhgv') format('woff'),
-        url('fonts/icons.svg?1uzhgv#icons') format('svg');
+    url('fonts/icons.ttf?1uzhgv') format('truetype'),
+    url('fonts/icons.woff?1uzhgv') format('woff'),
+    url('fonts/icons.svg?1uzhgv#icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
