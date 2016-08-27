@@ -40,7 +40,10 @@ function uixv2_autoload_class( $class ){
     $parts = explode( '\\', $class );
     $name = array_shift( $parts );
     if( file_exists( UIXV2_PATH . 'classes/' . $name ) ){        
-        $class_file = UIXV2_PATH . 'classes/' . $name . '/' . implode( '/', $parts ) . '.php';
+        if( !empty( $parts ) ){
+            $name .= '/' . implode( '/', $parts );
+        }
+        $class_file = UIXV2_PATH . 'classes/' . $name . '.php';
         if( file_exists( $class_file ) ){
             include_once $class_file;
         }
