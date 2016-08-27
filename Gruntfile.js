@@ -5,16 +5,16 @@
         pkg :   grunt.file.readJSON( '../package.json' ),
         namespace     : grunt.option( "slug" ),
         curl: {
-            'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
+            '../assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
         },
         copy: {
             main: {
                 files:[
                     {
                         expand: true,
-                        cwd: 'src/assets/css/fonts',
+                        cwd: 'src/assets/css',
                         src: '**',
-                        dest: '../assets/css/fonts/'
+                        dest: '../assets/css/'
                     },
                     {
                         expand: true,
