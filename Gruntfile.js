@@ -34,9 +34,9 @@
         uglify: {
             min: {
                 files: grunt.file.expandMapping( [
-                    '../assets/js/*.js',
-                    '!../assets/js/*.min.js',
-                    '!../assets/js/*.min-latest.js'
+                    'assets/js/*.js',
+                    '!assets/js/*.min.js',
+                    '!assets/js/*.min-latest.js'
                 ], '../assets/js/', {
                     rename : function ( destBase, destPath ) {
                         return destBase + destPath.replace( '.js', '.min.js' );
