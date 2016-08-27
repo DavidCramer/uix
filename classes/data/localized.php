@@ -71,5 +71,31 @@ abstract class localized extends \uixv2\uix implements load{
 		return $store_key;
 	}
 
+	/**
+	 * Return a saved object from part by points
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return    string/array    the requested setting
+	 */
+	public static function get_val( $path ) {
 
+		$path = explode( '.', $path );
+		$temp = null;
+		$slug = array_shift( $path );
+
+		// get the instance
+		$uix = static::get_instance();
+
+		$temp = $uix->get_data( $slug );
+		foreach ($path as $index => $value) {
+			if( !isset( $temp[ $value ] ) ){
+				return null;
+			}
+			$temp = $temp[ $value ];
+		}
+
+		return $temp;
+
+	}
 }

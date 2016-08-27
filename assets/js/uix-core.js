@@ -138,14 +138,16 @@ var conduitApp = {},
 		}
 
 		var data = {
-			action		:	uix.slug + "_save_config",
-			uix_setup	:	$('#uix_setup').val(),
-			page_slug	:	uix.page_slug,
+			action		:	"uix_page_save_config",
+			page_slug	:	uix.slug,
 			config		:	JSON.stringify( obj ),
 			autosave	:	true
 		};
-		if( uix.save_params ){
-			data.params = uix.save_params;
+
+		data[ 'uix_setup_' + uix.slug ] = $('#uix_setup_' + uix.slug).val();
+
+		if( uix.structure.save_params ){
+			data.params = uix.structure.save_params;
 		}
 		
 		$( window ).trigger('uix.saving');
@@ -436,6 +438,7 @@ var conduitApp = {},
 	$(document).on('click', '[data-remove-element]', function(e){
 		var click = $(this),
 			app = click.closest('[data-app]').data('app'),
+			callback = click.data('callback'),
 			elements = $(click.data('removeElement'));
 		if( click.data('confirm') ){
 			if( !confirm(click.data('confirm')) ){
@@ -444,6 +447,11 @@ var conduitApp = {},
 		}
 		elements.remove();
 		conduitSyncData( app );
+
+		if( callback && typeof window[callback] === 'function' ){
+			console.log( callback );
+			window[callback]();
+		}
 	});
 
 	$(document).on('click', '[data-save-object]', function(e){
@@ -468,12 +476,12 @@ var conduitApp = {},
 		spinner.css({ visibility: "visible", opacity:1, display : "inline-block"});
 		var data = {
 			action		:	"uix_page_save_config",
-			uix_setup	:	$('#uix_setup').val(),
 			page_slug	:	uix.slug,
 			config		:	JSON.stringify( obj ),
 		};
-		if( uix.save_params ){
-			data.params = uix.save_params;
+		data[ 'uix_setup_' + uix.slug ] = $('#uix_setup_' + uix.slug).val();
+		if( uix.structure.save_params ){
+			data.params = uix.structure.save_params;
 		}
 		$.post( ajaxurl, data, function(response) {
 			

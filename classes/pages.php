@@ -27,22 +27,13 @@ class pages extends data\localized implements data\save{
 	protected $type = 'page';
 
 	/**
-	 * Holds a pages instance
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var      object|\uix\pages
-	 */
-	private static $instance = null;
-
-	/**
 	 * Holds the option screen prefix
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var      string
+	 * @var      array
 	 */
-	protected $plugin_screen_hook_suffix = null;
+	protected $plugin_screen_hook_suffix = array();
 
 	/**
 	 * Holds the current page slug
@@ -52,24 +43,6 @@ class pages extends data\localized implements data\save{
 	 * @var      string
 	 */
 	protected $current_page = null;	
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return    object|\uix\pages    A single instance of pages
-	 */
-	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-
-	}
 
 	/**
 	 * register add settings pages
@@ -98,14 +71,19 @@ class pages extends data\localized implements data\save{
 		if( ! empty( $_POST[ 'config' ] ) ){
 
 			$config = json_decode( stripslashes_deep( $_POST[ 'config' ] ), true );
-			if(	!wp_verify_nonce( $_POST['uix_setup'], $this->type ) ){
+			$page_slug = sanitize_text_field( $_POST['page_slug'] );
+			if(	!wp_verify_nonce( $_POST[ 'uix_setup_' . $page_slug ], $this->type ) ){
 				wp_send_json_error( esc_html__( 'Could not verify nonce', $this->type ) );
 			}
 
-			$page_slug = sanitize_text_field( $_POST['page_slug'] );
+			
 			$page = $this->get( $page_slug );
 
 			if( !empty( $page ) ){
+
+				if( !empty( $_POST['params'] ) ){
+					$this->objects[ $page_slug ] = array_merge( $this->objects[ $page_slug ], $_POST['params'] );
+				}
 
 				$saved = $this->save_data( $page_slug, $config );
 
@@ -114,8 +92,6 @@ class pages extends data\localized implements data\save{
 			}
 		}
 
-		// nope
-		wp_send_json_error( esc_html__( 'Could not save, sorry.' ) );
 	}
 
 	/**
@@ -173,35 +149,10 @@ class pages extends data\localized implements data\save{
 			
 		if( empty( $screen ) || !is_object( $screen ) || !in_array( $screen->base, $this->plugin_screen_hook_suffix ) ){
 			return null;
-		}		
+		}
 
 		// get the page slug from base ID
 		$this->current_page = array_search( $screen->base, $this->plugin_screen_hook_suffix );
-		$uix = $this->get( $this->current_page );
-		if( !empty( $uix['base_color'] ) ){
-		?><style type="text/css">
-			.contextual-help-tabs .active {
-				border-left: 6px solid <?php echo $uix['base_color']; ?>;
-			}
-			.wrap > h1.uix-title {
-				box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;
-			}
-			.uix-modal-wrap .uix-modal-title > h3,
-			.wrap .uix-title a.page-title-action:hover{
-				background: <?php echo $uix['base_color']; ?>;
-				border-color: <?php echo $uix['base_color']; ?>;
-			}
-			.wrap .uix-title a.page-title-action:focus{
-				box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;
-				border-color: <?php echo $uix['base_color']; ?>;
-			}
-			.wwrap > h1.uix-title {
-			  box-shadow: 0 -2px 2px rgba(0, 2, 0, 0.24) inset, 224px 0 0 #b8312f inset;
-			  color: #fff;
-			}			
-		</style>
-		<?php
-		}
 
 		return $this->current_page;
 	}
@@ -221,6 +172,26 @@ class pages extends data\localized implements data\save{
 		return $page_slug;
 	}
 
+	/**
+	 * sets the active objects structures
+	 *
+	 * @since 1.0.0
+	 *
+	 */
+	protected function enqueue_active_assets(){
+		// enque active slugs assets
+		foreach( (array) $this->active_objects as $slug => $object ){
+			// enqueue stlyes and scripts
+			$this->enqueue( $object['structure'], $this->type . '-' . $slug );
+			// add tabs
+			if( !empty( $object['structure']['tabs'] ) ){
+				foreach( $object['structure']['tabs'] as $tab_id => $tab ){
+					$this->enqueue( $tab, $this->type . '-' . $tab_id );
+				}
+			}
+
+		}
+	}
 	/**
 	 * Add settings page
 	 *
@@ -283,8 +254,11 @@ class pages extends data\localized implements data\save{
 	public function add_help(){
 		
 
-		$page = $this->get_page();
-		
+		$page_slug = $this->get_page_slug();
+
+		if( empty( $page_slug ) ){ return; }
+		$page = $this->get( $page_slug );
+
 		$screen = get_current_screen();
 		
 		foreach( (array) $page['help'] as $help_slug => $help ){
@@ -330,6 +304,34 @@ class pages extends data\localized implements data\save{
 	public function create_admin_page(){
 
 		$uix = $this->get_page();
+
+		if( !empty( $uix['base_color'] ) ){
+		?><style type="text/css">
+			.contextual-help-tabs .active {
+				border-left: 6px solid <?php echo $uix['base_color']; ?> !important;
+			}
+			<?php if( !empty( $uix['tabs'] ) && count( $uix['tabs'] ) > 1 ){ ?>
+			.wrap > h1.uix-title {
+				box-shadow: 0 0px 13px 12px <?php echo $uix['base_color']; ?>, 11px 0 0 <?php echo $uix['base_color']; ?> inset;
+			}
+			<?php }else{ ?>
+			.wrap > h1.uix-title {
+				box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;
+			}
+			<?php } ?>
+			.uix-modal-wrap .uix-modal-title > h3,
+			.wrap .uix-title a.page-title-action:hover{
+				background: <?php echo $uix['base_color']; ?>;
+				border-color: <?php echo $uix['base_color']; ?>;
+			}
+			.wrap .uix-title a.page-title-action:focus{
+				box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;
+				border-color: <?php echo $uix['base_color']; ?>;
+			}
+
+		</style>
+		<?php
+		}		
 		?>
 		<div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->current_page ); ?>">
 			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , $this->type ); ?>
@@ -345,9 +347,10 @@ class pages extends data\localized implements data\save{
 			<nav class="uix-sub-nav" <?php if( count( $uix['tabs'] ) === 1 ){ ?>style="display:none;"<?php } ?>>
 				<?php foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?><a data-tab="<?php echo esc_attr( $tab_slug ); ?>" href="#<?php echo esc_attr( $tab_slug ) ?>"><?php echo esc_html( $tab['menu_title'] ); ?></a><?php } ?>
 			</nav>
-			<?php } ?>
-			<?php wp_nonce_field( $this->type, 'uix_setup' ); ?>
-			<?php 
+			<?php }
+
+			wp_nonce_field( $this->type, 'uix_setup_' . $this->current_page );
+
 			if( !empty( $uix['tabs'] ) ){
 				foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?>
 					<div class="uix-tab-canvas" data-app="<?php echo esc_attr( $tab_slug ); ?>"></div>

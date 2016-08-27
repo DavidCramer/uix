@@ -99,14 +99,22 @@ abstract class uix{
 	protected $debug_styles = null;	
 
 	/**
+	 * Holds instances
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var      array
+	 */
+	protected static $instances = array();
+
+	/**
 	 * UIX constructor - override this to control order of initialization
 	 *
 	 * @since 1.0.0
 	 *
 	 */
 	public function __construct() {
-
-		// set up globals vars
+		// Set the root URL for this plugin.
 		$this->set_url();
 
 		// enable / disable debug scripts
@@ -123,6 +131,25 @@ abstract class uix{
 
 		// start internal actions to allow for automating post init
 		$this->actions();
+
+	}
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return    object|\pmts\    A single instance
+	 */
+	public static function get_instance() {
+
+		$caller = get_called_class();
+		// If the single instance hasn't been set, set it now.
+		if ( ! isset( self::$instances[$caller] ) ) {
+			self::$instances[$caller] = new $caller();
+		}
+
+		return self::$instances[$caller];
 
 	}
 
@@ -209,7 +236,7 @@ abstract class uix{
 				)
 			),
 			'admin'			=>	array(
-				'src'			=>	$this->url . 'assets/js/uix-core' . $this->debug_scripts . '.js',
+				'src'			=>	$this->url . 'assets/js/old-uix-core' . $this->debug_scripts . '.js',
 				'depends'		=>	array(
 					'jquery',
 					'handlebars'
@@ -266,8 +293,27 @@ abstract class uix{
 	 * @since 1.0.0
 	 *
 	 * @param array $objects object structure array
+	 * @return    object|\uix    A single instance of class
 	 */
-	public function register( array $objects ) {
+	public static function register( array $objects ) {
+
+		// get the instance
+		$uix = static::get_instance();
+
+		// set objects
+		$uix->set_objects( $objects );
+		
+		return $uix;
+	}
+
+	/**
+	 * Register the UIX objects
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $objects object structure array
+	 */
+	public function set_objects( array $objects ) {
 
 		/**
 		 * Filter objects to be created
@@ -344,16 +390,21 @@ abstract class uix{
 	}
 
 	/**
-	 * sets the URL scope
+	 * Detects the root of the plugin folder and sets the URL
 	 *
 	 * @since 1.0.0
 	 *
 	 */
-	protected function set_url(){
-
+	public function set_url(){
+		
+		$plugins_url = plugins_url();
+		$this_url = trim( substr( plugin_dir_url( __FILE__ ), strlen( $plugins_url ) ), '/' );
+		
+		if( false !== strpos( $this_url, '/') ){
+			$this_url = substr( $this_url, 0, strpos( $this_url, '/') );
+		}
 		// setup the base URL
-		$this->url = plugin_dir_url( dirname( __FILE__ ) );
-
+		$this->url = trailingslashit( $plugins_url . '/' . $this_url );
 	}
 
 	/**
