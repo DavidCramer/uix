@@ -1,5 +1,7 @@
  {
   "name": "uix",
+  "namespace": "atest",
+  "slug": "ATEST",
   "version": "1.0.0",
   "description": "Admin UI Framework for WordPress",
   "repository": {

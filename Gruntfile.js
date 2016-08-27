@@ -2,7 +2,7 @@
     
     // Project configuration.
     grunt.initConfig({
-        pkg :   grunt.file.readJSON( '../package.json' ),
+        pkg :   grunt.file.readJSON( 'package.json' ),
         namespace     : grunt.option( "slug" ),
         curl: {
             'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
@@ -35,24 +35,40 @@
         },
         copy: {
             main: {
-                expand: true,
-                cwd: 'src/assets/css/fonts',
-                src: '**',
-                dest: 'assets/css/fonts/'
+                files:[
+                    {
+                        expand: true,
+                        cwd: 'src/assets/css/fonts',
+                        src: '**',
+                        dest: 'assets/css/fonts/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/classes/uixv2',
+                        src: '**',
+                        dest: 'classes/<%= pkg.namespace %>/'
+                    }
+                ]
             }
         },        
         replace: {
             core_file: {
-                src: [ 'src/uix.php' ],
-                dest: 'uix.php',
-                replacements: [{
-                    from: /namespace \s*(.*)/,
-                    to: "namespace <%= pkg.namespace %>\\ui;"
-                }]
+                src: [ 'classes/**/*.php', 'plugin.php' ],
+                overwrite: true,
+                replacements: [
+                    {
+                        from: 'uixv2',
+                        to: "<%= pkg.namespace %>"
+                    },
+                    {
+                        from: 'UIXV2',
+                        to: "<%= pkg.slug %>"
+                    }
+                ]
             },
             plugin_file: {
                 src: [ 'src/plugin.php' ],
-                dest: '../plugin.php',
+                dest: 'plugin.php',
                 replacements: [
                 {
                     from: "{{namespace}}",
@@ -104,6 +120,7 @@
     grunt.loadNpmTasks( 'grunt-text-replace' );
 
     //installer tasks
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace', 'clean' ] );
+    //grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace', 'clean' ] );
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace' ] );
 
 };
