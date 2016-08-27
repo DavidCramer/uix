@@ -37,7 +37,7 @@
                   expand: true,
                   cwd: '../assets/js',
                   src: '**/*.js',
-                  dest: '../assets/js'
+                  dest: '../assets/js/*.min.js'
               }]
             }
         },
