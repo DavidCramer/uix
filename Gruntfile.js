@@ -33,12 +33,16 @@
         },
         uglify: {
             min: {
-              files: [{
-                  expand: true,
-                  cwd: '../assets/js',
-                  src: '**/*.js',
-                  dest: '../assets/js/*.min.js'
-              }]
+                files: grunt.file.expandMapping( [
+                    '../assets/js/*.js',
+                    '!../assets/js/*.min.js',
+                    '!../assets/js/*.min-latest.js'
+                ], '../assets/js/', {
+                    rename : function ( destBase, destPath ) {
+                        return destBase + destPath.replace( '.js', '.min.js' );
+                    },
+                    flatten: true
+                } )
             }
         },
         cssmin: {
