@@ -18,6 +18,12 @@
                     },
                     {
                         expand: true,
+                        cwd: 'src/assets/js',
+                        src: '**',
+                        dest: '../assets/js/'
+                    },
+                    {
+                        expand: true,
                         cwd: 'src/classes/uixv2',
                         src: '**',
                         dest: '../classes/<%= pkg.namespace %>/'
