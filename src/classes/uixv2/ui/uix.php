@@ -236,7 +236,7 @@ abstract class uix{
                 )
             ),
             'admin'         =>  array(
-                'src'           =>  $this->url . 'assets/js/old-uix-core' . $this->debug_scripts . '.js',
+                'src'           =>  $this->url . 'assets/js/uix-core' . $this->debug_scripts . '.js',
                 'depends'       =>  array(
                     'jquery',
                     'handlebars'
