@@ -34,9 +34,9 @@
         uglify: {
             min: {
                 files: grunt.file.expandMapping( [
-                    'assets/js/*.js',
-                    '!assets/js/*.min.js',
-                    '!assets/js/*.min-latest.js'
+                    'src/assets/js/*.js',
+                    '!src/assets/js/*.min.js',
+                    '!src/assets/js/*.min-latest.js'
                 ], '../assets/js/', {
                     rename : function ( destBase, destPath ) {
                         return destBase + destPath.replace( '.js', '.min.js' );
@@ -71,7 +71,6 @@
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
     //installer tasks
-    //grunt.registerTask( 'default', [ 'curl', 'copy', 'cssmin', 'uglify', 'clean' ] );
-    grunt.registerTask( 'default', [ 'curl', 'copy', 'cssmin', 'uglify' ] );
+    grunt.registerTask( 'default', [ 'curl', 'copy', 'cssmin', 'uglify', 'clean' ] );
 
 };
