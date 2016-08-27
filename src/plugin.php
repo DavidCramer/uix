@@ -21,7 +21,7 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	die;
+    die;
 }
 
 define('UIXV2_PATH',  plugin_dir_path( __FILE__ ) );
@@ -52,10 +52,9 @@ spl_autoload_register( 'uixv2_autoload_class', true, false );
 add_action( 'plugins_loaded', 'uixv2_plugin_bootstrap', 200 );
 function uixv2_plugin_bootstrap(){
 
-	// start DB Post-Types UI
-	new \uixv2\ui();
-	new \uixv2\core();
+    // init UI
+    new \uixv2\ui();
+    // init plugin logic
+    new \uixv2\core();
 
-	
 }
-
