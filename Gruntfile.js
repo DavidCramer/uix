@@ -31,22 +31,6 @@
                 ]
             }
         },
-        replace: {
-            core_file: {
-                src: [ '../classes/**/*.php', 'plugin.php' ],
-                overwrite: true,
-                replacements: [
-                    {
-                        from: 'uixv2',
-                        to: "<%= pkg.namespace %>"
-                    },
-                    {
-                        from: 'UIXV2',
-                        to: "<%= pkg.prefix %>"
-                    }
-                ]
-            }
-        },
         uglify: {
             min: {
                 files: grunt.file.expandMapping( [
@@ -85,9 +69,8 @@
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
-    grunt.loadNpmTasks( 'grunt-text-replace' );
 
     //installer tasks
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'replace', 'clean' ] );
+    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'clean' ] );
 
 };
