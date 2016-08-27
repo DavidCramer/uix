@@ -54,7 +54,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         // run parent actions ( keep 'admin_head' hook )
         parent::actions();
         // add settings page
-        add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 25 );
+        add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 9 );
         // save config
         add_action( 'wp_ajax_uix_' . $this->type . '_save_config', array( $this, 'save_config') );
     }
