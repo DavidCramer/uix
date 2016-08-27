@@ -12,6 +12,12 @@
                 files:[
                     {
                         expand: true,
+                        cwd: 'src',
+                        src: 'plugin.php',
+                        dest: '../'
+                    },
+                    {
+                        expand: true,
                         cwd: 'src/assets/css',
                         src: '**',
                         dest: '../assets/css/'
