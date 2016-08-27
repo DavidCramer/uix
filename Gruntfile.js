@@ -71,6 +71,6 @@
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
     //installer tasks
-    grunt.registerTask( 'default', [ 'curl', 'cssmin', 'uglify', 'copy', 'clean' ] );
+    grunt.registerTask( 'default', [ 'curl', 'copy', 'cssmin', 'uglify', 'clean' ] );
 
 };
