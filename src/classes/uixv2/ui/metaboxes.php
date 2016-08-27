@@ -136,7 +136,7 @@ class metaboxes extends \uixv2\data\localized{
                 if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
                     include $uix['template'];
                 }else{
-                    echo esc_html__( 'Template not found: ', $this->plugin_slug ) . $uix['template'];
+                    echo esc_html__( 'Template not found: ', 'text-domain' ) . $uix['template'];
                 }
             ?>
         </script>
@@ -149,7 +149,7 @@ class metaboxes extends \uixv2\data\localized{
                         if( !empty( $partial ) && file_exists( $partial ) ){
                             include $partial;
                         }else{
-                            echo esc_html__( 'Partial Template not found: ', $this->plugin_slug ) . $partial_id;
+                            echo esc_html__( 'Partial Template not found: ', 'text-domain' ) . $partial_id;
                         }
                     ?>
                 </script>
@@ -167,7 +167,7 @@ class metaboxes extends \uixv2\data\localized{
                         if( !empty( $modal ) && file_exists( $modal ) ){
                             include $modal;
                         }else{
-                            echo esc_html__( 'Modal Template not found: ', $this->plugin_slug ) . $modal_id;
+                            echo esc_html__( 'Modal Template not found: ', 'text-domain' ) . $modal_id;
                         }
                     ?>
                 </script>
@@ -182,7 +182,7 @@ class metaboxes extends \uixv2\data\localized{
                 {{#if __callback}}data-callback="{{__callback}}"{{/if}}
                 {{#if __before}}data-before="{{__before}}"{{/if}}
             >
-                Save Changes
+                <?php esc_html_e( 'Save Changes', 'text-domain' ); ?>
             </button>
         </script>
         <script type="text/html" id="__partial_create">
@@ -190,7 +190,7 @@ class metaboxes extends \uixv2\data\localized{
                 {{#if __callback}}data-callback="{{__callback}}"{{/if}}
                 {{#if __before}}data-before="{{__before}}"{{/if}}
             >
-                Create
+                <?php esc_html_e( 'Create', 'text-domain' ); ?>
             </button>
         </script>
         <script type="text/html" id="__partial_delete">
@@ -198,7 +198,7 @@ class metaboxes extends \uixv2\data\localized{
                 {{#if __callback}}data-callback="{{__callback}}"{{/if}}
                 {{#if __before}}data-before="{{__before}}"{{/if}}
             >
-                Remove
+                <?php esc_html_e( 'Remove', 'text-domain' ); ?>
             </button>
         </script>
         <?php if( !empty( $uix['chromeless'] ) ){ ?>

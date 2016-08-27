@@ -2,7 +2,7 @@
     
     // Project configuration.
     grunt.initConfig({
-        pkg :   grunt.file.readJSON( 'package.json' ),
+        pkg :   grunt.file.readJSON( '../package.json' ),
         namespace     : grunt.option( "slug" ),
         curl: {
             'assets/js/handlebars.min-latest.js' : 'http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars.min-latest.js'
@@ -29,7 +29,7 @@
                 expand: true,
                 cwd   : 'src/assets/css/',
                 src   : ['*.css', '!*.min.css'],
-                dest  : 'assets/css/',
+                dest  : '../assets/css/',
                 ext   : '.min.css'
             }
         },
@@ -40,20 +40,20 @@
                         expand: true,
                         cwd: 'src/assets/css/fonts',
                         src: '**',
-                        dest: 'assets/css/fonts/'
+                        dest: '../assets/css/fonts/'
                     },
                     {
                         expand: true,
                         cwd: 'src/classes/uixv2',
                         src: '**',
-                        dest: 'classes/<%= pkg.namespace %>/'
+                        dest: '../classes/<%= pkg.namespace %>/'
                     }
                 ]
             }
         },        
         replace: {
             core_file: {
-                src: [ 'classes/**/*.php', 'plugin.php' ],
+                src: [ '../classes/**/*.php', 'plugin.php' ],
                 overwrite: true,
                 replacements: [
                     {
@@ -62,46 +62,8 @@
                     },
                     {
                         from: 'UIXV2',
-                        to: "<%= pkg.slug %>"
+                        to: "<%= pkg.prefix %>"
                     }
-                ]
-            },
-            plugin_file: {
-                src: [ 'src/plugin.php' ],
-                dest: 'plugin.php',
-                replacements: [
-                {
-                    from: "{{namespace}}",
-                    to: "<%= pkg.namespace %>"
-                },
-                {
-                    from: "{{slug}}",
-                    to: "<%= pkg.slug %>"
-                },
-                {
-                    from: "{{prefix}}",
-                    to: "<%= pkg.prefix %>"
-                },
-                {
-                    from: "{{name}}",
-                    to: "<%= pkg.plugin_name %>"
-                },
-                {
-                    from: "{{description}}",
-                    to: "<%= pkg.description %>"
-                },
-                {
-                    from: "{{author}}",
-                    to: "<%= pkg.author %>"
-                },
-                {
-                    from: "{{url}}",
-                    to: "<%= pkg.url %>"
-                },
-                {
-                    from: "{{version}}",
-                    to: "<%= pkg.version %>"
-                }
                 ]
             }
         },

@@ -73,7 +73,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
             $config = json_decode( stripslashes_deep( $_POST[ 'config' ] ), true );
             $page_slug = sanitize_text_field( $_POST['page_slug'] );
             if( !wp_verify_nonce( $_POST[ 'uix_setup_' . $page_slug ], $this->type ) ){
-                wp_send_json_error( esc_html__( 'Could not verify nonce', $this->type ) );
+                wp_send_json_error( esc_html__( 'Could not verify nonce', 'text-domain' ) );
             }
 
             
@@ -112,7 +112,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
          */
         $config = apply_filters( 'uix_get_save_config_' . $this->type, $config, $uix );
 
-        $success = __( 'Settings saved.' );
+        $success = esc_html__( 'Settings saved.', 'text-domain' );
         if( !empty( $uix['saved_message'] ) ){
             $success = $uix['saved_message'];
         }
@@ -334,12 +334,12 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         }       
         ?>
         <div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->current_page ); ?>">
-            <h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , $this->type ); ?>
-                <?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], $this->type ); ?></small><?php } ?>
+            <h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , 'text-domain' ); ?>
+                <?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], 'text-domain' ); ?></small><?php } ?>
                 <?php if( !empty( $uix['save_button'] ) ){ ?>
                 <a class="page-title-action" href="#save-object" data-save-object="true">
                     <span class="spinner uix-save-spinner"></span>
-                    <?php esc_html_e( $uix['save_button'], $this->type ); ?>
+                    <?php esc_html_e( $uix['save_button'], 'text-domain' ); ?>
                 </a>
                 <?php } ?>
             </h1>
@@ -363,7 +363,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                             if( !empty( $tab['template'] ) && file_exists( $tab['template'] ) ){
                                 include $tab['template'];
                             }else{
-                                echo esc_html__( 'Template not found: ', $this->type ) . $tab['page_title'];
+                                echo esc_html__( 'Template not found: ', 'text-domain' ) . $tab['page_title'];
                             }
                         ?>
                     </script>
@@ -376,7 +376,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                                     if( !empty( $partial ) && file_exists( $partial ) ){
                                         include $partial;
                                     }else{
-                                        echo esc_html__( 'Partial Template not found: ', $this->type ) . $partial_id;
+                                        echo esc_html__( 'Partial Template not found: ', 'text-domain' ) . $partial_id;
                                     }
                                 ?>
                             </script>
@@ -398,7 +398,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                             if( !empty( $modal ) && file_exists( $modal ) ){
                                 include $modal;
                             }else{
-                                echo esc_html__( 'Modal Template not found: ', $this->type ) . $modal_id;
+                                echo esc_html__( 'Modal Template not found: ', 'text-domain' ) . $modal_id;
                             }
                         ?>
                     </script>
@@ -412,7 +412,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         <div class="{{#if success}}updated{{else}}error{{/if}} notice uix-notice is-dismissible">
             <p>{{{data}}}</p>
             <button class="notice-dismiss" type="button">
-                <span class="screen-reader-text">Dismiss this notice.</span>
+                <span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'text-domain' ); ?></span>
             </button>
         </div>
         </script>
@@ -421,7 +421,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                 {{#if __callback}}data-callback="{{__callback}}"{{/if}}
                 {{#if __before}}data-before="{{__before}}"{{/if}}
             >
-                Save Changes
+                <?php esc_html_e( 'Save Changes', 'text-domain' ); ?>
             </button>
         </script>
         <script type="text/html" id="__partial_create">
@@ -429,7 +429,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                 {{#if __callback}}data-callback="{{__callback}}"{{/if}}
                 {{#if __before}}data-before="{{__before}}"{{/if}}
             >
-                Create
+                <?php esc_html_e( 'Create', 'text-domain' ); ?>
             </button>
         </script>
         <script type="text/html" id="__partial_delete">
@@ -437,7 +437,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                 {{#if __callback}}data-callback="{{__callback}}"{{/if}}
                 {{#if __before}}data-before="{{__before}}"{{/if}}
             >
-                Remove
+                <?php esc_html_e( 'Remove', 'text-domain' ); ?>
             </button>
         </script>
         <?php
