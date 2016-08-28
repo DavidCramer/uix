@@ -126,7 +126,7 @@ nav.uix-sub-nav > a {
 .uix-field-wrapper > label {
     display: inline-block;
     float: left;
-    font-weight: bold;
+    font-weight: 600;
     padding: 5px 0 8px;
     width: 280px;
 }
@@ -134,6 +134,11 @@ nav.uix-sub-nav > a {
     display: inline-block;
     width: 352px;
 }
+.uix-field-wrapper .uix-field > label {
+  display: inline-block;
+  width: 150px;
+}
+
 .uix-check-wrapper {
     display: inline-block;
     width: 480px;
