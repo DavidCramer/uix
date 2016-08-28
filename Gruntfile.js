@@ -12,25 +12,25 @@
                 files:[
                     {
                         expand: true,
-                        cwd: 'src',
+                        cwd: './',
                         src: 'plugin.php',
                         dest: '../'
                     },
                     {
                         expand: true,
-                        cwd: 'src/assets/css',
+                        cwd: 'assets/css',
                         src: '**',
                         dest: '../assets/css/'
                     },
                     {
                         expand: true,
-                        cwd: 'src/assets/js',
+                        cwd: 'assets/js',
                         src: '**',
                         dest: '../assets/js/'
                     },
                     {
                         expand: true,
-                        cwd: 'src/classes/uixv2',
+                        cwd: 'classes/uixv2',
                         src: '**',
                         dest: '../classes/<%= pkg.namespace %>/'
                     }
@@ -40,9 +40,9 @@
         uglify: {
             min: {
                 files: grunt.file.expandMapping( [
-                    'src/assets/js/*.js',
-                    '!src/assets/js/*.min.js',
-                    '!src/assets/js/*.min-latest.js'
+                    'assets/js/*.js',
+                    '!assets/js/*.min.js',
+                    '!assets/js/*.min-latest.js'
                 ], '../assets/js/', {
                     rename : function ( destBase, destPath ) {
                         return destBase + destPath.replace( '.js', '.min.js' );
@@ -64,7 +64,7 @@
             }
         },
         clean: {
-          build: ["src/**", "etc/**", "node_modules/**",".git/**",".gitignore","composer.json","Gruntfile.js","package.json"],
+          build: ["etc/**", "node_modules/**",".git/**",".gitignore","composer.json","Gruntfile.js","package.json"],
         },
 
     });
