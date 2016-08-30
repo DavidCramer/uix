@@ -168,8 +168,11 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
 
         // get the page slug from base ID
         $page_slug = $this->get_page_slug();
-
-        return $page_slug;
+        $slugs = array();
+        if( !empty( $page_slug ) ){
+            $slugs[] = $page_slug;
+        }
+        return $slugs;
     }
 
     /**
