@@ -70,13 +70,9 @@ class posts extends uix{
     public function register_post_type() {
 
         foreach( (array) $this->objects as $post_type => $args ){
-            register_post_type( $post_type, $args );
-
-            //add help if defined
-            if( !empty( $args['help'] ) ){
-                add_action( 'admin_head', array( $this, 'add_help' ) );
+            if( !empty( $args['post_type'] ) ){
+                register_post_type( $post_type, $args['post_type'] );
             }
-
         }
 
     }

@@ -162,6 +162,8 @@ abstract class uix{
     protected function actions() {
         // init UIX headers
         add_action( 'admin_head', array( $this, 'init' ) );
+        // queue helps
+        add_action( 'admin_head', array( $this, 'add_help' ) );        
     }
 
 
