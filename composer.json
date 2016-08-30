@@ -1,9 +1,11 @@
  {
     "name": "desertsnowman/uix",
-    "description": "UI system for using Javascript User Interfaces",
+    "description": "UI framework WordPress Plugins",
     "type": "wordpress-framework",
     "keywords": [
-        "wordpress"
+        "wordpress",
+        "UI",
+        "framework"
     ],
     "license": "GPL-2.0+",
     "authors": [
@@ -12,5 +14,12 @@
             "homepage": "http://cramer.co.za",
             "role": "Developer"
         }
-    ]
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload":{
+        "psr-4": {
+          "uixv2\\": "classes"
+        }
+    }
 }
