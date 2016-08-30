@@ -128,79 +128,14 @@ class metaboxes extends \uixv2\data\localized{
         }
         ?>
         <div class="uix-item" data-uix="<?php echo esc_attr( $metabox['id'] ); ?>">
-            <input id="uix_<?php echo esc_attr( $metabox['id'] ); ?>" name="uix[<?php echo esc_attr( $metabox['id'] ); ?>]" value="" type="hidden">
-            <div class="uix-tab-canvas" data-app="<?php echo esc_attr( $metabox['id'] ); ?>"></div>
+        <?php
+            if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
+                include $uix['template'];
+            }else{
+                echo esc_html__( 'Template not found: ', 'facetwp-clarity' ) . $uix['template'];
+            }
+        ?>
         </div>
-        <script type="text/html" data-template="<?php echo esc_attr( $metabox['id'] ); ?>">
-            <?php 
-                if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
-                    include $uix['template'];
-                }else{
-                    echo esc_html__( 'Template not found: ', 'text-domain' ) . $uix['template'];
-                }
-            ?>
-        </script>
-        <?php if( !empty( $uix['partials'] ) ){
-            foreach( $uix['partials'] as $partial_id => $partial ){
-                ?>
-                <script type="text/html" id="__partial_<?php echo esc_attr( $partial_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
-                    <?php
-                        // include this tabs template
-                        if( !empty( $partial ) && file_exists( $partial ) ){
-                            include $partial;
-                        }else{
-                            echo esc_html__( 'Partial Template not found: ', 'text-domain' ) . $partial_id;
-                        }
-                    ?>
-                </script>
-                <?php
-            }
-        }
-
-
-        if( !empty( $uix['modals'] ) ){
-            foreach( $uix['modals'] as $modal_id => $modal ){
-                ?>
-                <script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
-                    <?php
-                        // include this tabs template
-                        if( !empty( $modal ) && file_exists( $modal ) ){
-                            include $modal;
-                        }else{
-                            echo esc_html__( 'Modal Template not found: ', 'text-domain' ) . $modal_id;
-                        }
-                    ?>
-                </script>
-                <?php
-            }
-        }
-        ?>          
-
-
-        <script type="text/html" id="__partial_save">       
-            <button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="save" 
-                {{#if __callback}}data-callback="{{__callback}}"{{/if}}
-                {{#if __before}}data-before="{{__before}}"{{/if}}
-            >
-                <?php esc_html_e( 'Save Changes', 'text-domain' ); ?>
-            </button>
-        </script>
-        <script type="text/html" id="__partial_create">
-            <button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="add" 
-                {{#if __callback}}data-callback="{{__callback}}"{{/if}}
-                {{#if __before}}data-before="{{__before}}"{{/if}}
-            >
-                <?php esc_html_e( 'Create', 'text-domain' ); ?>
-            </button>
-        </script>
-        <script type="text/html" id="__partial_delete">
-            <button style="float:left;" class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="delete" 
-                {{#if __callback}}data-callback="{{__callback}}"{{/if}}
-                {{#if __before}}data-before="{{__before}}"{{/if}}
-            >
-                <?php esc_html_e( 'Remove', 'text-domain' ); ?>
-            </button>
-        </script>
         <?php if( !empty( $uix['chromeless'] ) ){ ?>
         <script type="text/javascript">
             jQuery('#<?php echo $metabox['id']; ?>').addClass('uix-metabox');
@@ -213,12 +148,11 @@ class metaboxes extends \uixv2\data\localized{
                 jQuery('#uix_<?php echo $metabox['id']; ?>').val( JSON.stringify( uix_config.<?php echo $metabox['id']; ?> ) );
                 
             });
-        </script>
+        </script>        
         <?php
         
     }
-
-
+    
     /**
      * Saves a metabox config
      *
