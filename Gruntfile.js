@@ -13,7 +13,7 @@
                     {
                         expand: true,
                         cwd: './',
-                        src: 'plugin.php',
+                        src: 'uix-bootstrap.php',
                         dest: '../'
                     },
                     {
