@@ -46,6 +46,48 @@ abstract class localized extends \uixv2\ui\uix implements load{
     }
 
     /**
+     * Define core localize UIX scripts
+     *
+     * @since 1.0.0
+     *
+     */
+    public function uix_scripts() {
+        // Initilize core scripts
+        $core_scripts = array(
+            'handlebars'    =>  $this->url . 'assets/js/handlebars.min-latest.js',
+            'helpers'       =>  array(
+                'src'           =>  $this->url . 'assets/js/uix-helpers' . $this->debug_scripts . '.js',
+                'depends'       =>  array(
+                    'jquery'
+                )
+            ),
+            'admin'         =>  array(
+                'src'           =>  $this->url . 'assets/js/uix-core' . $this->debug_scripts . '.js',
+                'depends'       =>  array(
+                    'jquery',
+                    'handlebars'
+                )               
+            ),
+            'modals'            =>  array(
+                'src'           =>  $this->url . 'assets/js/uix-modals' . $this->debug_scripts . '.js',
+                'depends'       =>  array(
+                    'jquery'
+                )               
+            )
+        );
+
+        /**
+         * Filter core UIX scripts
+         *
+         * @param array $core_scripts array of core UIX scripts to be registered
+         */
+        $core_scripts = apply_filters( 'uix_set_core_styles-' . $this->type, $core_scripts );
+
+        // push to activly register scripts
+        $this->scripts( $core_scripts );
+    }
+    
+    /**
      * localize data
      *
      * @since 1.0.0

@@ -229,28 +229,7 @@ abstract class uix{
      */
     public function uix_scripts() {
         // Initilize core scripts
-        $core_scripts = array(
-            'handlebars'    =>  $this->url . 'assets/js/handlebars.min-latest.js',
-            'helpers'       =>  array(
-                'src'           =>  $this->url . 'assets/js/uix-helpers' . $this->debug_scripts . '.js',
-                'depends'       =>  array(
-                    'jquery'
-                )
-            ),
-            'admin'         =>  array(
-                'src'           =>  $this->url . 'assets/js/uix-core' . $this->debug_scripts . '.js',
-                'depends'       =>  array(
-                    'jquery',
-                    'handlebars'
-                )               
-            ),
-            'modals'            =>  array(
-                'src'           =>  $this->url . 'assets/js/uix-modals' . $this->debug_scripts . '.js',
-                'depends'       =>  array(
-                    'jquery'
-                )               
-            )
-        );
+        $core_scripts = array();
 
         /**
          * Filter core UIX scripts
