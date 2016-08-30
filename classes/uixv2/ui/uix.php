@@ -396,12 +396,15 @@ abstract class uix{
      *
      */
     public function set_url(){
-        
+
         $plugins_url = plugins_url();
         $this_url = trim( substr( plugin_dir_url( __FILE__ ), strlen( $plugins_url ) ), '/' );
         
         if( false !== strpos( $this_url, '/') ){
-            $this_url = substr( $this_url, 0, strpos( $this_url, '/') );
+            $url_path = explode('/', $this_url );
+            // generic 3 path depth: classes/namespace/ui|data
+            array_splice( $url_path, count( $url_path ) - 3 );
+            $this_url = implode( '/', $url_path );
         }
         // setup the base URL
         $this->url = trailingslashit( $plugins_url . '/' . $this_url );
