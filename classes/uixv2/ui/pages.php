@@ -138,12 +138,13 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
-     * get page slug
+     * Determin if a UIX [page] should be loaded for this screen
      * @since 0.0.1
      *
-     * @return string|null $slug of current UIX page
+     * @return array|null $slugs registered structure relating to this screen
      */
-    protected function get_page_slug(){
+    protected function locate(){
+
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
             
@@ -154,25 +155,8 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         // get the page slug from base ID
         $this->current_page = array_search( $screen->base, $this->plugin_screen_hook_suffix );
 
-        return $this->current_page;
-    }
+        return array( $this->current_page );
 
-
-    /**
-     * Determin if a UIX [page] should be loaded for this screen
-     * @since 0.0.1
-     *
-     * @return string $slug slug of a registered structure relating to this screen
-     */
-    protected function locate(){
-
-        // get the page slug from base ID
-        $page_slug = $this->get_page_slug();
-        $slugs = array();
-        if( !empty( $page_slug ) ){
-            $slugs[] = $page_slug;
-        }
-        return $slugs;
     }
 
     /**
