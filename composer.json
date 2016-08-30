@@ -15,7 +15,7 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "master",
     "require": {},
     "autoload":{
         "psr-4": {
