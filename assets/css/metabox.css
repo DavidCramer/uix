@@ -8,6 +8,10 @@
 .postbox.uix-metabox .inside {
     padding: 0;
 }
+.postbox.uix-metabox .inside .uix-tab-canvas{
+    display: block;
+    margin: 0;
+}
 .postbox.uix-metabox .handlediv.button-link,
 .postbox.uix-metabox .hndle {  
     display: none;
