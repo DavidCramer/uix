@@ -30,7 +30,7 @@
                     },
                     {
                         expand: true,
-                        cwd: 'classes/',
+                        cwd: 'classes/uixv2/',
                         src: '**',
                         dest: '../classes/<%= pkg.namespace %>/'
                     }
