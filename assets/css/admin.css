@@ -15,7 +15,8 @@
     border-left: 6px solid rgb(195, 0, 40);
 }
 #screen-options-wrap {
-  margin-left: 21px;
+  margin-bottom: -1px;
+  padding-left: 41px;
 }
 #contextual-help-back {
     background: #f4f4f4 none repeat scroll 0 0;
