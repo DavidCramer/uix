@@ -16,10 +16,10 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
-    "autoload":{
+    "autoload": {
         "psr-4": {
           "uixv2\\": "classes/uixv2"
-        }
+        },
+        "files" : [ "uix-bootstrap.php" ]
     }
 }
