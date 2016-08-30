@@ -248,45 +248,6 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
             
         }
     }
-
-    /**
-     * Add defined contextual help to admin page
-     *
-     * @since 1.0.0
-     */
-    public function add_help(){
-        
-
-        $page_slug = $this->get_page_slug();
-
-        if( empty( $page_slug ) ){ return; }
-        $page = $this->get( $page_slug );
-
-        $screen = get_current_screen();
-        
-        foreach( (array) $page['help'] as $help_slug => $help ){
-
-            if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
-                ob_start();
-                include $help['content'];
-                $content = ob_get_clean();
-            }else{
-                $content = $help['content'];
-            }
-
-            $screen->add_help_tab( array(
-                'id'       =>   $help_slug,
-                'title'    =>   $help['title'],
-                'content'  =>   $content
-            ));
-        }
-        
-        // Help sidebars are optional
-        if(!empty( $page['help_sidebar'] ) ){
-            $screen->set_help_sidebar( $page['help_sidebar'] );
-        }
-
-    }
     
     /**
      * fetch UIX object for current admin page

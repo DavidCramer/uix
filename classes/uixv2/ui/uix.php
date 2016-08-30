@@ -485,6 +485,47 @@ abstract class uix{
     }
 
     /**
+     * Add defined contextual help to admin page
+     *
+     * @since 1.0.0
+     */
+    public function add_help(){
+        
+        $slugs = (array) $this->locate();
+
+        if( empty( $slugs ) || count( $slugs ) > 1 ){ return; }
+
+        $uix = $this->get( $slugs[0] ); // help can only be on a single
+        
+        if( empty( $uix ) || empty( $uix['help'] ) ){ return; }
+
+        $screen = get_current_screen();
+        
+        foreach( (array) $uix['help'] as $help_slug => $help ){
+
+            if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
+                ob_start();
+                include $help['content'];
+                $content = ob_get_clean();
+            }else{
+                $content = $help['content'];
+            }
+
+            $screen->add_help_tab( array(
+                'id'       =>   $help_slug,
+                'title'    =>   $help['title'],
+                'content'  =>   $content
+            ));
+        }
+        
+        // Help sidebars are optional
+        if(!empty( $page['help_sidebar'] ) ){
+            $screen->set_help_sidebar( $page['help_sidebar'] );
+        }
+
+    }
+
+    /**
      * get the uix config
      *
      * @since 0.0.1
