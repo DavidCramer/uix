@@ -83,19 +83,28 @@ class ui{
      *
      * @since 1.0.0
      *
-     * @param array|string $args path or array of paths to structures
+     * @param array|string $arr path, or array of paths to structures, or UI type
+     * @param array $struct array of UI structure if $arr is a UI type string
      */
-    public function register( $arr ) {
-    	// convert if string
-    	if( is_string( $arr ) ){
-    		$arr = array( $arr );
-    	}
-    	// determin how the structure works.
-    	foreach( $arr as $key => $value ){
-			if( is_dir( $value ) && !in_array( $value, $this->locations ) ){
-				$this->locations[] = $value;
-			}
-    	}
+    public function register( $arr, array $struct = array() ) {
+        // convert if string
+        if( is_string( $arr ) ){
+            if( !empty( $struct ) ){
+                $init = array( '\uixv2\ui\\' . $arr, 'register' );
+                if( is_callable( $init ) ){
+                    call_user_func_array( $init, array( $struct ) );
+                }
+                return;
+            }else{
+              $arr = array( $arr );
+            }
+        }
+        // determin how the structure works.
+        foreach( $arr as $key => $value ){
+            if( is_dir( $value ) && !in_array( $value, $this->locations ) ){
+                $this->locations[] = $value;
+            }
+        }
     }
 
 }
