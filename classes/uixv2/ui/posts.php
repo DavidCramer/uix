@@ -41,6 +41,27 @@ class posts extends uix{
     }
 
     /**
+     * Define core UIX scripts
+     *
+     * @since 1.0.0
+     *
+     */
+    public function uix_scripts() {
+        // Initilize core scripts
+        $core_scripts = array();
+
+        /**
+         * Filter core UIX scripts
+         *
+         * @param array $core_scripts array of core UIX scripts to be registered
+         */
+        $core_scripts = apply_filters( 'uix_set_core_styles-' . $this->type, $core_scripts );
+
+        // push to activly register scripts
+        $this->scripts( $core_scripts );
+    }
+    
+    /**
      * Register the post type
      *
      * @since 2.0.0
@@ -75,6 +96,27 @@ class posts extends uix{
         // check the screen is valid and is a uix post type page
         if( !is_object( $screen ) || empty( $screen->post_type ) || empty( $this->objects[ $screen->post_type ] ) ){
             return $slugs;
+        }
+        // output the styles
+        $uix = $this->objects[ $screen->post_type ];
+        if( !empty( $uix['base_color'] ) ){
+        ?><style type="text/css">
+            .contextual-help-tabs .active {
+                border-left: 6px solid <?php echo $uix['base_color']; ?> !important;
+            }
+            #wpbody-content .wrap > h1 {
+                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;
+            }
+            #wpbody-content .wrap > h1 a.page-title-action:hover{
+                background: <?php echo $uix['base_color']; ?>;
+                border-color: <?php echo $uix['base_color']; ?>;
+            }
+            #wpbody-content .wrap > h1 a.page-title-action:focus{
+                box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;
+                border-color: <?php echo $uix['base_color']; ?>;
+            }
+        </style>
+        <?php
         }
         // add to active slugs
         $slugs[] = $screen->post_type; 
