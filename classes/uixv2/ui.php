@@ -31,6 +31,10 @@ class ui{
 				'callback'	=> array( '\uixv2\ui\pages', 'register' ),
 				'dir'		=> UIXV2_PATH . 'includes/ui/pages'
 			),
+			'posttypes' => array(
+				'callback'	=> array( '\uixv2\ui\posts', 'register' ),
+				'dir'		=> UIXV2_PATH . 'includes/ui/post-types'
+			),
 			'metaboxes' => array(
 				'callback'	=> array( '\uixv2\ui\metaboxes', 'register' ),
 				'dir'		=> UIXV2_PATH . 'includes/ui/metaboxes'
