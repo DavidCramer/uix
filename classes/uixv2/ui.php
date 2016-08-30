@@ -20,31 +20,10 @@ class ui{
 	/**
 	 * UI constructor
 	 *
-	 * @since 1.0.0
-	 *
+	 * @since 2.0.0
+	 * @param array $locations array of loader locations and callbacks
 	 */
-	public function __construct() {
-
-		// Setup UI locations
-		$locations = array(
-			'pages' => array(
-				'callback'	=> array( '\uixv2\ui\pages', 'register' ),
-				'dir'		=> UIXV2_PATH . 'includes/ui/pages'
-			),
-			'posttypes' => array(
-				'callback'	=> array( '\uixv2\ui\posts', 'register' ),
-				'dir'		=> UIXV2_PATH . 'includes/ui/post-types'
-			),
-			'metaboxes' => array(
-				'callback'	=> array( '\uixv2\ui\metaboxes', 'register' ),
-				'dir'		=> UIXV2_PATH . 'includes/ui/metaboxes'
-			),
-			'shortcodes' => array(
-				'callback'	=> array( '\uixv2\ui\shortcodes', 'register' ),
-				'dir'		=> UIXV2_PATH . 'includes/ui/shortcodes'
-			),
-
-		);
+	public function __construct( array $locations = array() ) {
 
 		/**
 		 * Filter UI loader locations
