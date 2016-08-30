@@ -19,7 +19,7 @@
     "require": {},
     "autoload":{
         "psr-4": {
-          "uixv2\\": "classes"
+          "uixv2\\": "classes/uixv2"
         }
     }
 }
