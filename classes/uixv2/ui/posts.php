@@ -33,6 +33,15 @@ class posts extends uix{
      *
      */
     protected function actions() {
+        
+        $pages_styles = array(
+            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
+            'icons'     =>  $this->url . 'assets/css/icons' . $this->debug_styles . '.css',         
+            'grid'      =>  $this->url . 'assets/css/grid' . $this->debug_styles . '.css',
+            'controls'  =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
+        );
+        $this->styles( $pages_styles );
+
         // run parent actions ( keep 'admin_head' hook )
         parent::actions();
         // add settings page
@@ -41,24 +50,20 @@ class posts extends uix{
     }
 
     /**
-     * Define core UIX scripts
+     * Define core UIX styles
      *
      * @since 1.0.0
      *
      */
-    public function uix_scripts() {
-        // Initilize core scripts
-        $core_scripts = array();
+    public function uix_styles() {
+        
+        $pages_styles = array(
+            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
+        );
+        $this->styles( $pages_styles );
 
-        /**
-         * Filter core UIX scripts
-         *
-         * @param array $core_scripts array of core UIX scripts to be registered
-         */
-        $core_scripts = apply_filters( 'uix_set_core_styles-' . $this->type, $core_scripts );
+        parent::uix_styles();
 
-        // push to activly register scripts
-        $this->scripts( $core_scripts );
     }
     
     /**
@@ -68,15 +73,24 @@ class posts extends uix{
      * @access public
      */
     public function register_post_type() {
-
-        foreach( (array) $this->objects as $post_type => $args ){
-            if( !empty( $args['post_type'] ) ){
-                register_post_type( $post_type, $args['post_type'] );
-            }
+        $slugs = array_keys( $this->objects );
+        foreach( $slugs as $type ){
+            $this->render( $type );
         }
-
     }
 
+    /**
+     * Render the post type
+     *
+     * @since 2.0.0
+     * @access public
+     */
+    public function render( $slug ) {
+        $uix = $this->get( $slug );
+        if( !empty( $uix['post_type'] ) ){
+            register_post_type( $slug, $uix['post_type'] );
+        }
+    }
 
     /**
      * Determin if a UIX object should be loaded for this screen
@@ -115,7 +129,7 @@ class posts extends uix{
         <?php
         }
         // add to active slugs
-        $slugs[] = $screen->post_type; 
+        $slugs[] = $screen->post_type;
         return $slugs;
     }
 

@@ -60,6 +60,26 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
+     * Define core UIX styles
+     *
+     * @since 1.0.0
+     *
+     */
+    public function uix_styles() {
+        
+        $pages_styles = array(
+            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
+            'icons'     =>  $this->url . 'assets/css/icons' . $this->debug_styles . '.css',         
+            'grid'      =>  $this->url . 'assets/css/grid' . $this->debug_styles . '.css',
+            'controls'  =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
+        );
+        $this->styles( $pages_styles );
+
+        parent::uix_styles();
+
+    }
+
+    /**
      * Saves a config
      *
      * @uses "wp_ajax_uix_save_config" hook
@@ -234,24 +254,24 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
     
     /**
-     * fetch UIX object for current admin page
-     *
-     * @since 0.0.1
-     */
-    protected function get_page(){
-            
-        return $this->get( $this->current_page );
-
-    }
-
-    /**
      * Options page callback
      *
      * @since 0.0.1
      */
     public function create_admin_page(){
 
-        $uix = $this->get_page();
+        $this->render( $this->current_page );
+
+    }
+
+    /**
+     * render page
+     *
+     * @since 0.0.1
+     */
+    public function render( $slug ){
+        
+        $uix = $this->get( $slug );
 
         if( !empty( $uix['base_color'] ) ){
         ?><style type="text/css">

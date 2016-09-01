@@ -1,19 +1,199 @@
-.postbox.uix-metabox {
-    background: transparent none repeat scroll 0 0;
-    border: 0 none;
+.uix-metabox-inside {
+  background-color: #fff;
+overflow: hidden;
+}
+
+.uix-metabox .uix-has-tabs {
+  box-shadow: 180px 0 0 #fcfcfc inset;
+}
+#side-sortables .uix-metabox .uix-has-tabs{
     box-shadow: none;
-    margin: 0 0 20px 0;
+}
+.uix-metabox-tabs {
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 180px;
+  background-color: #f6f6f6;
+}
+.uix-metabox-tabs > li:hover {
+  background: rgba(255, 255, 255, 0.3) none repeat scroll 0 0;
+}
+#side-sortables .uix-metabox-tabs {
+  display: table;
+  width: 100%;
+  float: none;
+}
+.uix-metabox-tabs li {
+  display: block;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+#side-sortables .uix-metabox-tabs li {
+  display: table-cell;
+  text-align: center;
+  border-right: 1px solid #eee;
+}
+.uix-metabox-tabs li[aria-selected="true"]{
+}
+#side-sortables .uix-metabox-tabs > li:last-child {
+    border-right: 0;
+}
+.uix-metabox-tabs li a {
+  border-bottom: 1px solid #eee;
+  color: #555;
+  box-shadow: none;
+  display: block;
+  line-height: 20px !important;
+  margin: 0;
+  padding: 10px;
+  text-decoration: none;
+}
+#side-sortables .uix-metabox-tabs li a {
+    background-color: #f6f6f6;
+}
+.uix-metabox-tabs > li:last-child a {
+  margin-bottom: -1px;
+}
+.uix-metabox-tabs li[aria-selected="true"] a {
+  background-color: #fff;
+  color: #555;
+  font-weight: 600;
+  position: relative;
+  box-shadow: 3px 0 0 #ccc inset;
+}
+#side-sortables .uix-metabox-tabs li[aria-selected="true"] a {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  box-shadow: 0 3px 0 #ccc inset;
+}
+
+
+#side-sortables .uix-metabox-tabs .label {
+  height: 1px;
+  left: -1000em;
+  overflow: hidden;
+  position: absolute;
+  top: -1000em;
+  width: 1px;
+}
+
+
+.uix-metabox-tabs .dashicons {
+  line-height: 20px;
+  margin-right: 3px;
+}
+.uix-metabox-sections {
+  border-left: 1px solid #eee;
+  float: left;
+  margin-left: -1px;
+  width: calc(100% - 181px);
+}
+#side-sortables .uix-metabox-sections{
+    float: none;
+    width: 100%;
+    border: none;
+}
+.uix-has-tabs .uix-metabox-section {
+  display: none;
+}
+.uix-has-tabs .uix-metabox-section[aria-hidden="false"] {
+  display: block;
+}
+.uix-metabox-section > h3 {
+
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 10px 12px;
+}
+.uix-metabox-section-content{
+    padding: 8px 12px 8px;
+}
+
+.uix-metabox .inside {
+  margin: 0 !important;
+  padding: 0;
+}
+.postbox.uix-chromeless {
+  background: transparent none repeat scroll 0 0;
+  border: 0 none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.uix-chromeless .uix-metabox-inside{
+    border: 1px solid #e6e6e6;
+}
+.postbox.uix-chromeless .inside {
     padding: 0;
 }
-.postbox.uix-metabox .inside {
-    padding: 0;
+
+
+@media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
+    .uix-metabox-tabs { width: 48px; }
+
+    .uix-metabox-tabs .dashicons {
+        width:       24px;
+        height:      24px;
+        font-size:   24px;
+        line-height: 24px;
+        margin:      0;
+    }
+    .uix-metabox-tabs a {
+        text-align: center;
+    }
+
+    .uix-metabox-tabs .dashicons::before {
+        width:  24px;
+        height: 24px;
+    }
+
+    .uix-metabox-tabs .label {
+        overflow: hidden;
+        position: absolute;
+        top:      -1000em;
+        left:     -1000em;
+        width:    1px;
+        height:   1px;
+    }
 }
-.postbox.uix-metabox .inside .uix-tab-canvas{
+
+
+.uix-control {
+  margin-bottom: 21px;
+}
+.uix-control-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.uix-control-description {
+  color: #808080;
+  display: block;
+  font-style: oblique;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.postbox.uix-chromeless .inside .uix-tab-canvas{
     display: block;
     margin: 0;
 }
-.postbox.uix-metabox .handlediv.button-link,
-.postbox.uix-metabox .hndle {  
+.postbox.uix-chromeless .handlediv.button-link,
+.postbox.uix-chromeless .hndle {  
     display: none;
 }
 .uix-backdrop {

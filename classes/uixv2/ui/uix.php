@@ -161,7 +161,7 @@ abstract class uix{
      */
     protected function actions() {
         // init UIX headers
-        add_action( 'admin_head', array( $this, 'init' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'init' ) );
         // queue helps
         add_action( 'admin_head', array( $this, 'add_help' ) );        
     }
@@ -202,12 +202,7 @@ abstract class uix{
      */
     public function uix_styles() {
         // Initilize core styles
-        $core_styles = array(
-            'styles'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
-            'icons'     =>  $this->url . 'assets/css/icons' . $this->debug_styles . '.css',         
-            'grid'      =>  $this->url . 'assets/css/grid' . $this->debug_styles . '.css',
-            'controls'  =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
-        );
+        $core_styles = array();
 
         /**
          * Filter core UIX styles
@@ -301,8 +296,10 @@ abstract class uix{
          *
          * @param array $objects array of UIX object structures to be registered
          */
-        $this->objects = apply_filters( 'uix_register_objects-' . $this->type, $objects );
+        $objects = apply_filters( 'uix_register_objects-' . $this->type, $objects );
 
+        // add to array
+        $this->objects = array_merge( $this->objects, $objects );
         
     }
 
@@ -331,7 +328,6 @@ abstract class uix{
         );
         // enqueue core scripts and styles
         $this->enqueue( $assets, $this->type );
-
         // setup active objects structures
         $this->set_active_objects();
 
@@ -379,7 +375,7 @@ abstract class uix{
     public function set_url(){
 
         $plugins_url = plugins_url();
-        $this_url = trim( substr( plugin_dir_url( __FILE__ ), strlen( $plugins_url ) ), '/' );
+        $this_url = trim( substr( trailingslashit( plugin_dir_url(  __FILE__ ) ), strlen( $plugins_url ) ), '/' );
         
         if( false !== strpos( $this_url, '/') ){
             $url_path = explode('/', $this_url );
@@ -514,7 +510,7 @@ abstract class uix{
      *
      * @return array|null $uix array structure of current uix point or null if invalid
      */
-    protected function get( $slug ){
+    public function get( $slug ){
 
         $uix = null;
 
@@ -534,5 +530,14 @@ abstract class uix{
 
     }
 
+    /**
+     * Render the UIX object
+     *
+     * @since 0.0.1
+     * @param array $slug registered UIX slug to render
+     *
+     * @return string|null $html of rendered object or null for non visible renders
+     */
+    abstract public function render( $slug );
 
 }

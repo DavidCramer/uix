@@ -27,13 +27,22 @@ class ui{
      */
     protected $locations = array();
 
+    /**
+     * Holds instance
+     *
+     * @since 1.0.0
+     *
+     * @var      object/UI
+     */
+    protected static $instance = null;
+
 	/**
 	 * UI constructor
 	 *
 	 * @since 2.0.0
 	 * @param array $locations array of loader locations and callbacks
 	 */
-	public function __construct() {
+	public function auto_load() {
 
 		/**
 		 * do UI loader locations
@@ -52,24 +61,23 @@ class ui{
 
 					if ( is_dir( $location . '/' . $folder ) ) {
 						$fid = @ opendir( $location . '/' . $folder );
-						if ( $fid ) {
-							$init = array( '\uixv2\ui\\' . $folder, 'register' );
-							if( !is_callable( $init ) ){
-								continue;
-							}
-							$structures = array();
-							while( ( $file = readdir( $fid ) ) !== false ) {
-								if( is_file( $location . '/' . $folder . '/' . $file ) ){
-									$is_struct = include $location . '/' . $folder . '/' . $file;
-									if( is_array( $is_struct ) ){
-										$structures = array_merge( $structures, $is_struct );
-									}
-								}
-							}
-							if( !empty( $structures ) ){
-								call_user_func_array( $init, array( $structures ) );
-							}
-						}
+                        if ( $fid ) {
+                            $init = $this->get_register_function( $folder );
+                            if( null === $init ){ continue; }
+
+                            $structures = array();
+                            while( ( $file = readdir( $fid ) ) !== false ) {
+                                if( is_file( $location . '/' . $folder . '/' . $file ) ){
+                                    $is_struct = include $location . '/' . $folder . '/' . $file;
+                                    if( is_array( $is_struct ) ){
+                                        $structures = array_merge( $structures, $is_struct );
+                                    }
+                                }
+                            }
+                            if( !empty( $structures ) ){
+                                $this->register( $folder, $structures );
+                            }
+                        }
 					}
 				}
 				@closedir( $uid );
@@ -77,6 +85,61 @@ class ui{
 		}
 	}
 
+    /**
+     * loads a structure object
+     *
+     * @since 1.0.0
+     *
+     * @return    object|\pmts\    A single instance
+     */
+    public function load( $type, $structures ) {
+        $init = $this->get_register_function( $type );
+        if( null !== $init ){
+            $path = explode('\\', $type );
+            $type = array_shift( $path );
+            $object = call_user_func( $init, $structures );
+
+            if( !empty( $path[0] ) ){
+                $this->{$type}[$path[0]] = $object;
+            }else{
+                $this->{$type} = $object;
+            }
+        }
+    }
+
+    /**
+     * Return an instance of this class.
+     *
+     * @since 1.0.0
+     *
+     * @return    object|\pmts\    A single instance
+     */
+    public function get_register_function( $type ) {
+        $init = array( '\uixv2\ui\\' . $type, 'register' );
+        if( !is_callable( $init ) ){
+            return null;
+        }
+        return $init;
+    }
+
+
+    /**
+     * Return an instance of this class.
+     *
+     * @since 1.0.0
+     *
+     * @return    object|\pmts\    A single instance
+     */
+    public static function get_instance() {
+
+        // If the single instance hasn't been set, set it now.
+        if ( ! isset( self::$instance ) ) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+
+    }
 
     /**
      * Register the UIX objects
@@ -90,10 +153,7 @@ class ui{
         // convert if string
         if( is_string( $arr ) ){
             if( !empty( $struct ) ){
-                $init = array( '\uixv2\ui\\' . $arr, 'register' );
-                if( is_callable( $init ) ){
-                    call_user_func_array( $init, array( $struct ) );
-                }
+                $this->load( $arr, $struct );
                 return;
             }else{
               $arr = array( $arr );
