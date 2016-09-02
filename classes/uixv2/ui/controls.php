@@ -168,7 +168,7 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
                 <?php if( !empty( $control['label'] ) ){ ?>
                     <span class="uix-control-label"><?php echo esc_html( $control['label'] ); ?></span>
                 <?php } ?>
-                <input type="text" class="widefat" name="<?php echo esc_attr( $this->name( $slug ) ); ?>" value="<?php echo esc_attr( $value ); ?>">
+                <input type="text" class="widefat" name="<?php echo esc_attr( $this->name( $slug ) ); ?>" value="<?php echo esc_attr( $value ); ?>"<?php if( !empty( $control['required'] ) ){ echo ' required="required"'; } ?>>
                 <?php if( !empty( $control['description'] ) ){ ?>
                     <span class="uix-control-description"><?php echo esc_html( $control['description'] ); ?></span>
                 <?php } ?>
