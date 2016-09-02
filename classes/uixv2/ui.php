@@ -36,32 +36,32 @@ class ui{
      */
     protected static $instance = null;
 
-	/**
-	 * UI structure auto load
-	 *
-	 * @since 2.0.0
+    /**
+     * UI structure auto load
      *
-	 * @param array $locations array of loader locations and callbacks
-	 */
-	public function auto_load() {
+     * @since 2.0.0
+     *
+     * @param array $locations array of loader locations and callbacks
+     */
+    public function auto_load() {
 
-		/**
-		 * do UI loader locations
-		 *
-		 * @param uixv2/ui $current UI object
-		 */
-		do_action( 'uixv2_register', $this );
+        /**
+         * do UI loader locations
+         *
+         * @param uixv2/ui $current UI object
+         */
+        do_action( 'uixv2_register', $this );
 
-		// go over each locations
-		foreach( $this->locations as $location ){
-			$uid = @ opendir( $location );
-			if ( $uid ) {
-				while( ( $folder = readdir( $uid ) ) !== false ) {
-					if ( substr( $folder, 0, 1) == '.' )
-						continue;
+        // go over each locations
+        foreach( $this->locations as $location ){
+            $uid = @ opendir( $location );
+            if ( $uid ) {
+                while( ( $folder = readdir( $uid ) ) !== false ) {
+                    if ( substr( $folder, 0, 1) == '.' )
+                        continue;
 
-					if ( is_dir( $location . '/' . $folder ) ) {
-						$fid = @ opendir( $location . '/' . $folder );
+                    if ( is_dir( $location . '/' . $folder ) ) {
+                        $fid = @ opendir( $location . '/' . $folder );
                         if ( $fid ) {
                             $init = $this->get_register_function( $folder );
                             if( null === $init ){ continue; }
@@ -84,12 +84,12 @@ class ui{
                                 $this->register( $folder, $structures );
                             }
                         }
-					}
-				}
-				@closedir( $uid );
-			}
-		}
-	}
+                    }
+                }
+                @closedir( $uid );
+            }
+        }
+    }
 
     /**
      * loads a structure object
