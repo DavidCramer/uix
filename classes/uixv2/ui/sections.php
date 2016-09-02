@@ -26,14 +26,6 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
      */
     protected $type = 'section';
 
-    /**
-     * controlls for this section
-     *
-     * @since 1.0.0
-     *
-     * @var      uix/controls
-     */
-    protected $controls;
 
     /**
      * Register the UIX objects
@@ -69,6 +61,7 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
     public function render( $slug ){
         
         $section = $this->get( $slug );
+        $data = $this->get_data( $slug );
 
         if( empty( $section['controls'] ) && empty( $section['template'] ) ){ continue; }
         
@@ -92,6 +85,7 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
                 }else{
                     foreach ( $section['controls'] as $control_slug => $control ) {
                         if( isset( uixv2()->control[ $control['type'] ] ) ){
+
                             uixv2()->control[ $control['type'] ]->render( $control_slug );
                         }
                     }
@@ -124,8 +118,17 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
      * @return array of data
      */
     public function get_data( $slug ){
-
+        $section = $this->get( $slug );
+        $data = array();
+        if( !empty( $section['controls'] ) ){
+            foreach( $section['controls'] as $control_id => $control) {
+                $data[ $control_id ] = uixv2()->control[ $control['type'] ]->get_data( $control_id );
+            }
+        }
+        
+        return $data;
     }
+
 
     /**
      * save data
@@ -149,5 +152,23 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
             uixv2()->control[ $control['type'] ]->save_data( $control_id, $value );
         }
     }    
+
+    /**
+     * sets the active objects structures
+     *
+     * @since 1.0.0
+     *
+     */
+    public function set_active( $slug ){
+        if( !in_array( $slug, $this->active_slugs ) ){
+            $section = $this->get( $slug );
+            if( !empty( $section['controls'] ) ){
+                foreach( $section['controls'] as $control_id => $control ) {
+                    uixv2()->control[ $control['type'] ]->set_active( $control_id );
+                }
+            }
+            $this->active_slugs[] = $slug;
+        }
+    }
 
 }

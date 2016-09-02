@@ -45,15 +45,6 @@ abstract class uix{
     protected $active_slugs = array();
 
     /**
-     * active objects
-     *
-     * @since 1.0.0
-     *
-     * @var      array
-     */
-    protected $active_objects = array();
-
-    /**
      * Base URL of this class
      *
      * @since 1.0.0
@@ -312,14 +303,11 @@ abstract class uix{
     public function init() {
 
         // attempt to get a config
-        $slugs = $this->locate();
+        $this->locate();
 
-        if( empty( $slugs ) ){
+        if( empty( $this->active_slugs ) ){
             return;
         }
-
-        // set active
-        $this->active_slugs = (array) $slugs;
 
         // enqueue core scripts and styles
         $assets = array(
@@ -328,8 +316,6 @@ abstract class uix{
         );
         // enqueue core scripts and styles
         $this->enqueue( $assets, $this->type );
-        // setup active objects structures
-        $this->set_active_objects();
 
         // enque active objects assets
         $this->enqueue_active_assets();
@@ -341,13 +327,9 @@ abstract class uix{
      * @since 1.0.0
      *
      */
-    protected function set_active_objects(){
-        // build internal structures of active objects
-        foreach( (array) $this->active_slugs as $slug ){
-            $this->active_objects[ $slug ] = array(
-                'structure' => $this->get( $slug )
-            );
-        }
+    public function set_active( $slug ){        
+        if( !in_array( $slug, $this->active_slugs ) )
+            $this->active_slugs[] = $slug;
 
     }
 
@@ -360,9 +342,9 @@ abstract class uix{
      */
     protected function enqueue_active_assets(){
         // enque active slugs assets
-        foreach( (array) $this->active_objects as $slug => $object ){
+        foreach( (array) $this->active_slugs as $slug ){
             // enqueue stlyes and scripts
-            $this->enqueue( $object['structure'], $this->type . '-' . $slug );
+            $this->enqueue( $this->get( $slug ), $this->type . '-' . $slug );
         }
     }
 
@@ -446,19 +428,15 @@ abstract class uix{
      * @return array $array of slugs of a registered structures relating to this screen
      */
     protected function locate(){
-
-        $slugs = array();
-        
+      
         // default is to use a GET['uix']
         if( isset( $_GET['uix'] ) ){
             foreach( (array) $_GET['uix'] as $uix_slug ) {
                 if( !empty( $this->objects[ strip_tags( $uix_slug ) ] ) ){
-                    $slugs[] = strip_tags( $uix_slug );
+                    $this->set_active( strip_tags( $uix_slug ) );
                 }
             }
         }
-        
-        return $slugs;
     }
 
     /**

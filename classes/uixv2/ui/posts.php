@@ -101,11 +101,10 @@ class posts extends uix{
      */
     protected function locate(){
 
-        $slugs = array();
         $screen = get_current_screen();
         // check the screen is valid and is a uix post type page
         if( !is_object( $screen ) || empty( $screen->post_type ) || empty( $this->objects[ $screen->post_type ] ) ){
-            return $slugs;
+            return;
         }
         // output the styles
         $uix = $this->objects[ $screen->post_type ];
@@ -129,8 +128,7 @@ class posts extends uix{
         <?php
         }
         // add to active slugs
-        $slugs[] = $screen->post_type;
-        return $slugs;
+        $this->set_active( $screen->post_type );
     }
 
 }

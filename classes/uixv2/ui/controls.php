@@ -13,53 +13,32 @@ namespace uixv2\ui;
 /**
  * UIX Control class.
  *
- * @since 2.0.0
+ * @since       2.0.0
  */
 class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
 
     /**
      * The type of object
      *
-     * @since 1.0.0
+     * @since       2.0.0
      *
-     * @var      string
+     * @var         string
      */
     protected $type = 'control';
 
     /**
-     * Holds the current post object
+     * Temporary hold the control values
      *
-     * @since 1.0.0
+     * @since   2.0.0
      *
-     * @var      object|WP_Post
+     * @var     array
      */
-    public $post = null;
-
-    /**
-     * Holds the current active control
-     *
-     * @since 1.0.0
-     *
-     * @var      string
-     */
-    public $current_active = null;
-
-    /**
-     * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
-     *
-     * @since 1.0.0
-     *
-     */
-    public function init() {
-        global $post;
-        $this->post = $post;
-        parent::init();
-    }    
+    protected $data = array();
 
     /**
      * Register the UIX objects
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @param array $objects object structure array
      */
@@ -67,10 +46,9 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
 
         parent::set_objects( $objects );
 
-
         foreach( $objects as $slug=>$object ){
             if( !empty( $object['sanitize_callback'] ) ){
-               // var_dump( uixv2() );//->metaboxes->get_section( $object['section'] ) );
+                add_filter( 'uix_' . $object['section'] . '_sanitize_' . $slug, $object['sanitize_callback'] );
             }
         }
 
@@ -78,7 +56,7 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
 
     /**
      * get the objects data store key
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @return string $store_key the defined option name for this UIX object
      */
@@ -89,7 +67,7 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     /**
      * Get control name
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @param string $slug
      * @return array of data
@@ -103,7 +81,7 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     /**
      * Get control ID
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @param string $slug
      * @return array of data
@@ -118,44 +96,45 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     /**
      * Get data
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @param string $slug
      * @return array of data
      */
     public function get_data( $slug ){
         
+        // get store key
+        $store_key = $this->store_key( $slug );
         $control = $this->get( $slug );
-        $value = get_post_meta( $this->post->ID, $slug );
-        if( empty( $value ) ){
-            if( isset( $control['value'] ) ){
-                $value[] = $control['value'];
-            }else{
-                $value[] = null;
-            }
-        }
+        // if data was recently set, return it
+        if( isset( $this->data[ $slug ] ) )
+            return $this->data[ $slug ];
+        // has data been submitted
+        $value = null;
 
-        return $value[0];
+        if( isset( $_POST['uix'][ $control['section'] ][ $store_key ] ) ){
+            $value = $_POST['uix'][ $control['section'] ][ $store_key ];
+        }else{
+            if( isset( $control['value'] ) )
+                $value = $control['value'];
+        }
+        return $this->sanitize( $slug, $value );
     }
 
     /**
      * save data
      *
-     * @since 1.0.0
+     * @since 2.0.0
      * @param string $slug slug of the object
      * @param array $data array of data to be saved
      *
-     * @return bool true on successful save
      */
     public function save_data( $slug, $data ){
 
-        $meta_key = $this->store_key( $slug );
+        $store_key = $this->store_key( $slug );
         $data = $this->sanitize( $slug, $data );
-        if( null === $data ){
-            delete_post_meta( $this->post->ID, $meta_key );
-        }else{
-            update_post_meta( $this->post->ID, $meta_key, $data );
-        }
+
+        $this->data[ $store_key ] = $data;
     }
 
     /**
@@ -169,19 +148,14 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
      */
     public function sanitize( $slug, $data ){
         $control = $this->get( $slug );
-        if( !empty( $control['sanitize_callback'] ) ){
-            if( is_callable( $control['sanitize_callback'] ) ){
-                return call_user_func( $control['sanitize_callback'], $data );
-            }
-        }
-        return $data;
+
+        return apply_filters( 'uix_' . $control['section'] . '_sanitize_' . $slug, $data );
     }
     
 
     public function render( $slug ){
         $control = $this->get( $slug );
-        $value = $this->get_data( $slug );
-
+        $value = $this->get_data( $slug );        
         ?>
         <div id="control-<?php echo esc_attr( $slug ); ?>" class="uix-control uix-control-<?php echo esc_attr( $control['type'] ); ?>">
             <label>
@@ -195,20 +169,6 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
             </label>
         </div>
         <?php
-    }
-
-    /**
-     * Get data
-     *
-     * @since 1.0.0
-     *
-     * @param string $slug
-     * @return array of data
-     */
-    public function get( $slug ){
-        global $post;
-        $this->post = $post;
-        return parent::get( $slug );
     }
 
 }

@@ -68,7 +68,12 @@ class ui{
                             $structures = array();
                             while( ( $file = readdir( $fid ) ) !== false ) {
                                 if( is_file( $location . '/' . $folder . '/' . $file ) ){
-                                    $is_struct = include $location . '/' . $folder . '/' . $file;
+                                    if( false !== strpos( $file, '.json' ) ){
+                                        $json = file_get_contents( $location . '/' . $folder . '/' . $file );
+                                        $is_struct = json_decode( $json, ARRAY_A );
+                                    }else{
+                                        $is_struct = include $location . '/' . $folder . '/' . $file;
+                                    }
                                     if( is_array( $is_struct ) ){
                                         $structures = array_merge( $structures, $is_struct );
                                     }

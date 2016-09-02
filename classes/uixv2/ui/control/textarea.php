@@ -17,26 +17,6 @@ namespace uixv2\ui\control;
  */
 class textarea extends \uixv2\ui\controls{
 
-    /**
-     * sanitize data
-     *
-     * @since 1.0.0
-     * @param string $slug slug of the object
-     * @param array $data array of data to be saved
-     *
-     * @return string $data sanitized data string
-     */
-    public function sanitize( $slug, $data ){
-        $control = $this->get( $slug );
-        if( !empty( $control['sanitize_callback'] ) ){
-            if( is_callable( $control['sanitize_callback'] ) ){
-                return call_user_func( $control['sanitize_callback'], $data );
-            }
-        }
-        return sanitize_textare( $data );
-    }
-
-
     public function render( $slug ){
         $control = $this->get( $slug );
         $value = $this->get_data( $slug );

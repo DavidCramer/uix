@@ -15,7 +15,7 @@ namespace uixv2\ui;
  * @package uixv2\ui
  * @author  David Cramer
  */
-class metaboxes extends uix implements \uixv2\data\load {
+class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
 
     /**
      * The type of object
@@ -73,7 +73,7 @@ class metaboxes extends uix implements \uixv2\data\load {
         // add metaboxes
         add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );
         // save metabox
-        add_action( 'save_post', array( $this, 'prep_meta' ), 10, 2 );
+        add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
     }
 
     /**
@@ -107,9 +107,9 @@ class metaboxes extends uix implements \uixv2\data\load {
      */
     public function add_metaboxes(){
 
-        $slugs = $this->locate();
+        $this->locate();
 
-        if( empty( $slugs ) ){
+        if( empty( $this->active_slugs ) ){
             return;
         }
         // Add metabox style
@@ -130,7 +130,7 @@ class metaboxes extends uix implements \uixv2\data\load {
             'context' => 'advanced',
             'priority' => 'default',
         );
-        foreach( (array) $slugs as $metabox_slug ){
+        foreach( (array) $this->active_slugs as $metabox_slug ){
 
             $object = $this->get( $metabox_slug );
                         
@@ -158,6 +158,10 @@ class metaboxes extends uix implements \uixv2\data\load {
     public function create_metabox( $post, $metabox ){
 
         $slug = $metabox['id'];
+        $uix = $this->get( $slug );
+        
+        $this->set_data( $slug, $post );
+
         $this->render( $slug );
 
     }
@@ -207,13 +211,6 @@ class metaboxes extends uix implements \uixv2\data\load {
                 jQuery('#<?php echo $slug; ?>').addClass('uix-chromeless');
             <?php } ?>
             jQuery('#<?php echo $slug; ?>').addClass('uix-metabox');
-
-            jQuery( document ).on('submit', '#post', function( e ){
-                
-                var uix_config = conduitPrepObject( '<?php echo $slug; ?>' );
-                jQuery('#uix_<?php echo $slug; ?>').val( JSON.stringify( uix_config.<?php echo $slug; ?> ) );
-                
-            });
         </script>        
         <?php
         
@@ -228,7 +225,6 @@ class metaboxes extends uix implements \uixv2\data\load {
     public function build_metabox( $slug ){    
         
         $metabox = $this->get( $slug );
-
         if( count( $metabox['sections'] ) > 1 ){
             echo '<div class="uix-metabox-inside uix-has-tabs">';
                 echo '<ul class="uix-metabox-tabs">';
@@ -266,12 +262,21 @@ class metaboxes extends uix implements \uixv2\data\load {
      * @since 0.0.1
      * @param uix/section $sections of the metabox
      */    
-    public function sections( $slug ){
-        
-        $uix = $this->get( $slug );
-        if( empty( $uix['sections'] ) ){ return null;}
-        
-        return $uix['sections'];
+    public function set_data( $slug, $post ){
+
+        $metabox = $this->get( $slug );
+        $data = array();
+        if( !empty( $metabox['sections'] ) ){
+            foreach( $metabox['sections'] as $section_id => $section ){
+                if( !empty( $section['controls'] ) ){
+                    foreach( $section['controls'] as $control_id => $control ) {
+                        $store_key = uixv2()->control[ $control['type'] ]->store_key( $control_id );
+                        $data = get_post_meta( $post->ID, $store_key, true );
+                        uixv2()->control[ $control['type'] ]->save_data( $control_id, $data );
+                    }
+                }
+            }
+        }
 
     }
 
@@ -282,30 +287,53 @@ class metaboxes extends uix implements \uixv2\data\load {
      *
      * @since 0.0.1
      */
-    public function prep_meta( $post_id, $post ){
+    public function save_meta( $post_id, $post ){
         $this->post = $post;
-        $slugs = $this->locate();
-        if( empty( $slugs ) || empty( $_POST['uix_control'] ) ){
+        $this->locate();
+        if( empty( $this->active_slugs ) || empty( $_POST['uix'] ) ){
             return;
         }
-        
-        $post_data = $_POST['uix'];
 
-        foreach ($slugs as $slug) {
+        foreach ( $this->active_slugs as $slug) {            
             $uix = $this->get( $slug );
-            if( empty( $uix['sections'] ) ){ continue; }
-
+            $meta_data = $this->get_sections_data( $slug );
             foreach( $uix['sections'] as $section_id=>$section ){
-                $data = null;
-                if( isset( $post_data[ $section_id ] ) ){
-                    $data = $post_data[ $section_id ];
+                if( !isset( $meta_data[ $section_id ] ) ){ continue; }
+                
+                $data = $meta_data[ $section_id ];
+                foreach( $data as $meta_key=>$meta_value ){
+
+                    $this->save_data( $meta_key, $meta_value );
+
                 }
-                uixv2()->sections->save_data( $section_id, $data );
+
             }
 
         }
 
     }
+
+    /**
+     * save data
+     *
+     * @since 1.0.0
+     * @param string $slug slug of the object
+     * @param array $data array of data to be saved
+     *
+     * @return bool true on successful save
+     */
+    public function save_data( $slug, $data ){
+
+        $prev = get_post_meta( $this->post->ID, $slug, true );
+
+        if ( null === $data && $prev ){
+            delete_post_meta( $this->post->ID, $slug );
+        }elseif ( $data !== $prev ) {
+            update_post_meta( $this->post->ID, $slug, $data );
+        }    
+
+    }
+
 
     /**
      * get the objects data store key
@@ -314,7 +342,7 @@ class metaboxes extends uix implements \uixv2\data\load {
      * @return string $store_key the defined option name for this UIX object
      */
     public function store_key( $slug ){
-
+        return sanitize_key( $slug );
     }
 
     /**
@@ -323,20 +351,11 @@ class metaboxes extends uix implements \uixv2\data\load {
      *
      * @return mixed $data the saved data fro the specific UIX object
      */
-    public function get_data( $slug, $post_id = null ){
+    public function get_data( $slug ){
 
-        if( $post_id === null ){
-            global $post;
-            if( empty( $post ) ){ return null; }
-            $post_id = $post->ID;
-        }
-        
-        $uix = $this->get( $slug );
+        $store_key = $this->store_key( $slug );
 
-        // get config object
-        $config_object = array(
-            $slug => get_post_meta( $post_id, $this->store_key( $slug ), true )
-        );
+        $data = $this->get_sections_data( $slug );
 
         /**
          * Filter config object
@@ -345,9 +364,46 @@ class metaboxes extends uix implements \uixv2\data\load {
          * @param array $uix the UIX structure
          * @param array $slug the UIX object slug
          */
-        return apply_filters( 'uix_data-' . $this->type, $config_object, $uix, $slug );     
+        return apply_filters( 'uix_data-' . $this->type, $data, $slug );
 
     }
+
+    /**
+     * Get data for a section
+     * @since 1.0.0
+     *
+     */
+    public function get_sections_data( $slug ){
+        
+        $metabox = $this->get( $slug );
+        $data = array();
+        if( !empty( $metabox['sections'] ) ){
+            foreach( $metabox['sections'] as $section_id => $section ){
+                $data[ $section_id ] = uixv2()->sections->get_data( $section_id );
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * sets the active objects structures
+     *
+     * @since 1.0.0
+     *
+     */
+    public function set_active( $slug ){
+        if( !in_array( $slug, $this->active_slugs ) ){
+            $metabox = $this->get( $slug );
+            if( !empty( $metabox['sections'] ) ){
+                $sections = array_keys( $metabox['sections'] );
+                foreach( $sections as $section_id ) {
+                    uixv2()->sections->set_active( $section_id );
+                }
+            }
+            $this->active_slugs[] = $slug;
+        }
+    }
+
     /**
      * Determin if a UIX object should be loaded for this screen
      * Intended to be ovveridden
@@ -362,7 +418,7 @@ class metaboxes extends uix implements \uixv2\data\load {
             // post already loaded just find slugs that match this type
             foreach( (array) $this->objects as $slug=>$object ) {
                 if( empty( $object['screen'] ) || in_array( $this->post->post_type, (array) $object['screen'] ) ){
-                    $slugs[] = $slug;
+                    $this->set_active( $slug );
                 }
             }
 
@@ -372,20 +428,17 @@ class metaboxes extends uix implements \uixv2\data\load {
                 // check that the screen object is valid to be safe.
                 $screen = get_current_screen();
                 if( empty( $screen ) || !is_object( $screen ) || $screen->base !== 'post' ){
-                    return $slugs;
+                    return;
                 }
 
                 foreach( (array) $this->objects as $slug=>$object ) {
                     if( !empty( $screen->post_type ) && ( empty( $object['screen'] ) || ( is_array( $object['screen'] ) && in_array( $screen->id, $object['screen'] ) ) ) ){
-                        $slugs[] = strip_tags( $slug );
+                        $this->set_active( strip_tags( $slug ) );
                     }
                 }
                 // set current post
                 $this->post = $post;
             }
         }        
-        
-
-        return $slugs;
     }
 }

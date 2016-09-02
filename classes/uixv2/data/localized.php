@@ -17,8 +17,16 @@ namespace uixv2\data;
  */
 abstract class localized extends \uixv2\ui\uix implements load{
 
+    /**
+     * active objects
+     *
+     * @since 1.0.0
+     *
+     * @var      array
+     */
+    protected $active_objects = array();
 
-    protected function set_active_objects(){
+    protected function enqueue_active_assets(){
         // build data
         foreach( (array) $this->active_slugs as $slug ){
 
@@ -43,6 +51,7 @@ abstract class localized extends \uixv2\ui\uix implements load{
         // localize data for this screen
         $this->localize_data();
 
+        parent::enqueue_active_assets();
     }
 
     /**

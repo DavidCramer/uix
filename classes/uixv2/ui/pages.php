@@ -175,7 +175,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         // get the page slug from base ID
         $this->current_page = array_search( $screen->base, $this->plugin_screen_hook_suffix );
 
-        return array( $this->current_page );
+        $this->set_active( $this->current_page );
 
     }
 
@@ -198,6 +198,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
             }
 
         }
+        parent::enqueue_active_assets();
     }
     /**
      * Add settings page
