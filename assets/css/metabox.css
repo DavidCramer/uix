@@ -1,8 +1,10 @@
-.uix-metabox-inside {
-  background-color: #fff;
-overflow: hidden;
-}
 
+.uix-metabox-inside {
+  overflow: hidden;
+}
+.uix-has-tabs.uix-metabox-inside {
+  background-color: #fff;
+}
 .uix-metabox .uix-has-tabs {
   box-shadow: 180px 0 0 #fcfcfc inset;
 }
@@ -88,7 +90,10 @@ overflow: hidden;
 .uix-metabox-sections {
   border-left: 1px solid #eee;
   float: left;
-  margin-left: -1px;
+  width: 100%;
+}
+.uix-has-tabs .uix-metabox-sections{
+  margin-left: -1px; 
   width: calc(100% - 181px);
 }
 #side-sortables .uix-metabox-sections{
@@ -110,6 +115,14 @@ overflow: hidden;
   padding: 10px 12px;
 }
 .uix-metabox-section-content{
+    padding: 6px 12px;
+}
+
+.uix-chromeless .uix-metabox-section-content{
+    padding: 0;
+}
+
+.uix-has-tabs .uix-metabox-section-content{
     padding: 8px 12px 8px;
 }
 
@@ -122,8 +135,11 @@ overflow: hidden;
   border: 0 none;
   margin: 0 0 20px;
   padding: 0;
+  box-shadow: none;
 }
-.uix-chromeless .uix-metabox-inside{
+
+.uix-chromeless .uix-has-tabs.uix-metabox-inside{
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
     border: 1px solid #e6e6e6;
 }
 .postbox.uix-chromeless .inside {
