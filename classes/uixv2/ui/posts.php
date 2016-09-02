@@ -21,58 +21,44 @@ class posts extends uix{
      * The type of object
      *
      * @since 2.0.0
-     *
+     * @access protected
      * @var      string
      */
     protected $type = 'post';
 
     /**
-     * register add settings pages
+     * setup actions and hooks to register post types
      *
      * @since 2.0.0
-     *
      */
     protected function actions() {
-        
-        $pages_styles = array(
-            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
-            'icons'     =>  $this->url . 'assets/css/icons' . $this->debug_styles . '.css',         
-            'grid'      =>  $this->url . 'assets/css/grid' . $this->debug_styles . '.css',
-            'controls'  =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
-        );
-        $this->styles( $pages_styles );
 
         // run parent actions ( keep 'admin_head' hook )
         parent::actions();
         // add settings page
-        add_action( 'init', array( $this, 'register_post_type' ) );
+        add_action( 'init', array( $this, 'prepare_objects' ) );
 
     }
 
     /**
-     * Define core UIX styles
+     * Define core UIX styling to identify UIX post types
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
      */
     public function uix_styles() {
-        
         $pages_styles = array(
-            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
+            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',           
         );
         $this->styles( $pages_styles );
-
-        parent::uix_styles();
-
     }
     
     /**
-     * Register the post type
+     * Prepare the objects for register_post_type
      *
      * @since 2.0.0
-     * @access public
+     * @uses "init" hook
      */
-    public function register_post_type() {
+    public function prepare_objects() {
         $slugs = array_keys( $this->objects );
         foreach( $slugs as $type ){
             $this->render( $type );
@@ -80,10 +66,9 @@ class posts extends uix{
     }
 
     /**
-     * Render the post type
+     * Render (register) the post type
      *
      * @since 2.0.0
-     * @access public
      */
     public function render( $slug ) {
         $uix = $this->get( $slug );
@@ -93,11 +78,9 @@ class posts extends uix{
     }
 
     /**
-     * Determin if a UIX object should be loaded for this screen
+     * Determin which post types are active and set them active and render some styling
      * Intended to be ovveridden
-     * @since 0.0.1
-     *
-     * @return array $array of slugs of a registered structures relating to this screen
+     * @since 2.0.0
      */
     protected function locate(){
 
@@ -107,7 +90,7 @@ class posts extends uix{
             return;
         }
         // output the styles
-        $uix = $this->objects[ $screen->post_type ];
+        $uix = $this->get( $screen->post_type );
         if( !empty( $uix['base_color'] ) ){
         ?><style type="text/css">
             .contextual-help-tabs .active {

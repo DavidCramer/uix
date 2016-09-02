@@ -16,10 +16,10 @@ interface load extends data {
     /**
      * Get data
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
-     * @param string $slug
-     * @return array of data
+     * @param string $slug slug of the object
+     * @return mixed $data Requested data of the object
      */
     public function get_data( $slug );
 

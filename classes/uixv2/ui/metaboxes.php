@@ -15,60 +15,35 @@ namespace uixv2\ui;
  * @package uixv2\ui
  * @author  David Cramer
  */
-class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
+class metaboxes extends uix {
 
     /**
      * The type of object
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      string
      */
     protected $type = 'metabox';
 
     /**
-     * Holds the current instance
-     *
-     * @since 1.0.0
-     *
-     * @var      object|\uix\metabox
-     */
-    private static $instance = null;
-
-    /**
      * Holds the current post object
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      object|WP_Post
      */
     public $post = null;
 
-    /**
-     * Return an instance of this class.
-     *
-     * @since 1.0.0
-     *
-     * @return    object|\uix\metabox    A single instance of pages
-     */
-    public static function get_instance() {
-
-        // If the single instance hasn't been set, set it now.
-        if ( null == self::$instance ) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-
-    }
 
     /**
-     * register add settings pages
+     * setup actions and hooks to add metaboxes and save metadata
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
      */
     protected function actions() {
+
+        // run parent to keep init and enqueuing assets
         parent::actions();
         // add metaboxes
         add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );
@@ -77,19 +52,21 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * Register the UIX objects
+     * Sets the Metaboxes to the current instance and registers it's Sections 
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @see \uixv2\uix
      * @param array $objects object structure array
      */
     public function set_objects( array $objects ) {
         
+        // do parent set first to ensure they are added to the objects list
         parent::set_objects( $objects );
 
         foreach( $this->objects as $object_id => &$object ){
             
-            if( empty( $object['sections'] ) ){ continue; }
+            if( empty( $object['sections'] ) )
+                continue;
 
             foreach( $object['sections'] as $section_slug => &$section ){
                 $section['metabox'] = $object_id;
@@ -99,9 +76,37 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * Add metaboxes
+     * set metabox styles
      *
-     * @since 0.0.1
+     * @since 2.0.0
+     * @see \uixv2\ui\uix
+     */
+    public function uix_styles() {
+        // Add metabox style
+        $styles = array(
+            'metabox'        =>  $this->url . 'assets/css/metabox' . $this->debug_styles . '.css'
+        );
+        $this->styles( $styles );
+    }
+
+    /**
+     * set metabox scripts
+     *
+     * @since 2.0.0
+     * @see \uixv2\ui\uix
+     */
+    public function uix_scripts() {
+        $scripts = array(
+            'metabox'        =>  $this->url . 'assets/js/uix-metaboxes' . $this->debug_scripts . '.js'
+        );
+        $this->scripts( $scripts );
+    }
+
+
+    /**
+     * Add metaboxes to screen
+     *
+     * @since 2.0.0
      *
      * @uses "add_meta_boxes" hook
      */
@@ -109,22 +114,10 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
 
         $this->locate();
 
-        if( empty( $this->active_slugs ) ){
+        if( empty( $this->active_slugs ) )
             return;
-        }
-        // Add metabox style
-        $styles = array(
-            'metabox'        =>  $this->url . 'assets/css/metabox' . $this->debug_styles . '.css'
-        );
-        $this->styles( $styles );
 
-        $scripts = array(
-            'metabox'        =>  $this->url . 'assets/js/uix-metaboxes' . $this->debug_scripts . '.js'
-        );
-        $this->scripts( $scripts );
-
-        // post type metaboxes
-        $configs = array();
+        // metabox defaults
         $defaults = array(
             'screen' => null,
             'context' => 'advanced',
@@ -150,23 +143,31 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
     
     /**
-     * render metabox
+     * Callback for the `add_meta_box` that sets the metabox data and renders it
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @uses "add_meta_box" function
+     * @param object/wp_post $post Current post for the metabox
+     * @param array $metabox Metabox args array
      */
     public function create_metabox( $post, $metabox ){
 
         $slug = $metabox['id'];
         $uix = $this->get( $slug );
         
+        // Set current data for the metabox
         $this->set_data( $slug, $post );
 
         $this->render( $slug );
 
     }
 
-
+    /**
+     * Render the Metabox
+     *
+     * @since 2.0.0
+     * @param array $slug Section slug to be rendered
+     */
     public function render( $slug ){
         
         $uix = $this->get( $slug );
@@ -219,8 +220,8 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     /**
      * build metabox
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @param string $slug metabox id to build
      */
     public function build_metabox( $slug ){    
         
@@ -257,10 +258,11 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * Returns a list of sections for a metabox
+     * Sets the data for all sections and thier controls
      *
-     * @since 0.0.1
-     * @param uix/section $sections of the metabox
+     * @since 2.0.0
+     * @param string $slug slug of the metabox to set data for
+     * @param object/wp_post $post Current post of the metabox
      */    
     public function set_data( $slug, $post ){
 
@@ -281,11 +283,12 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * Saves a metabox config
+     * Saves a metabox data
      *
      * @uses "save_post" hook
-     *
-     * @since 0.0.1
+     * @since 2.0.0
+     * @param int $post_id ID of the current post being saved
+     * @param object/wp_post $post Current post being saved
      */
     public function save_meta( $post_id, $post ){
         $this->post = $post;
@@ -303,7 +306,7 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
                 $data = $meta_data[ $section_id ];
                 foreach( $data as $meta_key=>$meta_value ){
 
-                    $this->save_data( $meta_key, $meta_value );
+                    $this->save_meta_data( $meta_key, $meta_value );
 
                 }
 
@@ -314,15 +317,13 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * save data
+     * Save the meta data for the post
      *
-     * @since 1.0.0
-     * @param string $slug slug of the object
-     * @param array $data array of data to be saved
-     *
-     * @return bool true on successful save
+     * @since 2.0.0
+     * @param string $slug slug of the meta_key
+     * @param mixed $data Data to be saved
      */
-    public function save_data( $slug, $data ){
+    public function save_meta_data( $slug, $data ){
 
         $prev = get_post_meta( $this->post->ID, $slug, true );
 
@@ -334,44 +335,10 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
 
     }
 
-
     /**
-     * get the objects data store key
-     * @since 1.0.0
-     *
-     * @return string $store_key the defined option name for this UIX object
-     */
-    public function store_key( $slug ){
-        return sanitize_key( $slug );
-    }
-
-    /**
-     * Loads a UIX config
-     * @since 1.0.0
-     *
-     * @return mixed $data the saved data fro the specific UIX object
-     */
-    public function get_data( $slug ){
-
-        $store_key = $this->store_key( $slug );
-
-        $data = $this->get_sections_data( $slug );
-
-        /**
-         * Filter config object
-         *
-         * @param array $config_object The object as retrieved from data
-         * @param array $uix the UIX structure
-         * @param array $slug the UIX object slug
-         */
-        return apply_filters( 'uix_data-' . $this->type, $data, $slug );
-
-    }
-
-    /**
-     * Get data for a section
-     * @since 1.0.0
-     *
+     * Get current data for all sections of the metabox
+     * @since 2.0.0
+     * @param string $slug The slug of the metabox to get sections data for
      */
     public function get_sections_data( $slug ){
         
@@ -386,10 +353,10 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * sets the active objects structures
+     * sets the active metabox and all it's sections
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @param $slug     Slug of the metabox to set as active
      */
     public function set_active( $slug ){
         if( !in_array( $slug, $this->active_slugs ) ){
@@ -405,11 +372,8 @@ class metaboxes extends uix implements \uixv2\data\save,\uixv2\data\load {
     }
 
     /**
-     * Determin if a UIX object should be loaded for this screen
-     * Intended to be ovveridden
-     * @since 0.0.1
-     *
-     * @return array $array of slugs of a registered structures relating to this screen
+     * Determin which metaboxes are used for the current screen and set them active
+     * @since 2.0.0
      */
     protected function locate(){
 

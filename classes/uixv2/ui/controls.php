@@ -27,7 +27,7 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     protected $type = 'control';
 
     /**
-     * Temporary hold the control values
+     * Hold the values of the controls
      *
      * @since   2.0.0
      *
@@ -36,10 +36,10 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     protected $data = array();
 
     /**
-     * Register the UIX objects
+     * Sets the Controls to the current instance
      *
      * @since 2.0.0
-     *
+     * @see \uixv2\uix
      * @param array $objects object structure array
      */
     public function set_objects( array $objects ) {
@@ -55,22 +55,22 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     }
 
     /**
-     * get the objects data store key
-     * @since 2.0.0
-     *
-     * @return string $store_key the defined option name for this UIX object
+     * Get the Controls store key ( meta_key )
+     * @since 1.0.0
+     * @see \uixv2\data
+     * @return string $store_key the sanitized store key
      */
     public function store_key( $slug ){
         return sanitize_key( $slug );
     }    
 
     /**
-     * Get control name
+     * Create and Return the control's input name
      *
      * @since 2.0.0
      *
-     * @param string $slug
-     * @return array of data
+     * @param string $slug Slug of the control to get the name for
+     * @return string The control name
      */
     public function name( $slug ){
         $control = $this->get( $slug );
@@ -79,12 +79,12 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     }
 
     /**
-     * Get control ID
+     * Create and Return the control's ID
      *
      * @since 2.0.0
      *
-     * @param string $slug
-     * @return array of data
+     * @param string $slug Slug of the control to get the ID for
+     * @return string The control ID
      */
     public function id( $slug ){
         $control = $this->get( $slug );
@@ -94,12 +94,12 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
 
 
     /**
-     * Get data
+     * Get Data from a control
      *
      * @since 2.0.0
-     *
-     * @param string $slug
-     * @return array of data
+     * @see \uixv2\load
+     * @param string $slug Control sluf to get data from
+     * @return mixed Sanitized control data
      */
     public function get_data( $slug ){
         
@@ -122,12 +122,12 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     }
 
     /**
-     * save data
+     * Save Control data for later recall 
      *
      * @since 2.0.0
-     * @param string $slug slug of the object
-     * @param array $data array of data to be saved
-     *
+     * @param string $slug slug of the control
+     * @param mixed $data Data to be saved for the control
+     * @see \uixv2\save
      */
     public function save_data( $slug, $data ){
 
@@ -138,13 +138,13 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
     }
 
     /**
-     * Sanitize data
+     * Sanitizes Control Data 
      *
      * @since 2.0.0
-     * @param string $slug slug of the object
+     * @param string $slug slug of the control to be sanitized
      * @param string $data data to be sanitized
      *
-     * @return string $data  sanitized data string
+     * @return string sanitized data
      */
     public function sanitize( $slug, $data ){
         $control = $this->get( $slug );
@@ -152,7 +152,13 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
         return apply_filters( 'uix_' . $control['section'] . '_sanitize_' . $slug, $data );
     }
     
-
+    /**
+     * Render the Control
+     *
+     * @since 2.0.0
+     * @see \uixv2\ui\uix
+     * @param string $slug Control slug to be rendered
+     */
     public function render( $slug ){
         $control = $this->get( $slug );
         $value = $this->get_data( $slug );        

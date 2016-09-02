@@ -16,11 +16,9 @@ interface save extends data {
     /**
      * save data
      *
-     * @since 1.0.0
+     * @since 2.0.0
      * @param string $slug slug of the object
-     * @param array $data array of data to be saved
-     *
-     * @return bool true on successful save
+     * @param mixed $data Data to be saved for the object
      */
     public function save_data( $slug, $data );
 

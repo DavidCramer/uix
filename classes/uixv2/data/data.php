@@ -15,7 +15,7 @@ interface data {
 
     /**
      * get the objects data store key
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @return string $store_key the defined option name for this UIX object
      */

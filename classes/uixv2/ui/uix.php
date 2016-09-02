@@ -18,10 +18,10 @@ namespace uixv2\ui;
 abstract class uix{
 
     /**
-     * The type of object
+     * The type of UI object
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      string
      */
     protected $type = 'uix';
@@ -29,16 +29,16 @@ abstract class uix{
     /**
      * List of registered objects
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected $objects = array();
 
     /**
-     * Active slugs
+     * list of active slugs
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @var      array
      */
@@ -47,26 +47,26 @@ abstract class uix{
     /**
      * Base URL of this class
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      string
      */
     protected $url;
 
     /**
-     * List of core scripts
+     * List of core object scripts ( common scripts )
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected $scripts = array();
 
     /**
-     * List of core styles
+     * List of core object styles ( common styles )
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected $styles = array();
@@ -74,8 +74,8 @@ abstract class uix{
     /**
      * prefix for min scripts
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected $debug_scripts = null;
@@ -83,8 +83,8 @@ abstract class uix{
     /**
      * prefix for min styles
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected $debug_styles = null; 
@@ -92,8 +92,8 @@ abstract class uix{
     /**
      * Holds instances
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected static $instances = array();
@@ -101,7 +101,7 @@ abstract class uix{
     /**
      * UIX constructor - override this to control order of initialization
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     public function __construct() {
@@ -128,9 +128,9 @@ abstract class uix{
     /**
      * Return an instance of this class.
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
-     * @return    object|\pmts\    A single instance
+     * @return    object|\uix A single instance
      */
     public static function get_instance() {
 
@@ -147,7 +147,7 @@ abstract class uix{
     /**
      * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     protected function actions() {
@@ -161,7 +161,7 @@ abstract class uix{
     /**
      * Enabled debuging of scripts
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     protected function debug_scripts() {
@@ -174,7 +174,7 @@ abstract class uix{
     /**
      * Enabled debuging of styles
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     protected function debug_styles() {
@@ -186,44 +186,28 @@ abstract class uix{
 
 
     /**
-     * Define core UIX styles
+     * Define core UIX styles - override to register core ( common styles for uix type )
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     public function uix_styles() {
         // Initilize core styles
         $core_styles = array();
-
-        /**
-         * Filter core UIX styles
-         *
-         * @param array $core_styles array of core UIX styles to be registered
-         */
-        $core_styles = apply_filters( 'uix_set_core_styles-' . $this->type, $core_styles );
-        
         // push to activly register styles
         $this->styles( $core_styles );
 
     }
 
     /**
-     * Define core UIX scripts
+     * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     public function uix_scripts() {
         // Initilize core scripts
         $core_scripts = array();
-
-        /**
-         * Filter core UIX scripts
-         *
-         * @param array $core_scripts array of core UIX scripts to be registered
-         */
-        $core_scripts = apply_filters( 'uix_set_core_styles-' . $this->type, $core_scripts );
-
         // push to activly register scripts
         $this->scripts( $core_scripts );
     }
@@ -232,8 +216,8 @@ abstract class uix{
     /**
      * Register the core UIX styles
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @param array Array of styles to be enqueued for all objects of current instance
      */
     public function styles( array $styles ) {
         
@@ -245,8 +229,8 @@ abstract class uix{
     /**
      * Register the core UIX scripts
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @param array Array of scripts to be enqueued for all objects of current instance
      */
     public function scripts( array $scripts ) {
 
@@ -257,47 +241,47 @@ abstract class uix{
     /**
      * Register the UIX objects
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @param array $objects object structure array
-     * @return    object|\uix    A single instance of class
+     * @return object|\uix    A single instance of class
      */
     public static function register( array $objects ) {
 
-        // get the instance
+        // get the current instance
         $uix = static::get_instance();
-
-        // set objects
-        $uix->set_objects( $objects );
-        
-        return $uix;
-    }
-
-    /**
-     * Register the UIX objects
-     *
-     * @since 1.0.0
-     *
-     * @param array $objects object structure array
-     */
-    public function set_objects( array $objects ) {
 
         /**
          * Filter objects to be created
          *
          * @param array $objects array of UIX object structures to be registered
          */
-        $objects = apply_filters( 'uix_register_objects-' . $this->type, $objects );
+        $objects = apply_filters( 'uix_register_objects-' . $uix->type, $objects );
 
-        // add to array
+        // set objects to the instance
+        $uix->set_objects( $objects );
+        
+        return $uix;
+    }
+
+    /**
+     * Set the UIX objects to the current instance
+     *
+     * @since 2.0.0
+     *
+     * @param array $objects object structure array
+     */
+    public function set_objects( array $objects ) {
+
+        // add to instance objects
         $this->objects = array_merge( $this->objects, $objects );
         
     }
 
     /**
-     * load UIX for the current page
+     * initialize object and enqueue assets
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     public function init() {
@@ -305,9 +289,15 @@ abstract class uix{
         // attempt to get a config
         $this->locate();
 
-        if( empty( $this->active_slugs ) ){
+        /**
+         * do object initilisation
+         *
+         * @param object current uix instance
+         */
+        do_action( 'uix_init_objects-' . $this->type, $this );
+
+        if( empty( $this->active_slugs ) )
             return;
-        }
 
         // enqueue core scripts and styles
         $assets = array(
@@ -324,8 +314,8 @@ abstract class uix{
     /**
      * sets the active objects structures
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @param $slug     Slug of the object to set as active
      */
     public function set_active( $slug ){        
         if( !in_array( $slug, $this->active_slugs ) )
@@ -335,9 +325,9 @@ abstract class uix{
 
 
     /**
-     * sets the active objects structures
+     * Enqueue specific assets of active objects
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     protected function enqueue_active_assets(){
@@ -351,7 +341,7 @@ abstract class uix{
     /**
      * Detects the root of the plugin folder and sets the URL
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      */
     public function set_url(){
@@ -372,8 +362,11 @@ abstract class uix{
     /**
      * enqueue a set of styles and scripts
      *
-     * @since 0.0.1
-     *
+     * @since 2.0.0
+     * @param array $set {
+     *      array   $scripts array of script sources to be enqueued
+     *      string  $prefix prefix for enqueue handle ( usually the object slug )
+     * }object array structure
      */
     protected function enqueue( $set, $prefix ){
         // go over the set to see if it has styles or scripts
@@ -388,8 +381,8 @@ abstract class uix{
         );
 
         // enqueue set specific runtime styles
-        if( !empty( $set[ 'styles'] ) ){
-            foreach( $set[ 'styles'] as $style_key => $style ){
+        if( !empty( $set['styles'] ) ){
+            foreach( $set['styles'] as $style_key => $style ){
                 if( is_int( $style_key ) ){
                     wp_enqueue_style( $style );
                 }else{
@@ -403,8 +396,8 @@ abstract class uix{
             }
         }
         // enqueue set specific runtime scripts
-        if( !empty( $set[ 'scripts'] ) ){
-            foreach( $set[ 'scripts'] as $script_key => $script ){
+        if( !empty( $set['scripts'] ) ){
+            foreach( $set['scripts'] as $script_key => $script ){
                 if( is_int( $script_key ) ){
                     wp_enqueue_script( $script );
                 }else{
@@ -421,72 +414,65 @@ abstract class uix{
     }   
 
     /**
-     * Determin if a UIX object should be loaded for this screen
+     * Determin if a UIX object should be active for this screen
      * Intended to be ovveridden
-     * @since 0.0.1
+     * @since 2.0.0
      *
-     * @return array $array of slugs of a registered structures relating to this screen
      */
-    protected function locate(){
-      
-        // default is to use a GET['uix']
-        if( isset( $_GET['uix'] ) ){
-            foreach( (array) $_GET['uix'] as $uix_slug ) {
-                if( !empty( $this->objects[ strip_tags( $uix_slug ) ] ) ){
-                    $this->set_active( strip_tags( $uix_slug ) );
-                }
-            }
-        }
-    }
+    protected function locate(){}
 
     /**
-     * Add defined contextual help to admin page
+     * Add defined contextual help to current screen
      *
-     * @since 1.0.0
+     * @since 2.0.0
      */
     public function add_help(){
         
-        $slugs = (array) $this->locate();
+        $this->locate();
 
-        if( empty( $slugs ) || count( $slugs ) > 1 ){ return; }
+        if( empty( $this->active_slugs ) )
+            return;
 
-        $uix = $this->get( $slugs[0] ); // help can only be on a single
-        
-        if( empty( $uix ) || empty( $uix['help'] ) ){ return; }
+        foreach( $this->active_slugs as $slug ){
+            $uix = $this->get( $slug );
+            
+            if( empty( $uix ) )
+                return;
 
-        $screen = get_current_screen();
-        
-        foreach( (array) $uix['help'] as $help_slug => $help ){
+            $screen = get_current_screen();
+            
+            if( !empty( $uix['help'] ) ){
+                foreach( (array) $uix['help'] as $help_slug => $help ){
 
-            if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
-                ob_start();
-                include $help['content'];
-                $content = ob_get_clean();
-            }else{
-                $content = $help['content'];
+                    if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
+                        ob_start();
+                        include $help['content'];
+                        $content = ob_get_clean();
+                    }else{
+                        $content = $help['content'];
+                    }
+
+                    $screen->add_help_tab( array(
+                        'id'       =>   $help_slug,
+                        'title'    =>   $help['title'],
+                        'content'  =>   $content
+                    ));
+                }
+            }            
+            // Help sidebars are optional
+            if(!empty( $uix['help_sidebar'] ) ){
+                $screen->set_help_sidebar( $uix['help_sidebar'] );
             }
-
-            $screen->add_help_tab( array(
-                'id'       =>   $help_slug,
-                'title'    =>   $help['title'],
-                'content'  =>   $content
-            ));
         }
-        
-        // Help sidebars are optional
-        if(!empty( $page['help_sidebar'] ) ){
-            $screen->set_help_sidebar( $page['help_sidebar'] );
-        }
-
     }
 
     /**
      * get the uix config
      *
-     * @since 0.0.1
-     * @param array $slug registered UIX slug to fetch
+     * @since 2.0.0
+     * @param string $slug registered object slug to fetch
      *
-     * @return array|null $uix array structure of current uix point or null if invalid
+     * @return array|null $uix array structure of requested object or null if invalid
      */
     public function get( $slug ){
 
@@ -496,12 +482,12 @@ abstract class uix{
         if( !empty( $this->objects[ $slug ] ) ){
             $uix = $this->objects[ $slug ];
             /**
-             * Filter UIX object
+             * Filter get object
              *
-             * @param array $uix The uix object array.
-             * @param string $slug slug of object being loaded
+             * @param array $uix The uix object structure array.
+             * @param string $slug slug of object being requested
              */     
-            $uix = apply_filters( 'uix_load-' . $this->type, $uix, $slug );
+            $uix = apply_filters( 'uix_get-' . $this->type, $uix, $slug );
         }
 
         return $uix;
@@ -511,10 +497,8 @@ abstract class uix{
     /**
      * Render the UIX object
      *
-     * @since 0.0.1
-     * @param array $slug registered UIX slug to render
-     *
-     * @return string|null $html of rendered object or null for non visible renders
+     * @since 2.0.0
+     * @param string $slug registered UIX slug to render
      */
     abstract public function render( $slug );
 

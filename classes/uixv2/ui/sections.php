@@ -11,31 +11,33 @@
 namespace uixv2\ui;
 
 /**
- * UIX secstions class.
+ * UIX sections class.
  *
  * @since 2.0.0
+ * @see \uixv2\uix
  */
 class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
 
     /**
      * The type of object
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      string
      */
     protected $type = 'section';
 
 
     /**
-     * Register the UIX objects
+     * Sets the Sections to the current instance and registers it's Controls 
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @see \uixv2\uix
      * @param array $objects object structure array
      */
     public function set_objects( array $objects ) {
         
+        // do parent
         parent::set_objects( $objects );
 
         foreach( $this->objects as $object_id => &$object ){
@@ -43,24 +45,28 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
             if( empty( $object['controls'] ) ){ continue; }
 
             foreach( $object['controls'] as $control_slug => &$control ){
-                
+                // set the section id for the control
                 $control['section'] = $object_id;
-                if( $control['type'] ){
-                    uixv2()->load( 'control\\' . $control['type'], array( $control_slug => $control ) );
-                }else{
-                    uixv2()->load( 'control', array( $control_slug => $control ) );
-                }
 
+                if( !isset( $control['type'] ) )
+                    $control['type'] = 'text'; // default to text control.
+                // load the control structure
+                uixv2()->load( 'control\\' . $control['type'], array( $control_slug => $control ) );
             }
-        }
-        
-        
-        
+        }        
     }
 
+    /**
+     * Render the Section
+     *
+     * @since 2.0.0
+     * @param array $slug Section slug to be rendered
+     */
     public function render( $slug ){
         
         $section = $this->get( $slug );
+
+        // load the section data 
         $data = $this->get_data( $slug );
 
         if( empty( $section['controls'] ) && empty( $section['template'] ) ){ continue; }
@@ -85,12 +91,10 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
                 }else{
                     foreach ( $section['controls'] as $control_slug => $control ) {
                         if( isset( uixv2()->control[ $control['type'] ] ) ){
-
+                            // render the control
                             uixv2()->control[ $control['type'] ]->render( $control_slug );
                         }
-                    }
-                    // controls                    
-                    
+                    }                    
                 }
                 
             echo '</div>';
@@ -99,10 +103,10 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
 
 
     /**
-     * get the objects data store key
+     * Get the Sections data store key ( index )
      * @since 1.0.0
-     *
-     * @return string $store_key the defined option name for this UIX object
+     * @see \uixv2\data
+     * @return string $store_key the sanitized store key
      */
     public function store_key( $slug ){
         return sanitize_key( $slug );
@@ -110,12 +114,12 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
 
 
     /**
-     * Get data
+     * Get Data from all controls of this section
      *
-     * @since 1.0.0
-     *
-     * @param string $slug
-     * @return array of data
+     * @since 2.0.0
+     * @see \uixv2\load
+     * @param string $slug Slug of the section to get data for
+     * @return array $data Array of sections data structured by the controls
      */
     public function get_data( $slug ){
         $section = $this->get( $slug );
@@ -131,13 +135,12 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
 
 
     /**
-     * save data
+     * Save Section data to the section controls
      *
-     * @since 1.0.0
-     * @param string $slug slug of the object
-     * @param array $data array of data to be saved
-     *
-     * @return bool true on successful save
+     * @since 2.0.0
+     * @param string $slug slug of the section
+     * @param mixed $data Data to be saved for the Section
+     * @see \uixv2\save
      */
     public function save_data( $slug, $data ){
         
@@ -154,10 +157,10 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
     }    
 
     /**
-     * sets the active objects structures
+     * Sets a Section and its Controls to Active
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @param $slug     Slug of the section to set as active
      */
     public function set_active( $slug ){
         if( !in_array( $slug, $this->active_slugs ) ){

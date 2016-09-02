@@ -20,8 +20,8 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * The type of object
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      string
      */
     protected $type = 'page';
@@ -29,8 +29,8 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * Holds the option screen prefix
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      array
      */
     protected $plugin_screen_hook_suffix = array();
@@ -38,17 +38,16 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * Holds the current page slug
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      string
      */
     protected $current_page = null; 
 
     /**
-     * register add settings pages
+     * setup actions and hooks to add settings pate and save settings
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
      */
     protected function actions() {
         // run parent actions ( keep 'admin_head' hook )
@@ -60,13 +59,11 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
-     * Define core UIX styles
+     * Define core page styles
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
      */
     public function uix_styles() {
-        
         $pages_styles = array(
             'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
             'icons'     =>  $this->url . 'assets/css/icons' . $this->debug_styles . '.css',         
@@ -74,17 +71,14 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
             'controls'  =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
         );
         $this->styles( $pages_styles );
-
-        parent::uix_styles();
-
     }
 
     /**
-     * Saves a config
+     * Handles the Ajax request to save a page config
      *
      * @uses "wp_ajax_uix_save_config" hook
      *
-     * @since 0.0.1
+     * @since 2.0.0
      */
     public function save_config(){
 
@@ -105,9 +99,9 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                     $this->objects[ $page_slug ] = array_merge( $this->objects[ $page_slug ], $_POST['params'] );
                 }
 
-                $saved = $this->save_data( $page_slug, $config );
+                $this->save_data( $page_slug, $config );
 
-                wp_send_json_success( );
+                wp_send_json_success();
 
             }
         }
@@ -115,12 +109,12 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
-     * Save a UIX config
-     * @since 1.0.0
-     *
-     * @return bool true on successful save
+     * Save data for a page
+     * @since 2.0.0
+     * @param string $slug slug of the page
+     * @param mixed $data Data to be saved for the page
      */
-    public function save_data( $slug, $config ){
+    public function save_data( $slug, $data ){
         
         $uix = $this->get( $slug );
 
@@ -130,25 +124,22 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
          * @param array $config the config array to save
          * @param array $uix the uix config to be saved for
          */
-        $config = apply_filters( 'uix_get_save_config_' . $this->type, $config, $uix );
-
-        $success = esc_html__( 'Settings saved.', 'text-domain' );
-        if( !empty( $uix['saved_message'] ) ){
-            $success = $uix['saved_message'];
-        }
+        $data = apply_filters( 'uix_save_config-' . $this->type, $data, $uix );
         $store_key = $this->store_key( $slug );
 
         // save object
-        return update_option( $store_key, $config );
+        update_option( $store_key, $data );
         
     }
 
 
     /**
-     * Loads a UIX config
-     * @since 1.0.0
+     * Get data for the page
      *
-     * @return mixed $data the saved data fro the specific UIX object
+     * @since 2.0.0
+     *
+     * @param string $slug slug of the page
+     * @return mixed $data Requested data of the page
      */
     public function get_data( $slug ){
 
@@ -158,10 +149,8 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
-     * Determin if a UIX [page] should be loaded for this screen
-     * @since 0.0.1
-     *
-     * @return array|null $slugs registered structure relating to this screen
+     * Determin if a page is to be loaded and set it active
+     * @since 2.0.0
      */
     protected function locate(){
 
@@ -180,10 +169,9 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
-     * sets the active objects structures
+     * Enqueues specific tabs assets for the active pages
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
      */
     protected function enqueue_active_assets(){
         // enque active slugs assets
@@ -198,12 +186,14 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
             }
 
         }
+        // continue with parent enqueue of active assets
         parent::enqueue_active_assets();
     }
+
     /**
-     * Add settings page
+     * Add the settings page
      *
-     * @since 0.0.1
+     * @since 2.0.0
      *
      * @uses "admin_menu" hook
      */
@@ -245,19 +235,14 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                     $args[ 'position' ]
                 );
             }
-            
-            //add help if defined
-            if( !empty( $page['help'] ) ){
-                add_action( 'load-' . $this->plugin_screen_hook_suffix[ $page_slug ], array( $this, 'add_help' ) );
-            }
-            
         }
     }
     
     /**
-     * Options page callback
+     * Settings page callback to render page
      *
-     * @since 0.0.1
+     * @since 2.0.0
+     * @uses "add_submenu_page" and "add_menu_page" functions
      */
     public function create_admin_page(){
 
@@ -266,9 +251,10 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
     /**
-     * render page
+     * Render the page
      *
-     * @since 0.0.1
+     * @since 2.0.0
+     * @param string $slug The page slug to be rendered
      */
     public function render( $slug ){
         
