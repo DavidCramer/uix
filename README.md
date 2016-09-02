@@ -6,4 +6,4 @@ To use, clone this to a uix-install folder within your plugin directoy. Then run
 
 Or to speed things up, There is an an automated bolierplate builder to setup and install a new plugin.
 
-To create the boilerplate, get the [UIX-Plugin starter]( https://github.com/Desertsnowman/uix-plugin ) and follow the instructions.
+To create the boilerplate, get the [UIX-WP starter plugin]( https://github.com/Desertsnowman/uix-wp ) and follow the instructions.
