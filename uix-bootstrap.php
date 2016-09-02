@@ -42,10 +42,7 @@ function uixv2_autoload_class( $class ){
 spl_autoload_register( 'uixv2_autoload_class', true, false );
 
 // bootstrap plugin load
-add_action( 'plugins_loaded', 'uixv2_init' );
-function uixv2_init(){
-    uixv2()->auto_load();
-}
+add_action( 'plugins_loaded', 'uixv2' );
 function uixv2(){
     // init UI
     return \uixv2\ui::get_instance();
