@@ -21,8 +21,8 @@ class ui{
     /**
      * Array of definitions locations
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var   array
      */
     protected $locations = array();
@@ -30,16 +30,17 @@ class ui{
     /**
      * Holds instance
      *
-     * @since 1.0.0
-     *
+     * @since 2.0.0
+     * @access protected
      * @var      object/UI
      */
     protected static $instance = null;
 
 	/**
-	 * UI constructor
+	 * UI structure auto load
 	 *
 	 * @since 2.0.0
+     *
 	 * @param array $locations array of loader locations and callbacks
 	 */
 	public function auto_load() {
@@ -93,9 +94,9 @@ class ui{
     /**
      * loads a structure object
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
-     * @return    object|\pmts\    A single instance
+     * @return    object|\uixv2\    A single instance
      */
     public function load( $type, $structures ) {
         $init = $this->get_register_function( $type );
@@ -115,9 +116,9 @@ class ui{
     /**
      * Return an instance of this class.
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
-     * @return    object|\pmts\    A single instance
+     * @return    object|\uixv2\    A single instance
      */
     public function get_register_function( $type ) {
         $init = array( '\uixv2\ui\\' . $type, 'register' );
@@ -131,15 +132,16 @@ class ui{
     /**
      * Return an instance of this class.
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
-     * @return    object|\pmts\    A single instance
+     * @return    object|\uixv2\    A single instance
      */
     public static function get_instance() {
 
         // If the single instance hasn't been set, set it now.
         if ( ! isset( self::$instance ) ) {
             self::$instance = new self;
+            self::$instance->auto_load();
         }
 
         return self::$instance;
@@ -149,7 +151,7 @@ class ui{
     /**
      * Register the UIX objects
      *
-     * @since 1.0.0
+     * @since 2.0.0
      *
      * @param array|string $arr path, or array of paths to structures, or UI type
      * @param array $struct array of UI structure if $arr is a UI type string
