@@ -12,7 +12,7 @@ namespace uixv2\ui;
 
 /**
  * Pages class
- * @package clarity\ui
+ * @package uixv2\ui
  * @author  David Cramer
  */
 class posts extends uix{
