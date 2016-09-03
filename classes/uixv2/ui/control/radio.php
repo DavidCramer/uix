@@ -1,0 +1,80 @@
+<?php
+/**
+ * UIX Metaboxes
+ *
+ * @package   uixv2
+ * @author    David Cramer
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 David Cramer
+ */
+namespace uixv2\ui\control;
+
+/**
+ * UIX Control class.
+ *
+ * @since 2.0.0
+ */
+class radio extends \uixv2\ui\controls{
+
+    /**
+     * The type of object
+     *
+     * @since       2.0.0
+     *
+     * @var         string
+     */
+    protected $type = 'radio';
+
+    /**
+     * Gets the attributes for the control.
+     *
+     * @since  2.0.0
+     * @access private
+     * @param string $slug Slug of the control 
+     * @return array
+     */
+    public function attributes( $slug ) {
+
+        $attributes         = parent::attributes( $slug );
+        $attributes['type'] = $this->type;
+        unset( $attributes['id'] );
+
+        return $attributes;
+    }
+
+
+    /**
+     * Returns the main input field for rendering
+     *
+     * @since 2.0.0
+     * @see \uixv2\ui\uix
+     * @param string $slug Control slug to be rendered
+     * @return string 
+     */
+    public function input( $slug ){
+        
+        $control    = $this->get( $slug );
+        $input      = '';
+        $values     = (array) $this->get_data( $slug );
+        $id         = $this->id( $slug );
+        $index      = 0;
+
+        foreach ($control['choices'] as $option_value => $option_label) {
+            $sel        = null;
+            $option_id  = $id . '-' . sanitize_key( $option_value );
+            if( in_array( $option_value, $values ) )
+                $sel = ' checked="checked"';
+
+            $input .= '<div class="uix-' . esc_attr( $this->type ) . '">';
+                $input .= '<label for="' . $option_id . '">';
+                $input .= '<input id="' . $option_id . '" ' . $this->build_attributes( $slug ) . ' value="' . esc_attr( $option_value ) . '"' . $sel . '>';
+                $input .= esc_html( $option_label );
+                $input .= '</label>';
+            $input .= '</div>';
+        }
+
+        return $input;
+    }  
+
+}

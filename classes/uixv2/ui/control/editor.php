@@ -15,8 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class template extends \uixv2\ui\controls{
-
+class editor extends \uixv2\ui\control\textarea{
 
     /**
      * Returns the main input field for rendering
@@ -27,14 +26,14 @@ class template extends \uixv2\ui\controls{
      * @return string 
      */
     public function input( $slug ){
-        
-        $control = $this->get( $slug );
 
-        if( !empty( $control['template'] ) && file_exists( $control['template'] ) ){ ?>
-            <?php include $control['template']; ?>
-            </div>
-        <?php }
+        $control = $this->get( $slug );
+        $settings = array( 'textarea_name' => $this->name( $slug ) );
+        if( !empty( $control['settings'] ) && is_array( $control['settings'] ) )
+            $settings = array_merge( $control['settings'], $settings );
+
+        wp_editor( $this->get_data( $slug ), $this->id( $slug ), $settings );
+
     }    
-     
 
 }

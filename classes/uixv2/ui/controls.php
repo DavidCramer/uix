@@ -151,7 +151,108 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
 
         return apply_filters( 'uix_' . $control['section'] . '_sanitize_' . $slug, $data );
     }
-    
+
+    /**
+     * Gets the classes for the control input
+     *
+     * @since  2.0.0
+     *
+     * @return array
+     */
+    public function classes() {
+
+        $classes = array(
+            'widefat'
+        );
+
+        return $classes;
+    }
+
+
+    /**
+     * Gets the attributes for the control.
+     *
+     * @since  2.0.0
+     * @param string $slug Slug of the control 
+     * @return array
+     */
+    public function attributes( $slug ) {
+
+        $attributes = array(
+            'id'        =>  $this->id( $slug ),
+            'name'      =>  $this->name( $slug ),
+            'class'     =>  implode( ' ', $this->classes() )
+        );
+
+        return $attributes;
+    }
+
+    /**
+     * Build Attributes for the input control
+     *
+     * @since  2.0.0
+     *
+     * @param string $slug Slug of the control 
+     * @return array
+     */
+    public function build_attributes( $slug ) {
+        
+        foreach( $this->attributes( $slug ) as $att => $value) {
+            $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
+        }
+
+        return implode( ' ', $attributes );
+    }
+
+    /**
+     * Returns the main input field for rendering
+     *
+     * @since 2.0.0
+     * @see \uixv2\ui\uix
+     * @param string $slug Control slug to be rendered
+     * @return string 
+     */
+    public function input( $slug ){
+
+        return '<input type="' . esc_attr( $this->type ) . '" value="' . esc_attr( $this->get_data( $slug ) ) . '" ' . $this->build_attributes( $slug ) . '>';
+    }    
+
+    /**
+     * Returns the label for the control
+     *
+     * @since 2.0.0
+     * 
+     * @param string $slug Control slug
+     * @return string Lable string 
+     */
+    public function label( $slug ){
+        
+        $control    = $this->get( $slug );
+        if( isset( $control['label'] ) )
+            return '<label for="' . esc_attr( $this->id( $slug ) ) . '"><span class="uix-control-label">' . esc_html( $control['label'] ) . '</span></label>';
+
+        return '';
+    }
+
+
+    /**
+     * Returns the description for the control
+     *
+     * @since 2.0.0
+     *
+     * @param string $slug Control slug
+     * @return string description string 
+     */
+    public function description( $slug ){
+        
+        $control    = $this->get( $slug );
+        if( isset( $control['description'] ) )
+            return '<span class="uix-control-description">' . esc_html( $control['description'] ) . '</span>';
+
+        return '';
+    }
+
+
     /**
      * Render the Control
      *
@@ -160,21 +261,14 @@ class controls extends uix implements \uixv2\data\save,\uixv2\data\load{
      * @param string $slug Control slug to be rendered
      */
     public function render( $slug ){
-        $control = $this->get( $slug );
-        $value = $this->get_data( $slug );        
-        ?>
-        <div id="control-<?php echo esc_attr( $slug ); ?>" class="uix-control uix-control-<?php echo esc_attr( $control['type'] ); ?>">
-            <label>
-                <?php if( !empty( $control['label'] ) ){ ?>
-                    <span class="uix-control-label"><?php echo esc_html( $control['label'] ); ?></span>
-                <?php } ?>
-                <input type="text" class="widefat" name="<?php echo esc_attr( $this->name( $slug ) ); ?>" value="<?php echo esc_attr( $value ); ?>"<?php if( !empty( $control['required'] ) ){ echo ' required="required"'; } ?>>
-                <?php if( !empty( $control['description'] ) ){ ?>
-                    <span class="uix-control-description"><?php echo esc_html( $control['description'] ); ?></span>
-                <?php } ?>
-            </label>
-        </div>
-        <?php
+
+        echo '<div id="control-' . esc_attr( $slug ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
+            
+            echo $this->label( $slug );
+            echo $this->input( $slug );
+            echo $this->description( $slug );
+
+        echo '</div>';
     }
 
 }

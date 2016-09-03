@@ -17,27 +17,47 @@ namespace uixv2\ui\control;
  */
 class textarea extends \uixv2\ui\controls{
 
-    public function render( $slug ){
-        $control = $this->get( $slug );
-        $value = $this->get_data( $slug );
+    /**
+     * The type of object
+     *
+     * @since       2.0.0
+     *
+     * @var         string
+     */
+    protected $type = 'textarea';
 
-        if( !empty( $control['template'] ) && file_exists( $control['template'] ) ){
-            include $control['template'];
-        }else{
-        ?>
-        <div id="control-<?php echo esc_attr( $slug ); ?>" class="uix-control uix-control-text">
-            <label>
-                <?php if( !empty( $control['label'] ) ){ ?>
-                    <span class="uix-control-label"><?php echo esc_html( $control['label'] ); ?></span>
-                <?php } ?>
-                <textarea class="widefat" name="<?php echo esc_attr( $this->name( $slug ) ); ?>"><?php echo esc_textarea( $value ); ?></textarea>
-                <?php if( !empty( $control['description'] ) ){ ?>
-                    <span class="uix-control-description"><?php echo esc_html( $control['description'] ); ?></span>
-                <?php } ?>
-            </label>
-        </div>
-        <?php
+    /**
+     * Gets the attributes for the control.
+     *
+     * @since  2.0.0
+     * @access private
+     * @param string $slug Slug of the control 
+     * @return array
+     */
+    public function attributes( $slug ) {
+
+        $attributes         = parent::attributes( $slug );
+        $attributes['rows'] = '5';
+        
+        $control = $this->get( $slug );
+        if( !empty( $control['rows'] ) ){
+            $attributes['rows'] = $control['rows'];
         }
+
+        return $attributes;
+    }
+
+    /**
+     * Returns the main input field for rendering
+     *
+     * @since 2.0.0
+     * @see \uixv2\ui\uix
+     * @param string $slug Control slug to be rendered
+     * @return string 
+     */
+    public function input( $slug ){
+
+        return '<' . esc_html( $this->type ) . ' ' . $this->build_attributes( $slug ) . '>' . esc_textarea( $this->get_data( $slug ) ) . '</' . esc_html( $this->type ) . '>';
     }    
 
 }
