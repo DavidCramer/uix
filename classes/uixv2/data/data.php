@@ -11,14 +11,34 @@
  */
 namespace uixv2\data;
 
-interface data {
+abstract class data extends \uixv2\ui\uix{
 
     /**
-     * get the objects data store key
-     * @since 2.0.0
+     * object data
      *
-     * @return string $store_key the defined option name for this UIX object
+     * @since 2.0.0
+     * @access protected
+     * @var     mixed
      */
-    public function store_key( $slug );
+    protected $data;
+
+    /**
+     * set the object's data
+     * @since 2.0.0
+     * @param mixed $data the data to be set
+     */
+    public function set_data( $data ){
+        $this->data = $data;
+    }
+
+    /**
+     * get the object's data
+     * @since 2.0.0
+     * @return mixed $data
+     */
+    public function get_data(){
+        return $this->data;
+    }
+
 
 }

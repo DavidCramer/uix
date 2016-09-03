@@ -11,16 +11,24 @@
  */
 namespace uixv2\data;
 
-interface load extends data {
+interface load{
 
     /**
      * Get data
      *
      * @since 2.0.0
      *
-     * @param string $slug slug of the object
      * @return mixed $data Requested data of the object
      */
-    public function get_data( $slug );
+    public function load_data();
+
+    /**
+     * get the objects data store key
+     * @since 2.0.0
+     *
+     * @return string $store_key the defined option name for this UIX object
+     */
+    public function store_key();
+
 
 }

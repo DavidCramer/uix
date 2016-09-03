@@ -36,15 +36,6 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     protected $plugin_screen_hook_suffix = array();
 
     /**
-     * Holds the current page slug
-     *
-     * @since 2.0.0
-     * @access protected
-     * @var      string
-     */
-    protected $current_page = null; 
-
-    /**
      * setup actions and hooks to add settings pate and save settings
      *
      * @since 2.0.0
@@ -99,7 +90,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                     $this->objects[ $page_slug ] = array_merge( $this->objects[ $page_slug ], $_POST['params'] );
                 }
 
-                $this->save_data( $page_slug, $config );
+                $this->save_data();
 
                 wp_send_json_success();
 
@@ -111,10 +102,8 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * Save data for a page
      * @since 2.0.0
-     * @param string $slug slug of the page
-     * @param mixed $data Data to be saved for the page
      */
-    public function save_data( $slug, $data ){
+    public function save_data(){
         
         /**
          * Filter config object
@@ -131,39 +120,39 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     }
 
 
+
+
     /**
-     * Get data for the page
+     * get a UIX config store key
+     * @since 1.0.0
      *
-     * @since 2.0.0
-     *
-     * @param string $slug slug of the page
-     * @return mixed $data Requested data of the page
+     * @return string $store_key the defiuned option name for this UIX object
      */
-    public function get_data( $slug ){
+    public function store_key(){
 
-        // get and return config object
-        return get_option( $this->store_key(), array() );    
+        if( !empty( $this->struct['store_key'] ) ){
+            $store_key = $this->struct['store_key'];
+        }else{
+            $store_key = 'uix-' . $this->type . '-' . sanitize_text_field( $this->slug );
+        }
 
+        return $store_key;
     }
 
     /**
      * Determin if a page is to be loaded and set it active
      * @since 2.0.0
      */
-    protected function locate(){
+    protected function is_active(){
 
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
             
         if( empty( $screen ) || !is_object( $screen ) || !in_array( $screen->base, $this->plugin_screen_hook_suffix ) ){
-            return null;
+            return false;
         }
 
-        // get the page slug from base ID
-        $this->current_page = array_search( $screen->base, $this->plugin_screen_hook_suffix );
-
-        $this->set_active( $this->current_page );
-
+        return true;
     }
 
     /**
@@ -172,19 +161,13 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
      * @since 2.0.0
      */
     protected function enqueue_active_assets(){
-        // enque active slugs assets
-        foreach( (array) $this->active_objects as $slug => $object ){
-            // enqueue stlyes and scripts
-            $this->enqueue( $object['structure'], $this->type . '-' . $slug );
-            // add tabs
-            if( !empty( $object['structure']['tabs'] ) ){
-                foreach( $object['structure']['tabs'] as $tab_id => $tab ){
-                    $this->enqueue( $tab, $this->type . '-' . $tab_id );
-                }
-            }
+        if( empty( $this->struct['tabs'] ) )
+            return;
 
+        foreach( $this->struct['tabs'] as $tab_id => $tab ){
+            $this->enqueue( $tab, $this->type . '-' . $tab_id );
         }
-        // continue with parent enqueue of active assets
+        // do localize
         parent::enqueue_active_assets();
     }
 
@@ -216,7 +199,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                 $args[ 'menu_title' ],
                 $args[ 'capability' ], 
                 $this->type . '-' . $this->slug,
-                array( $this, 'create_admin_page' )
+                array( $this, 'render' )
             );
 
         }else{
@@ -226,7 +209,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                 $args[ 'menu_title' ],
                 $args[ 'capability' ], 
                 $this->type . '-' . $this->slug,
-                array( $this, 'create_admin_page' ),
+                array( $this, 'render' ),
                 $args[ 'icon' ],
                 $args[ 'position' ]
             );
@@ -234,17 +217,6 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
 
     }
     
-    /**
-     * Settings page callback to render page
-     *
-     * @since 2.0.0
-     * @uses "add_submenu_page" and "add_menu_page" functions
-     */
-    public function create_admin_page(){
-
-        $this->render( $this->current_page );
-
-    }
 
     /**
      * Render the page
@@ -281,7 +253,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         <?php
         }       
         ?>
-        <div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->current_page ); ?>">
+        <div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->slug ); ?>">
             <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
                 <?php if( !empty( $this->struct['version'] ) ){ ?><small><?php esc_html_e( $this->struct['version'], 'text-domain' ); ?></small><?php } ?>
                 <?php if( !empty( $this->struct['save_button'] ) ){ ?>
@@ -297,7 +269,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
             </nav>
             <?php }
 
-            wp_nonce_field( $this->type, 'uix_setup_' . $this->current_page );
+            wp_nonce_field( $this->type, 'uix_setup_' . $this->slug );
 
             if( !empty( $this->struct['tabs'] ) ){
                 foreach( (array) $this->struct['tabs'] as $tab_slug => $tab ){ ?>

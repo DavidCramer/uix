@@ -11,15 +11,22 @@
  */
 namespace uixv2\data;
 
-interface save extends data {
+interface save {
+
 
     /**
-     * save data
+     * save data to database
      *
      * @since 2.0.0
-     * @param string $slug slug of the object
-     * @param mixed $data Data to be saved for the object
      */
-    public function save_data( $slug, $data );
+    public function save_data();
+
+    /**
+     * get the objects data store key
+     * @since 2.0.0
+     *
+     * @return string $store_key the defined option name for this UIX object
+     */
+    public function store_key();    
 
 }

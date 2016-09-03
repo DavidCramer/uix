@@ -203,7 +203,10 @@ abstract class uix{
      */
     public function styles( array $styles ) {
         
-        $this->styles = array_merge( $this->styles, $styles );
+        if( !empty( $this->struct['styles'] ) )
+            $styles = array_merge( $this->struct['styles'], $styles );
+        
+        $this->styles = $styles;
 
     }
 
@@ -216,7 +219,10 @@ abstract class uix{
      */
     public function scripts( array $scripts ) {
 
-        $this->scripts = array_merge( $this->scripts, $scripts );
+        if( !empty( $this->struct['scripts'] ) )
+            $scripts = array_merge( $this->struct['scripts'], $scripts );
+
+        $this->scripts = $scripts;
 
     }
 
@@ -285,7 +291,7 @@ abstract class uix{
          * @param object current uix instance
          */
         do_action( 'uix_admin_enqueue_scripts' . $this->type, $this );
-        
+
         // enqueue core scripts and styles
         $assets = array(
             'scripts' => $this->scripts,
@@ -294,36 +300,17 @@ abstract class uix{
         // enqueue core scripts and styles
         $this->enqueue( $assets, $this->type );
 
-        // enque active objects assets
+        // done enqueuing 
         $this->enqueue_active_assets();
     }
 
     /**
-     * sets the active objects structures
-     *
-     * @since 2.0.0
-     * @param $slug     Slug of the object to set as active
-     */
-    public function set_active( $slug ){        
-        if( !in_array( $slug, $this->active_slugs ) )
-            $this->active_slugs[] = $slug;
-
-    }
-
-
-    /**
-     * Enqueue specific assets of active objects
+     * runs after assets have been enqueued
      *
      * @since 2.0.0
      *
      */
-    protected function enqueue_active_assets(){
-        // enque active slugs assets
-        foreach( (array) $this->active_slugs as $slug ){
-            // enqueue stlyes and scripts
-            $this->enqueue( $this->get( $slug ), $this->type . '-' . $slug );
-        }
-    }
+    protected function enqueue_active_assets(){}
 
     /**
      * Detects the root of the plugin folder and sets the URL
@@ -406,7 +393,9 @@ abstract class uix{
      * @since 2.0.0
      *
      */
-    protected function is_active(){}
+    protected function is_active(){
+        return false;
+    }
 
     /**
      * Add defined contextual help to current screen
@@ -415,72 +404,33 @@ abstract class uix{
      */
     public function add_help(){
         
-        $this->is_active();
+        if( ! $this->is_active() ){ return; }
 
-        if( empty( $this->active_slugs ) )
-            return;
+        $screen = get_current_screen();
+        
+        if( !empty( $this->struct['help'] ) ){
+            foreach( (array) $this->struct['help'] as $help_slug => $help ){
 
-        foreach( $this->active_slugs as $slug ){
-            $uix = $this->get( $slug );
-            
-            if( empty( $uix ) )
-                return;
-
-            $screen = get_current_screen();
-            
-            if( !empty( $uix['help'] ) ){
-                foreach( (array) $uix['help'] as $help_slug => $help ){
-
-                    if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
-                        ob_start();
-                        include $help['content'];
-                        $content = ob_get_clean();
-                    }else{
-                        $content = $help['content'];
-                    }
-
-                    $screen->add_help_tab( array(
-                        'id'       =>   $help_slug,
-                        'title'    =>   $help['title'],
-                        'content'  =>   $content
-                    ));
+                if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
+                    ob_start();
+                    include $help['content'];
+                    $content = ob_get_clean();
+                }else{
+                    $content = $help['content'];
                 }
-            }            
-            // Help sidebars are optional
-            if(!empty( $uix['help_sidebar'] ) ){
-                $screen->set_help_sidebar( $uix['help_sidebar'] );
+
+                $screen->add_help_tab( array(
+                    'id'       =>   $help_slug,
+                    'title'    =>   $help['title'],
+                    'content'  =>   $content
+                ));
             }
+        }            
+        // Help sidebars are optional
+        if(!empty( $this->struct['help_sidebar'] ) ){
+            $screen->set_help_sidebar( $this->struct['help_sidebar'] );
         }
     }
-
-    /**
-     * get the uix config
-     *
-     * @since 2.0.0
-     * @param string $slug registered object slug to fetch
-     *
-     * @return array|null $uix array structure of requested object or null if invalid
-     */
-    public function get( $slug ){
-
-        $uix = null;
-
-        // get the slug from base ID
-        if( !empty( $this->objects[ $slug ] ) ){
-            $uix = $this->objects[ $slug ];
-            /**
-             * Filter get object
-             *
-             * @param array $uix The uix object structure array.
-             * @param string $slug slug of object being requested
-             */     
-            $uix = apply_filters( 'uix_get-' . $this->type, $uix, $slug );
-        }
-
-        return $uix;
-
-    }
-
 
     /**
      * get the children of an object

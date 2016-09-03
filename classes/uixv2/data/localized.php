@@ -15,43 +15,35 @@ namespace uixv2\data;
  * @package uixv2\data
  * @author  David Cramer
  */
-abstract class localized extends \uixv2\ui\uix implements load{
+abstract class localized extends data implements load{
 
     /**
-     * active objects
+     * object data to be saved
      *
-     * @since 1.0.0
-     *
-     * @var      array
+     * @since 2.0.0
+     * @access public
+     * @var     mixed
      */
-    protected $active_objects = array();
+    public $data;
 
     protected function enqueue_active_assets(){
-        // build data
-        foreach( (array) $this->active_slugs as $slug ){
+        // load object data
+        $config_object  = $this->get_data();
 
-            // load object and data
-            $uix            = $this->get( $slug );
-            $config_object  = $this->get_data( $slug );
+        /**
+         * Filter config object
+         *
+         * @param array $config_object The object as retrieved from data
+         * @param array $uix the UIX object
+         */
+        $config_object = apply_filters( 'uix_data-' . $this->type, $config_object, $this );
 
-            /**
-             * Filter config object
-             *
-             * @param array $config_object The object as retrieved from data
-             * @param array $uix the UIX structure
-             * @param array $slug the UIX object slug
-             */
-            $config_object = apply_filters( 'uix_data-' . $this->type, $config_object, $uix, $slug );       
-
-            $this->active_objects[ $slug ] = array(
-                'data'      => $config_object,
-                'structure' => $uix
-            );
-        }
+        $localize_data = array(
+            'data'      => $config_object,
+            'structure' => $this->struct
+        );
         // localize data for this screen
-        $this->localize_data();
-
-        parent::enqueue_active_assets();
+        wp_localize_script( $this->type . '-admin', 'UIX', array( $this->slug => $localize_data ) );
     }
 
     /**
@@ -95,14 +87,19 @@ abstract class localized extends \uixv2\ui\uix implements load{
         // push to activly register scripts
         $this->scripts( $core_scripts );
     }
-    
+
     /**
-     * localize data
+     * Get data for the page
      *
-     * @since 1.0.0
+     * @since 2.0.0
+     *
+     * @return mixed $data Requested data of the page
      */
-    protected function localize_data(){
-        wp_localize_script( $this->type . '-admin', 'UIX', $this->active_objects );
+    public function load_data(){
+
+        // get and return config object
+        return get_option( $this->store_key(), array() );    
+
     }
 
     /**
