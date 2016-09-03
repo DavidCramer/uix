@@ -40,10 +40,10 @@ class ui{
      * UI structure auto load
      *
      * @since 2.0.0
-     *
+     * @access private
      * @param array $locations array of loader locations and callbacks
      */
-    public function auto_load() {
+    private function auto_load() {
 
         /**
          * do UI loader locations
@@ -53,43 +53,19 @@ class ui{
         do_action( 'uixv2_register', $this );
 
         // go over each locations
-        foreach( $this->locations as $location ){
-            $uid = @ opendir( $location );
-            if ( $uid ) {
-                while( ( $folder = readdir( $uid ) ) !== false ) {
-                    if ( substr( $folder, 0, 1) == '.' )
-                        continue;
+        foreach( $this->locations as $type => $paths ){
 
-                    if ( is_dir( $location . '/' . $folder ) ) {
-                        $fid = @ opendir( $location . '/' . $folder );
-                        if ( $fid ) {
-                            $init = $this->get_register_function( $folder );
-                            if( null === $init ){ continue; }
-
-                            $structures = array();
-                            while( ( $file = readdir( $fid ) ) !== false ) {
-                                if( is_file( $location . '/' . $folder . '/' . $file ) ){
-                                    if( false !== strpos( $file, '.json' ) ){
-                                        $json = file_get_contents( $location . '/' . $folder . '/' . $file );
-                                        $is_struct = json_decode( $json, ARRAY_A );
-                                    }else{
-                                        $is_struct = include $location . '/' . $folder . '/' . $file;
-                                    }
-                                    if( is_array( $is_struct ) ){
-                                        $structures = array_merge( $structures, $is_struct );
-                                    }
-                                }
-                            }
-                            if( !empty( $structures ) ){
-                                $this->register( $folder, $structures );
-                            }
-                        }
-                    }
-                }
-                @closedir( $uid );
+            $structures = array();
+            foreach( $paths as $path ) {
+                $has_struct = $this->get_file_structure( $path );
+                if( is_array( $has_struct ) )
+                    $structures = array_merge( $structures, $has_struct );
             }
+            if( !empty( $structures ) )
+                $this->load( $type, $structures );
         }
     }
+
 
     /**
      * loads a structure object
@@ -112,6 +88,7 @@ class ui{
             }
         }
     }
+
 
     /**
      * Return an instance of this class.
@@ -149,29 +126,67 @@ class ui{
     }
 
     /**
-     * Register the UIX objects
+     * Register the UIX object paths for autoloading
      *
      * @since 2.0.0
      *
      * @param array|string $arr path, or array of paths to structures, or UI type
-     * @param array $struct array of UI structure if $arr is a UI type string
      */
-    public function register( $arr, array $struct = array() ) {
-        // convert if string
-        if( is_string( $arr ) ){
-            if( !empty( $struct ) ){
-                $this->load( $arr, $struct );
-                return;
-            }else{
-              $arr = array( $arr );
-            }
-        }
+    public function register( $arr ) {
         // determin how the structure works.
-        foreach( $arr as $key => $value ){
+        foreach( (array) $arr as $key => $value ){
             if( is_dir( $value ) && !in_array( $value, $this->locations ) ){
-                $this->locations[] = $value;
+                $this->locations = array_merge( $this->locations, $this->get_files_from_folders( $value ) );
             }
         }
     }
 
+
+    /**
+     * Gets the file structures and converts it if needed
+     *
+     * @since 2.0.0
+     * @access private
+     * @param string $path The file path to load
+     * @return array|bool object structure array or false if invalid
+     */
+    private function get_file_structure( $path ){
+        ob_start();
+        $content = include $path;
+        $has_output = ob_get_clean();
+        // did stuff output
+        if( !empty( $has_output ) )
+            $content = json_decode( $has_output, ARRAY_A );
+
+        return $content;
+    }
+
+
+    /**
+     * Opens a location and gets the file to load for each folder
+     *
+     * @since 2.0.0
+     * @access private
+     * @param array $paths to fetch contents of
+     * @param bool $file flag to set file fetching
+     * @return array List of folders and files
+     */
+    private function get_files_from_folders( $path, $file = false ) {
+        $items = array();
+        $uid = @ opendir( $path );
+        if ( $uid ) {
+            while( ( $item = readdir( $uid ) ) !== false ) {
+                if ( substr( $item, 0, 1) == '.' )
+                    continue;
+                if( false === $file ){
+                    $items[ $item ] = $this->get_files_from_folders( $path . $item, true );
+                }else{
+                    $items[] = $path . '/' . $item;
+                }
+            }
+            @closedir( $uid );
+        }
+
+        return $items;
+    }
 }
