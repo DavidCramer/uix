@@ -150,6 +150,12 @@
 @media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
     .uix-metabox-tabs { width: 48px; }
 
+    .uix-has-tabs .uix-metabox-sections {
+      width: calc(100% - 48px);
+    }
+    .uix-chromeless .uix-has-tabs.uix-metabox-inside {
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 48px 0 0 #f9f9f9 inset;
+    }
     .uix-metabox-tabs .dashicons {
         width:       24px;
         height:      24px;
