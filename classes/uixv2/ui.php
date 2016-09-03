@@ -28,6 +28,15 @@ class ui{
     protected $locations = array();
 
     /**
+     * Array of object instances
+     *
+     * @since 2.0.0
+     * @access public
+     * @var   object/uix
+     */
+    public $ui;
+
+    /**
      * Holds instance
      *
      * @since 2.0.0
@@ -79,15 +88,26 @@ class ui{
         if( null !== $init ){
             $path = explode('\\', $type );
             $type = array_shift( $path );
-            $object = call_user_func( $init, $structures );
-
-            if( !empty( $path[0] ) ){
-                $this->{$type}[$path[0]] = $object;
-            }else{
-                $this->{$type} = $object;
+            $objects = call_user_func( $init, $structures );
+            foreach( $objects as $slug => $object ){
+                $this->ui->{$type}[ $slug ] = $object;
             }
+            return $objects;
         }
     }
+
+    /**
+     * Add a single structure object
+     *
+     * @since 2.0.0
+     * @param string $type The type of object to add
+     * @param string $slug The objects slug to add
+     * @param string $structure The objects structure
+     * @return    object|\uixv2\    the instance of the object type
+     */
+    public function add( $type, $slug, $structure ) {
+        $this->load( $type, array( $slug => $structure ) );
+    }    
 
 
     /**

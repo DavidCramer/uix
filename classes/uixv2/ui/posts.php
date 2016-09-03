@@ -36,7 +36,7 @@ class posts extends uix{
         // run parent actions ( keep 'admin_head' hook )
         parent::actions();
         // add settings page
-        add_action( 'init', array( $this, 'prepare_objects' ) );
+        add_action( 'init', array( $this, 'render' ) );
 
     }
 
@@ -51,30 +51,18 @@ class posts extends uix{
         );
         $this->styles( $pages_styles );
     }
-    
-    /**
-     * Prepare the objects for register_post_type
-     *
-     * @since 2.0.0
-     * @uses "init" hook
-     */
-    public function prepare_objects() {
-        $slugs = array_keys( $this->objects );
-        foreach( $slugs as $type ){
-            $this->render( $type );
-        }
-    }
 
     /**
      * Render (register) the post type
      *
      * @since 2.0.0
      */
-    public function render( $slug ) {
-        $uix = $this->get( $slug );
-        if( !empty( $uix['post_type'] ) ){
-            register_post_type( $slug, $uix['post_type'] );
+    public function render() {
+
+        if( !empty( $this->struct['post_type'] ) ){
+            register_post_type( $this->slug, $this->struct['post_type'] );
         }
+
     }
 
     /**

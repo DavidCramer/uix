@@ -18,6 +18,16 @@ namespace uixv2\ui;
 abstract class uix{
 
     /**
+     * Config Structure of object
+     *
+     * @since 2.0.0
+     * @access public
+     * @var      array
+     */
+    public $struct = array();
+
+
+    /**
      * The type of UI object
      *
      * @since 2.0.0
@@ -27,13 +37,13 @@ abstract class uix{
     protected $type = 'uix';
 
     /**
-     * List of registered objects
+     * object slug
      *
      * @since 2.0.0
-     * @access protected
-     * @var      array
+     *
+     * @var      string
      */
-    protected $objects = array();
+    protected $slug;
 
     /**
      * list of active slugs
@@ -42,7 +52,7 @@ abstract class uix{
      *
      * @var      array
      */
-    protected $active_slugs = array();
+    protected $active_slugs = array();    
 
     /**
      * Base URL of this class
@@ -90,15 +100,6 @@ abstract class uix{
     protected $debug_styles = null; 
 
     /**
-     * Holds instances
-     *
-     * @since 2.0.0
-     * @access protected
-     * @var      array
-     */
-    protected static $instances = array();
-
-    /**
      * UIX constructor - override this to control order of initialization
      *
      * @since 2.0.0
@@ -122,25 +123,6 @@ abstract class uix{
 
         // start internal actions to allow for automating post init
         $this->actions();
-
-    }
-
-    /**
-     * Return an instance of this class.
-     *
-     * @since 2.0.0
-     *
-     * @return    object|\uix A single instance
-     */
-    public static function get_instance() {
-
-        $caller = get_called_class();
-        // If the single instance hasn't been set, set it now.
-        if ( ! isset( self::$instances[$caller] ) ) {
-            self::$instances[$caller] = new $caller();
-        }
-
-        return self::$instances[$caller];
 
     }
 
@@ -244,39 +226,47 @@ abstract class uix{
      * @since 2.0.0
      *
      * @param array $objects object structure array
-     * @return object|\uix    A single instance of class
+     * @return array objects|\uix all objects instances
      */
     public static function register( array $objects ) {
 
-        // get the current instance
-        $uix = static::get_instance();
-
-        /**
-         * Filter objects to be created
-         *
-         * @param array $objects array of UIX object structures to be registered
-         */
-        $objects = apply_filters( 'uix_register_objects-' . $uix->type, $objects );
-
-        // set objects to the instance
-        $uix->set_objects( $objects );
+        $uix_objects = array();
         
-        return $uix;
+        foreach( $objects as $slug => $object ){
+            // get the current instance
+            $caller = get_called_class();
+            $uix = new $caller();
+
+            /**
+             * Filter objects to be created
+             *
+             * @param array $object array of UIX object structure to be registered
+             * @param string $slug Of UIX object being registered
+             */
+            $object = apply_filters( 'uix_register_object-' . $uix->type, $object, $slug );
+
+            $uix->slug = $slug;
+
+            $uix->struct = $object;
+
+            // set objects to the instance
+            $uix->setup();
+
+            // add to object list
+            $uix_objects[ $slug ] = $uix;
+        }
+
+        return $uix_objects;
     }
 
     /**
-     * Set the UIX objects to the current instance
+     * Set additional the UIX objects to the current instance
      *
      * @since 2.0.0
      *
      * @param array $objects object structure array
      */
-    public function set_objects( array $objects ) {
-
-        // add to instance objects
-        $this->objects = array_merge( $this->objects, $objects );
-        
-    }
+    public function setup() {}
 
     /**
      * initialize object and enqueue assets
@@ -287,18 +277,15 @@ abstract class uix{
     public function init() {
 
         // attempt to get a config
-        $this->locate();
+        if( !$this->is_active() ){ return; }
 
         /**
          * do object initilisation
          *
          * @param object current uix instance
          */
-        do_action( 'uix_init_objects-' . $this->type, $this );
-
-        if( empty( $this->active_slugs ) )
-            return;
-
+        do_action( 'uix_admin_enqueue_scripts' . $this->type, $this );
+        
         // enqueue core scripts and styles
         $assets = array(
             'scripts' => $this->scripts,
@@ -419,7 +406,7 @@ abstract class uix{
      * @since 2.0.0
      *
      */
-    protected function locate(){}
+    protected function is_active(){}
 
     /**
      * Add defined contextual help to current screen
@@ -428,7 +415,7 @@ abstract class uix{
      */
     public function add_help(){
         
-        $this->locate();
+        $this->is_active();
 
         if( empty( $this->active_slugs ) )
             return;
@@ -494,12 +481,37 @@ abstract class uix{
 
     }
 
+
+    /**
+     * get the children of an object
+     *
+     * @since 2.0.0
+     * @param string $slug registered object slug to fetch
+     *
+     * @return array|null array of child objects
+     */
+    public function children( $slug ){
+        $uix = $this->get( $slug );
+        var_dump( $uix );
+        die;
+        foreach( uixv2()->ui as $uix ){
+            if( is_array( $uix ) ){
+                // controls or sub types
+            }else{
+                foreach( $uix->objects as $object_slug => $object ){
+
+                }
+            }
+            
+        }
+        die;
+    }
+
     /**
      * Render the UIX object
      *
      * @since 2.0.0
-     * @param string $slug registered UIX slug to render
      */
-    abstract public function render( $slug );
+    abstract public function render();
 
 }

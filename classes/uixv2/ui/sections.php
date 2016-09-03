@@ -90,9 +90,9 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
                     }
                 }else{
                     foreach ( $section['controls'] as $control_slug => $control ) {
-                        if( isset( uixv2()->control[ $control['type'] ] ) ){
+                        if( isset( uixv2()->ui->control[ $control['type'] ] ) ){
                             // render the control
-                            uixv2()->control[ $control['type'] ]->render( $control_slug );
+                            uixv2()->ui->control[ $control['type'] ]->render( $control_slug );
                         }
                     }                    
                 }
@@ -126,7 +126,7 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
         $data = array();
         if( !empty( $section['controls'] ) ){
             foreach( $section['controls'] as $control_id => $control) {
-                $data[ $control_id ] = uixv2()->control[ $control['type'] ]->get_data( $control_id );
+                $data[ $control_id ] = uixv2()->ui->control[ $control['type'] ]->get_data( $control_id );
             }
         }
         
@@ -152,7 +152,7 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
             if( isset( $data[ $control_id ] ) ){
                 $value = $data[ $control_id ];
             }
-            uixv2()->control[ $control['type'] ]->save_data( $control_id, $value );
+            uixv2()->ui->control[ $control['type'] ]->save_data( $control_id, $value );
         }
     }    
 
@@ -167,7 +167,7 @@ class sections extends uix implements \uixv2\data\save,\uixv2\data\load{
             $section = $this->get( $slug );
             if( !empty( $section['controls'] ) ){
                 foreach( $section['controls'] as $control_id => $control ) {
-                    uixv2()->control[ $control['type'] ]->set_active( $control_id );
+                    uixv2()->ui->control[ $control['type'] ]->set_active( $control_id );
                 }
             }
             $this->active_slugs[] = $slug;

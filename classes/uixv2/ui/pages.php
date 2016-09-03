@@ -53,7 +53,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         // run parent actions ( keep 'admin_head' hook )
         parent::actions();
         // add settings page
-        add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 9 );
+        add_action( 'admin_menu', array( $this, 'add_settings_page' ), 9 );
         // save config
         add_action( 'wp_ajax_uix_' . $this->type . '_save_config', array( $this, 'save_config') );
     }
@@ -116,16 +116,14 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
      */
     public function save_data( $slug, $data ){
         
-        $uix = $this->get( $slug );
-
         /**
          * Filter config object
          *
          * @param array $config the config array to save
          * @param array $uix the uix config to be saved for
          */
-        $data = apply_filters( 'uix_save_config-' . $this->type, $data, $uix );
-        $store_key = $this->store_key( $slug );
+        $data = apply_filters( 'uix_save_config-' . $this->type, $data, $this );
+        $store_key = $this->store_key();
 
         // save object
         update_option( $store_key, $data );
@@ -144,7 +142,7 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
     public function get_data( $slug ){
 
         // get and return config object
-        return get_option( $this->store_key( $slug ), array() );    
+        return get_option( $this->store_key(), array() );    
 
     }
 
@@ -197,45 +195,43 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
      *
      * @uses "admin_menu" hook
      */
-    public function add_settings_pages(){
+    public function add_settings_page(){
 
-        foreach( (array) $this->objects as $page_slug => $page ){
-
-            if( empty( $page[ 'page_title' ] ) || empty( $page['menu_title'] ) ){
-                continue;
-            }
-
-            $args = array(
-                'capability'    => 'manage_options',
-                'icon'          =>  null,
-                'position'      => null
-            );
-            $args = array_merge( $args, $page );
-
-            if( !empty( $page['parent'] ) ){
-
-                $this->plugin_screen_hook_suffix[ $page_slug ] = add_submenu_page(
-                    $args[ 'parent' ],
-                    $args[ 'page_title' ],
-                    $args[ 'menu_title' ],
-                    $args[ 'capability' ], 
-                    $this->type . '-' . $page_slug,
-                    array( $this, 'create_admin_page' )
-                );
-
-            }else{
-
-                $this->plugin_screen_hook_suffix[ $page_slug ] = add_menu_page(
-                    $args[ 'page_title' ],
-                    $args[ 'menu_title' ],
-                    $args[ 'capability' ], 
-                    $this->type . '-' . $page_slug,
-                    array( $this, 'create_admin_page' ),
-                    $args[ 'icon' ],
-                    $args[ 'position' ]
-                );
-            }
+        if( empty( $this->struct[ 'page_title' ] ) || empty( $this->struct['menu_title'] ) ){
+            continue;
         }
+
+        $args = array(
+            'capability'    => 'manage_options',
+            'icon'          =>  null,
+            'position'      => null
+        );
+        $args = array_merge( $args, $this->struct );
+
+        if( !empty( $page['parent'] ) ){
+
+            $this->plugin_screen_hook_suffix[ $this->slug ] = add_submenu_page(
+                $args[ 'parent' ],
+                $args[ 'page_title' ],
+                $args[ 'menu_title' ],
+                $args[ 'capability' ], 
+                $this->type . '-' . $this->slug,
+                array( $this, 'create_admin_page' )
+            );
+
+        }else{
+
+            $this->plugin_screen_hook_suffix[ $this->slug ] = add_menu_page(
+                $args[ 'page_title' ],
+                $args[ 'menu_title' ],
+                $args[ 'capability' ], 
+                $this->type . '-' . $this->slug,
+                array( $this, 'create_admin_page' ),
+                $args[ 'icon' ],
+                $args[ 'position' ]
+            );
+        }
+
     }
     
     /**
@@ -254,34 +250,31 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
      * Render the page
      *
      * @since 2.0.0
-     * @param string $slug The page slug to be rendered
      */
-    public function render( $slug ){
-        
-        $uix = $this->get( $slug );
+    public function render(){
 
-        if( !empty( $uix['base_color'] ) ){
+        if( !empty( $this->struct['base_color'] ) ){
         ?><style type="text/css">
             .contextual-help-tabs .active {
-                border-left: 6px solid <?php echo $uix['base_color']; ?> !important;
+                border-left: 6px solid <?php echo $this->struct['base_color']; ?> !important;
             }
-            <?php if( !empty( $uix['tabs'] ) && count( $uix['tabs'] ) > 1 ){ ?>
+            <?php if( !empty( $this->struct['tabs'] ) && count( $this->struct['tabs'] ) > 1 ){ ?>
             .wrap > h1.uix-title {
-                box-shadow: 0 0px 13px 12px <?php echo $uix['base_color']; ?>, 11px 0 0 <?php echo $uix['base_color']; ?> inset;
+                box-shadow: 0 0px 13px 12px <?php echo $this->struct['base_color']; ?>, 11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
             }
             <?php }else{ ?>
             .wrap > h1.uix-title {
-                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;
+                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
             }
             <?php } ?>
             .uix-modal-wrap .uix-modal-title > h3,
             .wrap .uix-title a.page-title-action:hover{
-                background: <?php echo $uix['base_color']; ?>;
-                border-color: <?php echo $uix['base_color']; ?>;
+                background: <?php echo $this->struct['base_color']; ?>;
+                border-color: <?php echo $this->struct['base_color']; ?>;
             }
             .wrap .uix-title a.page-title-action:focus{
-                box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;
-                border-color: <?php echo $uix['base_color']; ?>;
+                box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
+                border-color: <?php echo $this->struct['base_color']; ?>;
             }
 
         </style>
@@ -289,25 +282,25 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
         }       
         ?>
         <div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->current_page ); ?>">
-            <h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , 'text-domain' ); ?>
-                <?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], 'text-domain' ); ?></small><?php } ?>
-                <?php if( !empty( $uix['save_button'] ) ){ ?>
+            <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
+                <?php if( !empty( $this->struct['version'] ) ){ ?><small><?php esc_html_e( $this->struct['version'], 'text-domain' ); ?></small><?php } ?>
+                <?php if( !empty( $this->struct['save_button'] ) ){ ?>
                 <a class="page-title-action" href="#save-object" data-save-object="true">
                     <span class="spinner uix-save-spinner"></span>
-                    <?php esc_html_e( $uix['save_button'], 'text-domain' ); ?>
+                    <?php esc_html_e( $this->struct['save_button'], 'text-domain' ); ?>
                 </a>
                 <?php } ?>
             </h1>
-            <?php if( !empty( $uix['tabs'] ) ){ ?>
-            <nav class="uix-sub-nav" <?php if( count( $uix['tabs'] ) === 1 ){ ?>style="display:none;"<?php } ?>>
-                <?php foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?><a data-tab="<?php echo esc_attr( $tab_slug ); ?>" href="#<?php echo esc_attr( $tab_slug ) ?>"><?php echo esc_html( $tab['menu_title'] ); ?></a><?php } ?>
+            <?php if( !empty( $this->struct['tabs'] ) ){ ?>
+            <nav class="uix-sub-nav" <?php if( count( $this->struct['tabs'] ) === 1 ){ ?>style="display:none;"<?php } ?>>
+                <?php foreach( (array) $this->struct['tabs'] as $tab_slug => $tab ){ ?><a data-tab="<?php echo esc_attr( $tab_slug ); ?>" href="#<?php echo esc_attr( $tab_slug ) ?>"><?php echo esc_html( $tab['menu_title'] ); ?></a><?php } ?>
             </nav>
             <?php }
 
             wp_nonce_field( $this->type, 'uix_setup_' . $this->current_page );
 
-            if( !empty( $uix['tabs'] ) ){
-                foreach( (array) $uix['tabs'] as $tab_slug => $tab ){ ?>
+            if( !empty( $this->struct['tabs'] ) ){
+                foreach( (array) $this->struct['tabs'] as $tab_slug => $tab ){ ?>
                     <div class="uix-tab-canvas" data-app="<?php echo esc_attr( $tab_slug ); ?>"></div>
                     <script type="text/html" data-template="<?php echo esc_attr( $tab_slug ); ?>">
                         <?php 
@@ -340,12 +333,12 @@ class pages extends \uixv2\data\localized implements \uixv2\data\save{
                     }
                 }
             }else{
-                if( !empty( $uix['template'] ) && file_exists( $uix['template'] ) ){
-                    include $uix['template'];
+                if( !empty( $this->struct['template'] ) && file_exists( $this->struct['template'] ) ){
+                    include $this->struct['template'];
                 }
             }
-            if( !empty( $uix['modals'] ) ){
-                foreach( $uix['modals'] as $modal_id => $modal ){
+            if( !empty( $this->struct['modals'] ) ){
+                foreach( $this->struct['modals'] as $modal_id => $modal ){
                     ?>
                     <script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
                         <?php

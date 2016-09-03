@@ -68,10 +68,8 @@ class metaboxes extends uix {
             if( empty( $object['sections'] ) )
                 continue;
 
-            foreach( $object['sections'] as $section_slug => &$section ){
-                $section['metabox'] = $object_id;
-            }
-            uixv2()->load( 'sections', $object['sections'] );
+            $object['children'] = uixv2()->load( 'sections', $object['sections'] );
+
         }
     }
 
@@ -166,9 +164,8 @@ class metaboxes extends uix {
      * Render the Metabox
      *
      * @since 2.0.0
-     * @param array $slug Section slug to be rendered
      */
-    public function render( $slug ){
+    public function render(){
         
         $uix = $this->get( $slug );
 
@@ -226,6 +223,7 @@ class metaboxes extends uix {
     public function build_metabox( $slug ){    
         
         $metabox = $this->get( $slug );
+        $this->children( $slug );
         if( count( $metabox['sections'] ) > 1 ){
             echo '<div class="uix-metabox-inside uix-has-tabs">';
                 echo '<ul class="uix-metabox-tabs">';
@@ -251,7 +249,7 @@ class metaboxes extends uix {
 
             echo '<div class="uix-metabox-sections">';
             foreach( $metabox['sections'] as $section_id=>$section ){
-                uixv2()->sections->render( $section_id );
+                uixv2()->ui->sections->render( $section_id );
             }
             echo '</div>';
         echo '</div>';
@@ -272,9 +270,9 @@ class metaboxes extends uix {
             foreach( $metabox['sections'] as $section_id => $section ){
                 if( !empty( $section['controls'] ) ){
                     foreach( $section['controls'] as $control_id => $control ) {
-                        $store_key = uixv2()->control[ $control['type'] ]->store_key( $control_id );
+                        $store_key = uixv2()->ui->control[ $control['type'] ]->store_key( $control_id );
                         $data = get_post_meta( $post->ID, $store_key, true );
-                        uixv2()->control[ $control['type'] ]->save_data( $control_id, $data );
+                        uixv2()->ui->control[ $control['type'] ]->save_data( $control_id, $data );
                     }
                 }
             }
@@ -346,7 +344,7 @@ class metaboxes extends uix {
         $data = array();
         if( !empty( $metabox['sections'] ) ){
             foreach( $metabox['sections'] as $section_id => $section ){
-                $data[ $section_id ] = uixv2()->sections->get_data( $section_id );
+                $data[ $section_id ] = uixv2()->ui->sections->get_data( $section_id );
             }
         }
         return $data;
@@ -364,7 +362,7 @@ class metaboxes extends uix {
             if( !empty( $metabox['sections'] ) ){
                 $sections = array_keys( $metabox['sections'] );
                 foreach( $sections as $section_id ) {
-                    uixv2()->sections->set_active( $section_id );
+                    uixv2()->ui->sections->set_active( $section_id );
                 }
             }
             $this->active_slugs[] = $slug;

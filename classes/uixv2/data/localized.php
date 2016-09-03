@@ -111,12 +111,12 @@ abstract class localized extends \uixv2\ui\uix implements load{
      *
      * @return string $store_key the defiuned option name for this UIX object
      */
-    public function store_key( $slug ){
-        
-        $uix = $this->get( $slug );
-        $store_key = 'uix-' . $this->type . '-' . sanitize_text_field( $slug );
-        if( !empty( $uix['store_key'] ) ){
-            $store_key = $uix['store_key'];
+    public function store_key(){
+
+        if( !empty( $this->struct['store_key'] ) ){
+            $store_key = $this->struct['store_key'];
+        }else{
+            $store_key = 'uix-' . $this->type . '-' . sanitize_text_field( $this->slug );
         }
 
         return $store_key;
@@ -135,10 +135,7 @@ abstract class localized extends \uixv2\ui\uix implements load{
         $temp = null;
         $slug = array_shift( $path );
 
-        // get the instance
-        $uix = static::get_instance();
-
-        $temp = $uix->get_data( $slug );
+        $temp = $this->get_data();
         foreach ($path as $index => $value) {
             if( !isset( $temp[ $value ] ) ){
                 return null;
