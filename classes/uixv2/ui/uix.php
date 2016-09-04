@@ -44,16 +44,7 @@ abstract class uix{
      * @var      string
      */
     protected $slug;
-
-    /**
-     * list of active slugs
-     *
-     * @since 2.0.0
-     *
-     * @var      array
-     */
-    protected $active_slugs = array();    
-
+    
     /**
      * Base URL of this class
      *
