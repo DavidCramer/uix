@@ -27,6 +27,22 @@ class post extends uix{
     public $type = 'post';
 
     /**
+     * registeres metaboxes if defined
+     *
+     * @since 2.0.0
+     * @see \uixv2\uix
+     * @param array $objects object structure array
+     */
+    public function setup() {
+
+        if( !empty( $this->struct['metaboxes'] ) ){
+            foreach ( $this->struct['metaboxes'] as $metabox_slug => $metabox_structure)
+                $this->add_child( 'metabox', $metabox_slug, $metabox_structure );
+        }
+    }
+
+
+    /**
      * setup actions and hooks to register post types
      *
      * @since 2.0.0

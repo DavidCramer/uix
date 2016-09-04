@@ -157,8 +157,8 @@ class metabox extends uix {
      */
     public function create_metabox( $post, $metabox ){
 
-        $slug = $metabox['id'];
-        // Set current data for the metabox
+        $this->post = $post;    
+
         $this->set_data();
 
         $this->render();
@@ -328,7 +328,7 @@ class metabox extends uix {
     public function is_active(){
 
         if( !empty( $this->post ) ){
-            if( empty( $this->struct['screen'] ) || in_array( $this->post->post_type, (array) $this->struct['screen'] ) ){
+            if( isset( $this->struct['screen'] ) && in_array( $this->post->post_type, (array) $this->struct['screen'] ) ){
                 return true;
             }
         }else{
@@ -340,14 +340,14 @@ class metabox extends uix {
                 if( empty( $screen ) || !is_object( $screen ) || $screen->base !== 'post' ){
                     return false;
                 }                
-                if( !empty( $screen->post_type ) && ( empty( $this->struct['screen'] ) || ( is_array( $this->struct['screen'] ) && in_array( $screen->id, $this->struct['screen'] ) ) ) ){           
+                if( !empty( $screen->post_type ) && isset( $this->struct['screen'] ) && is_array( $this->struct['screen'] ) && in_array( $screen->id, $this->struct['screen'] ) ){
                     $this->post = $post;
                     return true;
                 }
                 // set current post                
             }
         }
-        return false;     
+        return parent::is_active();     
     }
 
 }

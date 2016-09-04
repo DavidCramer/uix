@@ -79,18 +79,6 @@ class section extends \uixv2\data\data {
         echo '</div>';
     }
 
-
-    /**
-     * Get the Sections data store key ( index )
-     * @since 1.0.0
-     * @see \uixv2\data
-     * @return string $store_key the sanitized store key
-     */
-    public function store_key( $slug ){
-        return sanitize_key( $slug );
-    }    
-
-
     /**
      * Get Data from all controls of this section
      *
