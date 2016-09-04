@@ -32,7 +32,7 @@ class ui{
      *
      * @since 2.0.0
      * @access public
-     * @var   object/uix
+     * @var   array
      */
     public $ui;
 
@@ -50,14 +50,13 @@ class ui{
      *
      * @since 2.0.0
      * @access private
-     * @param array $locations array of loader locations and callbacks
      */
     private function auto_load() {
 
         /**
          * do UI loader locations
          *
-         * @param uixv2/ui $current UI object
+         * @param uixv2/ui $current UI instance
          */
         do_action( 'uixv2_register', $this );
 
@@ -88,7 +87,7 @@ class ui{
      * @return  object|\uixv2\/null    the instance of the object type or null if invalid
      */
     public function add( $type, $slug, $structure, $parent = null ) {
-        $init = $this->get_register_function( $type );
+        $init = $this->get_register_callback( $type );
         if( null !== $init ){
             $path = explode('\\', $type );
             $type = array_shift( $path );
@@ -101,13 +100,13 @@ class ui{
 
 
     /**
-     * Return an instance of this class.
+     * Returns a callback for registering the object or null if invalid type
      *
      * @since 2.0.0
-     *
-     * @return    object|\uixv2\    A single instance
+     * @param string $type The type of object to get register callback for
+     * @return array|null Callback array for registering an object or null if invalid
      */
-    public function get_register_function( $type ) {
+    public function get_register_callback( $type ) {
         $init = array( '\uixv2\ui\\' . $type, 'register' );
         if( !is_callable( $init ) ){
             return null;
@@ -121,7 +120,7 @@ class ui{
      *
      * @since 2.0.0
      *
-     * @return    object|\uixv2\    A single instance
+     * @return    object|UI    A single instance
      */
     public static function get_instance() {
 
@@ -140,7 +139,7 @@ class ui{
      *
      * @since 2.0.0
      *
-     * @param array|string $arr path, or array of paths to structures, or UI type
+     * @param array|string $arr path, or array of paths to structures to autoload
      */
     public function register( $arr ) {
         // determin how the structure works.
@@ -152,7 +151,7 @@ class ui{
     }
 
     /**
-     * Handly method to get request vars
+     * Handy method to get request vars
      *
      * @since 2.0.0
      *
