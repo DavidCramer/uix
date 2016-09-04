@@ -22,8 +22,7 @@ class editor extends \uixv2\ui\control\textarea{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
-     * @param string $slug Control slug to be rendered
-     * @return string 
+     * @access public 
      */
     public function input(){
 

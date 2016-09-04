@@ -26,6 +26,12 @@ abstract class localized extends data implements load{
      */
     public $data;
 
+    /**
+     * localizes data after enqueuing active assets
+     *
+     * @since 2.0.0
+     * @access protected
+     */
     protected function enqueue_active_assets(){
         // load object data
         $config_object  = $this->load_data();

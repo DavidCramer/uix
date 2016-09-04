@@ -23,7 +23,7 @@ class template extends \uixv2\ui\control{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
-     * @param string $slug Control slug to be rendered
+     * @access public
      * @return string 
      */
     public function input(){

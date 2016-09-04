@@ -21,7 +21,7 @@ class control extends \uixv2\data\data{
      * The type of object
      *
      * @since       2.0.0
-     *
+     * @access public
      * @var         string
      */
     public $type = 'control';
@@ -30,7 +30,7 @@ class control extends \uixv2\data\data{
      * Hold the values of the controls
      *
      * @since   2.0.0
-     *
+     * @access protected
      * @var     array
      */
     protected $data = array();
@@ -40,6 +40,7 @@ class control extends \uixv2\data\data{
      *
      * @since 2.0.0
      * @see \uixv2\uix
+     * @access public
      */
     public function setup() {
         // run parents to setup sanitization filters
@@ -55,8 +56,7 @@ class control extends \uixv2\data\data{
      * Create and Return the control's input name
      *
      * @since 2.0.0
-     *
-     * @param string $slug Slug of the control to get the name for
+     * @access public
      * @return string The control name
      */
     public function name(){
@@ -67,8 +67,7 @@ class control extends \uixv2\data\data{
      * Create and Return the control's ID
      *
      * @since 2.0.0
-     *
-     * @param string $slug Slug of the control to get the ID for
+     * @access public
      * @return string The control ID
      */
     public function id(){
@@ -80,7 +79,7 @@ class control extends \uixv2\data\data{
      * Gets the classes for the control input
      *
      * @since  2.0.0
-     *
+     * @access public
      * @return array
      */
     public function classes() {
@@ -97,8 +96,8 @@ class control extends \uixv2\data\data{
      * Gets the attributes for the control.
      *
      * @since  2.0.0
-     * @param string $slug Slug of the control 
-     * @return array
+     * @access public
+     * @return array Attributes for the input field
      */
     public function attributes() {
 
@@ -115,8 +114,8 @@ class control extends \uixv2\data\data{
      * Build Attributes for the input control
      *
      * @since  2.0.0
-     *
-     * @return array
+     * @access public
+     * @return string Attributes setup for the input field 
      */
     public function build_attributes() {
         
@@ -132,7 +131,8 @@ class control extends \uixv2\data\data{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
-     * @return string 
+     * @access public
+     * @return string Input field HTML striung
      */
     public function input(){
 
@@ -143,7 +143,7 @@ class control extends \uixv2\data\data{
      * Returns the label for the control
      *
      * @since 2.0.0
-     * 
+     * @access public
      * @return string Lable string 
      */
     public function label(){
@@ -159,8 +159,7 @@ class control extends \uixv2\data\data{
      * Returns the description for the control
      *
      * @since 2.0.0
-     *
-     * @param string $slug Control slug
+     * @access public
      * @return string description string 
      */
     public function description(){
@@ -177,6 +176,7 @@ class control extends \uixv2\data\data{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
+     * @access public
      */
     public function render(){
 
@@ -193,6 +193,7 @@ class control extends \uixv2\data\data{
      * checks if the current control is active
      *
      * @since 2.0.0
+     * @access public
      */
     public function is_active(){
         return $this->parent->is_active();

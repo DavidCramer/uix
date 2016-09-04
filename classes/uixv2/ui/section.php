@@ -33,7 +33,7 @@ class section extends \uixv2\data\data {
      *
      * @since 2.0.0
      * @see \uixv2\uix
-     * @param array $objects object structure array
+     * @access public
      */
     public function setup() {
         if( !empty( $this->struct['controls'] ) ){            
@@ -46,16 +46,16 @@ class section extends \uixv2\data\data {
      * Render the Section
      *
      * @since 2.0.0
+     * @access public
      */
     public function render(){
         
-        // load the section data 
-        $data = $this->get_data();
         if( empty( $this->struct['active'] ) ){
             $hidden = 'true';
         }else{            
             $hidden = 'false';
         }
+
         echo '<div id="' . esc_attr( $this->slug . '-' . $this->parent->slug ) . '" class="uix-' . esc_attr( $this->parent->type ) . '-section" aria-hidden="' . esc_attr( $hidden ) . '">';
             echo '<div class="uix-' . esc_attr( $this->parent->type ) . '-section-content">';
                 if( !empty( $this->struct['description'] ) ){
@@ -79,52 +79,12 @@ class section extends \uixv2\data\data {
         echo '</div>';
     }
 
-    /**
-     * Get Data from all controls of this section
-     *
-     * @since 2.0.0
-     * @see \uixv2\load
-     * @param string $slug Slug of the section to get data for
-     * @return array $data Array of sections data structured by the controls
-     */
-    public function get_data(){
-        $data = array();
-        if( !empty( $this->children ) ){
-            foreach( $this->children as $control ) {
-                $data[ $control->slug ] = $control->get_data();
-            }
-        }
-
-        return $data;
-    }
-
-
-    /**
-     * Save Section data to the section controls
-     *
-     * @since 2.0.0
-     * @param string $slug slug of the section
-     * @param mixed $data Data to be saved for the Section
-     * @see \uixv2\save
-     */
-    public function save_data( $slug, $data ){
-        
-        $section = $this->get( $slug );
-        if( empty( $section['controls'] ) ){ return; }
-
-        foreach( $section['controls'] as $control_id => $control ) {
-            $value = null;
-            if( isset( $data[ $control_id ] ) ){
-                $value = $data[ $control_id ];
-            }
-            uixv2()->ui->control[ $control['type'] ]->save_data( $control_id, $value );
-        }
-    }    
 
     /**
      * checks if the current section is active
      *
      * @since 2.0.0
+     * @access public
      */
     public function is_active(){
         return $this->parent->is_active();

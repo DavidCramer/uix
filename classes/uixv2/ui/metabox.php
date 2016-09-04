@@ -30,7 +30,7 @@ class metabox extends uix {
      * Holds the current post object
      *
      * @since 2.0.0
-     * @access protected
+     * @access public
      * @var      object|WP_Post
      */
     public $post = null;
@@ -40,6 +40,7 @@ class metabox extends uix {
      * setup actions and hooks to add metaboxes and save metadata
      *
      * @since 2.0.0
+     * @access protected
      */
     protected function actions() {
 
@@ -56,6 +57,7 @@ class metabox extends uix {
      *
      * @since 2.0.0
      * @see \uixv2\uix
+     * @access public
      */
     public function setup() {
 
@@ -70,6 +72,7 @@ class metabox extends uix {
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
+     * @access public
      */
     public function uix_styles() {
         // Add metabox style
@@ -84,6 +87,7 @@ class metabox extends uix {
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
+     * @access public
      */
     public function uix_scripts() {
         $scripts = array(
@@ -96,6 +100,7 @@ class metabox extends uix {
      * Enqueues specific tabs assets for the active pages
      *
      * @since 2.0.0
+     * @access protected
      */
     protected function enqueue_active_assets(){
         if( !empty( $this->struct['base_color'] ) ){
@@ -120,7 +125,7 @@ class metabox extends uix {
      * Add metaboxes to screen
      *
      * @since 2.0.0
-     *
+     * @access public
      * @uses "add_meta_boxes" hook
      */
     public function add_metaboxes(){
@@ -152,6 +157,7 @@ class metabox extends uix {
      *
      * @since 2.0.0
      * @uses "add_meta_box" function
+     * @access public
      * @param object/wp_post $post Current post for the metabox
      * @param array $metabox Metabox args array
      */
@@ -169,6 +175,7 @@ class metabox extends uix {
      * Render the Metabox
      *
      * @since 2.0.0
+     * @access public
      */
     public function render(){
         
@@ -206,6 +213,7 @@ class metabox extends uix {
      * build metabox
      *
      * @since 2.0.0
+     * @access public
      */
     public function build_metabox(){    
         
@@ -247,6 +255,7 @@ class metabox extends uix {
      * Sets the data for all sections and thier controls
      *
      * @since 2.0.0
+     * @access public
      */    
     public function set_data(){
         if( empty( $this->children ) ){ return; }
@@ -266,6 +275,7 @@ class metabox extends uix {
      *
      * @uses "save_post" hook
      * @since 2.0.0
+     * @access public
      * @param int $post_id ID of the current post being saved
      * @param object/wp_post $post Current post being saved
      */
@@ -289,6 +299,7 @@ class metabox extends uix {
      * Save the meta data for the post
      *
      * @since 2.0.0
+     * @access public
      * @param string $slug slug of the meta_key
      * @param mixed $data Data to be saved
      */
@@ -307,6 +318,7 @@ class metabox extends uix {
     /**
      * Get current data for all sections of the metabox
      * @since 2.0.0
+     * @access public
      * @param string $slug The slug of the metabox to get sections data for
      */
     public function get_sections_data( $slug ){
@@ -324,6 +336,7 @@ class metabox extends uix {
     /**
      * Determin which metaboxes are used for the current screen and set them active
      * @since 2.0.0
+     * @access public
      */
     public function is_active(){
 

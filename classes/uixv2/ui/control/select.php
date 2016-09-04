@@ -21,7 +21,7 @@ class select extends \uixv2\ui\control{
      * The type of object
      *
      * @since       2.0.0
-     *
+     * @access public
      * @var         string
      */
     public $type = 'select';
@@ -31,7 +31,7 @@ class select extends \uixv2\ui\control{
      * Gets the classes for the control input
      *
      * @since  2.0.0
-     *
+     * @access public
      * @return array
      */
     public function classes() {
@@ -48,7 +48,7 @@ class select extends \uixv2\ui\control{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
-     * @param string $slug Control slug to be rendered
+     * @access public
      * @return string 
      */
     public function input(){

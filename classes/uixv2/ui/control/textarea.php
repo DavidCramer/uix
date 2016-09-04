@@ -21,7 +21,7 @@ class textarea extends \uixv2\ui\control{
      * The type of object
      *
      * @since       2.0.0
-     * 
+     * @access public
      * @var         string
      */
     public $type = 'textarea';
@@ -30,8 +30,7 @@ class textarea extends \uixv2\ui\control{
      * Gets the attributes for the control.
      *
      * @since  2.0.0
-     * @access private
-     * @param string $slug Slug of the control 
+     * @access public
      * @return array
      */
     public function attributes() {
@@ -51,7 +50,7 @@ class textarea extends \uixv2\ui\control{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
-     * @param string $slug Control slug to be rendered
+     * @access public
      * @return string 
      */
     public function input(){

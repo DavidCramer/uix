@@ -39,6 +39,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * setup actions and hooks to add settings pate and save settings
      *
      * @since 2.0.0
+     * @access protected
      */
     protected function actions() {
         // run parent actions ( keep 'admin_head' hook )
@@ -53,6 +54,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * Define core page styles
      *
      * @since 2.0.0
+     * @access public
      */
     public function uix_styles() {
         $pages_styles = array(
@@ -70,6 +72,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * @uses "wp_ajax_uix_save_config" hook
      *
      * @since 2.0.0
+     * @access public
      */
     public function save_config(){
         // fetch _POST vars from helper method
@@ -100,6 +103,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * Save data for a page
      * @since 2.0.0
+     * @access public
      */
     public function save_data(){
         
@@ -120,7 +124,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * get a UIX config store key
      * @since 1.0.0
-     *
+     * @access public
      * @return string $store_key the defiuned option name for this UIX object
      */
     public function store_key(){
@@ -137,6 +141,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
     /**
      * Determin if a page is to be loaded and set it active
      * @since 2.0.0
+     * @access public
      */
     public function is_active(){
 
@@ -153,6 +158,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * Enqueues specific tabs assets for the active pages
      *
      * @since 2.0.0
+     * @access protected
      */
     protected function enqueue_active_assets(){
         if( empty( $this->struct['tabs'] ) )
@@ -169,7 +175,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * Add the settings page
      *
      * @since 2.0.0
-     *
+     * @access public
      * @uses "admin_menu" hook
      */
     public function add_settings_page(){
@@ -216,6 +222,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * Render the page
      *
      * @since 2.0.0
+     * @access public
      */
     public function render(){
 

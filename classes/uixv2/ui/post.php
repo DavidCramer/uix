@@ -31,7 +31,7 @@ class post extends uix{
      *
      * @since 2.0.0
      * @see \uixv2\uix
-     * @param array $objects object structure array
+     * @access public
      */
     public function setup() {
 
@@ -46,6 +46,7 @@ class post extends uix{
      * setup actions and hooks to register post types
      *
      * @since 2.0.0
+     * @access protected
      */
     protected function actions() {
 
@@ -61,7 +62,7 @@ class post extends uix{
      * Render the custom header styles
      *
      * @since 2.0.0
-     *
+     * @access protected
      */
     protected function enqueue_active_assets(){
         // output the styles
@@ -90,6 +91,7 @@ class post extends uix{
      * Define core UIX styling to identify UIX post types
      *
      * @since 2.0.0
+     * @access public
      */
     public function uix_styles() {
         $pages_styles = array(
@@ -102,6 +104,7 @@ class post extends uix{
      * Render (register) the post type
      *
      * @since 2.0.0
+     * @access public
      */
     public function render() {
 
@@ -115,6 +118,7 @@ class post extends uix{
      * Determin which post types are active and set them active and render some styling
      * Intended to be ovveridden
      * @since 2.0.0
+     * @access public
      */
     public function is_active(){
 

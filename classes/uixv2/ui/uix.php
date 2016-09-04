@@ -38,7 +38,7 @@ abstract class uix{
 
     /**
      * object slug
-     *
+     * @access public
      * @since 2.0.0
      *
      * @var      string
@@ -49,7 +49,7 @@ abstract class uix{
      * array of child objects
      *
      * @since 2.0.0
-     *
+     * @access public
      * @var      array
      */
     public $children = array();
@@ -58,7 +58,7 @@ abstract class uix{
      * Objects parent
      *
      * @since 2.0.0
-     *
+     * @access public
      * @var      object/uix
      */
     public $parent;    
@@ -112,8 +112,10 @@ abstract class uix{
      * UIX constructor
      *
      * @since 2.0.0
+     * @access private
      * @param string $slug Object slug
      * @param array $object Objects structure array
+     * @param object/uix $parent Parent UIX Object
      */
     private function __construct( $slug, $object, $parent = null ) {
         
@@ -149,11 +151,11 @@ abstract class uix{
     }
 
     /**
-     * Set custom UIX object stuff to the current instance
+     * Set custom UIX object setup proceses
      *
      * @since 2.0.0
-     *
-     * @return bool return true to stop constructor init sequence if needed to change order
+     * @access public
+     * @return void|bool return true to stop constructor init sequence if needed to change order
      */
     public function setup() {}
 
@@ -162,7 +164,7 @@ abstract class uix{
      * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
      *
      * @since 2.0.0
-     *
+     * @access protected
      */
     protected function actions() {
         // init UIX headers
@@ -176,7 +178,7 @@ abstract class uix{
      * Enabled debuging of scripts
      *
      * @since 2.0.0
-     *
+     * @access protected
      */
     protected function debug_scripts() {
         // detect debug scripts
@@ -189,7 +191,7 @@ abstract class uix{
      * Enabled debuging of styles
      *
      * @since 2.0.0
-     *
+     * @access protected
      */
     protected function debug_styles() {
         // detect debug styles      
@@ -203,7 +205,7 @@ abstract class uix{
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function uix_styles() {
         // Initilize core styles
@@ -217,7 +219,7 @@ abstract class uix{
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function uix_scripts() {
         // Initilize core scripts
@@ -231,6 +233,7 @@ abstract class uix{
      * Register the core UIX styles
      *
      * @since 2.0.0
+     * @access public
      * @param array Array of styles to be enqueued for all objects of current instance
      */
     public function styles( array $styles ) {
@@ -254,6 +257,7 @@ abstract class uix{
      * Register the core UIX scripts
      *
      * @since 2.0.0
+     * @access public
      * @param array Array of scripts to be enqueued for all objects of current instance
      */
     public function scripts( array $scripts ) {
@@ -276,7 +280,7 @@ abstract class uix{
      * Register the UIX objects
      *
      * @since 2.0.0
-     *
+     * @access public
      * @param string $slug Object slug
      * @param array $object object structure array
      * @return object|\uix object instance
@@ -291,7 +295,7 @@ abstract class uix{
      * Adds child objects to the current object
      *
      * @since 2.0.0
-     *
+     * @access public
      * @param string $type Child object type
      * @param string $slug Child object slug
      * @param array $structure object structure array
@@ -308,7 +312,7 @@ abstract class uix{
      * initialize object and enqueue assets
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function init() {
 
@@ -338,7 +342,7 @@ abstract class uix{
      * runs after assets have been enqueued
      *
      * @since 2.0.0
-     *
+     * @access protected
      */
     protected function enqueue_active_assets(){}
 
@@ -346,7 +350,7 @@ abstract class uix{
      * Detects the root of the plugin folder and sets the URL
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function set_url(){
 
@@ -367,6 +371,7 @@ abstract class uix{
      * enqueue a set of styles and scripts
      *
      * @since 2.0.0
+     * @access protected
      * @param array $set {
      *      array   $scripts array of script sources to be enqueued
      *      string  $prefix prefix for enqueue handle ( usually the object slug )
@@ -421,7 +426,7 @@ abstract class uix{
      * Determin if a UIX object should be active for this screen
      * Intended to be ovveridden
      * @since 2.0.0
-     *
+     * @access public
      */
     public function is_active(){
         if( !empty( $this->parent ) && $this->parent->is_active() ){ return true; }
@@ -432,6 +437,7 @@ abstract class uix{
      * Add defined contextual help to current screen
      *
      * @since 2.0.0
+     * @access public
      */
     public function add_help(){
         
@@ -464,34 +470,10 @@ abstract class uix{
     }
 
     /**
-     * get the children of an object
-     *
-     * @since 2.0.0
-     * @param string $slug registered object slug to fetch
-     *
-     * @return array|null array of child objects
-     */
-    public function children( $slug ){
-        $uix = $this->get( $slug );
-        var_dump( $uix );
-        die;
-        foreach( uixv2()->ui as $uix ){
-            if( is_array( $uix ) ){
-                // controls or sub types
-            }else{
-                foreach( $uix->objects as $object_slug => $object ){
-
-                }
-            }
-            
-        }
-        die;
-    }
-
-    /**
      * Render the UIX object
      *
      * @since 2.0.0
+     * @access public
      */
     abstract public function render();
 

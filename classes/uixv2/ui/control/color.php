@@ -22,7 +22,7 @@ class color extends \uixv2\ui\control\text{
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function uix_styles() {
         // Initilize core styles
@@ -38,7 +38,7 @@ class color extends \uixv2\ui\control\text{
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function uix_scripts() {
         // Initilize core scripts
@@ -57,7 +57,7 @@ class color extends \uixv2\ui\control\text{
      * Gets the attributes for the control.
      *
      * @since  2.0.0
-     * @access private
+     * @access public
      * @return array
      */
     public function attributes() {

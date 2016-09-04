@@ -21,7 +21,7 @@ class email extends \uixv2\ui\control{
      * The type of object
      *
      * @since       2.0.0
-     *
+     * @access public
      * @var         string
      */
     public $type = 'email';

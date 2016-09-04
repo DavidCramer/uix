@@ -21,7 +21,7 @@ class slider extends \uixv2\ui\control\text{
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function uix_styles() {
         // Initilize core styles
@@ -38,7 +38,7 @@ class slider extends \uixv2\ui\control\text{
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
      * @since 2.0.0
-     *
+     * @access public
      */
     public function uix_scripts() {
         // Initilize core scripts
@@ -57,8 +57,7 @@ class slider extends \uixv2\ui\control\text{
      * Gets the attributes for the control.
      *
      * @since  2.0.0
-     * @access private
-     * @param string $slug Slug of the control 
+     * @access public
      * @return array
      */
     public function attributes() {

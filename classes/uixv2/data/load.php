@@ -17,7 +17,7 @@ interface load{
      * Get data
      *
      * @since 2.0.0
-     *
+     * @access public
      * @return mixed $data Requested data of the object
      */
     public function load_data();
@@ -25,7 +25,7 @@ interface load{
     /**
      * get the objects data store key
      * @since 2.0.0
-     *
+     * @access public
      * @return string $store_key the defined option name for this UIX object
      */
     public function store_key();

@@ -21,7 +21,7 @@ class radio extends \uixv2\ui\control{
      * The type of object
      *
      * @since       2.0.0
-     *
+     * @access public
      * @var         string
      */
     public $type = 'radio';
@@ -30,7 +30,7 @@ class radio extends \uixv2\ui\control{
      * Gets the attributes for the control.
      *
      * @since  2.0.0
-     * @access private
+     * @access public
      * @return array
      */
     public function attributes() {
@@ -48,6 +48,7 @@ class radio extends \uixv2\ui\control{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
+     * @access public
      * @return string 
      */
     public function input(){

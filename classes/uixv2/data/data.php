@@ -26,6 +26,7 @@ abstract class data extends \uixv2\ui\uix{
      * Sets the objects sanitization filter
      *
      * @since 2.0.0
+     * @access public
      * @see \uixv2\uix
      */
     public function setup() {
@@ -36,6 +37,7 @@ abstract class data extends \uixv2\ui\uix{
     /**
      * set the object's data
      * @since 2.0.0
+     * @access public
      * @param mixed $data the data to be set
      */
     public function set_data( $data ){
@@ -45,6 +47,7 @@ abstract class data extends \uixv2\ui\uix{
     /**
      * get the object's data
      * @since 2.0.0
+     * @access public
      * @return mixed $data
      */
     public function get_data(){

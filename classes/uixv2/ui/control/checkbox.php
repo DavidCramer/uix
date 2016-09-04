@@ -21,7 +21,7 @@ class checkbox extends \uixv2\ui\control\radio{
      * The type of object
      *
      * @since       2.0.0
-     *
+     * @access public
      * @var         string
      */
     public $type = 'checkbox';
@@ -31,8 +31,7 @@ class checkbox extends \uixv2\ui\control\radio{
      * Gets the attributes for the control.
      *
      * @since  2.0.0
-     * @access private
-     * @param string $slug Slug of the control 
+     * @access public
      * @return array
      */
     public function attributes() {
