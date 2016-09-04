@@ -40,6 +40,7 @@ abstract class localized extends data implements load{
 
         $localize_data = array(
             'data'      => $config_object,
+            'slug'      => $this->slug,
             'structure' => $this->struct
         );
         // localize data for this screen
