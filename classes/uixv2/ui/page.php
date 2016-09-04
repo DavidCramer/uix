@@ -21,10 +21,10 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * The type of object
      *
      * @since 2.0.0
-     * @access protected
+     * @access public
      * @var      string
      */
-    protected $type = 'page';
+    public $type = 'page';
 
     /**
      * Holds the option screen prefix
@@ -46,7 +46,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
         // add settings page
         add_action( 'admin_menu', array( $this, 'add_settings_page' ), 9 );
         // save config
-        add_action( 'wp_ajax_uix_' . $this->type . '_save_config', array( $this, 'save_config') );
+        add_action( 'wp_ajax_uix_' . $this->slug . '_save_config', array( $this, 'save_config') );
     }
 
     /**
@@ -72,29 +72,27 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * @since 2.0.0
      */
     public function save_config(){
+        // fetch _POST vars from helper method
+        $data = uixv2()->request_vars( 'post' );
+        if( ! empty( $data[ 'config' ] ) ){
 
-        if( ! empty( $_POST[ 'config' ] ) ){
-
-            $config = json_decode( stripslashes_deep( $_POST[ 'config' ] ), true );
-            $page_slug = sanitize_text_field( $_POST['page_slug'] );
-            if( !wp_verify_nonce( $_POST[ 'uix_setup_' . $page_slug ], $this->type ) ){
+            if( !wp_verify_nonce( $data[ 'uix_setup_' . $this->slug ], $this->type ) ){
                 wp_send_json_error( esc_html__( 'Could not verify nonce', 'text-domain' ) );
             }
 
+            $config = json_decode( stripslashes_deep( $data[ 'config' ] ), true );
             
-            $page = $this->get( $page_slug );
+            $this->set_data( $config );
 
-            if( !empty( $page ) ){
-
-                if( !empty( $_POST['params'] ) ){
-                    $this->objects[ $page_slug ] = array_merge( $this->objects[ $page_slug ], $_POST['params'] );
-                }
-
-                $this->save_data();
-
-                wp_send_json_success();
-
+            // allows submitted params to alter saving
+            if( !empty( $data['params'] ) ){
+                $this->struct = array_merge( $this->struct, $data['params'] );
             }
+
+            $this->save_data();
+
+            wp_send_json_success();
+
         }
 
     }
@@ -111,16 +109,13 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
          * @param array $config the config array to save
          * @param array $uix the uix config to be saved for
          */
-        $data = apply_filters( 'uix_save_config-' . $this->type, $data, $this );
+        $data = apply_filters( 'uix_save_config-' . $this->type, $this->get_data(), $this );
         $store_key = $this->store_key();
 
         // save object
         update_option( $store_key, $data );
         
     }
-
-
-
 
     /**
      * get a UIX config store key
@@ -143,12 +138,11 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * Determin if a page is to be loaded and set it active
      * @since 2.0.0
      */
-    protected function is_active(){
+    public function is_active(){
 
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
-            
-        if( empty( $screen ) || !is_object( $screen ) || !in_array( $screen->base, $this->plugin_screen_hook_suffix ) ){
+        if( empty( $screen ) || !is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ){
             return false;
         }
 
@@ -193,7 +187,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
 
         if( !empty( $page['parent'] ) ){
 
-            $this->plugin_screen_hook_suffix[ $this->slug ] = add_submenu_page(
+            $this->plugin_screen_hook_suffix = add_submenu_page(
                 $args[ 'parent' ],
                 $args[ 'page_title' ],
                 $args[ 'menu_title' ],
@@ -204,7 +198,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
 
         }else{
 
-            $this->plugin_screen_hook_suffix[ $this->slug ] = add_menu_page(
+            $this->plugin_screen_hook_suffix = add_menu_page(
                 $args[ 'page_title' ],
                 $args[ 'menu_title' ],
                 $args[ 'capability' ], 

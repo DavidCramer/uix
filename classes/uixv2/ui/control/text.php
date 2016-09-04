@@ -15,7 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class text extends \uixv2\ui\controls{
+class text extends \uixv2\ui\control{
     
     /**
      * The type of object
@@ -24,5 +24,5 @@ class text extends \uixv2\ui\controls{
      *
      * @var         string
      */
-    protected $type = 'text';    
+    public $type = 'text';    
 }

@@ -24,7 +24,7 @@ class shortcodes extends \uixv2\data\localized{
      *
      * @var      string
      */
-    protected $type = 'shortcode';
+    public $type = 'shortcode';
 
     /**
      * found shortcode args

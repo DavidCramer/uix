@@ -17,10 +17,21 @@ abstract class data extends \uixv2\ui\uix{
      * object data
      *
      * @since 2.0.0
-     * @access protected
+     * @access private
      * @var     mixed
      */
-    protected $data;
+    private $data;
+
+    /**
+     * Sets the objects sanitization filter
+     *
+     * @since 2.0.0
+     * @see \uixv2\uix
+     */
+    public function setup() {
+        if( !empty( $this->struct['sanitize_callback'] ) )
+            add_filter( 'uix_' . $this->slug . '_sanitize_' . $this->type, $this->struct['sanitize_callback'] );
+    }
 
     /**
      * set the object's data
@@ -28,7 +39,7 @@ abstract class data extends \uixv2\ui\uix{
      * @param mixed $data the data to be set
      */
     public function set_data( $data ){
-        $this->data = $data;
+        $this->data = apply_filters( 'uix_' . $this->slug . '_sanitize_' . $this->type, $data, $this );
     }
 
     /**

@@ -64,35 +64,16 @@ class ui{
         // go over each locations
         foreach( $this->locations as $type => $paths ){
 
-            $structures = array();
             foreach( $paths as $path ) {
                 $has_struct = $this->get_file_structure( $path );
-                if( is_array( $has_struct ) )
-                    $structures = array_merge( $structures, $has_struct );
+                if( is_array( $has_struct ) ){
+                    foreach( $has_struct as $slug => $struct ){
+                        if( is_array( $struct ) )
+                            $this->add( $type, $slug, $struct );
+                    }
+                }
             }
-            if( !empty( $structures ) )
-                $this->load( $type, $structures );
-        }
-    }
 
-
-    /**
-     * loads a structure object
-     *
-     * @since 2.0.0
-     *
-     * @return    object|\uixv2\    A single instance
-     */
-    public function load( $type, $structures ) {
-        $init = $this->get_register_function( $type );
-        if( null !== $init ){
-            $path = explode('\\', $type );
-            $type = array_shift( $path );
-            $objects = call_user_func( $init, $structures );
-            foreach( $objects as $slug => $object ){
-                $this->ui->{$type}[ $slug ] = $object;
-            }
-            return $objects;
         }
     }
 
@@ -103,11 +84,20 @@ class ui{
      * @param string $type The type of object to add
      * @param string $slug The objects slug to add
      * @param string $structure The objects structure
-     * @return    object|\uixv2\    the instance of the object type
+     * @param object $parent object
+     * @return  object|\uixv2\/null    the instance of the object type or null if invalid
      */
-    public function add( $type, $slug, $structure ) {
-        $this->load( $type, array( $slug => $structure ) );
-    }    
+    public function add( $type, $slug, $structure, $parent = null ) {
+        $init = $this->get_register_function( $type );
+        if( null !== $init ){
+            $path = explode('\\', $type );
+            $type = array_shift( $path );
+            $object = call_user_func_array( $init, array( $slug, $structure, $parent ) );
+            $this->ui->{$type}[ $slug ] = $object;
+            return $object;
+        }
+        return null;
+    }
 
 
     /**

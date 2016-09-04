@@ -15,7 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class select extends \uixv2\ui\controls{
+class select extends \uixv2\ui\control{
 
     /**
      * The type of object
@@ -24,7 +24,7 @@ class select extends \uixv2\ui\controls{
      *
      * @var         string
      */
-    protected $type = 'select';
+    public $type = 'select';
 
 
     /**
@@ -51,17 +51,16 @@ class select extends \uixv2\ui\controls{
      * @param string $slug Control slug to be rendered
      * @return string 
      */
-    public function input( $slug ){
+    public function input(){
         
-        $control    = $this->get( $slug );
-        $input      = '<' . esc_html( $this->type ) . ' ' . $this->build_attributes( $slug ) . '>';
-        $value      = $this->get_data( $slug );
+        $input      = '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>';
+        $value      = $this->get_data();
 
-        if( !isset( $control['value'] ) ){
+        if( !isset( $this->struct['value'] ) ){
             $input .= '<option></option>';
         }
 
-        foreach ($control['choices'] as $option_value => $option_label) {
+        foreach ($this->struct['choices'] as $option_value => $option_label) {
             $sel = null;
             if( $option_value == $value )
                 $sel = ' selected="selected"';

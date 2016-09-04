@@ -31,10 +31,10 @@ abstract class uix{
      * The type of UI object
      *
      * @since 2.0.0
-     * @access protected
+     * @access public
      * @var      string
      */
-    protected $type = 'uix';
+    public $type = 'uix';
 
     /**
      * object slug
@@ -43,8 +43,26 @@ abstract class uix{
      *
      * @var      string
      */
-    protected $slug;
+    public $slug;
     
+    /**
+     * array of child objects
+     *
+     * @since 2.0.0
+     *
+     * @var      array
+     */
+    public $children = array();
+
+    /**
+     * Objects parent
+     *
+     * @since 2.0.0
+     *
+     * @var      object/uix
+     */
+    public $parent;    
+
     /**
      * Base URL of this class
      *
@@ -91,14 +109,27 @@ abstract class uix{
     protected $debug_styles = null; 
 
     /**
-     * UIX constructor - override this to control order of initialization
+     * UIX constructor
      *
      * @since 2.0.0
-     *
+     * @param string $slug Object slug
+     * @param array $object Objects structure array
      */
-    public function __construct() {
+    private function __construct( $slug, $object, $parent = null ) {
+        
+        // set the slug
+        $this->slug = $slug;
+        // set the object
+        $this->struct = $object;
+        // set parent if given
+        if( null !== $parent && is_object( $parent ) )
+            $this->parent = $parent;
+
         // Set the root URL for this plugin.
         $this->set_url();
+
+        // do setup
+        if( $this->setup() ){ return; }
 
         // enable / disable debug scripts
         $this->debug_scripts();
@@ -116,6 +147,16 @@ abstract class uix{
         $this->actions();
 
     }
+
+    /**
+     * Set custom UIX object stuff to the current instance
+     *
+     * @since 2.0.0
+     *
+     * @return bool return true to stop constructor init sequence if needed to change order
+     */
+    public function setup() {}
+
 
     /**
      * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
@@ -166,9 +207,9 @@ abstract class uix{
      */
     public function uix_styles() {
         // Initilize core styles
-        $core_styles = array();
+        $styles = array();
         // push to activly register styles
-        $this->styles( $core_styles );
+        $this->styles( $styles );
 
     }
 
@@ -180,9 +221,9 @@ abstract class uix{
      */
     public function uix_scripts() {
         // Initilize core scripts
-        $core_scripts = array();
+        $scripts = array();
         // push to activly register scripts
-        $this->scripts( $core_scripts );
+        $this->scripts( $scripts );
     }
 
 
@@ -196,7 +237,14 @@ abstract class uix{
         
         if( !empty( $this->struct['styles'] ) )
             $styles = array_merge( $this->struct['styles'], $styles );
-        
+
+        /**
+         * Filter UIX styles
+         *
+         * @param array $styles array of UIX styles to be registered
+         */
+        $styles = apply_filters( 'uix_set_styles-' . $this->type, $styles );
+
         $this->styles = $styles;
 
     }
@@ -213,6 +261,13 @@ abstract class uix{
         if( !empty( $this->struct['scripts'] ) )
             $scripts = array_merge( $this->struct['scripts'], $scripts );
 
+        /**
+         * Filter UIX scripts
+         *
+         * @param array $scripts array of core UIX scripts to be registered
+         */
+        $scripts = apply_filters( 'uix_set_scripts-' . $this->type, $scripts );
+
         $this->scripts = $scripts;
 
     }
@@ -222,48 +277,32 @@ abstract class uix{
      *
      * @since 2.0.0
      *
-     * @param array $objects object structure array
-     * @return array objects|\uix all objects instances
+     * @param string $slug Object slug
+     * @param array $object object structure array
+     * @return object|\uix object instance
      */
-    public static function register( array $objects ) {
-
-        $uix_objects = array();
-        
-        foreach( $objects as $slug => $object ){
+    public static function register( $slug, $object, $parent = null ) {
             // get the current instance
             $caller = get_called_class();
-            $uix = new $caller();
-
-            /**
-             * Filter objects to be created
-             *
-             * @param array $object array of UIX object structure to be registered
-             * @param string $slug Of UIX object being registered
-             */
-            $object = apply_filters( 'uix_register_object-' . $uix->type, $object, $slug );
-
-            $uix->slug = $slug;
-
-            $uix->struct = $object;
-
-            // set objects to the instance
-            $uix->setup();
-
-            // add to object list
-            $uix_objects[ $slug ] = $uix;
-        }
-
-        return $uix_objects;
+            return new $caller( $slug, $object, $parent );
     }
 
     /**
-     * Set additional the UIX objects to the current instance
+     * Adds child objects to the current object
      *
      * @since 2.0.0
      *
-     * @param array $objects object structure array
+     * @param string $type Child object type
+     * @param string $slug Child object slug
+     * @param array $structure object structure array
      */
-    public function setup() {}
+    public function add_child( $type, $slug, $structure ) {
+        $child = uixv2()->add( $type, $slug, $structure, $this );
+        if( null !== $child ){
+            $this->children[ $slug ] = $child;
+        }
+            
+    }
 
     /**
      * initialize object and enqueue assets
@@ -384,7 +423,7 @@ abstract class uix{
      * @since 2.0.0
      *
      */
-    protected function is_active(){
+    public function is_active(){
         return false;
     }
 

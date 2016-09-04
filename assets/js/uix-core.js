@@ -14,13 +14,14 @@ var conduitApp = {},
 
 !( jQuery( function($){
 
-
-    var currentAjaxProcess = null;
-    
     uix_slug = $('.uix-item').data('uix');
     uix = UIX[ uix_slug ];
     uix.slug = uix_slug;
 
+
+    var currentAjaxProcess  = null,
+        action              = "uix_" + uix.slug + "_save_config";
+    
     conduitException = function( message ){
         this.message = message;
         this.name = "ConduitException";
@@ -138,8 +139,7 @@ var conduitApp = {},
         }
 
         var data = {
-            action      :   "uix_page_save_config",
-            page_slug   :   uix.slug,
+            action      :   action,
             config      :   JSON.stringify( obj ),
             autosave    :   true
         };
@@ -475,8 +475,7 @@ var conduitApp = {},
         confirm.hide();
         spinner.css({ visibility: "visible", opacity:1, display : "inline-block"});
         var data = {
-            action      :   "uix_page_save_config",
-            page_slug   :   uix.slug,
+            action      :   action,
             config      :   JSON.stringify( obj ),
         };
         data[ 'uix_setup_' + uix.slug ] = $('#uix_setup_' + uix.slug).val();

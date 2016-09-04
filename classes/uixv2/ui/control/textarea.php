@@ -15,16 +15,16 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class textarea extends \uixv2\ui\controls{
+class textarea extends \uixv2\ui\control{
 
     /**
      * The type of object
      *
      * @since       2.0.0
-     *
+     * 
      * @var         string
      */
-    protected $type = 'textarea';
+    public $type = 'textarea';
 
     /**
      * Gets the attributes for the control.
@@ -34,14 +34,13 @@ class textarea extends \uixv2\ui\controls{
      * @param string $slug Slug of the control 
      * @return array
      */
-    public function attributes( $slug ) {
+    public function attributes() {
 
-        $attributes         = parent::attributes( $slug );
+        $attributes         = parent::attributes();
         $attributes['rows'] = '5';
         
-        $control = $this->get( $slug );
-        if( !empty( $control['rows'] ) ){
-            $attributes['rows'] = $control['rows'];
+        if( !empty( $this->struct['rows'] ) ){
+            $attributes['rows'] = $this->struct['rows'];
         }
 
         return $attributes;
@@ -55,9 +54,9 @@ class textarea extends \uixv2\ui\controls{
      * @param string $slug Control slug to be rendered
      * @return string 
      */
-    public function input( $slug ){
+    public function input(){
 
-        return '<' . esc_html( $this->type ) . ' ' . $this->build_attributes( $slug ) . '>' . esc_textarea( $this->get_data( $slug ) ) . '</' . esc_html( $this->type ) . '>';
+        return '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>' . esc_textarea( $this->get_data() ) . '</' . esc_html( $this->type ) . '>';
     }    
 
 }

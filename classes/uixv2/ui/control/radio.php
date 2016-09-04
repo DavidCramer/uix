@@ -15,7 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class radio extends \uixv2\ui\controls{
+class radio extends \uixv2\ui\control{
 
     /**
      * The type of object
@@ -24,19 +24,18 @@ class radio extends \uixv2\ui\controls{
      *
      * @var         string
      */
-    protected $type = 'radio';
+    public $type = 'radio';
 
     /**
      * Gets the attributes for the control.
      *
      * @since  2.0.0
      * @access private
-     * @param string $slug Slug of the control 
      * @return array
      */
-    public function attributes( $slug ) {
+    public function attributes() {
 
-        $attributes         = parent::attributes( $slug );
+        $attributes         = parent::attributes();
         $attributes['type'] = $this->type;
         unset( $attributes['id'] );
 
@@ -49,18 +48,16 @@ class radio extends \uixv2\ui\controls{
      *
      * @since 2.0.0
      * @see \uixv2\ui\uix
-     * @param string $slug Control slug to be rendered
      * @return string 
      */
-    public function input( $slug ){
+    public function input(){
         
-        $control    = $this->get( $slug );
         $input      = '';
-        $values     = (array) $this->get_data( $slug );
-        $id         = $this->id( $slug );
+        $values     = (array) $this->get_data();
+        $id         = $this->id();
         $index      = 0;
 
-        foreach ($control['choices'] as $option_value => $option_label) {
+        foreach ($this->struct['choices'] as $option_value => $option_label) {
             $sel        = null;
             $option_id  = $id . '-' . sanitize_key( $option_value );
             if( in_array( $option_value, $values ) )
@@ -68,7 +65,7 @@ class radio extends \uixv2\ui\controls{
 
             $input .= '<div class="uix-' . esc_attr( $this->type ) . '">';
                 $input .= '<label for="' . $option_id . '">';
-                $input .= '<input id="' . $option_id . '" ' . $this->build_attributes( $slug ) . ' value="' . esc_attr( $option_value ) . '"' . $sel . '>';
+                $input .= '<input id="' . $option_id . '" ' . $this->build_attributes() . ' value="' . esc_attr( $option_value ) . '"' . $sel . '>';
                 $input .= esc_html( $option_label );
                 $input .= '</label>';
             $input .= '</div>';

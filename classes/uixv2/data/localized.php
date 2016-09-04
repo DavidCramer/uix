@@ -28,7 +28,7 @@ abstract class localized extends data implements load{
 
     protected function enqueue_active_assets(){
         // load object data
-        $config_object  = $this->get_data();
+        $config_object  = $this->load_data();
 
         /**
          * Filter config object
@@ -77,14 +77,6 @@ abstract class localized extends data implements load{
                 )               
             )
         );
-
-        /**
-         * Filter core UIX scripts
-         *
-         * @param array $core_scripts array of core UIX scripts to be registered
-         */
-        $core_scripts = apply_filters( 'uix_set_core_styles-' . $this->type, $core_scripts );
-
         // push to activly register scripts
         $this->scripts( $core_scripts );
     }

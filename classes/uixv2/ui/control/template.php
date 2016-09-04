@@ -15,7 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class template extends \uixv2\ui\controls{
+class template extends \uixv2\ui\control{
 
 
     /**
@@ -26,14 +26,10 @@ class template extends \uixv2\ui\controls{
      * @param string $slug Control slug to be rendered
      * @return string 
      */
-    public function input( $slug ){
+    public function input(){
         
-        $control = $this->get( $slug );
-
-        if( !empty( $control['template'] ) && file_exists( $control['template'] ) ){ ?>
-            <?php include $control['template']; ?>
-            </div>
-        <?php }
+        if( !empty( $this->struct['template'] ) && file_exists( $this->struct['template'] ) )
+            include $this->struct['template'];
     }    
      
 

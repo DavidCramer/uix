@@ -25,12 +25,12 @@ class slider extends \uixv2\ui\control\text{
      */
     public function uix_styles() {
         // Initilize core styles
-        $core_styles = array(
+        $styles = array(
             'slider-control'        => $this->url . 'assets/controls/slider/css/ion.rangeSlider' . $this->debug_scripts . '.css',
             'slider-control-theme'  => $this->url . 'assets/controls/slider/css/ion.rangeSlider.skinHTML5' . $this->debug_scripts . '.css',
         );
         // push to activly register styles
-        $this->styles( $core_styles );
+        $this->styles( $styles );
 
     }
 
@@ -42,7 +42,7 @@ class slider extends \uixv2\ui\control\text{
      */
     public function uix_scripts() {
         // Initilize core scripts
-        $core_scripts = array(
+        $scripts = array(
             'slider-control'        => $this->url . 'assets/controls/slider/js/ion.rangeSlider' . $this->debug_scripts . '.js',
             'slider-control-init'   => array(
                 "src"       => $this->url . 'assets/controls/slider/js/ion.rangeSlider.init' . $this->debug_scripts . '.js',
@@ -50,7 +50,7 @@ class slider extends \uixv2\ui\control\text{
             )
         );
         // push to activly register scripts
-        $this->scripts( $core_scripts );
+        $this->scripts( $scripts );
     }
 
     /**
@@ -61,9 +61,9 @@ class slider extends \uixv2\ui\control\text{
      * @param string $slug Slug of the control 
      * @return array
      */
-    public function attributes( $slug ) {
+    public function attributes() {
 
-        $attributes = parent::attributes( $slug );
+        $attributes = parent::attributes();
         $attributes['class']                        = 'uix-slider';
         $attributes['data-type']                    = 'single';
         $attributes['data-input-values-separator']  = ';';

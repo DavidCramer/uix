@@ -1,6 +1,6 @@
 <?php
 /**
- * UIX Post Types
+ * UIX Post Type
  *
  * @package   uixv2
  * @author    David Cramer
@@ -11,20 +11,20 @@
 namespace uixv2\ui;
 
 /**
- * Pages class
+ * UIX Post Type class
  * @package uixv2\ui
  * @author  David Cramer
  */
-class posts extends uix{
+class post extends uix{
 
     /**
      * The type of object
      *
      * @since 2.0.0
-     * @access protected
+     * @access public
      * @var      string
      */
-    protected $type = 'post';
+    public $type = 'post';
 
     /**
      * setup actions and hooks to register post types
@@ -38,6 +38,36 @@ class posts extends uix{
         // add settings page
         add_action( 'init', array( $this, 'render' ) );
 
+    }
+
+
+    /**
+     * Render the custom header styles
+     *
+     * @since 2.0.0
+     *
+     */
+    protected function enqueue_active_assets(){
+        // output the styles
+        if( !empty( $this->struct['base_color'] ) ){
+        ?><style type="text/css">
+            .contextual-help-tabs .active {
+                border-left: 6px solid <?php echo $this->struct['base_color']; ?> !important;
+            }
+            #wpbody-content .wrap > h1 {
+                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+            }
+            #wpbody-content .wrap > h1 a.page-title-action:hover{
+                background: <?php echo $this->struct['base_color']; ?>;
+                border-color: <?php echo $this->struct['base_color']; ?>;
+            }
+            #wpbody-content .wrap > h1 a.page-title-action:focus{
+                box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
+                border-color: <?php echo $this->struct['base_color']; ?>;
+            }
+        </style>
+        <?php
+        }
     }
 
     /**
@@ -70,36 +100,15 @@ class posts extends uix{
      * Intended to be ovveridden
      * @since 2.0.0
      */
-    protected function locate(){
+    public function is_active(){
 
         $screen = get_current_screen();
+
         // check the screen is valid and is a uix post type page
-        if( !is_object( $screen ) || empty( $screen->post_type ) || empty( $this->objects[ $screen->post_type ] ) ){
-            return;
+        if( !is_object( $screen ) || empty( $screen->post_type ) || $screen->post_type !== $this->slug ){
+            return false;
         }
-        // output the styles
-        $uix = $this->get( $screen->post_type );
-        if( !empty( $uix['base_color'] ) ){
-        ?><style type="text/css">
-            .contextual-help-tabs .active {
-                border-left: 6px solid <?php echo $uix['base_color']; ?> !important;
-            }
-            #wpbody-content .wrap > h1 {
-                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $uix['base_color']; ?> inset;
-            }
-            #wpbody-content .wrap > h1 a.page-title-action:hover{
-                background: <?php echo $uix['base_color']; ?>;
-                border-color: <?php echo $uix['base_color']; ?>;
-            }
-            #wpbody-content .wrap > h1 a.page-title-action:focus{
-                box-shadow: 0 0 2px <?php echo $uix['base_color']; ?>;
-                border-color: <?php echo $uix['base_color']; ?>;
-            }
-        </style>
-        <?php
-        }
-        // add to active slugs
-        $this->set_active( $screen->post_type );
+        return true;
     }
 
 }

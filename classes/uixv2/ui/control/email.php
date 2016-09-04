@@ -15,7 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class email extends \uixv2\ui\controls{
+class email extends \uixv2\ui\control{
 
     /**
      * The type of object
@@ -24,6 +24,6 @@ class email extends \uixv2\ui\controls{
      *
      * @var         string
      */
-    protected $type = 'email';
+    public $type = 'email';
 
 }

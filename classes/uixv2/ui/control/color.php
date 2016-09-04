@@ -26,11 +26,11 @@ class color extends \uixv2\ui\control\text{
      */
     public function uix_styles() {
         // Initilize core styles
-        $core_styles = array(
+        $styles = array(
             'wp-color-picker'
         );
         // push to activly register styles
-        $this->styles( $core_styles );
+        $this->styles( $styles );
 
     }
 
@@ -42,11 +42,15 @@ class color extends \uixv2\ui\control\text{
      */
     public function uix_scripts() {
         // Initilize core scripts
-        $core_scripts = array(
+        $scripts = array(
             'wp-color-picker',
+            'color-control-init'   => array(
+                "src"       => $this->url . 'assets/controls/color/js/color' . $this->debug_scripts . '.js',
+                "in_footer" => true
+            )
         );
         // push to activly register scripts
-        $this->scripts( $core_scripts );
+        $this->scripts( $scripts );
     }
 
     /**
@@ -54,12 +58,11 @@ class color extends \uixv2\ui\control\text{
      *
      * @since  2.0.0
      * @access private
-     * @param string $slug Slug of the control 
      * @return array
      */
-    public function attributes( $slug ) {
+    public function attributes() {
 
-        $attributes = parent::attributes( $slug );
+        $attributes = parent::attributes();
         $attributes['class'] = 'color-field';
 
         return $attributes;

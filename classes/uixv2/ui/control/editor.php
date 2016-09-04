@@ -25,14 +25,13 @@ class editor extends \uixv2\ui\control\textarea{
      * @param string $slug Control slug to be rendered
      * @return string 
      */
-    public function input( $slug ){
+    public function input(){
 
-        $control = $this->get( $slug );
-        $settings = array( 'textarea_name' => $this->name( $slug ) );
-        if( !empty( $control['settings'] ) && is_array( $control['settings'] ) )
-            $settings = array_merge( $control['settings'], $settings );
+        $settings = array( 'textarea_name' => $this->name() );
+        if( !empty( $this->struct['settings'] ) && is_array( $this->struct['settings'] ) )
+            $settings = array_merge( $this->struct['settings'], $settings );
 
-        wp_editor( $this->get_data( $slug ), $this->id( $slug ), $settings );
+        wp_editor( $this->get_data(), $this->id(), $settings );
 
     }    
 

@@ -24,7 +24,7 @@ class checkbox extends \uixv2\ui\control\radio{
      *
      * @var         string
      */
-    protected $type = 'checkbox';
+    public $type = 'checkbox';
 
 
     /**
@@ -35,9 +35,9 @@ class checkbox extends \uixv2\ui\control\radio{
      * @param string $slug Slug of the control 
      * @return array
      */
-    public function attributes( $slug ) {
+    public function attributes() {
 
-        $attributes         = parent::attributes( $slug );
+        $attributes         = parent::attributes();
         $attributes['name'] .= '[]';
 
         return $attributes;

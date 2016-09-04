@@ -15,7 +15,7 @@ namespace uixv2\ui\control;
  *
  * @since 2.0.0
  */
-class file extends \uixv2\ui\controls{
+class file extends \uixv2\ui\control{
     
     /**
      * The type of object
@@ -24,5 +24,5 @@ class file extends \uixv2\ui\controls{
      *
      * @var         string
      */
-    protected $type = 'file';
+    public $type = 'file';
 }
