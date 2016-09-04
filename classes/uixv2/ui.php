@@ -161,6 +161,31 @@ class ui{
         }
     }
 
+    /**
+     * Handly method to get request vars
+     *
+     * @since 2.0.0
+     *
+     * @param string $type Request type to get
+     * @return array Regest vars array
+     */
+    public function request_vars( $type ) {
+        switch ( $type ) {
+            case 'post':
+                return $_POST;
+                break;
+            case 'get':
+                return $_POST;
+                break;
+            case 'files':
+                return $_POST;
+                break;
+            default:
+                return $_REQUEST;
+                break;
+        }
+    }    
+
 
     /**
      * Gets the file structures and converts it if needed
