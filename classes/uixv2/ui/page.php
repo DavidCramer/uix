@@ -11,11 +11,11 @@
 namespace uixv2\ui;
 
 /**
- * Pages class
+ * UIX Page class
  * @package uixv2\ui
  * @author  David Cramer
  */
-class pages extends \uixv2\data\localized implements \uixv2\data\save{
+class page extends \uixv2\data\localized implements \uixv2\data\save{
 
     /**
      * The type of object
