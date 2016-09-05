@@ -15,7 +15,7 @@ namespace uixv2\ui;
  * @package uixv2\ui
  * @author  David Cramer
  */
-class metabox extends uix {
+class metabox extends panel {
 
     /**
      * The type of object
@@ -53,21 +53,6 @@ class metabox extends uix {
     }
 
     /**
-     * Setup metaboxes sections of defined
-     *
-     * @since 2.0.0
-     * @see \uixv2\uix
-     * @access public
-     */
-    public function setup() {
-
-        if( !empty( $this->struct['sections'] ) ){
-            foreach( $this->struct['sections'] as $slug => $structure )
-                $this->add_child( 'section', $slug, $structure );
-        }
-    }
-
-    /**
      * set metabox styles
      *
      * @since 2.0.0
@@ -77,24 +62,11 @@ class metabox extends uix {
     public function uix_styles() {
         // Add metabox style
         $styles = array(
-            'metabox'        =>  $this->url . 'assets/css/metabox' . $this->debug_styles . '.css'
+            'metabox'        =>  $this->url . 'assets/css/uix-metabox' . $this->debug_styles . '.css'
         );
         $this->styles( $styles );
     }
 
-    /**
-     * set metabox scripts
-     *
-     * @since 2.0.0
-     * @see \uixv2\ui\uix
-     * @access public
-     */
-    public function uix_scripts() {
-        $scripts = array(
-            'metabox'        =>  $this->url . 'assets/js/uix-metaboxes' . $this->debug_scripts . '.js'
-        );
-        $this->scripts( $scripts );
-    }
 
     /**
      * Enqueues specific tabs assets for the active pages
@@ -109,10 +81,10 @@ class metabox extends uix {
                 $text_color = $this->struct['base_text_color'];
             }
         ?><style type="text/css">
-        #side-sortables #<?php echo $this->slug; ?> .uix-metabox-tabs li[aria-selected="true"] a{
+        #side-sortables #<?php echo 'uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> .uix-panel-tabs li[aria-selected="true"] a{
         box-shadow: 0 3px 0 <?php echo $this->struct['base_color']; ?> inset;
         }
-        #<?php echo $this->slug; ?> .uix-metabox-tabs li[aria-selected="true"] a {
+        #<?php echo 'uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> .uix-panel-tabs li[aria-selected="true"] a {
         box-shadow: 3px 0 0 <?php echo $this->struct['base_color']; ?> inset;
         }
         </style>
@@ -342,7 +314,7 @@ class metabox extends uix {
      */
     public function is_active(){
         if( !is_admin() ){ return false; }
-        
+
         if( !empty( $this->post ) ){
             if( isset( $this->struct['screen'] ) && in_array( $this->post->post_type, (array) $this->struct['screen'] ) ){
                 return true;

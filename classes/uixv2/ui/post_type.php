@@ -95,7 +95,7 @@ class post_type extends uix{
      */
     public function uix_styles() {
         $pages_styles = array(
-            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',           
+            'page'    =>  $this->url . 'assets/css/uix-page' . $this->debug_styles . '.css',           
         );
         $this->styles( $pages_styles );
     }

@@ -69,7 +69,7 @@ abstract class localized extends data implements load{
                     'jquery'
                 )
             ),
-            'admin'         =>  array(
+            /*'admin'         =>  array(
                 'src'           =>  $this->url . 'assets/js/uix-core' . $this->debug_scripts . '.js',
                 'depends'       =>  array(
                     'jquery',
@@ -81,7 +81,7 @@ abstract class localized extends data implements load{
                 'depends'       =>  array(
                     'jquery'
                 )               
-            )
+            )*/
         );
         // push to activly register scripts
         $this->scripts( $core_scripts );

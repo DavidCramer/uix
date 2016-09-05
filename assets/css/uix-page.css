@@ -87,28 +87,64 @@ p.search-box {
     color: #8f8f8f;
 }
 
-nav.uix-sub-nav {
+.uix-has-tabs.uix-panel-inside{
+    background-color: transparent;
+}
+.uix-panel-inside{
+    overflow: visible;
+}
+ul.uix-panel-tabs {
     background: #f7f7f7 none repeat scroll 0 0;
     border-radius: 0 0 0 3px;
     box-shadow: 0 1px 2px rgba(0, 2, 0, 0.05), 0 2px 2px rgba(0, 2, 0, 0.03) inset;
     margin: 0 -20px 0 -11px;
+    width: 100%;
+    float: none;
 }
-nav.uix-sub-nav > a {
+
+.uix-panel-tabs li {
+  display: inline-block;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.uix-panel-tabs > li > a {
     display: inline-block;
     padding: 6px 12px;
     text-decoration: none;
     color: #808080;
+    border: 0;
 }
 
-.uix-sub-nav > a.active,
-.uix-sub-nav > a:hover {
+.uix-panel-tabs > li > a.active,
+.uix-panel-tabs > li > a:hover{
     background: #ffffff none repeat scroll 0 0;
     box-shadow: 0 1px 1px rgba(0, 2, 0, 0.05);
 }
-.uix-sub-nav > a:first-child.active ,
-.uix-sub-nav > a:first-child:hover {
+.uix-panel-tabs > li:first-child.active ,
+.uix-panel-tabs > li:first-child,
+.uix-panel-tabs > li:first-child > a,
+.uix-panel-tabs > li:first-child:hover {
     border-radius: 0 0 0 3px;
 }
+.uix-panel-tabs li[aria-selected="true"] a {
+  background-color: #fff;
+  box-shadow: 0 -3px 0 #ccc inset;
+  color: #555;
+  position: relative;
+  font-weight: inherit;
+}
+
+.uix-has-tabs .uix-sections {
+  border-left: none;
+  float: none;
+  margin: 0;
+}
+
+
+
+
 
 .uix-tab-canvas {
     margin: 14px 12px 0;

@@ -320,8 +320,12 @@ abstract class uix{
         if( null !== $init ){
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
-            if( null !== $child )
+            if( null !== $child ){
+                if( empty( $child->struct['base_color'] ) && !empty( $this->struct['base_color'] ) )
+                    $child->struct['base_color'] = $this->struct['base_color'];
+                
                 $this->child[ $args[0] ] = $child;
+            }
         }
         return $child;
     }

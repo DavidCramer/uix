@@ -15,7 +15,7 @@ namespace uixv2\ui;
  * @package uixv2\ui
  * @author  David Cramer
  */
-class page extends \uixv2\data\localized implements \uixv2\data\save{
+class page extends panel implements \uixv2\data\save{
 
     /**
      * The type of object
@@ -34,6 +34,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * @var      array
      */
     protected $plugin_screen_hook_suffix = array();
+
 
     /**
      * setup actions and hooks to add settings pate and save settings
@@ -57,11 +58,9 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * @access public
      */
     public function uix_styles() {
+        parent::uix_styles();
         $pages_styles = array(
-            'admin'    =>  $this->url . 'assets/css/admin' . $this->debug_styles . '.css',
-            'icons'     =>  $this->url . 'assets/css/icons' . $this->debug_styles . '.css',         
-            'grid'      =>  $this->url . 'assets/css/grid' . $this->debug_styles . '.css',
-            'controls'  =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
+            'page'    =>  $this->url . 'assets/css/uix-page' . $this->debug_styles . '.css',
         );
         $this->styles( $pages_styles );
     }
@@ -144,13 +143,12 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * @access public
      */
     public function is_active(){
-
+        if( !is_admin() ){ return false; }
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
         if( empty( $screen ) || !is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ){
             return parent::is_active();
         }
-
         return true;
     }
 
@@ -189,15 +187,6 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
         </style>
         <?php
         }
-
-        if( empty( $this->struct['tabs'] ) )
-            return;
-
-        foreach( $this->struct['tabs'] as $tab_id => $tab ){
-            $this->enqueue( $tab, $this->type . '-' . $tab_id );
-        }
-        // do localize
-        parent::enqueue_active_assets();
     }
 
     /**
@@ -266,104 +255,9 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
                 </a>
                 <?php } ?>
             </h1>
-            <?php if( !empty( $this->struct['tabs'] ) ){ ?>
-            <nav class="uix-sub-nav" <?php if( count( $this->struct['tabs'] ) === 1 ){ ?>style="display:none;"<?php } ?>>
-                <?php foreach( (array) $this->struct['tabs'] as $tab_slug => $tab ){ ?><a data-tab="<?php echo esc_attr( $tab_slug ); ?>" href="#<?php echo esc_attr( $tab_slug ) ?>"><?php echo esc_html( $tab['menu_title'] ); ?></a><?php } ?>
-            </nav>
-            <?php }
-
-            wp_nonce_field( $this->type, 'uix_setup_' . $this->slug );
-
-            if( !empty( $this->struct['tabs'] ) ){
-                foreach( (array) $this->struct['tabs'] as $tab_slug => $tab ){ ?>
-                    <div class="uix-tab-canvas" data-app="<?php echo esc_attr( $tab_slug ); ?>"></div>
-                    <script type="text/html" data-template="<?php echo esc_attr( $tab_slug ); ?>">
-                        <?php 
-                            if( !empty( $tab['page_title'] ) ){ echo '<h4>' . $tab['page_title']; }
-                            if( !empty( $tab['page_description'] ) ){ ?> <small><?php echo $tab['page_description']; ?></small> <?php } 
-                            if( !empty( $tab['page_title'] ) ){ echo '</h4>'; }
-                            // include this tabs template
-                            if( !empty( $tab['template'] ) && file_exists( $tab['template'] ) ){
-                                include $tab['template'];
-                            }else{
-                                echo esc_html__( 'Template not found: ', 'text-domain' ) . $tab['page_title'];
-                            }
-                        ?>
-                    </script>
-                    <?php if( !empty( $tab['partials'] ) ){
-                        foreach( $tab['partials'] as $partial_id => $partial ){
-                            ?>
-                            <script type="text/html" id="__partial_<?php echo esc_attr( $partial_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $partial_id ); ?>">
-                                <?php
-                                    // include this tabs template
-                                    if( !empty( $partial ) && file_exists( $partial ) ){
-                                        include $partial;
-                                    }else{
-                                        echo esc_html__( 'Partial Template not found: ', 'text-domain' ) . $partial_id;
-                                    }
-                                ?>
-                            </script>
-                            <?php
-                        }
-                    }
-                }
-            }else{
-                if( !empty( $this->struct['template'] ) && file_exists( $this->struct['template'] ) ){
-                    include $this->struct['template'];
-                }
-            }
-            if( !empty( $this->struct['modals'] ) ){
-                foreach( $this->struct['modals'] as $modal_id => $modal ){
-                    ?>
-                    <script type="text/html" id="__modal_<?php echo esc_attr( $modal_id ); ?>" data-handlebars-partial="<?php echo esc_attr( $modal_id ); ?>">
-                        <?php
-                            // include this tabs template
-                            if( !empty( $modal ) && file_exists( $modal ) ){
-                                include $modal;
-                            }else{
-                                echo esc_html__( 'Modal Template not found: ', 'text-domain' ) . $modal_id;
-                            }
-                        ?>
-                    </script>
-                    <?php
-                }
-            }
-            ?>          
-        </div>
-
-        <script type="text/html" data-template="__notice">
-        <div class="{{#if success}}updated{{else}}error{{/if}} notice uix-notice is-dismissible">
-            <p>{{{data}}}</p>
-            <button class="notice-dismiss" type="button">
-                <span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'text-domain' ); ?></span>
-            </button>
-        </div>
-        </script>
-        <script type="text/html" id="__partial_save">       
-            <button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="save" 
-                {{#if __callback}}data-callback="{{__callback}}"{{/if}}
-                {{#if __before}}data-before="{{__before}}"{{/if}}
-            >
-                <?php esc_html_e( 'Save Changes', 'text-domain' ); ?>
-            </button>
-        </script>
-        <script type="text/html" id="__partial_create">
-            <button class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="add" 
-                {{#if __callback}}data-callback="{{__callback}}"{{/if}}
-                {{#if __before}}data-before="{{__before}}"{{/if}}
-            >
-                <?php esc_html_e( 'Create', 'text-domain' ); ?>
-            </button>
-        </script>
-        <script type="text/html" id="__partial_delete">
-            <button style="float:left;" class="button" type="button" data-modal-node="{{__node_path}}" data-app="{{__app}}" data-type="delete" 
-                {{#if __callback}}data-callback="{{__callback}}"{{/if}}
-                {{#if __before}}data-before="{{__before}}"{{/if}}
-            >
-                <?php esc_html_e( 'Remove', 'text-domain' ); ?>
-            </button>
-        </script>
         <?php
+        parent::render();
+        echo '</div>';
     }
     
 }
