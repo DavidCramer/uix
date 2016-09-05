@@ -161,6 +161,35 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      * @access protected
      */
     protected function enqueue_active_assets(){
+
+        if( !empty( $this->struct['base_color'] ) ){
+        ?><style type="text/css">
+            .contextual-help-tabs .active {
+                border-left: 6px solid <?php echo $this->struct['base_color']; ?> !important;
+            }
+            <?php if( !empty( $this->struct['tabs'] ) && count( $this->struct['tabs'] ) > 1 ){ ?>
+            .wrap > h1.uix-title {
+                box-shadow: 0 0px 13px 12px <?php echo $this->struct['base_color']; ?>, 11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+            }
+            <?php }else{ ?>
+            .wrap > h1.uix-title {
+                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+            }
+            <?php } ?>
+            .uix-modal-wrap .uix-modal-title > h3,
+            .wrap .uix-title a.page-title-action:hover{
+                background: <?php echo $this->struct['base_color']; ?>;
+                border-color: <?php echo $this->struct['base_color']; ?>;
+            }
+            .wrap .uix-title a.page-title-action:focus{
+                box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
+                border-color: <?php echo $this->struct['base_color']; ?>;
+            }
+
+        </style>
+        <?php
+        }
+
         if( empty( $this->struct['tabs'] ) )
             return;
 
@@ -216,7 +245,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
         }
 
     }
-    
+
 
     /**
      * Render the page
@@ -226,33 +255,6 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
      */
     public function render(){
 
-        if( !empty( $this->struct['base_color'] ) ){
-        ?><style type="text/css">
-            .contextual-help-tabs .active {
-                border-left: 6px solid <?php echo $this->struct['base_color']; ?> !important;
-            }
-            <?php if( !empty( $this->struct['tabs'] ) && count( $this->struct['tabs'] ) > 1 ){ ?>
-            .wrap > h1.uix-title {
-                box-shadow: 0 0px 13px 12px <?php echo $this->struct['base_color']; ?>, 11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
-            }
-            <?php }else{ ?>
-            .wrap > h1.uix-title {
-                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
-            }
-            <?php } ?>
-            .uix-modal-wrap .uix-modal-title > h3,
-            .wrap .uix-title a.page-title-action:hover{
-                background: <?php echo $this->struct['base_color']; ?>;
-                border-color: <?php echo $this->struct['base_color']; ?>;
-            }
-            .wrap .uix-title a.page-title-action:focus{
-                box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
-                border-color: <?php echo $this->struct['base_color']; ?>;
-            }
-
-        </style>
-        <?php
-        }       
         ?>
         <div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->slug ); ?>">
             <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
