@@ -314,14 +314,14 @@ abstract class uix{
      * @param array $args arguments for the caller
      * @return UIX|null
      */    
-    public function __call( $type, $args ){        
+    public function __call( $type, $args ){
         $init = uixv2()->get_register_callback( $type );
         $child = null;
         if( null !== $init ){
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
             if( null !== $child )
-                $this->child[ $type ] = $child;
+                $this->child[ $args[0] ] = $child;
         }
         return $child;
     }
