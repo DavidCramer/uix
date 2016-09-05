@@ -1,0 +1,45 @@
+.uix-sections {
+  width: 100%;
+}
+.uix-has-tabs .uix-sections{
+  border-left: 1px solid #eee;
+  float: left;
+  margin-left: -1px; 
+  width: calc(100% - 181px);
+}
+#side-sortables .uix-sections{
+    float: none;
+    width: 100%;
+    border: none;
+}
+.uix-has-tabs .uix-section {
+  display: none;
+}
+.uix-has-tabs .uix-section[aria-hidden="false"] {
+  display: block;
+}
+.uix-section > h3 {
+
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 10px 12px;
+}
+.uix-section-content{
+    padding: 6px 12px;
+}
+
+.uix-chromeless .uix-section-content{
+    padding: 0;
+}
+
+.uix-has-tabs .uix-section-content{
+    padding: 8px 12px 8px;
+}
+
+
+@media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
+    .uix-has-tabs .uix-sections {
+      width: calc(100% - 48px);
+    }
+}

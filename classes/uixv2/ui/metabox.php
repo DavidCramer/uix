@@ -341,7 +341,8 @@ class metabox extends uix {
      * @access public
      */
     public function is_active(){
-
+        if( !is_admin() ){ return false; }
+        
         if( !empty( $this->post ) ){
             if( isset( $this->struct['screen'] ) && in_array( $this->post->post_type, (array) $this->struct['screen'] ) ){
                 return true;

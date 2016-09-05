@@ -70,6 +70,19 @@ class control extends \uixv2\data\data{
         }
 
     }
+    
+    /**
+     * Define core page styles
+     *
+     * @since 2.0.0
+     * @access public
+     */
+    public function uix_styles() {
+        $styles = array(
+            'control-style'    =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
+        );
+        $this->styles( $styles );
+    }
 
     /**
      * Create and Return the control's input name

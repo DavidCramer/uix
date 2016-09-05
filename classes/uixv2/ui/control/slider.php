@@ -24,6 +24,7 @@ class slider extends \uixv2\ui\control\text{
      * @access public
      */
     public function uix_styles() {
+        parent::uix_styles();
         // Initilize core styles
         $styles = array(
             'slider-control'        => $this->url . 'assets/controls/slider/css/ion.rangeSlider' . $this->debug_scripts . '.css',
@@ -41,6 +42,7 @@ class slider extends \uixv2\ui\control\text{
      * @access public
      */
     public function uix_scripts() {
+        parent::uix_scripts();
         // Initilize core scripts
         $scripts = array(
             'slider-control'        => $this->url . 'assets/controls/slider/js/ion.rangeSlider' . $this->debug_scripts . '.js',

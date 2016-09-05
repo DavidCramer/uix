@@ -121,6 +121,8 @@ class post_type extends uix{
      * @access public
      */
     public function is_active(){
+        
+        if( !is_admin() ){ return false; }
 
         $screen = get_current_screen();
 

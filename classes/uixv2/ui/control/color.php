@@ -25,6 +25,8 @@ class color extends \uixv2\ui\control\text{
      * @access public
      */
     public function uix_styles() {
+
+        parent::uix_styles();
         // Initilize core styles
         $styles = array(
             'wp-color-picker'

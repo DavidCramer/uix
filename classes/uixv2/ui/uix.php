@@ -248,7 +248,7 @@ abstract class uix{
          */
         $styles = apply_filters( 'uix_set_styles-' . $this->type, $styles );
 
-        $this->styles = $styles;
+        $this->styles = array_merge( $this->styles, $styles );
 
     }
 
@@ -272,7 +272,7 @@ abstract class uix{
          */
         $scripts = apply_filters( 'uix_set_scripts-' . $this->type, $scripts );
 
-        $this->scripts = $scripts;
+        $this->scripts = array_merge( $this->scripts, $scripts );
 
     }
 

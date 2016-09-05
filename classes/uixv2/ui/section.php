@@ -43,6 +43,19 @@ class section extends \uixv2\data\data {
     }
 
     /**
+     * Define core page styles
+     *
+     * @since 2.0.0
+     * @access public
+     */
+    public function uix_styles() {
+        $pages_styles = array(
+            'sections'    =>  $this->url . 'assets/css/sections' . $this->debug_styles . '.css',
+        );
+        $this->styles( $pages_styles );
+    }
+
+    /**
      * Render the Section
      *
      * @since 2.0.0
@@ -54,8 +67,8 @@ class section extends \uixv2\data\data {
             $this->struct['active'] = 'true';
         }
 
-        echo '<div id="' . esc_attr( $this->slug . '-' . $this->parent->slug ) . '" class="uix-' . esc_attr( $this->parent->type ) . '-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
-            echo '<div class="uix-' . esc_attr( $this->parent->type ) . '-section-content">';
+        echo '<div id="' . esc_attr( $this->slug . '-' . $this->parent->slug ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
+            echo '<div class="uix-section-content">';
                 if( !empty( $this->struct['description'] ) ){
                     echo '<p class="description">' . esc_html( $this->struct['description'] ) . '</p>';
                 }
