@@ -88,11 +88,11 @@
   margin-right: 3px;
 }
 .uix-metabox-sections {
-  border-left: 1px solid #eee;
-  float: left;
   width: 100%;
 }
 .uix-has-tabs .uix-metabox-sections{
+  border-left: 1px solid #eee;
+  float: left;
   margin-left: -1px; 
   width: calc(100% - 181px);
 }
