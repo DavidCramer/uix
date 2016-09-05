@@ -79,6 +79,25 @@ class section extends \uixv2\data\data {
         echo '</div>';
     }
 
+    /**
+     * Get Data from all controls of this section
+     *
+     * @since 2.0.0
+     * @see \uixv2\load
+     * @param string $slug Slug of the section to get data for
+     * @return array $data Array of sections data structured by the controls
+     */
+    public function get_data(){
+        $data = array();
+        if( !empty( $this->children ) ){
+            foreach( $this->children as $control ) {
+                $data[ $control->slug ] = $control->get_data();
+            }
+        }
+
+        return $data;
+    }
+
 
     /**
      * checks if the current section is active
