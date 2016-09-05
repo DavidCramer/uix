@@ -191,7 +191,7 @@ class metabox extends uix {
             ?>
             </div>
         <?php
-            }elseif( !empty( $this->struct['sections'] ) ){
+            }elseif( !empty( $this->children ) ){
                 // render fields setup
                 $this->build_metabox();
 
