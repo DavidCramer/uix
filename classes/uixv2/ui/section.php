@@ -50,13 +50,11 @@ class section extends \uixv2\data\data {
      */
     public function render(){
         
-        if( empty( $this->struct['active'] ) ){
-            $hidden = 'true';
-        }else{            
-            $hidden = 'false';
+        if( !isset( $this->struct['active'] ) ){
+            $this->struct['active'] = 'true';
         }
 
-        echo '<div id="' . esc_attr( $this->slug . '-' . $this->parent->slug ) . '" class="uix-' . esc_attr( $this->parent->type ) . '-section" aria-hidden="' . esc_attr( $hidden ) . '">';
+        echo '<div id="' . esc_attr( $this->slug . '-' . $this->parent->slug ) . '" class="uix-' . esc_attr( $this->parent->type ) . '-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
             echo '<div class="uix-' . esc_attr( $this->parent->type ) . '-section-content">';
                 if( !empty( $this->struct['description'] ) ){
                     echo '<p class="description">' . esc_html( $this->struct['description'] ) . '</p>';
