@@ -36,6 +36,25 @@ class control extends \uixv2\data\data{
     protected $data = array();
 
     /**
+     * Register the UIX objects
+     *
+     * @since 2.0.0
+     * @access public
+     * @param string $slug Object slug
+     * @param array $object object structure array
+     * @return object|\uix object instance
+     */
+    public static function register( $slug, $object, $parent = null ) {
+            // get the current instance
+            if( empty( $object['type'] ) )
+                $object['type'] = 'text';
+
+            $caller = get_called_class() . '\\' . $object['type'];
+            
+            return new $caller( $slug, $object, $parent );
+    }
+
+    /**
      * Sets the controls data
      *
      * @since 2.0.0
