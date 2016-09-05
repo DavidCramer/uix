@@ -288,7 +288,8 @@ class metabox extends uix {
 
         foreach( $this->children as $section ){
             $section_data = $section->get_data();
-            foreach( $section_data as $meta_key=>$meta_value ){
+            if( null === $section_data ){ continue; }
+            foreach( (array) $section_data as $meta_key=>$meta_value ){
                 $this->save_meta_data( $meta_key, $meta_value );
             }
         }
