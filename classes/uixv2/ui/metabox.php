@@ -222,21 +222,19 @@ class metabox extends uix {
         if( count( $this->child ) > 1 ){
             echo '<div class="uix-' . $this->type . '-inside uix-has-tabs">';
                 echo '<ul class="uix-' . $this->type . '-tabs">';
+                $active = 'true';
                 foreach( $this->child as $section ){
-                    if( empty( $section->child ) && empty( $section->struct['template'] ) ){ continue; }
                     
                     $label = esc_html( $section->struct['label'] );
-                    if( empty( $section->struct['active'] ) ){
-                        $active = 'false';
-                    }else{
-                        $active = 'true';
-                    }
+
                     if( !empty( $section->struct['icon'] ) ){
                         $label = '<i class="dashicons ' . $section->struct['icon'] . '"></i><span class="label">' . esc_html( $section->struct['label'] ) . '</span>';
                     }
                     echo '<li aria-selected="' . esc_attr( $active ) . '">';
                         echo '<a href="#' . esc_attr( $section->slug . '-' . $this->slug ) . '" data-' . $this->type . '="' . esc_attr( $this->slug ) . '" class="uix-tab-trigger">' . $label . '</a>';
                     echo '</li>';
+
+                    $active = 'false';
                 }
                 echo '</ul>';
         }else{
@@ -244,8 +242,11 @@ class metabox extends uix {
         }
 
             echo '<div class="uix-' . $this->type . '-sections">';
+                $hidden = 'false';
                 foreach( $this->child as $section ){
+                    $section->struct['active'] = $hidden;
                     $section->render();
+                    $hidden = 'true';
                 }
             echo '</div>';
         echo '</div>';
