@@ -15,7 +15,7 @@ namespace uixv2\ui;
  * @package uixv2\ui
  * @author  David Cramer
  */
-class post extends uix{
+class post_type extends uix{
 
     /**
      * The type of object
@@ -108,8 +108,8 @@ class post extends uix{
      */
     public function render() {
 
-        if( !empty( $this->struct['post_type'] ) ){
-            register_post_type( $this->slug, $this->struct['post_type'] );
+        if( !empty( $this->struct['settings'] ) ){
+            register_post_type( $this->slug, $this->struct['settings'] );
         }
 
     }
