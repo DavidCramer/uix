@@ -148,7 +148,7 @@ class page extends \uixv2\data\localized implements \uixv2\data\save{
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
         if( empty( $screen ) || !is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ){
-            return false;
+            return parent::is_active();
         }
 
         return true;
