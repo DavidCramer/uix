@@ -2,6 +2,8 @@
 
 UIX is a small framework for creating user interfaces ( Post Types, Settings Pages, and Metaboxes ) and config structures with the least code possible. It only handles the UI. The program logic is up to you.
 
+![Post Type and Metabox](https://www.dropbox.com/s/pazcj4carby73rt/post_type.gif?dl=1)
+
 ## Documentation
 
 Important note is that UIX used namespacing so it is PHP 5.3+. It's also heavy in development, so treat this as an `ALPHA`.
