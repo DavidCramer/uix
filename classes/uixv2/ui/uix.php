@@ -299,6 +299,7 @@ abstract class uix{
      * @param string $type Child object type
      * @param string $slug Child object slug
      * @param array $structure object structure array
+     * @return object/UIX the child object added
      */
     public function add_child( $type, $slug, $structure ) {
         $child = uixv2()->add( $type, $slug, $structure, $this );
