@@ -112,12 +112,12 @@ abstract class uix{
      * UIX constructor
      *
      * @since 2.0.0
-     * @access private
+     * @access protected
      * @param string $slug Object slug
      * @param array $object Objects structure array
      * @param object/uix $parent Parent UIX Object
      */
-    private function __construct( $slug, $object, $parent = null ) {
+    protected function __construct( $slug, $object, $parent = null ) {
         
         // set the slug
         $this->slug = $slug;
