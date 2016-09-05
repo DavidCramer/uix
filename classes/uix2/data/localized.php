@@ -2,17 +2,17 @@
 /**
  * UIX Data
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\data;
+namespace uix2\data;
 
 /**
  * localized data class
- * @package uixv2\data
+ * @package uix2\data
  * @author  David Cramer
  */
 abstract class localized extends data implements load{

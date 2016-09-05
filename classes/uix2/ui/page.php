@@ -2,20 +2,20 @@
 /**
  * UIX Pages
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * UIX Page class
- * @package uixv2\ui
+ * @package uix2\ui
  * @author  David Cramer
  */
-class page extends panel implements \uixv2\data\save{
+class page extends panel implements \uix2\data\save{
 
     /**
      * The type of object
@@ -75,7 +75,7 @@ class page extends panel implements \uixv2\data\save{
      */
     public function save_config(){
         // fetch _POST vars from helper method
-        $data = uixv2()->request_vars( 'post' );
+        $data = uix2()->request_vars( 'post' );
         if( ! empty( $data[ 'config' ] ) ){
 
             if( !wp_verify_nonce( $data[ 'uix_setup_' . $this->slug ], $this->type ) ){

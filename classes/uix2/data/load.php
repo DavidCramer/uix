@@ -1,26 +1,26 @@
 <?php
 
 /**
- * Interface for data saving
+ * Interface for data load
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\data;
+namespace uix2\data;
 
-interface save {
-
+interface load{
 
     /**
-     * save data to database
+     * Get data
      *
      * @since 2.0.0
      * @access public
+     * @return mixed $data Requested data of the object
      */
-    public function save_data();
+    public function load_data();
 
     /**
      * get the objects data store key
@@ -28,6 +28,7 @@ interface save {
      * @access public
      * @return string $store_key the defined option name for this UIX object
      */
-    public function store_key();    
+    public function store_key();
+
 
 }

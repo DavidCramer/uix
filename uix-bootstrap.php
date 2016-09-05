@@ -1,8 +1,8 @@
 <?php
 /**
- * UIXV2 Bootstrapper
+ * UIX2 Bootstrapper
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
@@ -12,11 +12,11 @@
 if ( ! defined( 'WPINC' ) ) {
     die;
 }
-if( ! defined( 'UIXV2_CORE' ) ){
-    define('UIXV2_PATH',  plugin_dir_path( __FILE__ ) );
-    define('UIXV2_CORE',  __FILE__ );
-    define('UIXV2_URL',  plugin_dir_url( __FILE__ ) );
-    define('UIXV2_VER',  '2.0.0' );
+if( ! defined( 'UIX2_CORE' ) ){
+    define('UIX2_CORE',  __FILE__ );
+    define('UIX2_PATH',  plugin_dir_path( __FILE__ ) );
+    define('UIX2_URL',  plugin_dir_url( __FILE__ ) );
+    define('UIX2_VER',  '2.0.0' );
 }
 
 /**
@@ -26,24 +26,24 @@ if( ! defined( 'UIXV2_CORE' ) ){
  *
  * @param string $class     class name to be checked and autoloaded
  */
-function uixv2_autoload_class( $class ){
+function uix2_autoload_class( $class ){
     $parts = explode( '\\', $class );
     $name = array_shift( $parts );
-    if( file_exists( UIXV2_PATH . 'classes/' . $name ) ){        
+    if( file_exists( UIX2_PATH . 'classes/' . $name ) ){        
         if( !empty( $parts ) ){
             $name .= '/' . implode( '/', $parts );
         }
-        $class_file = UIXV2_PATH . 'classes/' . $name . '.php';
+        $class_file = UIX2_PATH . 'classes/' . $name . '.php';
         if( file_exists( $class_file ) ){
             include_once $class_file;
         }
     }
 }
-spl_autoload_register( 'uixv2_autoload_class', true, false );
+spl_autoload_register( 'uix2_autoload_class', true, false );
 
 // bootstrap plugin load
-add_action( 'plugins_loaded', 'uixv2' );
-function uixv2(){
+add_action( 'plugins_loaded', 'uix2' );
+function uix2(){
     // init UI
-    return \uixv2\ui::get_instance();
+    return \uix2\ui::get_instance();
 }

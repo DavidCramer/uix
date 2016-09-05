@@ -1,18 +1,18 @@
 <?php
 /**
- * UIXV2 UI Loader
+ * UIX2 UI Loader
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2;
+namespace uix2;
 
 /**
  * UI class
- * @package uixv2
+ * @package uix2
  * @author  David Cramer
  */
 class ui{
@@ -56,9 +56,9 @@ class ui{
         /**
          * do UI loader locations
          *
-         * @param uixv2/ui $current UI instance
+         * @param uix2/ui $current UI instance
          */
-        do_action( 'uixv2_register', $this );
+        do_action( 'uix2_register', $this );
 
         // go over each locations
         foreach( $this->locations as $type => $paths ){
@@ -84,7 +84,7 @@ class ui{
      * @param string $slug The objects slug to add
      * @param string $structure The objects structure
      * @param object $parent object
-     * @return  object|\uixv2\/null    the instance of the object type or null if invalid
+     * @return  object|\uix2\/null    the instance of the object type or null if invalid
      */
     public function add( $type, $slug, $structure, $parent = null ) {
         $init = $this->get_register_callback( $type );
@@ -105,7 +105,7 @@ class ui{
      * @return array|null Callback array for registering an object or null if invalid
      */
     public function get_register_callback( $type ) {
-        $init = array( '\uixv2\ui\\' . $type, 'register' );
+        $init = array( '\uix2\ui\\' . $type, 'register' );
         if( !is_callable( $init ) ){
             return null;
         }
@@ -143,7 +143,7 @@ class ui{
         // determin how the structure works.
         foreach( (array) $arr as $key => $value ){
             if( is_dir( $value ) && !in_array( $value, $this->locations ) ){
-                $this->locations = array_merge( $this->locations, $this->get_files_from_folders( $value ) );
+                $this->locations = array_merge( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
             }
         }
     }

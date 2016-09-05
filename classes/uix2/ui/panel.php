@@ -2,17 +2,17 @@
 /**
  * UIX Panel
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * UIX Page class
- * @package uixv2\ui
+ * @package uix2\ui
  * @author  David Cramer
  */
 class panel extends uix{
@@ -30,7 +30,7 @@ class panel extends uix{
      * Registeres the panels Sections
      *
      * @since 2.0.0
-     * @see \uixv2\uix
+     * @see \uix2\uix
      * @access public
      */
     public function setup() {
@@ -79,7 +79,7 @@ class panel extends uix{
      * set metabox scripts
      *
      * @since 2.0.0
-     * @see \uixv2\ui\uix
+     * @see \uix2\ui\uix
      * @access public
      */
     public function uix_scripts() {

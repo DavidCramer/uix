@@ -2,20 +2,20 @@
 /**
  * UIX Metaboxes
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui\control;
+namespace uix2\ui\control;
 
 /**
  * UIX Control class.
  *
  * @since 2.0.0
  */
-class hidden extends \uixv2\ui\control{
+class text extends \uix2\ui\control{
     
     /**
      * The type of object
@@ -24,5 +24,5 @@ class hidden extends \uixv2\ui\control{
      * @access public
      * @var         string
      */
-    public $type = 'hidden';
+    public $type = 'text';    
 }

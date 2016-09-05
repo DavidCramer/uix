@@ -2,17 +2,17 @@
 /**
  * UIX Post Type
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * UIX Post Type class
- * @package uixv2\ui
+ * @package uix2\ui
  * @author  David Cramer
  */
 class post_type extends uix{
@@ -30,7 +30,7 @@ class post_type extends uix{
      * registeres metaboxes if defined
      *
      * @since 2.0.0
-     * @see \uixv2\uix
+     * @see \uix2\uix
      * @access public
      */
     public function setup() {

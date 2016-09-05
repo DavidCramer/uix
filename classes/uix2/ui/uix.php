@@ -2,17 +2,17 @@
 /**
  * UIX Core
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * UIX class
- * @package uixv2\ui
+ * @package uix2\ui
  * @author  David Cramer
  */
 abstract class uix{
@@ -315,7 +315,7 @@ abstract class uix{
      * @return UIX|null
      */    
     public function __call( $type, $args ){
-        $init = uixv2()->get_register_callback( $type );
+        $init = uix2()->get_register_callback( $type );
         $child = null;
         if( null !== $init ){
             $args[] = $this;

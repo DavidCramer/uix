@@ -2,20 +2,20 @@
 /**
  * UIX Metaboxes
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * UIX Control class.
  *
  * @since       2.0.0
  */
-class control extends \uixv2\data\data{
+class control extends \uix2\data\data{
 
     /**
      * The type of object
@@ -58,13 +58,13 @@ class control extends \uixv2\data\data{
      * Sets the controls data
      *
      * @since 2.0.0
-     * @see \uixv2\uix
+     * @see \uix2\uix
      * @access public
      */
     public function setup() {
         // run parents to setup sanitization filters
         parent::setup();
-        $data = uixv2()->request_vars( 'post' );
+        $data = uix2()->request_vars( 'post' );
         if( isset( $data['uix'][ $this->parent->slug ][ $this->slug ] ) ){
             $this->set_data( $data['uix'][ $this->parent->slug ][ $this->slug ] );
         }
@@ -162,7 +162,7 @@ class control extends \uixv2\data\data{
      * Returns the main input field for rendering
      *
      * @since 2.0.0
-     * @see \uixv2\ui\uix
+     * @see \uix2\ui\uix
      * @access public
      * @return string Input field HTML striung
      */
@@ -207,7 +207,7 @@ class control extends \uixv2\data\data{
      * Render the Control
      *
      * @since 2.0.0
-     * @see \uixv2\ui\uix
+     * @see \uix2\ui\uix
      * @access public
      */
     public function render(){

@@ -3,15 +3,15 @@
 /**
  * Base data interface
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\data;
+namespace uix2\data;
 
-abstract class data extends \uixv2\ui\uix{
+abstract class data extends \uix2\ui\uix{
 
     /**
      * object data
@@ -27,7 +27,7 @@ abstract class data extends \uixv2\ui\uix{
      *
      * @since 2.0.0
      * @access public
-     * @see \uixv2\uix
+     * @see \uix2\uix
      */
     public function setup() {
         if( !empty( $this->struct['sanitize_callback'] ) )

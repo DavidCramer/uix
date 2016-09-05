@@ -2,17 +2,17 @@
 /**
  * UIX Metaboxes
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * Metabox class
- * @package uixv2\ui
+ * @package uix2\ui
  * @author  David Cramer
  */
 class metabox extends panel {
@@ -56,7 +56,7 @@ class metabox extends panel {
      * set metabox styles
      *
      * @since 2.0.0
-     * @see \uixv2\ui\uix
+     * @see \uix2\ui\uix
      * @access public
      */
     public function uix_styles() {
@@ -256,7 +256,7 @@ class metabox extends panel {
         $this->post = $post;
         if( ! $this->is_active() ){ return; }
 
-        $data = uixv2()->request_vars( 'post' );
+        $data = uix2()->request_vars( 'post' );
 
 
         foreach( $this->child as $section ){
@@ -301,7 +301,7 @@ class metabox extends panel {
         $data = array();
         if( !empty( $metabox['sections'] ) ){
             foreach( $metabox['sections'] as $section_id => $section ){
-                $data[ $section_id ] = uixv2()->ui->sections->get_data( $section_id );
+                $data[ $section_id ] = uix2()->ui->sections->get_data( $section_id );
             }
         }
         return $data;

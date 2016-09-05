@@ -2,20 +2,20 @@
 /**
  * UIX Shortcode
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * Shortcodes class
- * @package uixv2\ui
+ * @package uix2\ui
  * @author  David Cramer
  */
-class shortcodes extends \uixv2\data\localized{
+class shortcodes extends \uix2\data\localized{
 
     /**
      * The type of object

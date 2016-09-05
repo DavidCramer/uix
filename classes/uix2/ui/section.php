@@ -2,21 +2,21 @@
 /**
  * UIX section
  *
- * @package   uixv2
+ * @package   uix2
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uixv2\ui;
+namespace uix2\ui;
 
 /**
  * UIX sections class.
  *
  * @since 2.0.0
- * @see \uixv2\uix
+ * @see \uix2\uix
  */
-class section extends \uixv2\data\data {
+class section extends \uix2\data\data {
 
     /**
      * The type of object
@@ -32,7 +32,7 @@ class section extends \uixv2\data\data {
      * Sets the Sections to the current instance and registers it's Controls 
      *
      * @since 2.0.0
-     * @see \uixv2\uix
+     * @see \uix2\uix
      * @access public
      */
     public function setup() {
@@ -94,7 +94,7 @@ class section extends \uixv2\data\data {
      * Get Data from all controls of this section
      *
      * @since 2.0.0
-     * @see \uixv2\load
+     * @see \uix2\load
      * @param string $slug Slug of the section to get data for
      * @return array $data Array of sections data structured by the controls
      */
