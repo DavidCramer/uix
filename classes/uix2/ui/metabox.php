@@ -60,6 +60,7 @@ class metabox extends panel {
      * @access public
      */
     public function uix_styles() {
+        parent::uix_styles();
         // Add metabox style
         $styles = array(
             'metabox'        =>  $this->url . 'assets/css/uix-metabox' . $this->debug_styles . '.css'
@@ -165,7 +166,7 @@ class metabox extends panel {
         <?php
             }elseif( !empty( $this->child ) ){
                 // render fields setup
-                $this->build_metabox();
+                parent::render();
 
             }else{
                 echo esc_html__( 'No sections or template found', 'text-domain' );
@@ -181,48 +182,6 @@ class metabox extends panel {
         
     }
     
-    /**
-     * build metabox
-     *
-     * @since 2.0.0
-     * @access public
-     */
-    public function build_metabox(){    
-        
-        if( empty( $this->child ) ){ return; }
-
-        if( count( $this->child ) > 1 ){
-            echo '<div class="uix-' . $this->type . '-inside uix-has-tabs">';
-                echo '<ul class="uix-' . $this->type . '-tabs">';
-                $active = 'true';
-                foreach( $this->child as $section ){
-                    
-                    $label = esc_html( $section->struct['label'] );
-
-                    if( !empty( $section->struct['icon'] ) ){
-                        $label = '<i class="dashicons ' . $section->struct['icon'] . '"></i><span class="label">' . esc_html( $section->struct['label'] ) . '</span>';
-                    }
-                    echo '<li aria-selected="' . esc_attr( $active ) . '">';
-                        echo '<a href="#' . esc_attr( $section->slug . '-' . $this->slug ) . '" data-' . $this->type . '="' . esc_attr( $this->slug ) . '" class="uix-tab-trigger">' . $label . '</a>';
-                    echo '</li>';
-
-                    $active = 'false';
-                }
-                echo '</ul>';
-        }else{
-            echo '<div class="uix-' . $this->type . '-inside">';
-        }
-
-            echo '<div class="uix-' . $this->type . '-sections">';
-                $hidden = 'false';
-                foreach( $this->child as $section ){
-                    $section->struct['active'] = $hidden;
-                    $section->render();
-                    $hidden = 'true';
-                }
-            echo '</div>';
-        echo '</div>';
-    }
 
     /**
      * Sets the data for all sections and thier controls
