@@ -305,7 +305,7 @@ abstract class uix{
         if( null !== $child ){
             $this->children[ $slug ] = $child;
         }
-            
+        return $child;
     }
 
     /**
