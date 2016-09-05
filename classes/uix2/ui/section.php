@@ -50,7 +50,7 @@ class section extends \uix2\data\data {
      */
     public function uix_styles() {
         $pages_styles = array(
-            'sections'    =>  $this->url . 'assets/css/sections' . $this->debug_styles . '.css',
+            'sections'    =>  $this->url . 'assets/css/uix-sections' . $this->debug_styles . '.css',
         );
         $this->styles( $pages_styles );
     }
