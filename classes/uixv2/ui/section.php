@@ -38,7 +38,7 @@ class section extends \uixv2\data\data {
     public function setup() {
         if( !empty( $this->struct['controls'] ) ){            
             foreach ( $this->struct['controls'] as $control_slug => $control_structure)
-                $this->add_child( 'control\\' . $control_structure['type'], $control_slug, $control_structure );
+                $this->control( $control_slug, $control_structure );
         }
     }
 
@@ -69,8 +69,8 @@ class section extends \uixv2\data\data {
                         echo esc_html__( 'Template not found: ', 'text-domain' ) . $this->struct['template'];
                     }
 
-                }elseif( !empty( $this->children ) ){
-                    foreach ( $this->children as $control ) {
+                }elseif( !empty( $this->child ) ){
+                    foreach ( $this->child as $control ) {
                         $control->render();
                     }                    
                 }
@@ -89,8 +89,8 @@ class section extends \uixv2\data\data {
      */
     public function get_data(){
         $data = array();
-        if( !empty( $this->children ) ){
-            foreach( $this->children as $control ) {
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $control ) {
                 $data[ $control->slug ] = $control->get_data();
             }
         }

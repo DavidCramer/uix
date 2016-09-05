@@ -52,7 +52,7 @@ abstract class uix{
      * @access public
      * @var      array
      */
-    public $children = array();
+    public $child = array();
 
     /**
      * Objects parent
@@ -302,9 +302,26 @@ abstract class uix{
      * @return object/UIX the child object added
      */
     public function add_child( $type, $slug, $structure ) {
-        $child = uixv2()->add( $type, $slug, $structure, $this );
-        if( null !== $child ){
-            $this->children[ $slug ] = $child;
+        return $this->{$type}( $slug, $structure );
+    }
+
+    /**
+     * Magic caller for adding child objects
+     *
+     * @since 2.0.0
+     * @access public
+     * @param string $type Type of object to attempt to create
+     * @param array $args arguments for the caller
+     * @return UIX|null
+     */    
+    public function __call( $type, $args ){        
+        $init = uixv2()->get_register_callback( $type );
+        $child = null;
+        if( null !== $init ){
+            $args[] = $this;
+            $child = call_user_func_array( $init, $args );
+            if( null !== $child )
+                $this->child[ $type ] = $child;
         }
         return $child;
     }

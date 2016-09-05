@@ -37,7 +37,7 @@ class post extends uix{
 
         if( !empty( $this->struct['metaboxes'] ) ){
             foreach ( $this->struct['metaboxes'] as $metabox_slug => $metabox_structure)
-                $this->add_child( 'metabox', $metabox_slug, $metabox_structure );
+                $this->metabox( $metabox_slug, $metabox_structure );
         }
     }
 

@@ -191,7 +191,7 @@ class metabox extends uix {
             ?>
             </div>
         <?php
-            }elseif( !empty( $this->children ) ){
+            }elseif( !empty( $this->child ) ){
                 // render fields setup
                 $this->build_metabox();
 
@@ -217,13 +217,13 @@ class metabox extends uix {
      */
     public function build_metabox(){    
         
-        if( empty( $this->children ) ){ return; }
+        if( empty( $this->child ) ){ return; }
 
-        if( count( $this->children ) > 1 ){
+        if( count( $this->child ) > 1 ){
             echo '<div class="uix-' . $this->type . '-inside uix-has-tabs">';
                 echo '<ul class="uix-' . $this->type . '-tabs">';
-                foreach( $this->children as $section ){
-                    if( empty( $section->children ) && empty( $section->struct['template'] ) ){ continue; }
+                foreach( $this->child as $section ){
+                    if( empty( $section->child ) && empty( $section->struct['template'] ) ){ continue; }
                     
                     $label = esc_html( $section->struct['label'] );
                     if( empty( $section->struct['active'] ) ){
@@ -244,7 +244,7 @@ class metabox extends uix {
         }
 
             echo '<div class="uix-' . $this->type . '-sections">';
-                foreach( $this->children as $section ){
+                foreach( $this->child as $section ){
                     $section->render();
                 }
             echo '</div>';
@@ -258,11 +258,11 @@ class metabox extends uix {
      * @access public
      */    
     public function set_data(){
-        if( empty( $this->children ) ){ return; }
+        if( empty( $this->child ) ){ return; }
 
-        foreach( $this->children as $section ){
-            if( empty( $section->children ) ){ continue; }
-            foreach( $section->children as $control ){
+        foreach( $this->child as $section ){
+            if( empty( $section->child ) ){ continue; }
+            foreach( $section->child as $control ){
                 $data = get_post_meta( $this->post->ID, $control->slug, true );
                 $control->set_data( $data );
             }
@@ -286,7 +286,7 @@ class metabox extends uix {
         $data = uixv2()->request_vars( 'post' );
 
 
-        foreach( $this->children as $section ){
+        foreach( $this->child as $section ){
             $section_data = $section->get_data();
             if( null === $section_data ){ continue; }
             foreach( (array) $section_data as $meta_key=>$meta_value ){
