@@ -38,8 +38,119 @@ Then simply go to WordPress admin and activate the plugin.
 
 ## Registration
 
-UIX can auto load UI structures from a defined UI folder. This means that you don't need ever write registraion code to make stuff happen. ( although you can if you want ).
+UIX has a `uix2()` helper function you can use to add UI objects as needed, or it can auto load UI structures from a defined UI folder.
 
+### Helper Function
 
+The helper function makes it easy to add UI structures quickly.
+```
+$employees = uix2()->add( 'post_type', 'employees', array(
+    'settings' => array(
+        'label'                 => __( 'Employee', 'text-domain' ),
+        'description'           => __( 'Employees Post Type', 'text-domain' ),
+        'labels'                => array(
+            'name'                  => _x( 'Employees', 'Post Type General Name', 'text-domain' ),
+            'singular_name'         => _x( 'Employee', 'Post Type Singular Name', 'text-domain' ),
+            'menu_name'             => __( 'Employees', 'text-domain' ),
+            'name_admin_bar'        => __( 'Employee', 'text-domain' ),
+        ),
+        'supports'              => array( 'title' ),
+        'public'                => true,
+        'menu_name'             => 'Employees',
+        'menu_icon'             => 'dashicons-menu',
+    ),
+));
+```
+Now `$employees` is the UI object created. From here you just leave it and your post type is registered. However, you can also add metaboxes to the object like this:
+```
+$metabox = $employees->metabox( 'meta_fields', array(
+    'name'              =>  esc_html__( 'Metabox Fields', 'text-domain' ),
+    'context'           =>  'normal',
+    'priority'          =>  'high',
+));
+```
+This adds a `Metabox Fields` meta box to the post type. You'll need to have some sections and controls for the metabox to be useful, so you can add them to the metabox object:
+```
+$metabox->section( 'employee_details', array(
+    'label' => esc_html__( 'Employee Details', 'text-domain' ),
+))->control( 'employee_name', array(
+    'label' => esc_html__( 'Name', 'text-domain' ),    
+))->parent->control( 'employee_bio', array(
+    'label' => esc_html__( 'Bio', 'text-domain' ),
+    'type' => 'textarea'
+));
+```
 
-###
+### Autoloading
+
+You can register a folder for UIX to scan and auto load any structures it finds. This means that you don't need ever write registraion code to make stuff happen.
+
+There is a `uix2_register` hook that will allow you to register the folder location where the definition files are kept.
+You can use it like this:
+
+```
+function register_ui_folders( $uix ){
+    $uix->register( plugin_dir_path( __FILE__ ) . 'includes/ui' );
+}
+add_action( 'uix2_register', 'register_ui_folders' );
+```
+
+The path registered should have folders of each type of UI object and contain fields defining the UI structure:
+
+```
+ui/
+├── metabox/
+│   ├── user_fields.php
+│   └── post_meta.php
+├── post_type/
+│   ├── portfolio.php
+│   └── employees.php
+└── page/
+    └── my_settings.php
+```
+
+The file needs to return an array structure of the objects to auto load. 
+The `ui/employees.php` mentioned above, could look like this:
+```
+$post_type = array(
+    'post_type_slug' => array(
+        'settings' => array(
+            'label'                 => __( 'Employee', 'text-domain' ),
+            'description'           => __( 'Employees Post Type', 'text-domain' ),
+            'labels'                => array(
+                'name'                  => _x( 'Employees', 'Post Type General Name', 'text-domain' ),
+                'singular_name'         => _x( 'Employee', 'Post Type Singular Name', 'text-domain' ),
+                'menu_name'             => __( 'Employees', 'text-domain' ),
+                'name_admin_bar'        => __( 'Employee', 'text-domain' ),
+            ),
+            'supports'              => array( 'title' ),
+            'public'                => true,
+            'menu_name'             => 'Employees',
+            'menu_icon'             => 'dashicons-menu',
+        ),
+        'metaboxes'                 => array(
+            'meta_fields'           =>  array(
+                'name'              =>  esc_html__( 'Metabox Fields', 'text-domain' ),
+                'context'           =>  'normal',
+                'priority'          =>  'high',
+            ),
+            'sections'              =>  array(
+                'employee_details'  =>  array(
+                    'label'         =>  esc_html__( 'Employee Details', 'text-domain' ),
+                    'controls'      =>  array(
+                        'employee_name' =>  array(
+                            'label'     => esc_html__( 'Name', 'text-domain' ),
+                        ),
+                        employee_bio    =>  array(
+                            'label' => esc_html__( 'Bio', 'text-domain' ),
+                            'type' => 'textarea'
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+);
+return $post_type;
+```
+This will create and register the post type automatically on load, including the metabox and controls attached.
