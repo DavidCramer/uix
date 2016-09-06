@@ -137,8 +137,10 @@ class metabox extends panel {
     public function create_metabox( $post, $metabox ){
 
         $this->post = $post;    
-
-        $this->set_data();
+        
+        $data = get_post_meta( $post->ID );
+        
+        $this->set_data( $data );
 
         $this->render();
 
@@ -188,15 +190,18 @@ class metabox extends panel {
      *
      * @since 2.0.0
      * @access public
+     * @param array $data Metadata to push to controls
      */    
-    public function set_data(){
+    public function set_data( $data ){
         if( empty( $this->child ) ){ return; }
 
         foreach( $this->child as $section ){
             if( empty( $section->child ) ){ continue; }
             foreach( $section->child as $control ){
-                $data = get_post_meta( $this->post->ID, $control->slug, true );
-                $control->set_data( $data );
+
+                if( isset( $data[ $control->slug ] ) )
+                    foreach( $data[ $control->slug ] as $meta_value )
+                        $control->set_data( $meta_value );
             }
         }
 
