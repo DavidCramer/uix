@@ -79,7 +79,7 @@ class control extends \uix2\data\data{
      */
     public function uix_styles() {
         $styles = array(
-            'control-style'    =>  $this->url . 'assets/css/controls' . $this->debug_styles . '.css',
+            'controls'    =>  $this->url . 'assets/css/uix-control' . $this->debug_styles . '.css',
         );
         $this->styles( $styles );
     }
