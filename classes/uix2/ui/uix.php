@@ -362,7 +362,7 @@ abstract class uix{
             'styles' => $this->styles,
         );
         // enqueue core scripts and styles
-        $this->enqueue( $assets, $this->type );
+        $this->enqueue( $assets );
 
         // done enqueuing 
         $this->enqueue_active_assets();
@@ -407,7 +407,7 @@ abstract class uix{
      *      string  $prefix prefix for enqueue handle ( usually the object slug )
      * }object array structure
      */
-    protected function enqueue( $set, $prefix ){
+    protected function enqueue( $set ){
         // go over the set to see if it has styles or scripts
 
         // setup default args for array type includes
@@ -427,9 +427,9 @@ abstract class uix{
                 }else{
                     if( is_array( $style ) ){
                         $args = array_merge( $arguments_array, $style );
-                        wp_enqueue_style( $prefix . '-' . $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+                        wp_enqueue_style( $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
                     }else{
-                        wp_enqueue_style( $prefix . '-' . $style_key, $style );
+                        wp_enqueue_style( $style_key, $style );
                     }
                 }
             }
@@ -442,9 +442,9 @@ abstract class uix{
                 }else{
                     if( is_array( $script ) ){
                         $args = array_merge( $arguments_array, $script );
-                        wp_enqueue_script( $prefix . '-' . $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+                        wp_enqueue_script( $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
                     }else{
-                        wp_enqueue_script( $prefix . '-' . $script_key, $script );
+                        wp_enqueue_script( $script_key, $script );
                     }
                 }
             }
