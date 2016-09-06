@@ -4,10 +4,14 @@
 }
 .uix-has-tabs.uix-panel-inside {
   background-color: #fff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 180px 0 0 #f9f9f9 inset;  
 }
-.uix-panel .uix-has-tabs {
-  box-shadow: 180px 0 0 #fcfcfc inset;
+.uix-has-tabs.uix-top-tabs {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
+
+.uix-has-tabs.uix-top-tabs > .uix-panel .uix-has-tabs,
 #side-sortables .uix-panel .uix-has-tabs{
     box-shadow: none;
 }
@@ -21,10 +25,15 @@
 .uix-panel-tabs > li:hover {
   background: rgba(255, 255, 255, 0.3) none repeat scroll 0 0;
 }
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs ,
 #side-sortables .uix-panel-tabs {
+  box-shadow: 0 -1px 0 #efefef inset;
   display: table;
   width: 100%;
   float: none;
+}
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs{
+  display: block;
 }
 .uix-panel-tabs li {
   display: block;
@@ -33,13 +42,18 @@
   padding: 0;
   position: relative;
 }
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs li,
 #side-sortables .uix-panel-tabs li {
   display: table-cell;
   text-align: center;
   border-right: 1px solid #eee;
 }
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs li{
+  display: inline-block;
+}
 .uix-panel-tabs li[aria-selected="true"]{
 }
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs > li:last-child ,
 #side-sortables .uix-panel-tabs > li:last-child {
     border-right: 0;
 }
@@ -53,6 +67,7 @@
   padding: 10px;
   text-decoration: none;
 }
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs li a ,
 #side-sortables .uix-panel-tabs li a {
     background-color: #f6f6f6;
 }
@@ -66,6 +81,7 @@
   position: relative;
   box-shadow: 3px 0 0 #ccc inset;
 }
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs li[aria-selected="true"] a ,
 #side-sortables .uix-panel-tabs li[aria-selected="true"] a {
   background-color: #fff;
   border-bottom: 1px solid #fff;
@@ -73,6 +89,7 @@
 }
 
 
+.uix-has-tabs.uix-top-tabs > .uix-panel-tabs .label ,
 #side-sortables .uix-panel-tabs .label {
   height: 1px;
   left: -1000em;
@@ -82,6 +99,11 @@
   width: 1px;
 }
 
+.uix-section-content .description {
+  font-style: normal;
+  font-weight: 600;
+  margin: 2px 0 10px;
+}
 
 .uix-panel-tabs .dashicons {
   line-height: 20px;

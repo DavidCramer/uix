@@ -1,11 +1,16 @@
 .uix-sections {
   width: 100%;
 }
-.uix-has-tabs .uix-sections{
+.uix-has-tabs > .uix-sections{
   border-left: 1px solid #eee;
   float: left;
   margin-left: -1px; 
   width: calc(100% - 181px);
+}
+.uix-has-tabs.uix-top-tabs > .uix-sections{
+  float: none;
+  width: 100%;
+  border: none;
 }
 #side-sortables .uix-sections{
     float: none;
@@ -36,6 +41,23 @@
 .uix-has-tabs .uix-section-content{
     padding: 8px 12px 8px;
 }
+
+.uix-section > .uix-section-content > .uix-control {
+  margin-bottom: 21px;
+}
+.uix-section > .uix-section-content > .uix-control-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.uix-section > .uix-section-content > .uix-control-description {
+  color: #808080;
+  display: block;
+  font-style: oblique;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
 
 
 @media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
