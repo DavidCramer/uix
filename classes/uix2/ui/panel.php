@@ -15,7 +15,7 @@ namespace uix2\ui;
  * @package uix2\ui
  * @author  David Cramer
  */
-class panel extends uix{
+class panel extends \uix2\data\data{
 
     /**
      * The type of object
@@ -25,20 +25,6 @@ class panel extends uix{
      * @var      string
      */
     public $type = 'panel';
-
-    /**
-     * Registeres the panels Sections
-     *
-     * @since 2.0.0
-     * @see \uix2\uix
-     * @access public
-     */
-    public function setup() {
-        if( !empty( $this->struct['sections'] ) ){            
-            foreach ( $this->struct['sections'] as $section_slug => $section_structure)
-                $this->section( $section_slug, $section_structure );
-        }
-    }
 
     /**
      * Enqueues specific tabs assets for the active pages
@@ -87,6 +73,41 @@ class panel extends uix{
             'panel'        =>  $this->url . 'assets/js/uix-panel' . $this->debug_scripts . '.js'
         );
         $this->scripts( $scripts );
+    }
+
+    /**
+     * Get Data from all controls of this section
+     *
+     * @since 2.0.0
+     * @see \uix2\load
+     * @param string $slug Slug of the section to get data for
+     * @return array $data Array of sections data structured by the controls
+     */
+    public function get_data(){
+        $data = array();
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ) {
+                $data[ $child->slug ] = $child->get_data();
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Sets the data for all children
+     *
+     * @since 2.0.0
+     * @access public
+     */    
+    public function set_data( $data ){
+        if( empty( $this->child ) ){ return; }
+
+        foreach( $this->child as $child ){
+            if( isset( $data[ $child->slug ] ) )
+                $child->set_data( $data[ $child->slug ] );
+        }
+
     }
 
     /**
