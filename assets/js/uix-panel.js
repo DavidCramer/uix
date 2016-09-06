@@ -1,7 +1,6 @@
 (function() {
 
     var uix_panels = {};
-
     document.addEventListener('click', function (e) {
         if( 
             e.which === 1 && 
@@ -24,7 +23,7 @@
             }
             // if not active section, set it
             if( !uix_panels[ clicked.dataset.parent ].active_section ){
-                uix_panels[ clicked.dataset.parent ].active_section = parent.querySelector('[aria-hidden="false"]');
+                uix_panels[ clicked.dataset.parent ].active_section = parent.querySelector(':scope > .uix-sections > [aria-hidden="false"]');
             }
 
             // remove setting
