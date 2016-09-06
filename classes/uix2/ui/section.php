@@ -53,7 +53,7 @@ class section extends panel {
             $this->struct['active'] = 'true';
         }
 
-        echo '<div id="' . esc_attr( $this->slug . '-' . $this->parent->slug ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
+        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
             echo '<div class="uix-section-content">';
                 if( !empty( $this->struct['description'] ) ){
                     echo '<p class="description">' . esc_html( $this->struct['description'] ) . '</p>';
