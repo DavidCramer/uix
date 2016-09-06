@@ -201,13 +201,14 @@ class control extends \uix2\data\data{
      */
     public function render(){
 
-        echo '<div id="control-' . esc_attr( $this->slug ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
+        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
             
             echo $this->label();
             echo $this->input();
             echo $this->description();
 
         echo '</div>';
+
     }
 
     /**

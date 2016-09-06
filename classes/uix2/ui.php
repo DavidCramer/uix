@@ -89,7 +89,7 @@ class ui{
     public function add( $type, $slug, $structure, $parent = null ) {
         $init = $this->get_register_callback( $type );
         if( null !== $init ){
-            $object = call_user_func_array( $init, array( $slug, $structure, $parent ) );
+            $object = call_user_func_array( $init, array( $slug, $structure, $parent ) );            
             $this->ui->{$type}[ $slug ] = $object;
             return $object;
         }

@@ -30,7 +30,7 @@ class editor extends \uix2\ui\control\textarea{
         if( !empty( $this->struct['settings'] ) && is_array( $this->struct['settings'] ) )
             $settings = array_merge( $this->struct['settings'], $settings );
 
-        wp_editor( $this->get_data(), $this->id(), $settings );
+        wp_editor( $this->get_data(), 'control-' . $this->id(), $settings );
 
     }    
 
