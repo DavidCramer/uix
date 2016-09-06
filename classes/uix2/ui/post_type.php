@@ -51,25 +51,23 @@ class post_type extends uix{
      */
     protected function enqueue_active_assets(){
         // output the styles
-        if( !empty( $this->struct['base_color'] ) ){
         ?><style type="text/css">
             .contextual-help-tabs .active {
-                border-left: 6px solid <?php echo $this->struct['base_color']; ?> !important;
+                border-left: 6px solid <?php echo $this->base_color(); ?> !important;
             }
             #wpbody-content .wrap > h1 {
-                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
             #wpbody-content .wrap > h1 a.page-title-action:hover{
-                background: <?php echo $this->struct['base_color']; ?>;
-                border-color: <?php echo $this->struct['base_color']; ?>;
+                background: <?php echo $this->base_color(); ?>;
+                border-color: <?php echo $this->base_color(); ?>;
             }
             #wpbody-content .wrap > h1 a.page-title-action:focus{
-                box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
-                border-color: <?php echo $this->struct['base_color']; ?>;
+                box-shadow: 0 0 2px <?php echo $this->base_color(); ?>;
+                border-color: <?php echo $this->base_color(); ?>;
             }
         </style>
         <?php
-        }
     }
 
     /**

@@ -76,21 +76,16 @@ class metabox extends panel {
      * @access protected
      */
     protected function enqueue_active_assets(){
-        if( !empty( $this->struct['base_color'] ) ){
-            $text_color = "#fff";
-            if( !empty( $this->struct['base_text_color'] ) ){
-                $text_color = $this->struct['base_text_color'];
-            }
         ?><style type="text/css">
+        #<?php echo 'uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?>.uix-top-tabs .uix-panel-tabs li[aria-selected="true"] a,
         #side-sortables #<?php echo 'uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> .uix-panel-tabs li[aria-selected="true"] a{
-        box-shadow: 0 3px 0 <?php echo $this->struct['base_color']; ?> inset;
+        box-shadow: 0 3px 0 <?php echo $this->base_color(); ?> inset;
         }
         #<?php echo 'uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> .uix-panel-tabs li[aria-selected="true"] a {
-        box-shadow: 3px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+        box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
         </style>
         <?php
-        }
     }
 
 

@@ -147,33 +147,31 @@ class page extends panel implements \uix2\data\save{
      */
     protected function enqueue_active_assets(){
 
-        if( !empty( $this->struct['base_color'] ) ){
         ?><style type="text/css">
             .contextual-help-tabs .active {
-                border-left: 6px solid <?php echo $this->struct['base_color']; ?> !important;
+                border-left: 6px solid <?php echo $this->base_color(); ?> !important;
             }
-            <?php if( !empty( $this->struct['tabs'] ) && count( $this->struct['tabs'] ) > 1 ){ ?>
-            .wrap > h1.uix-title {
-                box-shadow: 0 0px 13px 12px <?php echo $this->struct['base_color']; ?>, 11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+            <?php if( !empty( $this->child ) && count( $this->child ) > 1 ){ ?>
+            #<?php echo $this->type . '_' . $this->slug; ?> {
+                box-shadow: 0 0px 13px 12px <?php echo $this->base_color(); ?>, 11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
             <?php }else{ ?>
-            .wrap > h1.uix-title {
-                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+            #<?php echo $this->type . '_' . $this->slug; ?> h1{
+                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
-            <?php } ?>
-            .uix-modal-wrap .uix-modal-title > h3,
-            button.page-title-action:hover{
-                background: <?php echo $this->struct['base_color']; ?>;
-                border-color: <?php echo $this->struct['base_color']; ?>;
+            <?php } ?>            
+             #<?php echo $this->type . '_' . $this->slug; ?> .page-title-action:hover{
+                background: <?php echo $this->base_color(); ?>;
+                border-color: rgba(0,0,0,0.1);
             }
-            .wrap button.page-title-action:focus{
-                box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
-                border-color: <?php echo $this->struct['base_color']; ?>;
+             #<?php echo $this->type . '_' . $this->slug; ?> .page-title-action:focus{
+                box-shadow: 0 0 2px <?php echo $this->base_color(); ?>;
+                border-color: <?php echo $this->base_color(); ?>;
             }
 
         </style>
         <?php
-        }
+
     }
 
     /**
@@ -232,7 +230,7 @@ class page extends panel implements \uix2\data\save{
     public function render(){
 
         ?>
-        <form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="<?php echo esc_attr( $this->slug ); ?>">
+        <form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="<?php echo esc_attr( $this->slug ); ?>" id="<?php echo esc_attr( $this->type . '_' . $this->slug ); ?>">
             <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
                 <?php if( !empty( $this->struct['version'] ) ){ ?><small><?php esc_html_e( $this->struct['version'], 'text-domain' ); ?></small><?php } ?>
                 <?php if( !empty( $this->struct['save_button'] ) ){ ?>

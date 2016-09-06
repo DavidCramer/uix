@@ -33,18 +33,16 @@ class panel extends \uix2\data\data{
      * @access protected
      */
     protected function enqueue_active_assets(){
-        if( !empty( $this->struct['base_color'] ) ){
-            $text_color = "#fff";
-            if( !empty( $this->struct['base_text_color'] ) ){
-                $text_color = $this->struct['base_text_color'];
-            }
         ?><style type="text/css">
-        #<?php echo 'uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> .uix-panel-tabs li[aria-selected="true"] a {
-            box-shadow: 3px 0 0 <?php echo $this->struct['base_color']; ?> inset;
+        #<?php echo 'panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
+            box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
+        #<?php echo 'panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
+            box-shadow: 0 3px 0 <?php echo $this->base_color(); ?> inset;
+        }
+        
         </style>
         <?php
-        }
     }
 
 
@@ -119,10 +117,16 @@ class panel extends \uix2\data\data{
     public function render(){
         
         if( empty( $this->child ) ){ return; }
+        $tabs_class = '';
+        if( count( $this->child ) > 1 )
+            $tabs_class = ' uix-has-tabs';
+        if( !empty( $this->struct['top_tabs'] ) )
+            $tabs_class .= ' uix-top-tabs';
 
+        echo '<div id="panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ) . '" class="uix-' . esc_attr( $this->type ) . '-inside uix-panel-inside ' . $tabs_class . '">';
+        
         if( count( $this->child ) > 1 ){
-            echo '<div id="uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ) . '" class="uix-panel-inside uix-has-tabs">';
-                echo '<ul class="uix-panel-tabs">';
+                echo '<ul class="uix-' . esc_attr( $this->type ) . '-tabs uix-panel-tabs">';
                 $active = 'true';
                 foreach( $this->child as $section ){
                     
@@ -132,17 +136,15 @@ class panel extends \uix2\data\data{
                         $label = '<i class="dashicons ' . $section->struct['icon'] . '"></i><span class="label">' . esc_html( $section->struct['label'] ) . '</span>';
                     }
                     echo '<li aria-selected="' . esc_attr( $active ) . '">';
-                        echo '<a href="#' . esc_attr( $section->slug . '-' . $this->slug ) . '" data-parent="uix-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ) . '" class="uix-tab-trigger">' . $label . '</a>';
+                        echo '<a href="#' . esc_attr( $section->slug . '-' . $this->slug ) . '" data-parent="panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ) . '" class="uix-tab-trigger">' . $label . '</a>';
                     echo '</li>';
 
                     $active = 'false';
                 }
                 echo '</ul>';
-        }else{
-            echo '<div class="uix-panel">';
         }
 
-            echo '<div class="uix-sections">';
+            echo '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
                 $hidden = 'false';
                 foreach( $this->child as $section ){
                     $section->struct['active'] = $hidden;
