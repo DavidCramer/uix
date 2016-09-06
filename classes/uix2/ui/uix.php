@@ -238,6 +238,17 @@ abstract class uix{
 
 
     /**
+     * uix object id
+     *
+     * @since 2.0.0
+     * @access public
+     * @return string The object ID
+     */
+    public function id(){
+        return 'uix-' . $this->type . '-' . $this->slug;
+    }
+
+    /**
      * Register the core UIX styles
      *
      * @since 2.0.0
@@ -328,7 +339,7 @@ abstract class uix{
         if( null !== $init ){
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
-            if( null !== $child ){                
+            if( null !== $child ){
                 $this->child[ $args[0] ] = $child;
             }
         }
