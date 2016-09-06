@@ -456,7 +456,8 @@ abstract class uix{
      * @access public
      */
     public function is_active(){
-        if( !empty( $this->parent ) && $this->parent->is_active() ){ return true; }
+        if( !empty( $this->parent ) )
+            return $this->parent->is_active();
         return false;
     }
 
