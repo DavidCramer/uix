@@ -328,10 +328,7 @@ abstract class uix{
         if( null !== $init ){
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
-            if( null !== $child ){
-                if( empty( $child->struct['base_color'] ) && !empty( $this->struct['base_color'] ) )
-                    $child->struct['base_color'] = $this->struct['base_color'];
-                
+            if( null !== $child ){                
                 $this->child[ $args[0] ] = $child;
             }
         }
@@ -497,6 +494,24 @@ abstract class uix{
         if(!empty( $this->struct['help_sidebar'] ) ){
             $screen->set_help_sidebar( $this->struct['help_sidebar'] );
         }
+    }
+
+    /**
+     * Base color helper
+     *
+     * @since 2.0.0
+     * @access public
+     */
+    protected function base_color(){
+        if( empty( $this->struct['base_color'] ) ){
+            if( !empty( $this->parent ) )
+                return $this->parent->base_color();
+        }else{
+            return $this->struct['base_color'];
+        }
+
+        return '#0073aa';
+
     }
 
     /**
