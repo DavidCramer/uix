@@ -32,6 +32,8 @@ abstract class data extends \uix2\ui\uix{
     public function setup() {
         if( !empty( $this->struct['sanitize_callback'] ) )
             add_filter( 'uix_' . $this->slug . '_sanitize_' . $this->type, $this->struct['sanitize_callback'] );
+
+        parent::setup();
     }
 
     /**
