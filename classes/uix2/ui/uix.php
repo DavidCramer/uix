@@ -151,13 +151,21 @@ abstract class uix{
     }
 
     /**
-     * Set custom UIX object setup proceses
+     * Autoload Children - Checks structure for nested structures
      *
      * @since 2.0.0
      * @access public
-     * @return void|bool return true to stop constructor init sequence if needed to change order
      */
-    public function setup() {}
+    public function setup(){
+        foreach ( $this->struct as $struct_key=>$sub_struct ){
+            if( is_array( $sub_struct ) && uix2()->get_register_callback( $struct_key ) ){
+                foreach( $sub_struct as $sub_slug => $sub_structure ){
+                    $this->{$struct_key}( $sub_slug, $sub_structure );    
+                }
+            }
+        }
+    }
+
 
 
     /**
