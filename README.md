@@ -130,16 +130,16 @@ $post_type = array(
             'menu_name'             => 'Employees',
             'menu_icon'             => 'dashicons-menu',
         ),
-        'metaboxes'                 => array(
+        'metabox'                   => array(
             'meta_fields'           =>  array(
                 'name'              =>  esc_html__( 'Metabox Fields', 'text-domain' ),
                 'context'           =>  'normal',
                 'priority'          =>  'high',
             ),
-            'sections'              =>  array(
+            'section'               =>  array(
                 'employee_details'  =>  array(
                     'label'         =>  esc_html__( 'Employee Details', 'text-domain' ),
-                    'controls'      =>  array(
+                    'control'       =>  array(
                         'employee_name' =>  array(
                             'label'     => esc_html__( 'Name', 'text-domain' ),
                         ),
