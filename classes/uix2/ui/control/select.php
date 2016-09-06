@@ -59,13 +59,14 @@ class select extends \uix2\ui\control{
         if( !isset( $this->struct['value'] ) ){
             $input .= '<option></option>';
         }
+        if( !empty( $this->struct['choices'] ) ){
+            foreach( $this->struct['choices'] as $option_value => $option_label) {
+                $sel = null;
+                if( $option_value == $value )
+                    $sel = ' selected="selected"';
 
-        foreach ($this->struct['choices'] as $option_value => $option_label) {
-            $sel = null;
-            if( $option_value == $value )
-                $sel = ' selected="selected"';
-
-            $input .= '<option value="' . esc_attr( $option_value ) . '"' . $sel . '>' . esc_html( $option_label ) . '</option>';
+                $input .= '<option value="' . esc_attr( $option_value ) . '"' . $sel . '>' . esc_html( $option_label ) . '</option>';
+            }
         }
         $input .= '</' . esc_html( $this->type ) . '>';
 

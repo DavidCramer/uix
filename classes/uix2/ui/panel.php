@@ -34,10 +34,10 @@ class panel extends \uix2\data\data{
      */
     protected function enqueue_active_assets(){
         ?><style type="text/css">
-        #<?php echo 'panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
+        #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
-        #<?php echo 'panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
+        #<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 0 3px 0 <?php echo $this->base_color(); ?> inset;
         }
         

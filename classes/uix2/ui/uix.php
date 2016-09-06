@@ -245,7 +245,10 @@ abstract class uix{
      * @return string The object ID
      */
     public function id(){
-        return 'uix-' . $this->type . '-' . $this->slug;
+        $id = 'uix-' . $this->type . '-' . $this->slug;
+        if( !empty( $this->parent ) )
+            $id .= $this->parent->id();
+        return $id;
     }
 
     /**
