@@ -123,20 +123,20 @@ class panel extends \uix2\data\data{
         if( !empty( $this->struct['top_tabs'] ) )
             $tabs_class .= ' uix-top-tabs';
 
-        echo '<div id="panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ) . '" class="uix-' . esc_attr( $this->type ) . '-inside uix-panel-inside ' . $tabs_class . '">';
+        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside uix-panel-inside ' . $tabs_class . '">';
         
         if( count( $this->child ) > 1 ){
                 echo '<ul class="uix-' . esc_attr( $this->type ) . '-tabs uix-panel-tabs">';
                 $active = 'true';
-                foreach( $this->child as $section ){
+                foreach( $this->child as $child ){
                     
-                    $label = esc_html( $section->struct['label'] );
+                    $label = esc_html( $child->struct['label'] );
 
-                    if( !empty( $section->struct['icon'] ) ){
-                        $label = '<i class="dashicons ' . $section->struct['icon'] . '"></i><span class="label">' . esc_html( $section->struct['label'] ) . '</span>';
+                    if( !empty( $child->struct['icon'] ) ){
+                        $label = '<i class="dashicons ' . $child->struct['icon'] . '"></i><span class="label">' . esc_html( $child->struct['label'] ) . '</span>';
                     }
                     echo '<li aria-selected="' . esc_attr( $active ) . '">';
-                        echo '<a href="#' . esc_attr( $section->slug . '-' . $this->slug ) . '" data-parent="panel-' . esc_attr( $this->type ) . '-' . esc_attr( $this->slug ) . '" class="uix-tab-trigger">' . $label . '</a>';
+                        echo '<a href="#' . esc_attr( $child->id() ) . '" data-parent="' . esc_attr( $this->id() ) . '" class="uix-tab-trigger">' . $label . '</a>';
                     echo '</li>';
 
                     $active = 'false';

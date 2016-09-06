@@ -95,17 +95,6 @@ class control extends \uix2\data\data{
         return 'uix[' . $this->parent->slug . '][' . $this->slug . ']';
     }
 
-    /**
-     * Create and Return the control's ID
-     *
-     * @since 2.0.0
-     * @access public
-     * @return string The control ID
-     */
-    public function id(){
-        return 'uix_' . $this->parent->slug . '-' . $this->slug;
-    }
-
 
     /**
      * Gets the classes for the control input
@@ -134,7 +123,7 @@ class control extends \uix2\data\data{
     public function attributes() {
 
         $attributes = array(
-            'id'        =>  $this->id(),
+            'id'        =>  'control-' . $this->id(),
             'name'      =>  $this->name(),
             'class'     =>  implode( ' ', $this->classes() )
         );
