@@ -87,13 +87,13 @@ p.search-box {
     color: #8f8f8f;
 }
 
-.uix-has-tabs.uix-panel-inside{
+form.uix-page > .uix-has-tabs.uix-panel-inside{
     background-color: transparent;
 }
-.uix-panel-inside{
+form.uix-page > .uix-panel-inside{
     overflow: visible;
 }
-ul.uix-panel-tabs {
+form.uix-page > .uix-panel-inside > ul.uix-panel-tabs {
     background: #f7f7f7 none repeat scroll 0 0;
     border-radius: 0 0 0 3px;
     box-shadow: 0 1px 2px rgba(0, 2, 0, 0.05), 0 2px 2px rgba(0, 2, 0, 0.03) inset;
@@ -102,14 +102,14 @@ ul.uix-panel-tabs {
     float: none;
 }
 
-.uix-panel-tabs li {
+form.uix-page > .uix-panel-inside > .uix-panel-tabs li {
   display: inline-block;
   line-height: 20px;
   margin: 0;
   padding: 0;
   position: relative;
 }
-.uix-panel-tabs > li > a {
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li > a {
     display: inline-block;
     padding: 6px 12px;
     text-decoration: none;
@@ -117,18 +117,18 @@ ul.uix-panel-tabs {
     border: 0;
 }
 
-.uix-panel-tabs > li > a.active,
-.uix-panel-tabs > li > a:hover{
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li > a.active,
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li > a:hover{
     background: #ffffff none repeat scroll 0 0;
     box-shadow: 0 1px 1px rgba(0, 2, 0, 0.05);
 }
-.uix-panel-tabs > li:first-child.active ,
-.uix-panel-tabs > li:first-child,
-.uix-panel-tabs > li:first-child > a,
-.uix-panel-tabs > li:first-child:hover {
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li:first-child.active ,
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li:first-child,
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li:first-child > a,
+form.uix-page > .uix-panel-inside > .uix-panel-tabs > li:first-child:hover {
     border-radius: 0 0 0 3px;
 }
-.uix-panel-tabs li[aria-selected="true"] a {
+form.uix-page > .uix-panel-inside > .uix-panel-tabs li[aria-selected="true"] a {
   background-color: #fff;
   box-shadow: 0 -3px 0 #ccc inset;
   color: #555;
@@ -136,13 +136,34 @@ ul.uix-panel-tabs {
   font-weight: inherit;
 }
 
-.uix-has-tabs .uix-sections {
+form.uix-page > .uix-panel-inside > .uix-has-tabs .uix-sections {
   border-left: none;
   float: none;
   margin: 0;
 }
 
-
+.uix-page .uix-control {
+  margin-bottom: 21px;
+  margin-left: 150px;
+}
+.uix-page .uix-control-label {
+  display: inline-block;
+  float: left;
+  margin-left: -150px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.uix-page .uix-section-content > .description {
+  font-size: 1.05em;
+  margin: 12px 0 31px;
+}
+.uix-page .uix-control-description {
+  color: #808080;
+  display: block;
+  font-style: oblique;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
 
 
 
