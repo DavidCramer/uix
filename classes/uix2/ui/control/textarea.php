@@ -35,8 +35,9 @@ class textarea extends \uix2\ui\control{
      */
     public function attributes() {
 
-        $attributes         = parent::attributes();
-        $attributes['rows'] = '5';
+        $attributes             = parent::attributes();
+        $attributes['rows']     = '5';
+        $attributes['class']    = 'widefat';
         
         if( !empty( $this->struct['rows'] ) ){
             $attributes['rows'] = $this->struct['rows'];

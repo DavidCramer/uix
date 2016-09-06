@@ -1,4 +1,43 @@
-
+.metabox-prefs {
+    margin: 0 20px 0 -21px !important;
+}
+.contextual-help-tabs {
+    margin: 0 0 0 23px;
+    width: 172px;
+}
+.contextual-help-tabs .active a {
+    border-color: #e1e1e1;
+    color: #32373c;
+    padding-left: 8px;
+}
+.contextual-help-tabs .active {
+    background: #f4f4f4 none repeat scroll 0 0;
+    border-left: 6px solid rgb(195, 0, 40);
+}
+#screen-options-wrap {
+  margin-bottom: -1px;
+  padding-left: 41px;
+}
+p.search-box {
+  float: right;
+  margin: 12px 0 0;
+}
+#contextual-help-back {
+    background: #f4f4f4 none repeat scroll 0 0;
+    left: 195px;
+}
+.contextual-help-tabs-wrap {
+    padding: 10px 20px 20px;
+}
+.contextual-help-sidebar {
+    padding: 5px 12px 20px;
+}
+#screen-meta-links .screen-meta-toggle {
+    top: -1px;
+}
+.contextual-help-tabs a {
+    color: #808080;
+}
 .wrap > h1 {
     background-color: #fff;
     color: #505050;
@@ -114,6 +153,22 @@ form.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
 }
 
 
+.uix-page-sections > .uix-section > .uix-section-content > .uix-panel-inside.uix-has-tabs {
+  background: transparent;
+  border: 0 none;
+  box-shadow: none;
+}
+.uix-page-sections > .uix-section > .uix-section-content > .uix-panel-inside.uix-has-tabs > .uix-panel-tabs {
+  background: transparent;
+}
+.uix-page-sections > .uix-section > .uix-section-content > .uix-panel-inside.uix-has-tabs > .uix-panel-sections{
+    margin-left: 0;
+    border-left: 1px solid #e0e0e0;
+}
+
+.uix-page-sections > .uix-section > .uix-section-content > .uix-panel-inside.uix-has-tabs > .uix-panel-sections > .uix-section > .uix-section-content{
+    padding-top: 0;
+}
 
 
 .uix-page-sections > .uix-section > .uix-section-content > .uix-control {

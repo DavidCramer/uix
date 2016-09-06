@@ -152,7 +152,7 @@ class page extends panel implements \uix2\data\save{
                 border-left: 6px solid <?php echo $this->base_color(); ?> !important;
             }
             <?php if( !empty( $this->child ) && count( $this->child ) > 1 ){ ?>
-            #<?php echo $this->type . '_' . $this->slug; ?> {
+            #<?php echo $this->type . '_' . $this->slug; ?> h1{
                 box-shadow: 0 0px 13px 12px <?php echo $this->base_color(); ?>, 11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
             <?php }else{ ?>
