@@ -16,7 +16,7 @@ namespace uix2\ui;
  * @since 2.0.0
  * @see \uix2\uix
  */
-class section extends \uix2\data\data {
+class section extends panel {
 
     /**
      * The type of object
@@ -27,20 +27,6 @@ class section extends \uix2\data\data {
      */
     public $type = 'section';
 
-
-    /**
-     * Sets the Sections to the current instance and registers it's Controls 
-     *
-     * @since 2.0.0
-     * @see \uix2\uix
-     * @access public
-     */
-    public function setup() {
-        if( !empty( $this->struct['controls'] ) ){            
-            foreach ( $this->struct['controls'] as $control_slug => $control_structure)
-                $this->control( $control_slug, $control_structure );
-        }
-    }
 
     /**
      * Define core page styles
@@ -89,26 +75,6 @@ class section extends \uix2\data\data {
             echo '</div>';
         echo '</div>';
     }
-
-    /**
-     * Get Data from all controls of this section
-     *
-     * @since 2.0.0
-     * @see \uix2\load
-     * @param string $slug Slug of the section to get data for
-     * @return array $data Array of sections data structured by the controls
-     */
-    public function get_data(){
-        $data = array();
-        if( !empty( $this->child ) ){
-            foreach( $this->child as $control ) {
-                $data[ $control->slug ] = $control->get_data();
-            }
-        }
-
-        return $data;
-    }
-
 
     /**
      * checks if the current section is active
