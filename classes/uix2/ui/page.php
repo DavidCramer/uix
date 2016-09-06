@@ -47,8 +47,29 @@ class page extends panel implements \uix2\data\save{
         parent::actions();
         // add settings page
         add_action( 'admin_menu', array( $this, 'add_settings_page' ), 9 );
-        // save config
-        add_action( 'wp_ajax_uix_' . $this->slug . '_save_config', array( $this, 'save_config') );
+    }
+
+    /**
+     * Setup submission data
+     *
+     * @since 2.0.0
+     * @access public
+     */
+    public function setup(){
+        parent::setup();
+        $data = uix2()->request_vars( 'post' );
+
+        if( !isset( $data[ 'uix_' . $this->type . '_' . $this->slug ] ) || !wp_verify_nonce( $data[ 'uix_' . $this->type . '_' . $this->slug ], $this->type ) ){
+
+            $store_key = $this->store_key();
+            // get object data and push to children
+            $data = get_option( $store_key, $data, array() );
+            $this->set_data( $data );
+
+            return;
+        }        
+        
+        $this->save_data();
     }
 
     /**
@@ -63,40 +84,6 @@ class page extends panel implements \uix2\data\save{
             'page'    =>  $this->url . 'assets/css/uix-page' . $this->debug_styles . '.css',
         );
         $this->styles( $pages_styles );
-    }
-
-    /**
-     * Handles the Ajax request to save a page config
-     *
-     * @uses "wp_ajax_uix_save_config" hook
-     *
-     * @since 2.0.0
-     * @access public
-     */
-    public function save_config(){
-        // fetch _POST vars from helper method
-        $data = uix2()->request_vars( 'post' );
-        if( ! empty( $data[ 'config' ] ) ){
-
-            if( !wp_verify_nonce( $data[ 'uix_setup_' . $this->slug ], $this->type ) ){
-                wp_send_json_error( esc_html__( 'Could not verify nonce', 'text-domain' ) );
-            }
-
-            $config = json_decode( stripslashes_deep( $data[ 'config' ] ), true );
-            
-            $this->set_data( $config );
-
-            // allows submitted params to alter saving
-            if( !empty( $data['params'] ) ){
-                $this->struct = array_merge( $this->struct, $data['params'] );
-            }
-
-            $this->save_data();
-
-            wp_send_json_success();
-
-        }
-
     }
 
     /**
@@ -175,11 +162,11 @@ class page extends panel implements \uix2\data\save{
             }
             <?php } ?>
             .uix-modal-wrap .uix-modal-title > h3,
-            .wrap .uix-title a.page-title-action:hover{
+            button.page-title-action:hover{
                 background: <?php echo $this->struct['base_color']; ?>;
                 border-color: <?php echo $this->struct['base_color']; ?>;
             }
-            .wrap .uix-title a.page-title-action:focus{
+            .wrap button.page-title-action:focus{
                 box-shadow: 0 0 2px <?php echo $this->struct['base_color']; ?>;
                 border-color: <?php echo $this->struct['base_color']; ?>;
             }
@@ -216,7 +203,7 @@ class page extends panel implements \uix2\data\save{
                 $args[ 'page_title' ],
                 $args[ 'menu_title' ],
                 $args[ 'capability' ], 
-                $this->type . '-' . $this->slug,
+                $this->slug,
                 array( $this, 'render' )
             );
 
@@ -226,7 +213,7 @@ class page extends panel implements \uix2\data\save{
                 $args[ 'page_title' ],
                 $args[ 'menu_title' ],
                 $args[ 'capability' ], 
-                $this->type . '-' . $this->slug,
+                $this->slug,
                 array( $this, 'render' ),
                 $args[ 'icon' ],
                 $args[ 'position' ]
@@ -245,19 +232,22 @@ class page extends panel implements \uix2\data\save{
     public function render(){
 
         ?>
-        <div class="wrap uix-item" data-uix="<?php echo esc_attr( $this->slug ); ?>">
+        <form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="<?php echo esc_attr( $this->slug ); ?>">
             <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
                 <?php if( !empty( $this->struct['version'] ) ){ ?><small><?php esc_html_e( $this->struct['version'], 'text-domain' ); ?></small><?php } ?>
                 <?php if( !empty( $this->struct['save_button'] ) ){ ?>
-                <a class="page-title-action" href="#save-object" data-save-object="true">
-                    <span class="spinner uix-save-spinner"></span>
+                <button type="submit" class="page-title-action">
                     <?php esc_html_e( $this->struct['save_button'], 'text-domain' ); ?>
-                </a>
+                </button>
                 <?php } ?>
-            </h1>
+            </h1>        
+            <?php 
+                wp_nonce_field( $this->type, 'uix_' . $this->type . '_' . $this->slug );
+                parent::render(); 
+
+            ?>
+        </form>
         <?php
-        parent::render();
-        echo '</div>';
     }
     
 }
