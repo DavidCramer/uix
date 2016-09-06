@@ -24,5 +24,22 @@ class text extends \uix2\ui\control{
      * @access public
      * @var         string
      */
-    public $type = 'text';    
+    public $type = 'text';
+
+    /**
+     * Gets the classes for the control input
+     *
+     * @since  2.0.0
+     * @access public
+     * @return array
+     */
+    public function classes() {
+
+        $classes = array(
+            'regular-text'
+        );
+
+        return $classes;
+    }
+
 }

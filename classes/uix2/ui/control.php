@@ -117,7 +117,7 @@ class control extends \uix2\data\data{
     public function classes() {
 
         $classes = array(
-            'regular-text'
+            'widefat'
         );
 
         return $classes;
