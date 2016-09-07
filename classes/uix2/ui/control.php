@@ -27,15 +27,6 @@ class control extends \uix2\data\data{
     public $type = 'control';
 
     /**
-     * Hold the values of the controls
-     *
-     * @since   2.0.0
-     * @access protected
-     * @var     array
-     */
-    protected $data = array();
-
-    /**
      * Register the UIX objects
      *
      * @since 2.0.0
@@ -65,9 +56,8 @@ class control extends \uix2\data\data{
         // run parents to setup sanitization filters
         parent::setup();
         $data = uix2()->request_vars( 'post' );
-        if( isset( $data['uix'][ $this->parent->slug ][ $this->slug ] ) ){
-            $this->set_data( $data['uix'][ $this->parent->slug ][ $this->slug ] );
-        }
+        if( isset( $data['uix'][ $this->id() ] ) )
+            $this->set_data( $data['uix'][ $this->id() ] );
 
     }
     
@@ -92,7 +82,7 @@ class control extends \uix2\data\data{
      * @return string The control name
      */
     public function name(){
-        return 'uix[' . $this->parent->slug . '][' . $this->slug . ']';
+        return 'uix[' . $this->id() . ']';
     }
 
 
