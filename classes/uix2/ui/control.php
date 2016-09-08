@@ -160,7 +160,7 @@ class control extends \uix2\data\data{
     public function label(){
         
         if( isset( $this->struct['label'] ) )
-            return '<label for="' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
+            return '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
 
         return '';
     }
