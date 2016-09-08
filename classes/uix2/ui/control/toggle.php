@@ -101,6 +101,22 @@ class toggle extends \uix2\ui\control{
     }
 
     /**
+     * Gets the attributes for the control.
+     *
+     * @since  2.0.0
+     * @access public
+     * @return array Attributes for the input field
+     */
+    public function attributes() {
+
+        $attributes = parent::attributes();
+        if( !empty( $this->struct['toggle_all'] ) )
+            $attributes['data-toggle-all'] = 'true';
+
+        return $attributes;
+    }
+
+    /**
      * Returns the main input field for rendering
      *
      * @since 2.0.0
