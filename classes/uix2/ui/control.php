@@ -118,6 +118,9 @@ class control extends \uix2\data\data{
             'class'     =>  implode( ' ', $this->classes() )
         );
 
+        if( !empty( $this->struct['attributes'] ) && is_array( $this->struct['attributes'] ) )
+            $attributes = array_merge( $attributes, $this->struct['attributes'] );
+
         return $attributes;
     }
 
