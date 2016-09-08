@@ -116,7 +116,7 @@ class toggle extends \uix2\ui\control{
             $status_class = ' active';        
 
         $input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="control-' . esc_attr( $this->id() ) . '">';
-            $input .= '<input type="checkbox" value="" ' . $this->build_attributes() . ' ' . checked( 1, $value, false ) . '>';
+            $input .= '<input type="checkbox" value="1" ' . $this->build_attributes() . ' ' . checked( 1, $value, false ) . '>';
             $input .= '<div class="box"></div>';
         $input .= '</label>';
 
