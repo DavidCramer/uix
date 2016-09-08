@@ -480,7 +480,8 @@ abstract class uix{
     public function is_active(){
         if( !empty( $this->parent ) )
             return $this->parent->is_active();
-        return false;
+        
+        return true; // base is_active will result in true;
     }
 
     /**
