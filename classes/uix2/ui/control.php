@@ -56,8 +56,12 @@ class control extends \uix2\data\data{
         // run parents to setup sanitization filters
         parent::setup();
         $data = uix2()->request_vars( 'post' );
-        if( isset( $data['uix'][ $this->id() ] ) )
-            $this->set_data( $data['uix'][ $this->id() ] );
+        if( isset( $data[ $this->id() ] ) ){
+            $this->set_data( $data[ $this->id() ] );
+        }else{
+            if( !empty( $this->struct['value'] ) )
+                $this->set_data( $this->struct['value'] );
+        }
 
     }
     
@@ -82,7 +86,7 @@ class control extends \uix2\data\data{
      * @return string The control name
      */
     public function name(){
-        return 'uix[' . $this->id() . ']';
+        return $this->id();
     }
 
 
@@ -211,7 +215,10 @@ class control extends \uix2\data\data{
      * @access public
      */
     public function is_active(){
-        return $this->parent->is_active();
+        if( !empty( $this->parent ) )
+            return $this->parent->is_active();
+
+        return parent::is_active();
     }
 
 }
