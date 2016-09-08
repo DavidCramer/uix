@@ -97,6 +97,10 @@ form.uix-page > .uix-page-inside{
     margin: 0 -20px 0 -11px;
 
 }
+form.uix-page .uix-panel-inside{
+    margin-bottom: 8px;
+}
+
 form.uix-page > .uix-page-inside > ul.uix-page-tabs {
     background: #f7f7f7 none repeat scroll 0 0;
     border-radius: 0 0 0 3px;
