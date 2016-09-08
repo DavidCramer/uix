@@ -111,7 +111,7 @@ class post_type extends uix{
 
         // check the screen is valid and is a uix post type page
         if( !is_object( $screen ) || empty( $screen->post_type ) || $screen->post_type !== $this->slug ){
-            return parent::is_active();
+            return false;
         }
         return true;
     }

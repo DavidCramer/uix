@@ -134,7 +134,7 @@ class page extends panel implements \uix2\data\save{
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
         if( empty( $screen ) || !is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ){
-            return parent::is_active();
+            return false;
         }
         return true;
     }
