@@ -1,3 +1,7 @@
+.update-nag {
+  float: right;
+  margin-top: 9px;
+}
 .metabox-prefs {
     margin: 0 20px 0 -21px !important;
 }
