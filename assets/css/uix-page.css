@@ -100,7 +100,10 @@ form.uix-page > .uix-page-inside{
 form.uix-page .uix-panel-inside{
     margin-bottom: 8px;
 }
-
+.uix-section-content {
+  padding: 6px 12px;
+  width: 550px;
+}
 form.uix-page > .uix-page-inside > ul.uix-page-tabs {
     background: #f7f7f7 none repeat scroll 0 0;
     border-radius: 0 0 0 3px;
@@ -161,9 +164,9 @@ form.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 
-
-
-
+.uix-page-sections > .uix-section > .uix-section-content {
+    width: 550px;
+}
 
 .uix-page-sections > .uix-section > .uix-section-content > .uix-control {
   margin-bottom: 21px;
@@ -175,6 +178,12 @@ form.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
   margin-left: -150px;
   font-weight: 600;
   margin-bottom: 3px;
+}
+.uix-page-sections > .uix-section > .uix-section-content > .uix-control.uix-control-separator label > span.uix-control-label {
+  font-style: oblique;
+  font-weight: 500;
+  margin-top: -12px;
+  color: #8f8f8f;
 }
 .uix-page-sections > .uix-section > .uix-section-content > .description {
   font-size: 1.05em;

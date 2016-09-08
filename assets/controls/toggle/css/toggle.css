@@ -10,7 +10,7 @@ input.toggle-checkbox {
   overflow: hidden;
   padding: 2px 1px 2px 2px;
   position: relative;
-  transition: background-color 250ms ease 0s;
+  transition: background-color 150ms ease-in;
   width: 46px;
 }
 .box-wrapper {
@@ -23,7 +23,7 @@ input.toggle-checkbox {
   border-radius: 50px;
   height: 20px;
   width: 20px; 
-  transition: margin 250ms ease 0s;
+  transition: margin 150ms ease-in;
   cursor: pointer;
 }
 .switch.active .box {

@@ -1,3 +1,29 @@
+.uix-panel-heading {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+.uix-has-tabs .uix-panel-heading {
+  font-size: 0.9em;
+  background-color: #fff;
+  border-bottom: 1px solid #efefef;
+}
+h3.uix-panel-title {
+  font-weight: 500;
+}
+.uix-has-tabs h3.uix-panel-title{
+  margin: 0;
+  padding: 8px;
+  font-weight: 600;
+}
+.uix-panel-inside .uix-panel-subtitle.description {
+  margin: -15px 0 10px;
+}
+.uix-panel-inside.uix-has-tabs .uix-panel-subtitle.description {
+  background: #fff none repeat scroll 0 0;
+  margin: -9px 0 6px;
+  padding: 2px 9px;
+}
 
 .uix-panel-inside {
   overflow: hidden;
