@@ -124,6 +124,12 @@ class panel extends \uix2\data\data{
             $tabs_class .= ' uix-top-tabs';
 
         echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside uix-panel-inside ' . $tabs_class . '">';
+
+        if( !empty( $this->struct['label'] ) )
+            echo '<div class="uix-panel-heading"><h3 class="uix-panel-title">' . esc_html( $this->struct['label'] ) . '</h3></div>';
+
+        if( !empty( $this->struct['description'] ) )
+            echo '<div class="uix-panel-heading"><p class="uix-panel-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
         
         if( count( $this->child ) > 1 ){
                 echo '<ul class="uix-' . esc_attr( $this->type ) . '-tabs uix-panel-tabs">';
