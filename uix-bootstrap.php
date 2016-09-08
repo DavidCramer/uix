@@ -43,6 +43,12 @@ spl_autoload_register( 'uix2_autoload_class', true, false );
 
 // bootstrap plugin load
 add_action( 'plugins_loaded', 'uix2' );
+/**
+ * UIX Helper to minipulate the overall UI instance.
+ *
+ * @since 2.0.0
+ * @access public
+ */
 function uix2(){
     // init UI
     return \uix2\ui::get_instance();
