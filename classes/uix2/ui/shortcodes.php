@@ -71,7 +71,7 @@ class shortcodes extends \uix2\data\localized{
     protected function actions() {
         
         // set action head to front head
-        add_action( 'wp_head', array( $this, 'init' ) );        
+        add_action( 'wp_head', array( $this, 'enqueue_core' ) );        
     }
 
     /**

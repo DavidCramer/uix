@@ -166,7 +166,13 @@ abstract class uix{
         }
     }
 
-
+    /**
+     * All objects loaded - application method for finishing off loading objects
+     *
+     * @since 2.0.0
+     * @access public
+     */
+    public function init(){}
 
     /**
      * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
@@ -175,8 +181,10 @@ abstract class uix{
      * @access protected
      */
     protected function actions() {
+        // init uix after loaded
+        add_action( 'init', array( $this, 'init' ) );
         // init UIX headers
-        add_action( 'admin_enqueue_scripts', array( $this, 'init' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_core' ) );
         // queue helps
         add_action( 'admin_head', array( $this, 'add_help' ) );        
     }
@@ -350,12 +358,12 @@ abstract class uix{
     }
 
     /**
-     * initialize object and enqueue assets
+     * enqueue core assets
      *
      * @since 2.0.0
      * @access public
      */
-    public function init() {
+    public function enqueue_core() {
 
         // attempt to get a config
         if( !$this->is_active() ){ return; }
