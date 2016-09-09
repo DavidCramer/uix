@@ -56,7 +56,6 @@ class radio extends \uix\ui\control{
         $input      = '';
         $values     = (array) $this->get_data();
         $id         = $this->id();
-        $index      = 0;
 
         foreach ($this->struct['choices'] as $option_value => $option_label) {
             $sel        = null;

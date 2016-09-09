@@ -116,7 +116,7 @@ abstract class uix{
      * @access protected
      * @param string $slug Object slug
      * @param array $object Objects structure array
-     * @param object/uix $parent Parent UIX Object
+     * @param uix $parent Parent UIX Object
      */
     protected function __construct( $slug, $object, $parent = null ) {
         
@@ -330,7 +330,7 @@ abstract class uix{
      * @param string $type Child object type
      * @param string $slug Child object slug
      * @param array $structure object structure array
-     * @return object/UIX the child object added
+     * @return uix the child object added
      */
     public function add_child( $type, $slug, $structure ) {
         return $this->{$type}( $slug, $structure );

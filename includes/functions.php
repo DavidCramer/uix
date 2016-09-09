@@ -30,8 +30,6 @@ function uix_autoload_class( $class ){
         }
     }
 }
-// register autoloader
-spl_autoload_register( 'uix_autoload_class', true, false );
 
 /**
  * UIX Helper to minipulate the overall UI instance.

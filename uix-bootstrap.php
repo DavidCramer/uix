@@ -34,5 +34,8 @@ if( ! defined( 'UIX_CORE' ) ){
 // include uix helper functions and autoloader.
 require_once( UIX_PATH . 'includes/functions.php' );
 
+// register uix autoloader
+spl_autoload_register( 'uix_autoload_class', true, false );
+
 // bootstrap plugin load
 add_action( 'plugins_loaded', 'uix' );
