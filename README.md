@@ -16,7 +16,7 @@ There are three ways to use UIX; Include, Composer & Grunt.
 
 Simply add it to a uix folder in the root of your plugin and include the `uix-bootstrap.php`
 and include it in your main plguin file like below:
-```
+```php
 require_once( 'uix/uix-bootstrap.php' );
 ```
 
@@ -45,7 +45,7 @@ UIX has a `uix2()` helper function you can use to add UI objects as needed, or i
 ### Helper Function
 
 The helper function makes it easy to add UI structures quickly.
-```
+```php
 $employees = uix2()->add( 'post_type', 'employees', array(
     'settings' => array(
         'label'                 => __( 'Employee', 'text-domain' ),
@@ -64,7 +64,7 @@ $employees = uix2()->add( 'post_type', 'employees', array(
 ));
 ```
 Now `$employees` is the UI object created. From here you just leave it and your post type is registered. However, you can also add metaboxes to the object like this:
-```
+```php
 $metabox = $employees->metabox( 'meta_fields', array(
     'name'              =>  esc_html__( 'Metabox Fields', 'text-domain' ),
     'context'           =>  'normal',
@@ -72,7 +72,7 @@ $metabox = $employees->metabox( 'meta_fields', array(
 ));
 ```
 This adds a `Metabox Fields` meta box to the post type. You'll need to have some sections and controls for the metabox to be useful, so you can add them to the metabox object:
-```
+```php
 $metabox->section( 'employee_details', array(
     'label' => esc_html__( 'Employee Details', 'text-domain' ),
 ))->control( 'employee_name', array(
@@ -90,7 +90,7 @@ You can register a folder for UIX to scan and auto load any structures it finds.
 There is a `uix2_register` hook that will allow you to register the folder location where the definition files are kept.
 You can use it like this:
 
-```
+```php
 function register_ui_folders( $uix ){
     $uix->register( plugin_dir_path( __FILE__ ) . 'includes/ui' );
 }
@@ -113,7 +113,7 @@ ui/
 
 The file needs to return an array structure of the objects to auto load. 
 The `ui/employees.php` mentioned above, could look like this:
-```
+```php
 $post_type = array(
     'post_type_slug' => array(
         'settings' => array(
