@@ -79,8 +79,7 @@ class panel extends \uix\data\data{
      *
      * @since 1.0.0
      * @see \uix\load
-     * @param string $slug Slug of the section to get data for
-     * @return array $data Array of sections data structured by the controls
+     * @return array Array of sections data structured by the controls
      */
     public function get_data(){
         $data = array();
