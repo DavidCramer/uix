@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class color extends \uix\ui\control\text{
+class color extends \uix\ui\control\text {
 
 
     /**
@@ -65,7 +65,7 @@ class color extends \uix\ui\control\text{
     public function attributes() {
 
         $attributes = parent::attributes();
-        $attributes['class'] = 'color-field';
+        $attributes[ 'class' ] = 'color-field';
 
         return $attributes;
     }

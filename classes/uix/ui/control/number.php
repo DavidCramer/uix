@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class number extends \uix\ui\control{
+class number extends \uix\ui\control {
     
     /**
      * The type of object

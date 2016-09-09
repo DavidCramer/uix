@@ -47,12 +47,12 @@ class section extends panel {
      * @since 1.0.0
      * @access public
      */
-    public function render(){
+    public function render() {
         
-        if( !isset( $this->struct['active'] ) )
-            $this->struct['active'] = 'true';
+        if ( ! isset( $this->struct[ 'active' ] ) )
+            $this->struct[ 'active' ] = 'true';
 
-        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
+        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct[ 'active' ] ) . '">';
 
             $this->description();
 
@@ -72,14 +72,14 @@ class section extends panel {
      * @since 1.0.0
      * @access public
      */
-    public function render_section(){
+    public function render_section() {
 
-        if( !empty( $this->struct['template'] ) ){
+        if ( ! empty( $this->struct[ 'template' ] ) ) {
             $this->render_template();
             return;
         }
 
-        if( empty( $this->child ) ){ return; }
+        if ( empty( $this->child ) ) { return; }
 
         foreach ( $this->child as $control ) {
             $control->render();
@@ -92,7 +92,7 @@ class section extends panel {
      * @since 1.0.0
      * @access public
      */
-    public function is_active(){
+    public function is_active() {
         return $this->parent->is_active();
     }
 

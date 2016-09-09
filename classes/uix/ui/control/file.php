@@ -15,7 +15,7 @@ namespace uix\ui\control;
  * @todo Make it actually work.
  * @since 1.0.0
  */
-class file extends \uix\ui\control{
+class file extends \uix\ui\control {
     
     /**
      * The type of object
