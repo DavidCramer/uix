@@ -184,7 +184,7 @@ class page extends panel implements \uix\data\save{
     public function add_settings_page(){
 
         if( empty( $this->struct[ 'page_title' ] ) || empty( $this->struct['menu_title'] ) ){
-            continue;
+            return;
         }
 
         $args = array(
@@ -194,7 +194,7 @@ class page extends panel implements \uix\data\save{
         );
         $args = array_merge( $args, $this->struct );
 
-        if( !empty( $page['parent'] ) ){
+        if( !empty( $args['parent'] ) ){
 
             $this->plugin_screen_hook_suffix = add_submenu_page(
                 $args[ 'parent' ],

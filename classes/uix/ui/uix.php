@@ -96,7 +96,7 @@ abstract class uix{
      *
      * @since 1.0.0
      * @access protected
-     * @var      array
+     * @var      string
      */
     protected $debug_scripts = null;
 
@@ -105,7 +105,7 @@ abstract class uix{
      *
      * @since 1.0.0
      * @access protected
-     * @var      array
+     * @var      string
      */
     protected $debug_styles = null; 
 
@@ -447,7 +447,7 @@ abstract class uix{
                 }else{
                     if( is_array( $style ) ){
                         $args = array_merge( $arguments_array, $style );
-                        wp_enqueue_style( $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+                        wp_enqueue_style( $style_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
                     }else{
                         wp_enqueue_style( $style_key, $style );
                     }

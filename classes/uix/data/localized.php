@@ -12,6 +12,7 @@ namespace uix\data;
 
 /**
  * localized data class
+ * @todo Make this work better.
  * @package uix\data
  * @author  David Cramer
  */
@@ -69,19 +70,6 @@ abstract class localized extends data implements load{
                     'jquery'
                 )
             ),
-            /*'admin'         =>  array(
-                'src'           =>  $this->url . 'assets/js/uix-core' . $this->debug_scripts . '.js',
-                'depends'       =>  array(
-                    'jquery',
-                    'handlebars'
-                )               
-            ),
-            'modals'            =>  array(
-                'src'           =>  $this->url . 'assets/js/uix-modals' . $this->debug_scripts . '.js',
-                'depends'       =>  array(
-                    'jquery'
-                )               
-            )*/
         );
         // push to activly register scripts
         $this->scripts( $core_scripts );
@@ -102,44 +90,15 @@ abstract class localized extends data implements load{
     }
 
     /**
-     * get a UIX config store key
+     * get the objects data store key
      * @since 1.0.0
-     *
-     * @return string $store_key the defiuned option name for this UIX object
+     * @access public
+     * @return string $store_key the defined option name for this UIX object
      */
     public function store_key(){
-
-        if( !empty( $this->struct['store_key'] ) ){
-            $store_key = $this->struct['store_key'];
-        }else{
-            $store_key = 'uix-' . $this->type . '-' . sanitize_text_field( $this->slug );
-        }
-
-        return $store_key;
+        if( !empty( $this->struct['store_key'] ) )
+            return $this->struct['store_key'];
+        return sanitize_key( $this->slug );
     }
 
-    /**
-     * Return a saved object from part by points
-     *
-     * @since 1.0.0
-     *
-     * @return    string/array    the requested setting
-     */
-    public static function get_val( $path ) {
-
-        $path = explode( '.', $path );
-        $temp = null;
-        $slug = array_shift( $path );
-
-        $temp = $this->get_data();
-        foreach ($path as $index => $value) {
-            if( !isset( $temp[ $value ] ) ){
-                return null;
-            }
-            $temp = $temp[ $value ];
-        }
-
-        return $temp;
-
-    }
 }

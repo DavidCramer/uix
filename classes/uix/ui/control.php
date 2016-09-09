@@ -137,9 +137,9 @@ class control extends \uix\data\data{
      */
     public function build_attributes() {
         
-        foreach( $this->attributes() as $att => $value) {
+        $attributes = array();
+        foreach( $this->attributes() as $att => $value)
             $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
-        }
 
         return implode( ' ', $attributes );
     }

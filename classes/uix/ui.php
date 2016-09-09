@@ -57,7 +57,7 @@ class ui{
         /**
          * do UI loader locations
          *
-         * @param uix/ui $current UI instance
+         * @param ui current instance of this class
          */
         do_action( 'uix_register', $this );
 
@@ -83,9 +83,9 @@ class ui{
      * @since 1.0.0
      * @param string $type The type of object to add
      * @param string $slug The objects slug to add
-     * @param string $structure The objects structure
+     * @param array $structure The objects structure
      * @param object $parent object
-     * @return  object|\uix\/null    the instance of the object type or null if invalid
+     * @return uix|null The instance of the object type or null if invalid
      */
     public function add( $type, $slug, $structure, $parent = null ) {
         $init = $this->get_register_callback( $type );
@@ -119,7 +119,7 @@ class ui{
      *
      * @since 1.0.0
      *
-     * @return    object|UI    A single instance
+     * @return ui A single instance of this class
      */
     public static function get_instance() {
 
@@ -155,22 +155,18 @@ class ui{
      * @since 1.0.0
      *
      * @param string $type Request type to get
-     * @return array Regest vars array
+     * @return array Request vars array
      */
     public function request_vars( $type ) {
         switch ( $type ) {
             case 'post':
-                return $_POST;
-                break;
+                return $_POST;                
             case 'get':
-                return $_POST;
-                break;
+                return $_POST;                
             case 'files':
-                return $_POST;
-                break;
+                return $_POST;                
             default:
-                return $_REQUEST;
-                break;
+                return $_REQUEST;                
         }
     }    
 
@@ -200,8 +196,8 @@ class ui{
      *
      * @since 1.0.0
      * @access private
-     * @param array $paths to fetch contents of
-     * @param bool $file flag to set file fetching
+     * @param string $path  The file patch to examine and to fetch contents from
+     * @param bool $file flag to set file fetching vs folder load
      * @return array List of folders and files
      */
     private function get_files_from_folders( $path, $file = false ) {
