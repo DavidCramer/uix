@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class editor extends \uix\ui\control\textarea{
+class editor extends \uix\ui\control\textarea {
 
     /**
      * Returns the main input field for rendering
@@ -24,11 +24,11 @@ class editor extends \uix\ui\control\textarea{
      * @see \uix\ui\uix
      * @access public 
      */
-    public function input(){
+    public function input() {
 
         $settings = array( 'textarea_name' => $this->name() );
-        if( !empty( $this->struct['settings'] ) && is_array( $this->struct['settings'] ) )
-            $settings = array_merge( $this->struct['settings'], $settings );
+        if ( ! empty( $this->struct[ 'settings' ] ) && is_array( $this->struct[ 'settings' ] ) )
+            $settings = array_merge( $this->struct[ 'settings' ], $settings );
 
         wp_editor( $this->get_data(), 'control-' . $this->id(), $settings );
 

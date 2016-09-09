@@ -16,7 +16,7 @@ namespace uix\data;
  * @package uix\data
  * @author  David Cramer
  */
-abstract class localized extends data implements load{
+abstract class localized extends data implements load {
 
     /**
      * object data to be saved
@@ -33,9 +33,9 @@ abstract class localized extends data implements load{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
         // load object data
-        $config_object  = $this->load_data();
+        $config_object = $this->load_data();
 
         /**
          * Filter config object
@@ -82,7 +82,7 @@ abstract class localized extends data implements load{
      *
      * @return mixed $data Requested data of the page
      */
-    public function load_data(){
+    public function load_data() {
 
         // get and return config object
         return get_option( $this->store_key(), array() );    
@@ -95,9 +95,9 @@ abstract class localized extends data implements load{
      * @access public
      * @return string $store_key the defined option name for this UIX object
      */
-    public function store_key(){
-        if( !empty( $this->struct['store_key'] ) )
-            return $this->struct['store_key'];
+    public function store_key() {
+        if ( ! empty( $this->struct[ 'store_key' ] ) )
+            return $this->struct[ 'store_key' ];
         return sanitize_key( $this->slug );
     }
 

@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class checkbox extends \uix\ui\control\radio{
+class checkbox extends \uix\ui\control\radio {
 
     /**
      * The type of object
@@ -36,8 +36,8 @@ class checkbox extends \uix\ui\control\radio{
      */
     public function attributes() {
 
-        $attributes         = parent::attributes();
-        $attributes['name'] .= '[]';
+        $attributes = parent::attributes();
+        $attributes[ 'name' ] .= '[]';
 
         return $attributes;
     }

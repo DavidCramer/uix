@@ -11,7 +11,7 @@
  */
 namespace uix\data;
 
-interface load{
+interface load {
 
     /**
      * Get data

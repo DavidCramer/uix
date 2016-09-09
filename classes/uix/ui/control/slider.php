@@ -16,7 +16,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class slider extends \uix\ui\control\text{
+class slider extends \uix\ui\control\text {
 
     /**
      * Define core UIX styles - override to register core ( common styles for uix type )
@@ -66,9 +66,9 @@ class slider extends \uix\ui\control\text{
     public function attributes() {
 
         $attributes = parent::attributes();
-        $attributes['class']                        = 'uix-slider';
-        $attributes['data-type']                    = 'single';
-        $attributes['data-input-values-separator']  = ';';
+        $attributes[ 'class' ]                        = 'uix-slider';
+        $attributes[ 'data-type' ]                    = 'single';
+        $attributes[ 'data-input-values-separator' ]  = ';';
         
         return $attributes;
     }

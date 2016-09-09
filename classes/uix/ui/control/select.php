@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class select extends \uix\ui\control{
+class select extends \uix\ui\control {
 
     /**
      * The type of object
@@ -51,18 +51,18 @@ class select extends \uix\ui\control{
      * @access public
      * @return string 
      */
-    public function input(){
+    public function input() {
         
         $input      = '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>';
         $value      = $this->get_data();
 
-        if( !isset( $this->struct['value'] ) ){
+        if ( ! isset( $this->struct[ 'value' ] ) ) {
             $input .= '<option></option>';
         }
-        if( !empty( $this->struct['choices'] ) ){
-            foreach( $this->struct['choices'] as $option_value => $option_label) {
+        if ( ! empty( $this->struct[ 'choices' ] ) ) {
+            foreach ( $this->struct[ 'choices' ] as $option_value => $option_label ) {
                 $sel = null;
-                if( $option_value == $value )
+                if ( $option_value == $value )
                     $sel = ' selected="selected"';
 
                 $input .= '<option value="' . esc_attr( $option_value ) . '"' . $sel . '>' . esc_html( $option_label ) . '</option>';

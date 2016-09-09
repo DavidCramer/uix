@@ -15,7 +15,7 @@ namespace uix\ui;
  *
  * @since       1.0.0
  */
-class control extends \uix\data\data{
+class control extends \uix\data\data {
 
     /**
      * The type of object
@@ -37,10 +37,10 @@ class control extends \uix\data\data{
      */
     public static function register( $slug, $object, $parent = null ) {
             // get the current instance
-            if( empty( $object['type'] ) )
-                $object['type'] = 'text';
+            if ( empty( $object[ 'type' ] ) )
+                $object[ 'type' ] = 'text';
 
-            $caller = get_called_class() . '\\' . $object['type'];
+            $caller = get_called_class() . '\\' . $object[ 'type' ];
             
             return new $caller( $slug, $object, $parent );
     }
@@ -56,11 +56,11 @@ class control extends \uix\data\data{
         // run parents to setup sanitization filters
         parent::setup();
         $data = uix()->request_vars( 'post' );
-        if( isset( $data[ $this->id() ] ) ){
+        if ( isset( $data[ $this->id() ] ) ) {
             $this->set_data( $data[ $this->id() ] );
-        }else{
-            if( !empty( $this->struct['value'] ) )
-                $this->set_data( $this->struct['value'] );
+        } else {
+            if ( ! empty( $this->struct[ 'value' ] ) )
+                $this->set_data( $this->struct[ 'value' ] );
         }
 
     }
@@ -85,7 +85,7 @@ class control extends \uix\data\data{
      * @access public
      * @return string The control name
      */
-    public function name(){
+    public function name() {
         return $this->id();
     }
 
@@ -122,8 +122,8 @@ class control extends \uix\data\data{
             'class'     =>  implode( ' ', $this->classes() )
         );
 
-        if( !empty( $this->struct['attributes'] ) && is_array( $this->struct['attributes'] ) )
-            $attributes = array_merge( $attributes, $this->struct['attributes'] );
+        if ( ! empty( $this->struct[ 'attributes' ] ) && is_array( $this->struct[ 'attributes' ] ) )
+            $attributes = array_merge( $attributes, $this->struct[ 'attributes' ] );
 
         return $attributes;
     }
@@ -138,8 +138,8 @@ class control extends \uix\data\data{
     public function build_attributes() {
         
         $attributes = array();
-        foreach( $this->attributes() as $att => $value)
-            $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
+        foreach ( $this->attributes() as $att => $value )
+            $attributes[ ] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
 
         return implode( ' ', $attributes );
     }
@@ -152,7 +152,7 @@ class control extends \uix\data\data{
      * @access public
      * @return string Input field HTML striung
      */
-    public function input(){
+    public function input() {
 
         return '<input type="' . esc_attr( $this->type ) . '" value="' . esc_attr( $this->get_data() ) . '" ' . $this->build_attributes() . '>';
     }    
@@ -164,10 +164,10 @@ class control extends \uix\data\data{
      * @access public
      * @return string Lable string 
      */
-    public function label(){
+    public function label() {
         
-        if( isset( $this->struct['label'] ) )
-            return '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
+        if ( isset( $this->struct[ 'label' ] ) )
+            return '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct[ 'label' ] ) . '</span></label>';
 
         return '';
     }
@@ -180,10 +180,10 @@ class control extends \uix\data\data{
      * @access public
      * @return string description string 
      */
-    public function description(){
+    public function description() {
         
-        if( isset( $this->struct['description'] ) )
-            return '<span class="uix-control-description">' . esc_html( $this->struct['description'] ) . '</span>';
+        if ( isset( $this->struct[ 'description' ] ) )
+            return '<span class="uix-control-description">' . esc_html( $this->struct[ 'description' ] ) . '</span>';
 
         return '';
     }
@@ -196,7 +196,7 @@ class control extends \uix\data\data{
      * @see \uix\ui\uix
      * @access public
      */
-    public function render(){
+    public function render() {
 
         echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
             
@@ -214,8 +214,8 @@ class control extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function is_active(){
-        if( !empty( $this->parent ) )
+    public function is_active() {
+        if ( ! empty( $this->parent ) )
             return $this->parent->is_active();
 
         return parent::is_active();

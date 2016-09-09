@@ -11,7 +11,7 @@
  */
 namespace uix\data;
 
-abstract class data extends \uix\ui\uix{
+abstract class data extends \uix\ui\uix {
 
     /**
      * object data
@@ -30,8 +30,8 @@ abstract class data extends \uix\ui\uix{
      * @see \uix\uix
      */
     public function setup() {
-        if( !empty( $this->struct['sanitize_callback'] ) )
-            add_filter( 'uix_' . $this->slug . '_sanitize_' . $this->type, $this->struct['sanitize_callback'] );
+        if ( ! empty( $this->struct[ 'sanitize_callback' ] ) )
+            add_filter( 'uix_' . $this->slug . '_sanitize_' . $this->type, $this->struct[ 'sanitize_callback' ] );
 
         parent::setup();
     }
@@ -42,7 +42,7 @@ abstract class data extends \uix\ui\uix{
      * @access public
      * @param mixed $data the data to be set
      */
-    public function set_data( $data ){
+    public function set_data( $data ) {
         $this->data = apply_filters( 'uix_' . $this->slug . '_sanitize_' . $this->type, $data, $this );
     }
 
@@ -52,7 +52,7 @@ abstract class data extends \uix\ui\uix{
      * @access public
      * @return mixed $data
      */
-    public function get_data(){
+    public function get_data() {
         return $this->data;
     }
 

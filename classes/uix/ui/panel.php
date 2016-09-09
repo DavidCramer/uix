@@ -16,7 +16,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-class panel extends \uix\data\data{
+class panel extends \uix\data\data {
 
     /**
      * The type of object
@@ -33,7 +33,7 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
         ?><style type="text/css">
         #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
@@ -81,10 +81,10 @@ class panel extends \uix\data\data{
      * @see \uix\load
      * @return array Array of sections data structured by the controls
      */
-    public function get_data(){
+    public function get_data() {
         $data = array();
-        if( !empty( $this->child ) ){
-            foreach( $this->child as $child ) {
+        if ( ! empty( $this->child ) ) {
+            foreach ( $this->child as $child ) {
                 $data[ $child->slug ] = $child->get_data();
             }
         }
@@ -98,11 +98,11 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */    
-    public function set_data( $data ){
-        if( empty( $this->child ) ){ return; }
+    public function set_data( $data ) {
+        if ( empty( $this->child ) ) { return; }
 
-        foreach( $this->child as $child ){
-            if( isset( $data[ $child->slug ] ) )
+        foreach ( $this->child as $child ) {
+            if ( isset( $data[ $child->slug ] ) )
                 $child->set_data( $data[ $child->slug ] );
         }
 
@@ -114,9 +114,9 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function render(){
+    public function render() {
         
-        if( empty( $this->child ) ){ return; }
+        if ( empty( $this->child ) ) { return; }
 
         echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside ' . esc_attr( $this->wrapper_class_names() ) . '">';
             // render a lable
@@ -129,8 +129,8 @@ class panel extends \uix\data\data{
             echo '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
                 
                 $hidden = 'false';
-                foreach( $this->child as $section ){
-                    $section->struct['active'] = $hidden;
+                foreach ( $this->child as $section ) {
+                    $section->struct[ 'active' ] = $hidden;
                     $section->render();
                     $hidden = 'true';
                 }
@@ -146,16 +146,16 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function navigation(){
-        if( count( $this->child ) <= 1 ){ return; }
+    public function navigation() {
+        if ( count( $this->child ) <= 1 ) { return; }
 
         echo '<ul class="uix-' . esc_attr( $this->type ) . '-tabs uix-panel-tabs">';
         $active = 'true';
-        foreach( $this->child as $child ){
+        foreach ( $this->child as $child ) {
 
-            $label = esc_html( $child->struct['label'] );
-            if( !empty( $child->struct['icon'] ) )
-                $label = '<i class="dashicons ' . $child->struct['icon'] . '"></i><span class="label">' . esc_html( $child->struct['label'] ) . '</span>';
+            $label = esc_html( $child->struct[ 'label' ] );
+            if ( ! empty( $child->struct[ 'icon' ] ) )
+                $label = '<i class="dashicons ' . $child->struct[ 'icon' ] . '"></i><span class="label">' . esc_html( $child->struct[ 'label' ] ) . '</span>';
 
             echo '<li aria-selected="' . esc_attr( $active ) . '">';
                 echo '<a href="#' . esc_attr( $child->id() ) . '" data-parent="' . esc_attr( $this->id() ) . '" class="uix-tab-trigger">' . $label . '</a>';
@@ -172,9 +172,9 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function label(){
-        if( !empty( $this->struct['label'] ) )
-            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><h3 class="uix-' . esc_attr( $this->type ) . '-title">' . esc_html( $this->struct['label'] ) . '</h3></div>';
+    public function label() {
+        if ( ! empty( $this->struct[ 'label' ] ) )
+            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><h3 class="uix-' . esc_attr( $this->type ) . '-title">' . esc_html( $this->struct[ 'label' ] ) . '</h3></div>';
     }
 
     /**
@@ -183,9 +183,9 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function description(){
-        if( !empty( $this->struct['description'] ) )
-            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><p class="uix-' . esc_attr( $this->type ) . '-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
+    public function description() {
+        if ( ! empty( $this->struct[ 'description' ] ) )
+            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><p class="uix-' . esc_attr( $this->type ) . '-subtitle description">' . esc_html( $this->struct[ 'description' ] ) . '</p></div>';
         
     }
 
@@ -195,12 +195,12 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function render_template(){
+    public function render_template() {
         // tempalte
-        if( file_exists( $this->struct['template'] ) ){
-            include $this->struct['template'];
-        }else{
-            echo esc_html__( 'Template not found: ', 'text-domain' ) . $this->struct['template'];
+        if ( file_exists( $this->struct[ 'template' ] ) ) {
+            include $this->struct[ 'template' ];
+        } else {
+            echo esc_html__( 'Template not found: ', 'text-domain' ) . $this->struct[ 'template' ];
         }
     }
 
@@ -211,17 +211,17 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function wrapper_class_names(){
+    public function wrapper_class_names() {
 
         $wrapper_class_names = array(
             'uix-panel-inside'
         );
 
-        if( count( $this->child ) > 1 )
-            $wrapper_class_names[] = 'uix-has-tabs';
+        if ( count( $this->child ) > 1 )
+            $wrapper_class_names[ ] = 'uix-has-tabs';
 
-        if( !empty( $this->struct['top_tabs'] ) )
-            $wrapper_class_names[] = 'uix-top-tabs';
+        if ( ! empty( $this->struct[ 'top_tabs' ] ) )
+            $wrapper_class_names[ ] = 'uix-top-tabs';
 
         return implode( ' ', $wrapper_class_names );
     }
