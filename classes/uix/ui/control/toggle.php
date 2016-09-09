@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class toggle extends \uix\ui\control{
+class toggle extends \uix\ui\control {
     
     /**
      * The type of object
@@ -85,15 +85,15 @@ class toggle extends \uix\ui\control{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
         parent::enqueue_active_assets();
         ?><style type="text/css">
         #<?php echo $this->id(); ?> > .switch.active {
             background: <?php echo $this->base_color(); ?>;
         }
-        <?php if( !empty( $this->struct['off_color'] ) ){ ?>
+        <?php if ( ! empty( $this->struct[ 'off_color' ] ) ) { ?>
             #<?php echo $this->id(); ?> > .switch {
-                background: <?php echo $this->struct['off_color']; ?>;
+                background: <?php echo $this->struct[ 'off_color' ]; ?>;
             }
         <?php } ?>
         </style>
@@ -110,8 +110,8 @@ class toggle extends \uix\ui\control{
     public function attributes() {
 
         $attributes = parent::attributes();
-        if( !empty( $this->struct['toggle_all'] ) )
-            $attributes['data-toggle-all'] = 'true';
+        if ( ! empty( $this->struct[ 'toggle_all' ] ) )
+            $attributes[ 'data-toggle-all' ] = 'true';
 
         return $attributes;
     }
@@ -124,11 +124,11 @@ class toggle extends \uix\ui\control{
      * @access public
      * @return string 
      */
-    public function input(){
+    public function input() {
         
         $value          = $this->get_data();
         $status_class   = '';
-        if( !empty( $value ) )
+        if ( ! empty( $value ) )
             $status_class = ' active';        
 
         $input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="control-' . esc_attr( $this->id() ) . '">';
@@ -146,10 +146,10 @@ class toggle extends \uix\ui\control{
      * @access public
      * @return string description string 
      */
-    public function description(){
+    public function description() {
         
-        if( isset( $this->struct['description'] ) )
-            return '<span class="uix-toggle-description">' . esc_html( $this->struct['description'] ) . '</span>';
+        if ( isset( $this->struct[ 'description' ] ) )
+            return '<span class="uix-toggle-description">' . esc_html( $this->struct[ 'description' ] ) . '</span>';
 
         return '';
     }

@@ -15,7 +15,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-class post_type extends uix{
+class post_type extends uix {
 
     /**
      * The type of object
@@ -49,7 +49,7 @@ class post_type extends uix{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
         // output the styles
         ?><style type="text/css">
             .contextual-help-tabs .active {
@@ -91,8 +91,8 @@ class post_type extends uix{
      */
     public function render() {
 
-        if( !empty( $this->struct['settings'] ) ){
-            register_post_type( $this->slug, $this->struct['settings'] );
+        if ( ! empty( $this->struct[ 'settings' ] ) ) {
+            register_post_type( $this->slug, $this->struct[ 'settings' ] );
         }
 
     }
@@ -103,14 +103,14 @@ class post_type extends uix{
      * @since 1.0.0
      * @access public
      */
-    public function is_active(){
+    public function is_active() {
         
-        if( !is_admin() ){ return false; }
+        if ( ! is_admin() ) { return false; }
 
         $screen = get_current_screen();
 
         // check the screen is valid and is a uix post type page
-        if( !is_object( $screen ) || empty( $screen->post_type ) || $screen->post_type !== $this->slug ){
+        if ( ! is_object( $screen ) || empty( $screen->post_type ) || $screen->post_type !== $this->slug ) {
             return false;
         }
         return true;

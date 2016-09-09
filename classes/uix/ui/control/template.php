@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class template extends \uix\ui\control{
+class template extends \uix\ui\control {
 
 
     /**
@@ -26,10 +26,10 @@ class template extends \uix\ui\control{
      * @access public
      * @return string 
      */
-    public function input(){
+    public function input() {
         
-        if( !empty( $this->struct['template'] ) && file_exists( $this->struct['template'] ) )
-            include $this->struct['template'];
+        if ( ! empty( $this->struct[ 'template' ] ) && file_exists( $this->struct[ 'template' ] ) )
+            include $this->struct[ 'template' ];
     }    
      
 

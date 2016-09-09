@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class separator extends \uix\ui\control{
+class separator extends \uix\ui\control {
     
     /**
      * The type of object
@@ -32,7 +32,7 @@ class separator extends \uix\ui\control{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
         parent::enqueue_active_assets();
         ?><style type="text/css">
         #control-<?php echo $this->id(); ?> {
@@ -53,7 +53,7 @@ class separator extends \uix\ui\control{
      * @access public
      * @return string 
      */
-    public function input(){
+    public function input() {
 
         echo '<hr class="uix-separator" id="control-' . esc_attr( $this->id() ) . '" />';
 

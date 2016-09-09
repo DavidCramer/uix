@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class textarea extends \uix\ui\control{
+class textarea extends \uix\ui\control {
 
     /**
      * The type of object
@@ -36,11 +36,11 @@ class textarea extends \uix\ui\control{
     public function attributes() {
 
         $attributes             = parent::attributes();
-        $attributes['rows']     = '5';
-        $attributes['class']    = 'widefat';
+        $attributes[ 'rows' ]     = '5';
+        $attributes[ 'class' ]    = 'widefat';
         
-        if( !empty( $this->struct['rows'] ) ){
-            $attributes['rows'] = $this->struct['rows'];
+        if ( ! empty( $this->struct[ 'rows' ] ) ) {
+            $attributes[ 'rows' ] = $this->struct[ 'rows' ];
         }
 
         return $attributes;
@@ -54,7 +54,7 @@ class textarea extends \uix\ui\control{
      * @access public
      * @return string 
      */
-    public function input(){
+    public function input() {
 
         return '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>' . esc_textarea( $this->get_data() ) . '</' . esc_html( $this->type ) . '>';
     }    

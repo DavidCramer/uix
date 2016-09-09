@@ -56,9 +56,9 @@ class metabox extends panel {
         // run parent to keep init and enqueuing assets
         parent::actions();
         // set screen activation
-        add_action( 'current_screen', array( $this, 'set_active_status'), 25 );
+        add_action( 'current_screen', array( $this, 'set_active_status' ), 25 );
         // add metaboxes
-        add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );        
+        add_action( 'add_meta_boxes', array( $this, 'add_metaboxes' ), 25 );        
         // save metabox
         add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
 
@@ -70,11 +70,11 @@ class metabox extends panel {
      * @since 1.0.0
      * @access public
      */
-    public function setup(){
+    public function setup() {
         // do parent
         parent::setup();
-        if( !isset( $this->struct['screen'] ) ){
-            $this->struct['screen'] = null;
+        if ( ! isset( $this->struct[ 'screen' ] ) ) {
+            $this->struct[ 'screen' ] = null;
         }
     }
 
@@ -101,7 +101,7 @@ class metabox extends panel {
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
         ?><style type="text/css">
         #<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a,
         #side-sortables #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a{
@@ -122,9 +122,9 @@ class metabox extends panel {
      * @uses "current_screen" hook
      * @param screen $screen The current screen object;
      */
-    public function set_active_status( $screen ){
+    public function set_active_status( $screen ) {
 
-        if( $screen->base == 'post' && ( null === $this->struct['screen'] || in_array( $screen->id, ( array ) $this->struct['screen'] ) ) )
+        if ( $screen->base == 'post' && ( null === $this->struct[ 'screen' ] || in_array( $screen->id, (array) $this->struct[ 'screen' ] ) ) )
             $this->is_active = true;
 
     }
@@ -135,7 +135,7 @@ class metabox extends panel {
      * @access public
      * @uses "add_meta_boxes" hook
      */
-    public function add_metaboxes(){
+    public function add_metaboxes() {
 
         // metabox defaults
         $defaults = array(
@@ -148,11 +148,11 @@ class metabox extends panel {
 
         add_meta_box(
             $this->slug,
-            $metabox['name'],
+            $metabox[ 'name' ],
             array( $this, 'create_metabox' ),
-            $metabox['screen'],
-            $metabox['context'],
-            $metabox['priority']
+            $metabox[ 'screen' ],
+            $metabox[ 'context' ],
+            $metabox[ 'priority' ]
         );
 
     }
@@ -165,7 +165,7 @@ class metabox extends panel {
      * @access public
      * @param wp_post $post Current post for the metabox
      */
-    public function create_metabox( $post ){
+    public function create_metabox( $post ) {
 
         $this->post = $post;    
         
@@ -190,7 +190,7 @@ class metabox extends panel {
             $this->render_template();
 
         }else{
-             // render fields setup
+                // render fields setup
             parent::render();
         
         }
@@ -212,14 +212,14 @@ class metabox extends panel {
      * @param int $post_id ID of the current post being saved
      * @param wp_post $post Current post being saved
      */
-    public function save_meta( $post_id, $post ){
+    public function save_meta( $post_id, $post ) {
         $this->post = $post;
-        if( ! $this->is_active() ){ return; }
+        if ( ! $this->is_active() ) { return; }
 
-        foreach( $this->child as $section ){
+        foreach ( $this->child as $section ) {
             $section_data = $section->get_data();
-            if( null === $section_data ){ continue; }
-            foreach( (array) $section_data as $meta_key=>$meta_value ){
+            if ( null === $section_data ) { continue; }
+            foreach ( (array) $section_data as $meta_key=>$meta_value ) {
                 $this->save_meta_data( $meta_key, $meta_value );
             }
         }
@@ -234,11 +234,11 @@ class metabox extends panel {
      * @param string $slug slug of the meta_key
      * @param mixed $data Data to be saved
      */
-    public function save_meta_data( $slug, $data ){
+    public function save_meta_data( $slug, $data ) {
 
         $prev = get_post_meta( $this->post->ID, $slug, true );
 
-        if ( null === $data && $prev ){
+        if ( null === $data && $prev ) {
             delete_post_meta( $this->post->ID, $slug );
         }elseif ( $data !== $prev ) {
             update_post_meta( $this->post->ID, $slug, $data );
@@ -252,7 +252,7 @@ class metabox extends panel {
      * @todo Need to not use global $post in here.
      * @access public
      */
-    public function is_active(){
+    public function is_active() {
         return $this->is_active;
     }
 

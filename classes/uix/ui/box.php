@@ -40,11 +40,11 @@ class box extends panel implements \uix\data\save, \uix\data\load{
         parent::init();
         
         $data = uix()->request_vars( 'post' );
-        if( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ){
+        if ( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ) {
             
             $this->save_data();
 
-        }else{  
+        } else {  
             // load data normally
             $this->set_data( $this->load_data() );
         }
@@ -57,7 +57,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @since 1.0.0
      * @access public
      */
-    public function save_data(){
+    public function save_data() {
         return update_option( $this->store_key(), $this->get_data() );
     }
 
@@ -68,7 +68,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @access public
      * @return mixed $data Requested data of the object
      */
-    public function load_data(){
+    public function load_data() {
         return get_option( $this->store_key(), $this->get_data() );
     }
 
@@ -78,9 +78,9 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @access public
      * @return string $store_key the defined option name for this UIX object
      */
-    public function store_key(){
-        if( !empty( $this->struct['store_key'] ) )
-            return $this->struct['store_key'];
+    public function store_key() {
+        if ( ! empty( $this->struct[ 'store_key' ] ) )
+            return $this->struct[ 'store_key' ];
         return sanitize_key( $this->slug );
     }
 
@@ -92,7 +92,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @see \uix\ui\uix
      * @access public
      */
-    public function render(){
+    public function render() {
 
         wp_nonce_field( $this->id(), 'uixNonce_' . $this->id() );
         parent::render();
