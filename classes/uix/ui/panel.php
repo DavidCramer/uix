@@ -55,7 +55,7 @@ class panel extends \uix\data\data{
      */
     public function uix_styles() {
         $styles = array(
-            'panel'    =>  $this->url . 'assets/css/uix-panel' . $this->debug_styles . '.css',
+            'panel'    =>  $this->url . 'assets/css/uix-panel' . UIX_ASSET_DEBUG . '.css',
         );
         $this->styles( $styles );
     }
@@ -69,7 +69,7 @@ class panel extends \uix\data\data{
      */
     public function uix_scripts() {
         $scripts = array(
-            'panel'        =>  $this->url . 'assets/js/uix-panel' . $this->debug_scripts . '.js'
+            'panel'        =>  $this->url . 'assets/js/uix-panel' . UIX_ASSET_DEBUG . '.js'
         );
         $this->scripts( $scripts );
     }

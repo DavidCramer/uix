@@ -89,7 +89,7 @@ class metabox extends panel {
         parent::uix_styles();
         // Add metabox style
         $styles = array(
-            'metabox'        =>  $this->url . 'assets/css/uix-metabox' . $this->debug_styles . '.css'
+            'metabox'        =>  $this->url . 'assets/css/uix-metabox' . UIX_ASSET_DEBUG . '.css'
         );
         $this->styles( $styles );
     }
@@ -215,28 +215,6 @@ class metabox extends panel {
         
     }
     
-
-    /**
-     * Sets the data for all sections and thier controls
-     *
-     * @since 1.0.0
-     * @access public
-     * @param array $data Metadata to push to controls
-     */    
-    public function set_data( $data ){
-        if( empty( $this->child ) ){ return; }
-
-        foreach( $this->child as $section ){
-            if( empty( $section->child ) ){ continue; }
-            foreach( $section->child as $control ){
-
-                if( isset( $data[ $control->slug ] ) )
-                    foreach( $data[ $control->slug ] as $meta_value )
-                        $control->set_data( $meta_value );
-            }
-        }
-
-    }
 
     /**
      * Saves a metabox data

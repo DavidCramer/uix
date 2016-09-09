@@ -28,8 +28,8 @@ class slider extends \uix\ui\control\text{
         parent::uix_styles();
         // Initilize core styles
         $styles = array(
-            'slider-control'        => $this->url . 'assets/controls/slider/css/ion.rangeSlider' . $this->debug_scripts . '.css',
-            'slider-control-theme'  => $this->url . 'assets/controls/slider/css/ion.rangeSlider.skinHTML5' . $this->debug_scripts . '.css',
+            'slider-control'        => $this->url . 'assets/controls/slider/css/ion.rangeSlider' . UIX_ASSET_DEBUG . '.css',
+            'slider-control-theme'  => $this->url . 'assets/controls/slider/css/ion.rangeSlider.skinHTML5' . UIX_ASSET_DEBUG . '.css',
         );
         // push to activly register styles
         $this->styles( $styles );
@@ -46,9 +46,9 @@ class slider extends \uix\ui\control\text{
         parent::uix_scripts();
         // Initilize core scripts
         $scripts = array(
-            'slider-control'        => $this->url . 'assets/controls/slider/js/ion.rangeSlider' . $this->debug_scripts . '.js',
+            'slider-control'        => $this->url . 'assets/controls/slider/js/ion.rangeSlider' . UIX_ASSET_DEBUG . '.js',
             'slider-control-init'   => array(
-                "src"       => $this->url . 'assets/controls/slider/js/ion.rangeSlider.init' . $this->debug_scripts . '.js',
+                "src"       => $this->url . 'assets/controls/slider/js/ion.rangeSlider.init' . UIX_ASSET_DEBUG . '.js',
                 "in_footer" => true
             )
         );

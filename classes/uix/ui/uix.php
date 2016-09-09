@@ -92,24 +92,6 @@ abstract class uix{
     protected $styles = array();
 
     /**
-     * prefix for min scripts
-     *
-     * @since 1.0.0
-     * @access protected
-     * @var      string
-     */
-    protected $debug_scripts = null;
-
-    /**
-     * prefix for min styles
-     *
-     * @since 1.0.0
-     * @access protected
-     * @var      string
-     */
-    protected $debug_styles = null; 
-
-    /**
      * UIX constructor
      *
      * @since 1.0.0
@@ -133,12 +115,6 @@ abstract class uix{
 
         // do setup
         if( $this->setup() ){ return; }
-
-        // enable / disable debug scripts
-        $this->debug_scripts();
-
-        // enable / disable debug styles
-        $this->debug_styles();
 
         // define then register core styles
         $this->uix_styles();
@@ -189,34 +165,6 @@ abstract class uix{
         // queue helps
         add_action( 'admin_head', array( $this, 'add_help' ) );        
     }
-
-
-    /**
-     * Enabled debuging of scripts
-     *
-     * @since 1.0.0
-     * @access protected
-     */
-    protected function debug_scripts() {
-        // detect debug scripts
-        if( !defined( 'DEBUG_SCRIPTS' ) ){
-            $this->debug_scripts = '.min';
-        }
-    }
-
-    /**
-     * Enabled debuging of styles
-     *
-     * @since 1.0.0
-     * @access protected
-     */
-    protected function debug_styles() {
-        // detect debug styles      
-        if( !defined( 'DEBUG_STYLES' ) ){
-            $this->debug_styles = '.min';
-        }
-    }   
-
 
     /**
      * Define core UIX styles - override to register core ( common styles for uix type )

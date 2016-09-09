@@ -47,7 +47,7 @@ class color extends \uix\ui\control\text{
         $scripts = array(
             'wp-color-picker',
             'color-control-init'   => array(
-                "src"       => $this->url . 'assets/controls/color/js/color' . $this->debug_scripts . '.js',
+                "src"       => $this->url . 'assets/controls/color/js/color' . UIX_ASSET_DEBUG . '.js',
                 "in_footer" => true
             )
         );

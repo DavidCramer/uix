@@ -53,7 +53,7 @@ class toggle extends \uix\ui\control{
         parent::uix_styles();
         // Initilize core styles
         $styles = array(
-            'toggle' => $this->url . 'assets/controls/toggle/css/toggle' . $this->debug_scripts . '.css',
+            'toggle' => $this->url . 'assets/controls/toggle/css/toggle' . UIX_ASSET_DEBUG . '.css',
         );
         // push to activly register styles
         $this->styles( $styles );
@@ -70,7 +70,7 @@ class toggle extends \uix\ui\control{
         // Initilize core scripts
         $scripts = array(
             'toggle-control-init'   => array(
-                "src"       => $this->url . 'assets/controls/toggle/js/toggle' . $this->debug_scripts . '.js',
+                "src"       => $this->url . 'assets/controls/toggle/js/toggle' . UIX_ASSET_DEBUG . '.js',
                 "in_footer" => true
             )
         );

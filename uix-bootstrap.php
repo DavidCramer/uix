@@ -29,6 +29,14 @@ if ( defined( 'WPINC' ) ) {
         define('UIX_URL',  plugin_dir_url( __FILE__ ) );
         define('UIX_VER',  '1.0.0' );
     }
+    if( ! defined( 'UIX_ASSET_DEBUG' ) ){
+        if( !defined( 'DEBUG_SCRIPTS' ) ){
+            define( 'UIX_ASSET_DEBUG', '.min' );
+        }else{
+            define( 'UIX_ASSET_DEBUG', '' );
+        }
+    }
+
 
     // include uix helper functions and autoloader.
     require_once( UIX_PATH . 'includes/functions.php' );

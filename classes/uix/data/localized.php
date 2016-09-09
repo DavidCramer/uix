@@ -65,7 +65,7 @@ abstract class localized extends data implements load{
         $core_scripts = array(
             'handlebars'    =>  $this->url . 'assets/js/handlebars.min-latest.js',
             'helpers'       =>  array(
-                'src'           =>  $this->url . 'assets/js/uix-helpers' . $this->debug_scripts . '.js',
+                'src'           =>  $this->url . 'assets/js/uix-helpers' . UIX_ASSET_DEBUG . '.js',
                 'depends'       =>  array(
                     'jquery'
                 )

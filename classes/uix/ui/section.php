@@ -36,7 +36,7 @@ class section extends panel {
      */
     public function uix_styles() {
         $pages_styles = array(
-            'sections'    =>  $this->url . 'assets/css/uix-sections' . $this->debug_styles . '.css',
+            'sections'    =>  $this->url . 'assets/css/uix-sections' . UIX_ASSET_DEBUG . '.css',
         );
         $this->styles( $pages_styles );
     }
