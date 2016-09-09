@@ -376,13 +376,11 @@ abstract class uix{
          */
         do_action( 'uix_admin_enqueue_scripts' . $this->type, $this );
 
-        // enqueue core scripts and styles
-        $assets = array(
-            'scripts' => $this->scripts,
-            'styles' => $this->styles,
-        );
-        // enqueue core scripts and styles
-        $this->enqueue( $assets );
+        // enqueue core scripts
+        $this->enqueue( $this->scripts, 'script' );
+
+        // enqueue core styles
+        $this->enqueue( $this->styles, 'style' );
 
         // done enqueuing 
         $this->enqueue_active_assets();
@@ -422,16 +420,40 @@ abstract class uix{
      *
      * @since 1.0.0
      * @access protected
-     * @param array $set {
-     *      array   $scripts array of script sources to be enqueued
-     *      string  $prefix prefix for enqueue handle ( usually the object slug )
-     * }object array structure
+     * @param array $set Array of assets to be enqueued
+     * @param tring $type The type of asset
      */
-    protected function enqueue( $set ){
+    protected function enqueue( $set, $type ){
         // go over the set to see if it has styles or scripts
 
+        $enqueue_type = 'wp_enqueue_' . $type;
+
+        foreach( $set as $key => $item ){
+            
+            if( is_int( $key ) ){
+                $enqueue_type( $item );
+                continue;
+            }
+                
+            $args = $this->build_asset_args( $item );
+            $enqueue_type( $key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+
+        }
+
+    }   
+
+    /**
+     * Checks the asset type
+     *
+     * @since 1.0.0
+     * @access private
+     * @param array|string $asset Asset structure, slug or path to build
+     * @return array Params for enqueuing the asset
+     */
+    private function build_asset_args( $asset ){
+
         // setup default args for array type includes
-        $arguments_array = array(
+        $args = array(
             "src"       => false,
             "deps"      => array(),
             "ver"       => false,
@@ -439,38 +461,14 @@ abstract class uix{
             "media"     => false
         );
 
-        // enqueue set specific runtime styles
-        if( !empty( $set['styles'] ) ){
-            foreach( $set['styles'] as $style_key => $style ){
-                if( is_int( $style_key ) ){
-                    wp_enqueue_style( $style );
-                }else{
-                    if( is_array( $style ) ){
-                        $args = array_merge( $arguments_array, $style );
-                        wp_enqueue_style( $style_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
-                    }else{
-                        wp_enqueue_style( $style_key, $style );
-                    }
-                }
-            }
-        }
-        // enqueue set specific runtime scripts
-        if( !empty( $set['scripts'] ) ){
-            foreach( $set['scripts'] as $script_key => $script ){
-                if( is_int( $script_key ) ){
-                    wp_enqueue_script( $script );
-                }else{
-                    if( is_array( $script ) ){
-                        $args = array_merge( $arguments_array, $script );
-                        wp_enqueue_script( $script_key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
-                    }else{
-                        wp_enqueue_script( $script_key, $script );
-                    }
-                }
-            }
+        if( is_array( $asset ) ){
+            $args = array_merge( $args, $asset );
+        }else{
+            $args['src'] = $asset;
         }
 
-    }   
+        return $args;
+    }
 
     /**
      * Determin if a UIX object should be active for this screen
