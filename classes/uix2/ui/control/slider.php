@@ -1,26 +1,27 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Controls
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * Implementaion of io.rangeSlider
+ * @link https://github.com/IonDen/ion.rangeSlider
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class slider extends \uix2\ui\control\text{
+class slider extends \uix\ui\control\text{
 
     /**
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -38,7 +39,7 @@ class slider extends \uix2\ui\control\text{
     /**
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_scripts() {
@@ -58,7 +59,7 @@ class slider extends \uix2\ui\control\text{
     /**
      * Gets the attributes for the control.
      *
-     * @since  2.0.0
+     * @since  1.0.0
      * @access public
      * @return array
      */

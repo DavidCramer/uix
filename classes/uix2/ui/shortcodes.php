@@ -2,20 +2,22 @@
 /**
  * UIX Shortcode
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * Shortcodes class
- * @package uix2\ui
+ * Shortcodes class. means for pulling UIX to the front end via shortcodes.
+ * 
+ * @todo Make this thing work, and clean it up
+ * @package uix\ui
  * @author  David Cramer
  */
-class shortcodes extends \uix2\data\localized{
+class shortcodes extends \uix\data\localized{
 
     /**
      * The type of object

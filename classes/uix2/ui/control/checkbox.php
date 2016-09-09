@@ -1,26 +1,26 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Control
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * Checkbox Fields group
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class checkbox extends \uix2\ui\control\radio{
+class checkbox extends \uix\ui\control\radio{
 
     /**
      * The type of object
      *
-     * @since       2.0.0
+     * @since       1.0.0
      * @access public
      * @var         string
      */
@@ -30,7 +30,7 @@ class checkbox extends \uix2\ui\control\radio{
     /**
      * Gets the attributes for the control.
      *
-     * @since  2.0.0
+     * @since  1.0.0
      * @access public
      * @return array
      */

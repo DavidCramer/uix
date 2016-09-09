@@ -2,25 +2,26 @@
 /**
  * UIX Panel
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * UIX Page class
- * @package uix2\ui
+ * UIX panel. a holder to contain sections. a panel with multiple sections creates a tabbed interface to switch between sections areas.
+ * 
+ * @package uix\ui
  * @author  David Cramer
  */
-class panel extends \uix2\data\data{
+class panel extends \uix\data\data{
 
     /**
      * The type of object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      string
      */
@@ -29,7 +30,7 @@ class panel extends \uix2\data\data{
     /**
      * Enqueues specific tabs assets for the active pages
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){
@@ -49,7 +50,7 @@ class panel extends \uix2\data\data{
     /**
      * Define core panel styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -62,8 +63,8 @@ class panel extends \uix2\data\data{
     /**
      * set metabox scripts
      *
-     * @since 2.0.0
-     * @see \uix2\ui\uix
+     * @since 1.0.0
+     * @see \uix\ui\uix
      * @access public
      */
     public function uix_scripts() {
@@ -76,8 +77,8 @@ class panel extends \uix2\data\data{
     /**
      * Get Data from all controls of this section
      *
-     * @since 2.0.0
-     * @see \uix2\load
+     * @since 1.0.0
+     * @see \uix\load
      * @param string $slug Slug of the section to get data for
      * @return array $data Array of sections data structured by the controls
      */
@@ -95,7 +96,7 @@ class panel extends \uix2\data\data{
     /**
      * Sets the data for all children
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */    
     public function set_data( $data ){
@@ -111,7 +112,7 @@ class panel extends \uix2\data\data{
     /**
      * Render the panel
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function render(){

@@ -1,27 +1,27 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Control
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * WordPress Content Editor 
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class editor extends \uix2\ui\control\textarea{
+class editor extends \uix\ui\control\textarea{
 
     /**
      * Returns the main input field for rendering
      *
-     * @since 2.0.0
-     * @see \uix2\ui\uix
+     * @since 1.0.0
+     * @see \uix\ui\uix
      * @access public 
      */
     public function input(){

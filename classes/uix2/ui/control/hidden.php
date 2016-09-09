@@ -1,26 +1,26 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Controls
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
- *
- * @since 2.0.0
+ * Hidden input field
+ * @todo Remove all labels and wrappers.
+ * @since 1.0.0
  */
-class hidden extends \uix2\ui\control{
+class hidden extends \uix\ui\control{
     
     /**
      * The type of object
      *
-     * @since       2.0.0
+     * @since       1.0.0
      * @access public
      * @var         string
      */

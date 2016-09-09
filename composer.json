@@ -18,7 +18,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-          "uix2\\": "classes/uix2"
+          "uix\\": "classes/uix"
         },
         "files" : [ "uix-bootstrap.php" ]
     }

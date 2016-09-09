@@ -3,20 +3,20 @@
 /**
  * Base data interface
  *
- * @package   uix2
+ * @package   uix
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\data;
+namespace uix\data;
 
-abstract class data extends \uix2\ui\uix{
+abstract class data extends \uix\ui\uix{
 
     /**
      * object data
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access private
      * @var     mixed
      */
@@ -25,9 +25,9 @@ abstract class data extends \uix2\ui\uix{
     /**
      * Sets the objects sanitization filter
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
-     * @see \uix2\uix
+     * @see \uix\uix
      */
     public function setup() {
         if( !empty( $this->struct['sanitize_callback'] ) )
@@ -38,7 +38,7 @@ abstract class data extends \uix2\ui\uix{
 
     /**
      * set the object's data
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param mixed $data the data to be set
      */
@@ -48,7 +48,7 @@ abstract class data extends \uix2\ui\uix{
 
     /**
      * get the object's data
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @return mixed $data
      */

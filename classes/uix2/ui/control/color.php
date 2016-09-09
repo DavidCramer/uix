@@ -1,27 +1,27 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Control
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * WordPress Color picker
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class color extends \uix2\ui\control\text{
+class color extends \uix\ui\control\text{
 
 
     /**
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -39,7 +39,7 @@ class color extends \uix2\ui\control\text{
     /**
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_scripts() {
@@ -58,7 +58,7 @@ class color extends \uix2\ui\control\text{
     /**
      * Gets the attributes for the control.
      *
-     * @since  2.0.0
+     * @since  1.0.0
      * @access public
      * @return array
      */

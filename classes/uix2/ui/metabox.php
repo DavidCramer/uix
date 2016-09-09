@@ -2,17 +2,17 @@
 /**
  * UIX Metaboxes
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * Metabox class
- * @package uix2\ui
+ * Metabox class for adding metaboxes to post types in the post editor
+ * @package uix\ui
  * @author  David Cramer
  */
 class metabox extends panel {
@@ -20,7 +20,7 @@ class metabox extends panel {
     /**
      * The type of object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      string
      */
@@ -29,7 +29,7 @@ class metabox extends panel {
     /**
      * Holds the current post object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      object|WP_Post
      */
@@ -39,7 +39,7 @@ class metabox extends panel {
     /**
      * setup actions and hooks to add metaboxes and save metadata
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function actions() {
@@ -55,8 +55,8 @@ class metabox extends panel {
     /**
      * set metabox styles
      *
-     * @since 2.0.0
-     * @see \uix2\ui\uix
+     * @since 1.0.0
+     * @see \uix\ui\uix
      * @access public
      */
     public function uix_styles() {
@@ -72,7 +72,7 @@ class metabox extends panel {
     /**
      * Enqueues specific tabs assets for the active pages
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){
@@ -92,7 +92,7 @@ class metabox extends panel {
     /**
      * Add metaboxes to screen
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @uses "add_meta_boxes" hook
      */
@@ -123,7 +123,7 @@ class metabox extends panel {
     /**
      * Callback for the `add_meta_box` that sets the metabox data and renders it
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @uses "add_meta_box" function
      * @access public
      * @param object/wp_post $post Current post for the metabox
@@ -144,7 +144,7 @@ class metabox extends panel {
     /**
      * Render the Metabox
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function render(){
@@ -183,7 +183,7 @@ class metabox extends panel {
     /**
      * Sets the data for all sections and thier controls
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param array $data Metadata to push to controls
      */    
@@ -206,7 +206,7 @@ class metabox extends panel {
      * Saves a metabox data
      *
      * @uses "save_post" hook
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param int $post_id ID of the current post being saved
      * @param object/wp_post $post Current post being saved
@@ -215,7 +215,7 @@ class metabox extends panel {
         $this->post = $post;
         if( ! $this->is_active() ){ return; }
 
-        $data = uix2()->request_vars( 'post' );
+        $data = uix()->request_vars( 'post' );
 
 
         foreach( $this->child as $section ){
@@ -231,7 +231,7 @@ class metabox extends panel {
     /**
      * Save the meta data for the post
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param string $slug slug of the meta_key
      * @param mixed $data Data to be saved
@@ -250,7 +250,7 @@ class metabox extends panel {
 
     /**
      * Get current data for all sections of the metabox
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param string $slug The slug of the metabox to get sections data for
      */
@@ -260,7 +260,7 @@ class metabox extends panel {
         $data = array();
         if( !empty( $metabox['sections'] ) ){
             foreach( $metabox['sections'] as $section_id => $section ){
-                $data[ $section_id ] = uix2()->ui->sections->get_data( $section_id );
+                $data[ $section_id ] = uix()->ui->sections->get_data( $section_id );
             }
         }
         return $data;
@@ -268,7 +268,7 @@ class metabox extends panel {
 
     /**
      * Determin which metaboxes are used for the current screen and set them active
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function is_active(){

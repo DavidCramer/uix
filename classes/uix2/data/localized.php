@@ -2,17 +2,17 @@
 /**
  * UIX Data
  *
- * @package   uix2
+ * @package   uix
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\data;
+namespace uix\data;
 
 /**
  * localized data class
- * @package uix2\data
+ * @package uix\data
  * @author  David Cramer
  */
 abstract class localized extends data implements load{
@@ -20,7 +20,7 @@ abstract class localized extends data implements load{
     /**
      * object data to be saved
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var     mixed
      */
@@ -29,7 +29,7 @@ abstract class localized extends data implements load{
     /**
      * localizes data after enqueuing active assets
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){
@@ -90,7 +90,7 @@ abstract class localized extends data implements load{
     /**
      * Get data for the page
      *
-     * @since 2.0.0
+     * @since 1.0.0
      *
      * @return mixed $data Requested data of the page
      */

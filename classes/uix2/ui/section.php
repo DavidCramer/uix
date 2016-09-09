@@ -2,26 +2,26 @@
 /**
  * UIX section
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * UIX sections class.
+ * A generic holder for multiple controls. this panel type does not handle saving, but forms part of the data object tree.
  *
- * @since 2.0.0
- * @see \uix2\uix
+ * @since 1.0.0
+ * @see \uix\uix
  */
 class section extends panel {
 
     /**
      * The type of object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      string
      */
@@ -31,7 +31,7 @@ class section extends panel {
     /**
      * Define core page styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -44,7 +44,7 @@ class section extends panel {
     /**
      * Render the Section
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function render(){
@@ -79,7 +79,7 @@ class section extends panel {
     /**
      * checks if the current section is active
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function is_active(){

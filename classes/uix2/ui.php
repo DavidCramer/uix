@@ -1,18 +1,19 @@
 <?php
 /**
- * UIX2 UI Loader
+ * UIX UI Loader
  *
- * @package   uix2
+ * @package   uix
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2;
+namespace uix;
 
 /**
- * UI class
- * @package uix2
+ * UI loader and handler class. This forms a single instance with UI objects attached.
+ * 
+ * @package uix
  * @author  David Cramer
  */
 class ui{
@@ -21,7 +22,7 @@ class ui{
     /**
      * Array of definitions locations
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var   array
      */
@@ -30,7 +31,7 @@ class ui{
     /**
      * Array of object instances
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var   array
      */
@@ -39,7 +40,7 @@ class ui{
     /**
      * Holds instance
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      object/UI
      */
@@ -48,7 +49,7 @@ class ui{
     /**
      * UI structure auto load
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access private
      */
     private function auto_load() {
@@ -56,9 +57,9 @@ class ui{
         /**
          * do UI loader locations
          *
-         * @param uix2/ui $current UI instance
+         * @param uix/ui $current UI instance
          */
-        do_action( 'uix2_register', $this );
+        do_action( 'uix_register', $this );
 
         // go over each locations
         foreach( $this->locations as $type => $paths ){
@@ -79,12 +80,12 @@ class ui{
     /**
      * Add a single structure object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @param string $type The type of object to add
      * @param string $slug The objects slug to add
      * @param string $structure The objects structure
      * @param object $parent object
-     * @return  object|\uix2\/null    the instance of the object type or null if invalid
+     * @return  object|\uix\/null    the instance of the object type or null if invalid
      */
     public function add( $type, $slug, $structure, $parent = null ) {
         $init = $this->get_register_callback( $type );
@@ -100,12 +101,12 @@ class ui{
     /**
      * Returns a callback for registering the object or null if invalid type
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @param string $type The type of object to get register callback for
      * @return array|null Callback array for registering an object or null if invalid
      */
     public function get_register_callback( $type ) {
-        $init = array( '\uix2\ui\\' . $type, 'register' );
+        $init = array( '\uix\ui\\' . $type, 'register' );
         if( !is_callable( $init ) ){
             return null;
         }
@@ -116,7 +117,7 @@ class ui{
     /**
      * Return an instance of this class.
      *
-     * @since 2.0.0
+     * @since 1.0.0
      *
      * @return    object|UI    A single instance
      */
@@ -135,7 +136,7 @@ class ui{
     /**
      * Register the UIX object paths for autoloading
      *
-     * @since 2.0.0
+     * @since 1.0.0
      *
      * @param array|string $arr path, or array of paths to structures to autoload
      */
@@ -151,7 +152,7 @@ class ui{
     /**
      * Handy method to get request vars
      *
-     * @since 2.0.0
+     * @since 1.0.0
      *
      * @param string $type Request type to get
      * @return array Regest vars array
@@ -177,7 +178,7 @@ class ui{
     /**
      * Gets the file structures and converts it if needed
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access private
      * @param string $path The file path to load
      * @return array|bool object structure array or false if invalid
@@ -197,7 +198,7 @@ class ui{
     /**
      * Opens a location and gets the file to load for each folder
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access private
      * @param array $paths to fetch contents of
      * @param bool $file flag to set file fetching

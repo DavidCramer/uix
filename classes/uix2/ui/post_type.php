@@ -2,17 +2,17 @@
 /**
  * UIX Post Type
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * UIX Post Type class
- * @package uix2\ui
+ * UIX Post Type class for adding custom post types
+ * @package uix\ui
  * @author  David Cramer
  */
 class post_type extends uix{
@@ -20,7 +20,7 @@ class post_type extends uix{
     /**
      * The type of object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      string
      */
@@ -30,7 +30,7 @@ class post_type extends uix{
     /**
      * setup actions and hooks to register post types
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function actions() {
@@ -46,7 +46,7 @@ class post_type extends uix{
     /**
      * Render the custom header styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){
@@ -73,7 +73,7 @@ class post_type extends uix{
     /**
      * Define core UIX styling to identify UIX post types
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -86,7 +86,7 @@ class post_type extends uix{
     /**
      * Render (register) the post type
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function render() {
@@ -100,7 +100,7 @@ class post_type extends uix{
     /**
      * Determin which post types are active and set them active and render some styling
      * Intended to be ovveridden
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function is_active(){

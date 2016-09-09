@@ -1,26 +1,26 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Controls
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * Dropdown select
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class select extends \uix2\ui\control{
+class select extends \uix\ui\control{
 
     /**
      * The type of object
      *
-     * @since       2.0.0
+     * @since       1.0.0
      * @access public
      * @var         string
      */
@@ -30,7 +30,7 @@ class select extends \uix2\ui\control{
     /**
      * Gets the classes for the control input
      *
-     * @since  2.0.0
+     * @since  1.0.0
      * @access public
      * @return array
      */
@@ -46,8 +46,8 @@ class select extends \uix2\ui\control{
     /**
      * Returns the main input field for rendering
      *
-     * @since 2.0.0
-     * @see \uix2\ui\uix
+     * @since 1.0.0
+     * @see \uix\ui\uix
      * @access public
      * @return string 
      */

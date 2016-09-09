@@ -2,17 +2,18 @@
 /**
  * UIX Core
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * UIX class
- * @package uix2\ui
+ * Core UIX abstract class.
+ * 
+ * @package uix\ui
  * @author  David Cramer
  */
 abstract class uix{
@@ -20,7 +21,7 @@ abstract class uix{
     /**
      * Config Structure of object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      array
      */
@@ -30,7 +31,7 @@ abstract class uix{
     /**
      * The type of UI object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      string
      */
@@ -39,7 +40,7 @@ abstract class uix{
     /**
      * object slug
      * @access public
-     * @since 2.0.0
+     * @since 1.0.0
      *
      * @var      string
      */
@@ -48,7 +49,7 @@ abstract class uix{
     /**
      * array of child objects
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      array
      */
@@ -57,7 +58,7 @@ abstract class uix{
     /**
      * Objects parent
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      object/uix
      */
@@ -66,7 +67,7 @@ abstract class uix{
     /**
      * Base URL of this class
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      string
      */
@@ -75,7 +76,7 @@ abstract class uix{
     /**
      * List of core object scripts ( common scripts )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      array
      */
@@ -84,7 +85,7 @@ abstract class uix{
     /**
      * List of core object styles ( common styles )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      array
      */
@@ -93,7 +94,7 @@ abstract class uix{
     /**
      * prefix for min scripts
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      array
      */
@@ -102,7 +103,7 @@ abstract class uix{
     /**
      * prefix for min styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      array
      */
@@ -111,7 +112,7 @@ abstract class uix{
     /**
      * UIX constructor
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @param string $slug Object slug
      * @param array $object Objects structure array
@@ -153,12 +154,12 @@ abstract class uix{
     /**
      * Autoload Children - Checks structure for nested structures
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function setup(){
         foreach ( $this->struct as $struct_key=>$sub_struct ){
-            if( is_array( $sub_struct ) && uix2()->get_register_callback( $struct_key ) ){
+            if( is_array( $sub_struct ) && uix()->get_register_callback( $struct_key ) ){
                 foreach( $sub_struct as $sub_slug => $sub_structure ){
                     $this->{$struct_key}( $sub_slug, $sub_structure );    
                 }
@@ -169,7 +170,7 @@ abstract class uix{
     /**
      * All objects loaded - application method for finishing off loading objects
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function init(){}
@@ -177,7 +178,7 @@ abstract class uix{
     /**
      * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function actions() {
@@ -193,7 +194,7 @@ abstract class uix{
     /**
      * Enabled debuging of scripts
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function debug_scripts() {
@@ -206,7 +207,7 @@ abstract class uix{
     /**
      * Enabled debuging of styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function debug_styles() {
@@ -220,7 +221,7 @@ abstract class uix{
     /**
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -234,7 +235,7 @@ abstract class uix{
     /**
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_scripts() {
@@ -248,7 +249,7 @@ abstract class uix{
     /**
      * uix object id
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @return string The object ID
      */
@@ -262,7 +263,7 @@ abstract class uix{
     /**
      * Register the core UIX styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param array Array of styles to be enqueued for all objects of current instance
      */
@@ -286,7 +287,7 @@ abstract class uix{
     /**
      * Register the core UIX scripts
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param array Array of scripts to be enqueued for all objects of current instance
      */
@@ -309,7 +310,7 @@ abstract class uix{
     /**
      * Register the UIX objects
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param string $slug Object slug
      * @param array $object object structure array
@@ -324,7 +325,7 @@ abstract class uix{
     /**
      * Adds child objects to the current object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param string $type Child object type
      * @param string $slug Child object slug
@@ -338,14 +339,14 @@ abstract class uix{
     /**
      * Magic caller for adding child objects
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @param string $type Type of object to attempt to create
      * @param array $args arguments for the caller
      * @return UIX|null
      */    
     public function __call( $type, $args ){
-        $init = uix2()->get_register_callback( $type );
+        $init = uix()->get_register_callback( $type );
         $child = null;
         if( null !== $init ){
             $args[] = $this;
@@ -360,7 +361,7 @@ abstract class uix{
     /**
      * enqueue core assets
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function enqueue_core() {
@@ -390,7 +391,7 @@ abstract class uix{
     /**
      * runs after assets have been enqueued
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){}
@@ -398,7 +399,7 @@ abstract class uix{
     /**
      * Detects the root of the plugin folder and sets the URL
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function set_url(){
@@ -419,7 +420,7 @@ abstract class uix{
     /**
      * enqueue a set of styles and scripts
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @param array $set {
      *      array   $scripts array of script sources to be enqueued
@@ -474,7 +475,7 @@ abstract class uix{
     /**
      * Determin if a UIX object should be active for this screen
      * Intended to be ovveridden
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function is_active(){
@@ -487,7 +488,7 @@ abstract class uix{
     /**
      * Add defined contextual help to current screen
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function add_help(){
@@ -523,7 +524,7 @@ abstract class uix{
     /**
      * Base color helper
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     protected function base_color(){
@@ -541,7 +542,7 @@ abstract class uix{
     /**
      * Render the UIX object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     abstract public function render();

@@ -2,25 +2,25 @@
 /**
  * UIX Pages
  *
- * @package   uix2
+ * @package   ui
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui;
+namespace uix\ui;
 
 /**
- * UIX Page class
- * @package uix2\ui
+ * UIX Page class for creating admin/settings pages.
+ * @package uix\ui
  * @author  David Cramer
  */
-class page extends panel implements \uix2\data\save{
+class page extends panel implements \uix\data\save{
 
     /**
      * The type of object
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @var      string
      */
@@ -29,7 +29,7 @@ class page extends panel implements \uix2\data\save{
     /**
      * Holds the option screen prefix
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      * @var      array
      */
@@ -39,7 +39,7 @@ class page extends panel implements \uix2\data\save{
     /**
      * setup actions and hooks to add settings pate and save settings
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function actions() {
@@ -52,12 +52,12 @@ class page extends panel implements \uix2\data\save{
     /**
      * Setup submission data
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function setup(){
         parent::setup();
-        $data = uix2()->request_vars( 'post' );
+        $data = uix()->request_vars( 'post' );
 
         if( !isset( $data[ 'uix_' . $this->type . '_' . $this->slug ] ) || !wp_verify_nonce( $data[ 'uix_' . $this->type . '_' . $this->slug ], $this->type ) ){
 
@@ -75,7 +75,7 @@ class page extends panel implements \uix2\data\save{
     /**
      * Define core page styles
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function uix_styles() {
@@ -88,7 +88,7 @@ class page extends panel implements \uix2\data\save{
 
     /**
      * Save data for a page
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function save_data(){
@@ -126,7 +126,7 @@ class page extends panel implements \uix2\data\save{
 
     /**
      * Determin if a page is to be loaded and set it active
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function is_active(){
@@ -142,7 +142,7 @@ class page extends panel implements \uix2\data\save{
     /**
      * Enqueues specific tabs assets for the active pages
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){
@@ -177,7 +177,7 @@ class page extends panel implements \uix2\data\save{
     /**
      * Add the settings page
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      * @uses "admin_menu" hook
      */
@@ -224,7 +224,7 @@ class page extends panel implements \uix2\data\save{
     /**
      * Render the page
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access public
      */
     public function render(){

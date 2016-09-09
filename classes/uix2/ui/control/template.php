@@ -1,28 +1,28 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Controls
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * Template file include. for including custom control html/php
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class template extends \uix2\ui\control{
+class template extends \uix\ui\control{
 
 
     /**
      * Returns the main input field for rendering
      *
-     * @since 2.0.0
-     * @see \uix2\ui\uix
+     * @since 1.0.0
+     * @see \uix\ui\uix
      * @access public
      * @return string 
      */

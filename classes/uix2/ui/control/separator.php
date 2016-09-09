@@ -1,26 +1,26 @@
 <?php
 /**
- * UIX Metaboxes
+ * UIX Controls
  *
- * @package   uix2
+ * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link
  * @copyright 2016 David Cramer
  */
-namespace uix2\ui\control;
+namespace uix\ui\control;
 
 /**
- * UIX Control class.
+ * <hr> separator. Mainly used for formatting
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
-class separator extends \uix2\ui\control{
+class separator extends \uix\ui\control{
     
     /**
      * The type of object
      *
-     * @since       2.0.0
+     * @since       1.0.0
      * @access public
      * @var         string
      */
@@ -29,7 +29,7 @@ class separator extends \uix2\ui\control{
     /**
      * Enqueues specific tabs assets for the active pages
      *
-     * @since 2.0.0
+     * @since 1.0.0
      * @access protected
      */
     protected function enqueue_active_assets(){
@@ -48,8 +48,8 @@ class separator extends \uix2\ui\control{
     /**
      * Returns the main input field for rendering
      *
-     * @since 2.0.0
-     * @see \uix2\ui\uix
+     * @since 1.0.0
+     * @see \uix\ui\uix
      * @access public
      * @return string 
      */
