@@ -421,7 +421,7 @@ abstract class uix{
      * @since 1.0.0
      * @access protected
      * @param array $set Array of assets to be enqueued
-     * @param tring $type The type of asset
+     * @param string $type The type of asset
      */
     protected function enqueue( $set, $type ){
         // go over the set to see if it has styles or scripts
