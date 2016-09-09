@@ -18,6 +18,12 @@
                     },
                     {
                         expand: true,
+                        cwd: 'includes',
+                        src: '**',
+                        dest: '../includes/'
+                    },
+                    {
+                        expand: true,
                         cwd: 'assets/css',
                         src: '**',
                         dest: '../assets/css/'
