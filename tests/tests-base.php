@@ -96,6 +96,20 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertNotEmpty( $wp_scripts );
 
     }    
+    public function test_post_type() {
 
+        $uix = uix();
+
+        $post_type = $uix->add('post_type', 'my_type', array(
+            'name'
+        ) );
+
+        $this->assertTrue( is_a( $post_type, 'uix\ui\post_type' ) );
+
+        $this->assertfalse( $post_type->is_active() );
+
+        return $post_type;
+
+    }
 
 }
