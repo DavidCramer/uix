@@ -498,25 +498,16 @@ abstract class uix{
         if( !empty( $this->struct['help'] ) ){
             foreach( (array) $this->struct['help'] as $help_slug => $help ){
 
-                if( is_file( $help['content'] ) && file_exists( $help['content'] ) ){
-                    ob_start();
-                    include $help['content'];
-                    $content = ob_get_clean();
-                }else{
-                    $content = $help['content'];
-                }
-
                 $screen->add_help_tab( array(
                     'id'       =>   $help_slug,
                     'title'    =>   $help['title'],
-                    'content'  =>   $content
+                    'content'  =>   $help['content']
                 ));
             }
         }            
         // Help sidebars are optional
-        if(!empty( $this->struct['help_sidebar'] ) ){
+        if(!empty( $this->struct['help_sidebar'] ) )
             $screen->set_help_sidebar( $this->struct['help_sidebar'] );
-        }
     }
 
     /**

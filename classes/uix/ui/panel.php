@@ -118,7 +118,7 @@ class panel extends \uix\data\data{
         
         if( empty( $this->child ) ){ return; }
 
-        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside ' . esc_attr( $this->class_names() ) . '">';
+        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside ' . esc_attr( $this->wrapper_class_names() ) . '">';
             // render a lable
             $this->label();
             // render a desciption
@@ -174,7 +174,7 @@ class panel extends \uix\data\data{
      */
     public function label(){
         if( !empty( $this->struct['label'] ) )
-            echo '<div class="uix-panel-heading"><h3 class="uix-panel-title">' . esc_html( $this->struct['label'] ) . '</h3></div>';
+            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><h3 class="uix-' . esc_attr( $this->type ) . '-title">' . esc_html( $this->struct['label'] ) . '</h3></div>';
     }
 
     /**
@@ -185,9 +185,25 @@ class panel extends \uix\data\data{
      */
     public function description(){
         if( !empty( $this->struct['description'] ) )
-            echo '<div class="uix-panel-heading"><p class="uix-panel-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
+            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><p class="uix-' . esc_attr( $this->type ) . '-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
         
     }
+
+    /**
+     * Render a template based object
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function render_template(){
+        // tempalte
+        if( file_exists( $this->struct['template'] ) ){
+            include $this->struct['template'];
+        }else{
+            echo esc_html__( 'Template not found: ', 'text-domain' ) . $this->struct['template'];
+        }
+    }
+
 
     /**
      * Returns the class names for the tab wrapper
@@ -195,18 +211,18 @@ class panel extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function class_names(){
+    public function wrapper_class_names(){
 
-        $class_names = array(
+        $wrapper_class_names = array(
             'uix-panel-inside'
         );
 
         if( count( $this->child ) > 1 )
-            $class_names[] = 'uix-has-tabs';
+            $wrapper_class_names[] = 'uix-has-tabs';
 
         if( !empty( $this->struct['top_tabs'] ) )
-            $class_names[] = 'uix-top-tabs';
+            $wrapper_class_names[] = 'uix-top-tabs';
 
-        return implode( ' ', $class_names );
+        return implode( ' ', $wrapper_class_names );
     }
 }
