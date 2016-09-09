@@ -61,4 +61,25 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertTrue( is_string( $template ) );
     }    
 
+
+    public function test_box() {
+
+        $uix = uix();
+        $this->assertNotEmpty( $uix->ui->box['saving'] );
+
+        $data = $uix->ui->box['saving']->get_data();
+        
+        $this->assertArrayHasKey( 'text', $data );
+        $this->assertEmpty( $data['text'] );
+
+        $new_data = array(
+            'text' => 'changed'
+        );
+        $uix->ui->box['saving']->set_data( $new_data );
+        $changed_data = $uix->ui->box['saving']->get_data();
+        $this->assertSame( $changed_data['text'], 'changed' );
+
+
+    }
+
 }
