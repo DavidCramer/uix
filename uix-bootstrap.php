@@ -1,6 +1,6 @@
 <?php
 /**
- * UIX Bootstrapper/ WordPress Plugin
+ * UIX Bootstrapper / WordPress Plugin
  *
  * @package   uix
  * @author    David Cramer
