@@ -15,7 +15,7 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class radio extends \uix\ui\control{
+class radio extends \uix\ui\control {
 
     /**
      * The type of object
@@ -36,8 +36,8 @@ class radio extends \uix\ui\control{
     public function attributes() {
 
         $attributes         = parent::attributes();
-        $attributes['type'] = $this->type;
-        unset( $attributes['id'] );
+        $attributes[ 'type' ] = $this->type;
+        unset( $attributes[ 'id' ] );
 
         return $attributes;
     }

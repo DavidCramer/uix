@@ -15,7 +15,7 @@ namespace uix\ui\control;
  * @todo Remove all labels and wrappers.
  * @since 1.0.0
  */
-class hidden extends \uix\ui\control{
+class hidden extends \uix\ui\control {
     
     /**
      * The type of object

@@ -16,7 +16,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-abstract class uix{
+abstract class uix {
 
     /**
      * Config Structure of object
@@ -107,14 +107,14 @@ abstract class uix{
         // set the object
         $this->struct = $object;
         // set parent if given
-        if( null !== $parent && is_object( $parent ) )
+        if ( null !== $parent && is_object( $parent ) )
             $this->parent = $parent;
 
         // Set the root URL for this plugin.
         $this->set_url();
 
         // do setup
-        if( $this->setup() ){ return; }
+        if ( $this->setup() ) { return; }
 
         // define then register core styles
         $this->uix_styles();
@@ -133,10 +133,10 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    public function setup(){
-        foreach ( $this->struct as $struct_key=>$sub_struct ){
-            if( is_array( $sub_struct ) && uix()->get_register_callback( $struct_key ) ){
-                foreach( $sub_struct as $sub_slug => $sub_structure ){
+    public function setup() {
+        foreach ( $this->struct as $struct_key=>$sub_struct ) {
+            if ( is_array( $sub_struct ) && uix()->get_register_callback( $struct_key ) ) {
+                foreach ( $sub_struct as $sub_slug => $sub_structure ) {
                     $this->{$struct_key}( $sub_slug, $sub_structure );    
                 }
             }
@@ -149,7 +149,7 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    public function init(){}
+    public function init() {}
 
     /**
      * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
@@ -201,9 +201,9 @@ abstract class uix{
      * @access public
      * @return string The object ID
      */
-    public function id(){
+    public function id() {
         $id = 'uix-' . $this->type . '-' . $this->slug;
-        if( !empty( $this->parent ) )
+        if ( ! empty( $this->parent ) )
             $id .= $this->parent->id();
         return $id;
     }
@@ -217,8 +217,8 @@ abstract class uix{
      */
     public function styles( array $styles ) {
         
-        if( !empty( $this->struct['styles'] ) )
-            $styles = array_merge( $this->struct['styles'], $styles );
+        if ( ! empty( $this->struct[ 'styles' ] ) )
+            $styles = array_merge( $this->struct[ 'styles' ], $styles );
 
         /**
          * Filter UIX styles
@@ -241,8 +241,8 @@ abstract class uix{
      */
     public function scripts( array $scripts ) {
 
-        if( !empty( $this->struct['scripts'] ) )
-            $scripts = array_merge( $this->struct['scripts'], $scripts );
+        if ( ! empty( $this->struct[ 'scripts' ] ) )
+            $scripts = array_merge( $this->struct[ 'scripts' ], $scripts );
 
         /**
          * Filter UIX scripts
@@ -293,14 +293,14 @@ abstract class uix{
      * @param array $args arguments for the caller
      * @return UIX|null
      */    
-    public function __call( $type, $args ){
+    public function __call( $type, $args ) {
         $init = uix()->get_register_callback( $type );
         $child = null;
-        if( null !== $init ){
-            $args[] = $this;
+        if ( null !== $init ) {
+            $args[ ] = $this;
             $child = call_user_func_array( $init, $args );
-            if( null !== $child ){
-                $this->child[ $args[0] ] = $child;
+            if ( null !== $child ) {
+                $this->child[ $args[ 0 ] ] = $child;
             }
         }
         return $child;
@@ -315,7 +315,7 @@ abstract class uix{
     public function enqueue_core() {
 
         // attempt to get a config
-        if( !$this->is_active() ){ return; }
+        if ( ! $this->is_active() ) { return; }
 
         /**
          * do object initilisation
@@ -340,7 +340,7 @@ abstract class uix{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){}
+    protected function enqueue_active_assets() {}
 
     /**
      * Detects the root of the plugin folder and sets the URL
@@ -348,13 +348,13 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    public function set_url(){
+    public function set_url() {
 
         $plugins_url = plugins_url();
-        $this_url = trim( substr( trailingslashit( plugin_dir_url(  __FILE__ ) ), strlen( $plugins_url ) ), '/' );
+        $this_url = trim( substr( trailingslashit( plugin_dir_url( __FILE__ ) ), strlen( $plugins_url ) ), '/' );
         
-        if( false !== strpos( $this_url, '/') ){
-            $url_path = explode('/', $this_url );
+        if ( false !== strpos( $this_url, '/' ) ) {
+            $url_path = explode( '/', $this_url );
             // generic 3 path depth: classes/namespace/ui|data
             array_splice( $url_path, count( $url_path ) - 3 );
             $this_url = implode( '/', $url_path );
@@ -371,20 +371,20 @@ abstract class uix{
      * @param array $set Array of assets to be enqueued
      * @param string $type The type of asset
      */
-    protected function enqueue( $set, $type ){
+    protected function enqueue( $set, $type ) {
         // go over the set to see if it has styles or scripts
 
         $enqueue_type = 'wp_enqueue_' . $type;
 
-        foreach( $set as $key => $item ){
+        foreach ( $set as $key => $item ) {
             
-            if( is_int( $key ) ){
+            if ( is_int( $key ) ) {
                 $enqueue_type( $item );
                 continue;
             }
                 
             $args = $this->build_asset_args( $item );
-            $enqueue_type( $key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+            $enqueue_type( $key, $args[ 'src' ], $args[ 'deps' ], $args[ 'ver' ], $args[ 'in_footer' ] );
 
         }
 
@@ -398,7 +398,7 @@ abstract class uix{
      * @param array|string $asset Asset structure, slug or path to build
      * @return array Params for enqueuing the asset
      */
-    private function build_asset_args( $asset ){
+    private function build_asset_args( $asset ) {
 
         // setup default args for array type includes
         $args = array(
@@ -409,10 +409,10 @@ abstract class uix{
             "media"     => false
         );
 
-        if( is_array( $asset ) ){
+        if ( is_array( $asset ) ) {
             $args = array_merge( $args, $asset );
-        }else{
-            $args['src'] = $asset;
+        } else {
+            $args[ 'src' ] = $asset;
         }
 
         return $args;
@@ -424,8 +424,8 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    public function is_active(){
-        if( !empty( $this->parent ) )
+    public function is_active() {
+        if ( ! empty( $this->parent ) )
             return $this->parent->is_active();
         
         return true; // base is_active will result in true;
@@ -437,25 +437,25 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    public function add_help(){
+    public function add_help() {
         
-        if( ! $this->is_active() ){ return; }
+        if ( ! $this->is_active() ) { return; }
 
         $screen = get_current_screen();
         
-        if( !empty( $this->struct['help'] ) ){
-            foreach( (array) $this->struct['help'] as $help_slug => $help ){
+        if ( ! empty( $this->struct[ 'help' ] ) ) {
+            foreach ( (array) $this->struct[ 'help' ] as $help_slug => $help ) {
 
                 $screen->add_help_tab( array(
                     'id'       =>   $help_slug,
-                    'title'    =>   $help['title'],
-                    'content'  =>   $help['content']
-                ));
+                    'title'    =>   $help[ 'title' ],
+                    'content'  =>   $help[ 'content' ]
+                ) );
             }
         }            
         // Help sidebars are optional
-        if(!empty( $this->struct['help_sidebar'] ) )
-            $screen->set_help_sidebar( $this->struct['help_sidebar'] );
+        if ( ! empty( $this->struct[ 'help_sidebar' ] ) )
+            $screen->set_help_sidebar( $this->struct[ 'help_sidebar' ] );
     }
 
     /**
@@ -464,12 +464,12 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    protected function base_color(){
-        if( empty( $this->struct['base_color'] ) ){
-            if( !empty( $this->parent ) )
+    protected function base_color() {
+        if ( empty( $this->struct[ 'base_color' ] ) ) {
+            if ( ! empty( $this->parent ) )
                 return $this->parent->base_color();
-        }else{
-            return $this->struct['base_color'];
+        } else {
+            return $this->struct[ 'base_color' ];
         }
 
         return '#0073aa';

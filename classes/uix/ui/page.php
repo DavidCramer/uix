@@ -15,7 +15,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-class page extends panel implements \uix\data\save{
+class page extends panel implements \uix\data\save {
 
     /**
      * The type of object
@@ -55,11 +55,11 @@ class page extends panel implements \uix\data\save{
      * @since 1.0.0
      * @access public
      */
-    public function setup(){
+    public function setup() {
         parent::setup();
         $data = uix()->request_vars( 'post' );
 
-        if( !isset( $data[ 'uix_' . $this->type . '_' . $this->slug ] ) || !wp_verify_nonce( $data[ 'uix_' . $this->type . '_' . $this->slug ], $this->type ) ){
+        if ( ! isset( $data[ 'uix_' . $this->type . '_' . $this->slug ] ) || ! wp_verify_nonce( $data[ 'uix_' . $this->type . '_' . $this->slug ], $this->type ) ) {
 
             $store_key = $this->store_key();
             // get object data and push to children
@@ -91,7 +91,7 @@ class page extends panel implements \uix\data\save{
      * @since 1.0.0
      * @access public
      */
-    public function save_data(){
+    public function save_data() {
         
         /**
          * Filter config object
@@ -113,11 +113,11 @@ class page extends panel implements \uix\data\save{
      * @access public
      * @return string $store_key the defiuned option name for this UIX object
      */
-    public function store_key(){
+    public function store_key() {
 
-        if( !empty( $this->struct['store_key'] ) ){
-            $store_key = $this->struct['store_key'];
-        }else{
+        if ( ! empty( $this->struct[ 'store_key' ] ) ) {
+            $store_key = $this->struct[ 'store_key' ];
+        } else {
             $store_key = 'uix-' . $this->type . '-' . sanitize_text_field( $this->slug );
         }
 
@@ -129,11 +129,11 @@ class page extends panel implements \uix\data\save{
      * @since 1.0.0
      * @access public
      */
-    public function is_active(){
-        if( !is_admin() ){ return false; }
+    public function is_active() {
+        if ( ! is_admin() ) { return false; }
         // check that the scrren object is valid to be safe.
         $screen = get_current_screen();
-        if( empty( $screen ) || !is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ){
+        if ( empty( $screen ) || ! is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ) {
             return false;
         }
         return true;
@@ -145,17 +145,17 @@ class page extends panel implements \uix\data\save{
      * @since 1.0.0
      * @access protected
      */
-    protected function enqueue_active_assets(){
+    protected function enqueue_active_assets() {
 
         ?><style type="text/css">
             .contextual-help-tabs .active {
                 border-left: 6px solid <?php echo $this->base_color(); ?> !important;
             }
-            <?php if( !empty( $this->child ) && count( $this->child ) > 1 ){ ?>
+            <?php if ( ! empty( $this->child ) && count( $this->child ) > 1 ) { ?>
             #page-<?php echo $this->id(); ?> h1{
                 box-shadow: 0 0px 13px 12px <?php echo $this->base_color(); ?>, 11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
-            <?php }else{ ?>
+            <?php } else { ?>
             #page-<?php echo $this->id(); ?> h1{
                 box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
@@ -181,9 +181,9 @@ class page extends panel implements \uix\data\save{
      * @access public
      * @uses "admin_menu" hook
      */
-    public function add_settings_page(){
+    public function add_settings_page() {
 
-        if( empty( $this->struct[ 'page_title' ] ) || empty( $this->struct['menu_title'] ) ){
+        if ( empty( $this->struct[ 'page_title' ] ) || empty( $this->struct[ 'menu_title' ] ) ) {
             return;
         }
 
@@ -194,7 +194,7 @@ class page extends panel implements \uix\data\save{
         );
         $args = array_merge( $args, $this->struct );
 
-        if( !empty( $args['parent'] ) ){
+        if ( ! empty( $args[ 'parent' ] ) ) {
 
             $this->plugin_screen_hook_suffix = add_submenu_page(
                 $args[ 'parent' ],
@@ -205,7 +205,7 @@ class page extends panel implements \uix\data\save{
                 array( $this, 'render' )
             );
 
-        }else{
+        } else {
 
             $this->plugin_screen_hook_suffix = add_menu_page(
                 $args[ 'page_title' ],
@@ -227,15 +227,15 @@ class page extends panel implements \uix\data\save{
      * @since 1.0.0
      * @access public
      */
-    public function render(){
+    public function render() {
 
         ?>
         <form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="<?php echo esc_attr( $this->slug ); ?>" id="page-<?php echo esc_attr( $this->id() ); ?>">
-            <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
-                <?php if( !empty( $this->struct['version'] ) ){ ?><small><?php esc_html_e( $this->struct['version'], 'text-domain' ); ?></small><?php } ?>
-                <?php if( !empty( $this->struct['save_button'] ) ){ ?>
+            <h1 class="uix-title"><?php esc_html_e( $this->struct[ 'page_title' ], 'text-domain' ); ?>
+                <?php if ( ! empty( $this->struct[ 'version' ] ) ) { ?><small><?php esc_html_e( $this->struct[ 'version' ], 'text-domain' ); ?></small><?php } ?>
+                <?php if ( ! empty( $this->struct[ 'save_button' ] ) ) { ?>
                 <button type="submit" class="page-title-action">
-                    <?php esc_html_e( $this->struct['save_button'], 'text-domain' ); ?>
+                    <?php esc_html_e( $this->struct[ 'save_button' ], 'text-domain' ); ?>
                 </button>
                 <?php } ?>
             </h1>        

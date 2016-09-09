@@ -16,7 +16,7 @@ namespace uix;
  * @package uix
  * @author  David Cramer
  */
-class ui{
+class ui {
 
 
     /**
@@ -62,13 +62,13 @@ class ui{
         do_action( 'uix_register', $this );
 
         // go over each locations
-        foreach( $this->locations as $type => $paths ){
+        foreach ( $this->locations as $type => $paths ) {
 
-            foreach( $paths as $path ) {
+            foreach ( $paths as $path ) {
                 $has_struct = $this->get_file_structure( $path );
-                if( is_array( $has_struct ) ){
-                    foreach( $has_struct as $slug => $struct ){
-                        if( is_array( $struct ) )
+                if ( is_array( $has_struct ) ) {
+                    foreach ( $has_struct as $slug => $struct ) {
+                        if ( is_array( $struct ) )
                             $this->add( $type, $slug, $struct );
                     }
                 }
@@ -89,7 +89,7 @@ class ui{
      */
     public function add( $type, $slug, $structure, $parent = null ) {
         $init = $this->get_register_callback( $type );
-        if( null !== $init ){
+        if ( null !== $init ) {
             $object = call_user_func_array( $init, array( $slug, $structure, $parent ) );            
             $this->ui->{$type}[ $slug ] = $object;
             return $object;
@@ -103,11 +103,11 @@ class ui{
      *
      * @since 1.0.0
      * @param string $type The type of object to get register callback for
-     * @return array|null Callback array for registering an object or null if invalid
+     * @return callable Callback array for registering an object or null if invalid
      */
     public function get_register_callback( $type ) {
         $init = array( '\uix\ui\\' . $type, 'register' );
-        if( !is_callable( $init ) ){
+        if ( ! is_callable( $init ) ) {
             return null;
         }
         return $init;
@@ -142,8 +142,8 @@ class ui{
      */
     public function register( $arr ) {
         // determin how the structure works.
-        foreach( (array) $arr as $key => $value ){
-            if( is_dir( $value ) && !in_array( $value, $this->locations ) ){
+        foreach ( (array) $arr as $key => $value ) {
+            if ( is_dir( $value ) && ! in_array( $value, $this->locations ) ) {
                 $this->locations = array_merge( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
             }
         }
@@ -179,12 +179,12 @@ class ui{
      * @param string $path The file path to load
      * @return array|bool object structure array or false if invalid
      */
-    private function get_file_structure( $path ){
+    private function get_file_structure( $path ) {
         ob_start();
         $content = include $path;
         $has_output = ob_get_clean();
         // did stuff output
-        if( !empty( $has_output ) )
+        if ( ! empty( $has_output ) )
             $content = json_decode( $has_output, ARRAY_A );
 
         return $content;
@@ -204,13 +204,13 @@ class ui{
         $items = array();
         $uid = @ opendir( $path );
         if ( $uid ) {
-            while( ( $item = readdir( $uid ) ) !== false ) {
-                if ( substr( $item, 0, 1) == '.' )
+            while ( ( $item = readdir( $uid ) ) !== false ) {
+                if ( substr( $item, 0, 1 ) == '.' )
                     continue;
-                if( false === $file ){
+                if ( false === $file ) {
                     $items[ $item ] = $this->get_files_from_folders( $path . $item, true );
-                }else{
-                    $items[] = $path . '/' . $item;
+                } else {
+                    $items[ ] = $path . '/' . $item;
                 }
             }
             @closedir( $uid );
