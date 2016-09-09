@@ -15,12 +15,6 @@ checks:
 
 coding_style:
     php:
-        indentation:
-            general:
-                use_tabs: true
-                size: 3
-            switch:
-                indent_case: true
         spaces:
             before_parentheses:
                 function_declaration: false
