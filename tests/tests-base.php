@@ -98,4 +98,40 @@ class Test_UIX extends WP_UnitTestCase {
 
     }
 
+    public function test_control_register() {
+
+        $uix = uix();
+
+        $control = $uix->add('control', 'test_field', array(
+            'type'  =>  'text'
+        ) );
+
+        $this->assertTrue( is_a( $control, 'uix\ui\control\text' ) );
+
+        $this->assertTrue( $control->is_active() );
+
+        return $control;
+
+    }
+    public function test_control_scripts_styles() {
+        global $wp_scripts, $wp_styles;
+        
+        $this->assertEmpty( $wp_scripts );
+        $this->assertFalse( isset( $wp_styles->registered['slider-control'] ) );
+        $uix = uix();
+
+        $control = $uix->add('control', 'slider_field', array(
+            'type'  =>  'slider'
+        ) );
+
+        ob_start();
+        do_action( 'admin_enqueue_scripts' );
+        $styles = ob_get_clean();
+
+        $this->assertNotEmpty( $wp_styles->registered['slider-control'] );
+        $this->assertNotEmpty( $styles );
+        $this->assertNotEmpty( $wp_scripts );
+
+    }    
+
 }
