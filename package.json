@@ -4,12 +4,12 @@
   "description": "UIX Example Plugin",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Desertsnowman/UIX"
+    "url": "https://github.com/Desertsnowman/uix"
   },
   "author": "David Cramer",
   "license": "GPLv2+",
   "bugs": {
-    "url": "https://github.com/Desertsnowman/UIX/issues"
+    "url": "https://github.com/Desertsnowman/uix/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
