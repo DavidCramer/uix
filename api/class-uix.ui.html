@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class uix\ui | UIX Documentation</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
+
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">UIX Documentation</a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-uix.html" title="Summary of uix"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+					<li class="divider-vertical"></li>
+
+					<li>
+						<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+					</li>
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-uix.html">
+							uix<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-uix.data.html">
+							data						</a>
+							</li>
+					<li>
+						<a href="namespace-uix.ui.html">
+							ui<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-uix.ui.control.html">
+							control						</a>
+							</li>
+								</ul></li></ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-uix.ui.html">ui</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class ui</h1>
+
+
+	<div class="description">
+	<p>UI loader and handler class. This forms a single instance with UI objects attached.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-uix.html">uix</a><br>
+		<b>Package:</b> uix<br>
+
+				<b>Author:</b>
+				David Cramer<br>
+			<b>Located at</b> <a href="source-class-uix.ui.html#13-225" title="Go to source code">classes/uix2/ui.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="add" id="_add">
+
+			<td class="attributes"><code>
+				 public 
+				object|uix\/null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add">#</a>
+			<code><a href="source-class-uix.ui.html#80-98" title="Go to source code">add</a>( <span>string <var>$type</var></span>, <span>string <var>$slug</var></span>, <span>string <var>$structure</var></span>, <span>object <var>$parent</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				<p>Add a single structure object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Add a single structure object</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd>The type of object to add</dd>
+						<dt><var>$slug</var></dt>
+						<dd>The objects slug to add</dd>
+						<dt><var>$structure</var></dt>
+						<dd>The objects structure</dd>
+						<dt><var>$parent</var></dt>
+						<dd>object</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						object|uix\/null<br>the instance of the object type or null if invalid
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_register_callback" id="_get_register_callback">
+
+			<td class="attributes"><code>
+				 public 
+				array|null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_register_callback">#</a>
+			<code><a href="source-class-uix.ui.html#101-114" title="Go to source code">get_register_callback</a>( <span>string <var>$type</var></span> )</code>
+
+			<div class="description short">
+				<p>Returns a callback for registering the object or null if invalid type</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns a callback for registering the object or null if invalid type</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd>The type of object to get register callback for</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array|null<br>Callback array for registering an object or null if invalid
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_instance" id="_get_instance">
+
+			<td class="attributes"><code>
+				 public static
+				object|UI
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_instance">#</a>
+			<code><a href="source-class-uix.ui.html#117-134" title="Go to source code">get_instance</a>( )</code>
+
+			<div class="description short">
+				<p>Return an instance of this class.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return an instance of this class.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						object|UI<br>A single instance
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="register" id="_register">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_register">#</a>
+			<code><a href="source-class-uix.ui.html#136-150" title="Go to source code">register</a>( <span>array|string <var>$arr</var></span> )</code>
+
+			<div class="description short">
+				<p>Register the UIX object paths for autoloading</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Register the UIX object paths for autoloading</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$arr</var></dt>
+						<dd>path, or array of paths to structures to autoload</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="request_vars" id="_request_vars">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_request_vars">#</a>
+			<code><a href="source-class-uix.ui.html#152-175" title="Go to source code">request_vars</a>( <span>string <var>$type</var></span> )</code>
+
+			<div class="description short">
+				<p>Handy method to get request vars</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Handy method to get request vars</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$type</var></dt>
+						<dd>Request type to get</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>Regest vars array
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="locations" id="$locations">
+			<td class="attributes"><code>
+				protected  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.html#22-29" title="Go to source code"><var>$locations</var></a>
+
+				<div class="description short">
+					<p>Array of definitions locations</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Array of definitions locations</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$locations" class="anchor">#</a>
+					<code><span class="php-keyword1">array</span>()</code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="ui" id="$ui">
+			<td class="attributes"><code>
+				public  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.html#31-38" title="Go to source code"><var>$ui</var></a>
+
+				<div class="description short">
+					<p>Array of object instances</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Array of object instances</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$ui" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="instance" id="$instance">
+			<td class="attributes"><code>
+				protected static 
+				object/UI
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.html#40-47" title="Go to source code"><var>$instance</var></a>
+
+				<div class="description short">
+					<p>Holds instance</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Holds instance</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$instance" class="anchor">#</a>
+					<code><span class="php-keyword1">null</span></code>
+				</div>
+			</td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		UIX Documentation API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
