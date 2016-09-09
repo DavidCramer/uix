@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File classes/uix2/ui/page.php | UIX Documentation</title>
+	<title>File classes/uix/ui/page.php | UIX Documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -82,6 +82,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Test_UIX.html">Test_UIX</a></li>
 				<li><a href="class-uix.data.data.html">uix\data\data</a></li>
 				<li><a href="class-uix.data.localized.html">uix\data\localized</a></li>
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
@@ -107,7 +108,6 @@
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
-				<li><a href="class-uix.ui.shortcodes.html">uix\ui\shortcodes</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
 
@@ -122,8 +122,10 @@
 
 			<h3>Functions</h3>
 			<ul>
+				<li><a href="function-_manually_load_plugin.html">_manually_load_plugin</a></li>
 				<li><a href="function-uix.html">uix</a></li>
 				<li><a href="function-uix_autoload_class.html">uix_autoload_class</a></li>
+				<li><a href="function-uix_load_test_structures.html">uix_load_test_structures</a></li>
 			</ul>
 		</div>
 	</div>
@@ -216,7 +218,7 @@
 </span><span id="81" class="l"><a href="#81"> 81 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> uix_styles() {
 </span><span id="82" class="l"><a href="#82"> 82 </a>        parent::uix_styles();
 </span><span id="83" class="l"><a href="#83"> 83 </a>        <span class="php-var">$pages_styles</span> = <span class="php-keyword1">array</span>(
-</span><span id="84" class="l"><a href="#84"> 84 </a>            <span class="php-quote">'page'</span>    =&gt;  <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/css/uix-page'</span> . <span class="php-var">$this</span>-&gt;debug_styles . <span class="php-quote">'.css'</span>,
+</span><span id="84" class="l"><a href="#84"> 84 </a>            <span class="php-quote">'page'</span>    =&gt;  <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/css/uix-page'</span> . UIX_ASSET_DEBUG . <span class="php-quote">'.css'</span>,
 </span><span id="85" class="l"><a href="#85"> 85 </a>        );
 </span><span id="86" class="l"><a href="#86"> 86 </a>        <span class="php-var">$this</span>-&gt;styles( <span class="php-var">$pages_styles</span> );
 </span><span id="87" class="l"><a href="#87"> 87 </a>    }
@@ -319,7 +321,7 @@
 </span><span id="184" class="l"><a href="#184">184 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> add_settings_page(){
 </span><span id="185" class="l"><a href="#185">185 </a>
 </span><span id="186" class="l"><a href="#186">186 </a>        <span class="php-keyword1">if</span>( <span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[ <span class="php-quote">'page_title'</span> ] ) || <span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'menu_title'</span>] ) ){
-</span><span id="187" class="l"><a href="#187">187 </a>            <span class="php-keyword1">continue</span>;
+</span><span id="187" class="l"><a href="#187">187 </a>            <span class="php-keyword1">return</span>;
 </span><span id="188" class="l"><a href="#188">188 </a>        }
 </span><span id="189" class="l"><a href="#189">189 </a>
 </span><span id="190" class="l"><a href="#190">190 </a>        <span class="php-var">$args</span> = <span class="php-keyword1">array</span>(
@@ -329,7 +331,7 @@
 </span><span id="194" class="l"><a href="#194">194 </a>        );
 </span><span id="195" class="l"><a href="#195">195 </a>        <span class="php-var">$args</span> = <span class="php-keyword2">array_merge</span>( <span class="php-var">$args</span>, <span class="php-var">$this</span>-&gt;struct );
 </span><span id="196" class="l"><a href="#196">196 </a>
-</span><span id="197" class="l"><a href="#197">197 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$page</span>[<span class="php-quote">'parent'</span>] ) ){
+</span><span id="197" class="l"><a href="#197">197 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$args</span>[<span class="php-quote">'parent'</span>] ) ){
 </span><span id="198" class="l"><a href="#198">198 </a>
 </span><span id="199" class="l"><a href="#199">199 </a>            <span class="php-var">$this</span>-&gt;plugin_screen_hook_suffix = add_submenu_page(
 </span><span id="200" class="l"><a href="#200">200 </a>                <span class="php-var">$args</span>[ <span class="php-quote">'parent'</span> ],
@@ -391,6 +393,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?bf4333a6435d92c53edff831cbfbec1c7ed593bc"></script>
+<script src="elementlist.js?b1a393574aa207567f599a2a2b112652116e835a"></script>
 </body>
 </html>

@@ -89,7 +89,6 @@
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
-				<li><a href="class-uix.ui.shortcodes.html">shortcodes</a></li>
 				<li><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
 
@@ -157,7 +156,7 @@
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.metabox.html#13-300" title="Go to source code">classes/uix2/ui/metabox.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.metabox.html#13-259" title="Go to source code">classes/uix/ui/metabox.php</a>
 		<br>
 	</div>
 
@@ -177,7 +176,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_actions">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#39-53" title="Go to source code">actions</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#48-65" title="Go to source code">actions</a>( )</code>
 
 			<div class="description short">
 				<p>setup actions and hooks to add metaboxes and save metadata</p>
@@ -201,6 +200,41 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="setup" id="_setup">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setup">#</a>
+			<code><a href="source-class-uix.ui.metabox.html#67-79" title="Go to source code">setup</a>( )</code>
+
+			<div class="description short">
+				<p>Setup submission data</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Setup submission data</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-uix.data.data.html#_setup">uix\data\data::setup</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="uix_styles" id="_uix_styles">
 
 			<td class="attributes"><code>
@@ -212,7 +246,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_uix_styles">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#55-69" title="Go to source code">uix_styles</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#81-95" title="Go to source code">uix_styles</a>( )</code>
 
 			<div class="description short">
 				<p>set metabox styles</p>
@@ -251,7 +285,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_active_assets">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#72-89" title="Go to source code">enqueue_active_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#98-115" title="Go to source code">enqueue_active_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Enqueues specific tabs assets for the active pages</p>
@@ -275,6 +309,48 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="set_active_status" id="_set_active_status">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_active_status">#</a>
+			<code><a href="source-class-uix.ui.metabox.html#117-130" title="Go to source code">set_active_status</a>( <span>screen <var>$screen</var></span> )</code>
+
+			<div class="description short">
+				<p>Checks the screen object to determin if the metabox should load assets</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Checks the screen object to determin if the metabox should load assets</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$screen</var></dt>
+						<dd>The current screen object;</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							"current_screen" hook<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="add_metaboxes" id="_add_metaboxes">
 
 			<td class="attributes"><code>
@@ -286,7 +362,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_add_metaboxes">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#92-121" title="Go to source code">add_metaboxes</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#131-158" title="Go to source code">add_metaboxes</a>( )</code>
 
 			<div class="description short">
 				<p>Add metaboxes to screen</p>
@@ -323,7 +399,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create_metabox">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#123-142" title="Go to source code">create_metabox</a>( <span>object/wp_post <var>$post</var></span>, <span>array <var>$metabox</var></span> )</code>
+			<code><a href="source-class-uix.ui.metabox.html#160-178" title="Go to source code">create_metabox</a>( <span>wp_post <var>$post</var></span> )</code>
 
 			<div class="description short">
 				<p>Callback for the <code>add_meta_box</code> that sets the metabox data and renders it</p>
@@ -337,8 +413,6 @@
 					<div class="list"><dl>
 						<dt><var>$post</var></dt>
 						<dd>Current post for the metabox</dd>
-						<dt><var>$metabox</var></dt>
-						<dd>Metabox args array</dd>
 					</dl></div>
 
 
@@ -367,7 +441,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#144-180" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#180-203" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the Metabox</p>
@@ -391,46 +465,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="set_data" id="_set_data">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_set_data">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#183-203" title="Go to source code">set_data</a>( <span>array <var>$data</var></span> )</code>
-
-			<div class="description short">
-				<p>Sets the data for all sections and thier controls</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Sets the data for all sections and thier controls</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$data</var></dt>
-						<dd>Metadata to push to controls</dd>
-					</dl></div>
-
-
-
-					<h4>Since</h4>
-					<div class="list">
-							1.0.0<br>
-					</div>
-
-					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-uix.ui.panel.html#_set_data">uix\ui\panel::set_data</a></code></div>
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="save_meta" id="_save_meta">
 
 			<td class="attributes"><code>
@@ -442,7 +476,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_save_meta">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#205-229" title="Go to source code">save_meta</a>( <span>integer <var>$post_id</var></span>, <span>object/wp_post <var>$post</var></span> )</code>
+			<code><a href="source-class-uix.ui.metabox.html#206-227" title="Go to source code">save_meta</a>( <span>integer <var>$post_id</var></span>, <span>wp_post <var>$post</var></span> )</code>
 
 			<div class="description short">
 				<p>Saves a metabox data</p>
@@ -486,7 +520,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_save_meta_data">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#231-249" title="Go to source code">save_meta_data</a>( <span>string <var>$slug</var></span>, <span>mixed <var>$data</var></span> )</code>
+			<code><a href="source-class-uix.ui.metabox.html#229-247" title="Go to source code">save_meta_data</a>( <span>string <var>$slug</var></span>, <span>mixed <var>$data</var></span> )</code>
 
 			<div class="description short">
 				<p>Save the meta data for the post</p>
@@ -515,44 +549,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="get_sections_data" id="_get_sections_data">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_get_sections_data">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#251-267" title="Go to source code">get_sections_data</a>( <span>string <var>$slug</var></span> )</code>
-
-			<div class="description short">
-				<p>Get current data for all sections of the metabox</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Get current data for all sections of the metabox</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$slug</var></dt>
-						<dd>The slug of the metabox to get sections data for</dd>
-					</dl></div>
-
-
-
-					<h4>Since</h4>
-					<div class="list">
-							1.0.0<br>
-					</div>
-
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="is_active" id="_is_active">
 
 			<td class="attributes"><code>
@@ -564,7 +560,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is_active">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#269-298" title="Go to source code">is_active</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#249-257" title="Go to source code">is_active</a>( )</code>
 
 			<div class="description short">
 				<p>Determin which metaboxes are used for the current screen and set them active</p>
@@ -594,14 +590,14 @@
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.panel.html#methods">uix\ui\panel</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-uix.ui.panel.html#_description">description()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_get_data">get_data()</a></code>, 
-				<code><a href="class-uix.ui.panel.html#_uix_scripts">uix_scripts()</a></code>
-			</p>
-		</div>
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.data.data.html#methods">uix\data\data</a></h3></div>
-			<p class="elementList">
-				<code><a href="class-uix.data.data.html#_setup">setup()</a></code>
+				<code><a href="class-uix.ui.panel.html#_label">label()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_navigation">navigation()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_render_template">render_template()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_set_data">set_data()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_uix_scripts">uix_scripts()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_wrapper_class_names">wrapper_class_names()</a></code>
 			</p>
 		</div>
 		<div class="panel panel-default">
@@ -612,8 +608,6 @@
 				<code><a href="class-uix.ui.uix.html#_add_child">add_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_add_help">add_help()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_base_color">base_color()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_debug_scripts">debug_scripts()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_debug_styles">debug_styles()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_enqueue">enqueue()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
@@ -669,7 +663,7 @@
 		<tr data-order="post" id="$post">
 			<td class="attributes"><code>
 				public  
-				object|WP_Post
+				WP_Post
 			</code></td>
 
 			<td class="name">
@@ -695,6 +689,35 @@
 				</div>
 			</td>
 		</tr>
+		<tr data-order="is_active" id="$is_active">
+			<td class="attributes"><code>
+				public  
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.metabox.html#38-45" title="Go to source code"><var>$is_active</var></a>
+
+				<div class="description short">
+					<p>Status of the metabox to determin if assets should be loaded</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Status of the metabox to determin if assets should be loaded</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$is_active" class="anchor">#</a>
+					<code><span class="php-keyword1">false</span></code>
+				</div>
+			</td>
+		</tr>
 			</table>
 		</div>
 
@@ -702,8 +725,6 @@
             <div class="panel-heading"><h3>Properties inherited from <a href="class-uix.ui.uix.html#properties">uix\ui\uix</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-uix.ui.uix.html#$child"><var>$child</var></a></code>, 
-				<code><a href="class-uix.ui.uix.html#$debug_scripts"><var>$debug_scripts</var></a></code>, 
-				<code><a href="class-uix.ui.uix.html#$debug_styles"><var>$debug_styles</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$parent"><var>$parent</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$scripts"><var>$scripts</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$slug"><var>$slug</var></a></code>, 

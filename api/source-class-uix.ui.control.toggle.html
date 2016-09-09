@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File classes/uix2/ui/control/toggle.php | UIX Documentation</title>
+	<title>File classes/uix/ui/control/toggle.php | UIX Documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -82,6 +82,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Test_UIX.html">Test_UIX</a></li>
 				<li><a href="class-uix.data.data.html">uix\data\data</a></li>
 				<li><a href="class-uix.data.localized.html">uix\data\localized</a></li>
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
@@ -107,7 +108,6 @@
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
-				<li><a href="class-uix.ui.shortcodes.html">uix\ui\shortcodes</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
 
@@ -122,8 +122,10 @@
 
 			<h3>Functions</h3>
 			<ul>
+				<li><a href="function-_manually_load_plugin.html">_manually_load_plugin</a></li>
 				<li><a href="function-uix.html">uix</a></li>
 				<li><a href="function-uix_autoload_class.html">uix_autoload_class</a></li>
+				<li><a href="function-uix_load_test_structures.html">uix_load_test_structures</a></li>
 			</ul>
 		</div>
 	</div>
@@ -188,7 +190,7 @@
 </span><span id="53" class="l"><a href="#53"> 53 </a>        parent::uix_styles();
 </span><span id="54" class="l"><a href="#54"> 54 </a>        <span class="php-comment">// Initilize core styles</span>
 </span><span id="55" class="l"><a href="#55"> 55 </a>        <span class="php-var">$styles</span> = <span class="php-keyword1">array</span>(
-</span><span id="56" class="l"><a href="#56"> 56 </a>            <span class="php-quote">'toggle'</span> =&gt; <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/controls/toggle/css/toggle'</span> . <span class="php-var">$this</span>-&gt;debug_scripts . <span class="php-quote">'.css'</span>,
+</span><span id="56" class="l"><a href="#56"> 56 </a>            <span class="php-quote">'toggle'</span> =&gt; <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/controls/toggle/css/toggle'</span> . UIX_ASSET_DEBUG . <span class="php-quote">'.css'</span>,
 </span><span id="57" class="l"><a href="#57"> 57 </a>        );
 </span><span id="58" class="l"><a href="#58"> 58 </a>        <span class="php-comment">// push to activly register styles</span>
 </span><span id="59" class="l"><a href="#59"> 59 </a>        <span class="php-var">$this</span>-&gt;styles( <span class="php-var">$styles</span> );
@@ -205,7 +207,7 @@
 </span><span id="70" class="l"><a href="#70"> 70 </a>        <span class="php-comment">// Initilize core scripts</span>
 </span><span id="71" class="l"><a href="#71"> 71 </a>        <span class="php-var">$scripts</span> = <span class="php-keyword1">array</span>(
 </span><span id="72" class="l"><a href="#72"> 72 </a>            <span class="php-quote">'toggle-control-init'</span>   =&gt; <span class="php-keyword1">array</span>(
-</span><span id="73" class="l"><a href="#73"> 73 </a>                <span class="php-quote">&quot;src&quot;</span>       =&gt; <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/controls/toggle/js/toggle'</span> . <span class="php-var">$this</span>-&gt;debug_scripts . <span class="php-quote">'.js'</span>,
+</span><span id="73" class="l"><a href="#73"> 73 </a>                <span class="php-quote">&quot;src&quot;</span>       =&gt; <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/controls/toggle/js/toggle'</span> . UIX_ASSET_DEBUG . <span class="php-quote">'.js'</span>,
 </span><span id="74" class="l"><a href="#74"> 74 </a>                <span class="php-quote">&quot;in_footer&quot;</span> =&gt; <span class="php-keyword1">true</span>
 </span><span id="75" class="l"><a href="#75"> 75 </a>            )
 </span><span id="76" class="l"><a href="#76"> 76 </a>        );
@@ -297,6 +299,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?bf4333a6435d92c53edff831cbfbec1c7ed593bc"></script>
+<script src="elementlist.js?b1a393574aa207567f599a2a2b112652116e835a"></script>
 </body>
 </html>

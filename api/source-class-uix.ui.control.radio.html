@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File classes/uix2/ui/control/radio.php | UIX Documentation</title>
+	<title>File classes/uix/ui/control/radio.php | UIX Documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -82,6 +82,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Test_UIX.html">Test_UIX</a></li>
 				<li><a href="class-uix.data.data.html">uix\data\data</a></li>
 				<li><a href="class-uix.data.localized.html">uix\data\localized</a></li>
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
@@ -107,7 +108,6 @@
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
-				<li><a href="class-uix.ui.shortcodes.html">uix\ui\shortcodes</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
 
@@ -122,8 +122,10 @@
 
 			<h3>Functions</h3>
 			<ul>
+				<li><a href="function-_manually_load_plugin.html">_manually_load_plugin</a></li>
 				<li><a href="function-uix.html">uix</a></li>
 				<li><a href="function-uix_autoload_class.html">uix_autoload_class</a></li>
+				<li><a href="function-uix_load_test_structures.html">uix_load_test_structures</a></li>
 			</ul>
 		</div>
 	</div>
@@ -191,26 +193,25 @@
 </span><span id="56" class="l"><a href="#56">56 </a>        <span class="php-var">$input</span>      = <span class="php-quote">''</span>;
 </span><span id="57" class="l"><a href="#57">57 </a>        <span class="php-var">$values</span>     = (<span class="php-keyword1">array</span>) <span class="php-var">$this</span>-&gt;get_data();
 </span><span id="58" class="l"><a href="#58">58 </a>        <span class="php-var">$id</span>         = <span class="php-var">$this</span>-&gt;id();
-</span><span id="59" class="l"><a href="#59">59 </a>        <span class="php-var">$index</span>      = <span class="php-num">0</span>;
-</span><span id="60" class="l"><a href="#60">60 </a>
-</span><span id="61" class="l"><a href="#61">61 </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'choices'</span>] <span class="php-keyword1">as</span> <span class="php-var">$option_value</span> =&gt; <span class="php-var">$option_label</span>) {
-</span><span id="62" class="l"><a href="#62">62 </a>            <span class="php-var">$sel</span>        = <span class="php-keyword1">null</span>;
-</span><span id="63" class="l"><a href="#63">63 </a>            <span class="php-var">$option_id</span>  = <span class="php-var">$id</span> . <span class="php-quote">'-'</span> . sanitize_key( <span class="php-var">$option_value</span> );
-</span><span id="64" class="l"><a href="#64">64 </a>            <span class="php-keyword1">if</span>( <span class="php-keyword2">in_array</span>( <span class="php-var">$option_value</span>, <span class="php-var">$values</span> ) )
-</span><span id="65" class="l"><a href="#65">65 </a>                <span class="php-var">$sel</span> = <span class="php-quote">' checked=&quot;checked&quot;'</span>;
-</span><span id="66" class="l"><a href="#66">66 </a>
-</span><span id="67" class="l"><a href="#67">67 </a>            <span class="php-var">$input</span> .= <span class="php-quote">'&lt;div class=&quot;uix-'</span> . esc_attr( <span class="php-var">$this</span>-&gt;type ) . <span class="php-quote">'&quot;&gt;'</span>;
-</span><span id="68" class="l"><a href="#68">68 </a>                <span class="php-var">$input</span> .= <span class="php-quote">'&lt;label for=&quot;'</span> . <span class="php-var">$option_id</span> . <span class="php-quote">'&quot;&gt;'</span>;
-</span><span id="69" class="l"><a href="#69">69 </a>                <span class="php-var">$input</span> .= <span class="php-quote">'&lt;input id=&quot;'</span> . <span class="php-var">$option_id</span> . <span class="php-quote">'&quot; '</span> . <span class="php-var">$this</span>-&gt;build_attributes() . <span class="php-quote">' value=&quot;'</span> . esc_attr( <span class="php-var">$option_value</span> ) . <span class="php-quote">'&quot;'</span> . <span class="php-var">$sel</span> . <span class="php-quote">'&gt;'</span>;
-</span><span id="70" class="l"><a href="#70">70 </a>                <span class="php-var">$input</span> .= esc_html( <span class="php-var">$option_label</span> );
-</span><span id="71" class="l"><a href="#71">71 </a>                <span class="php-var">$input</span> .= <span class="php-quote">'&lt;/label&gt;'</span>;
-</span><span id="72" class="l"><a href="#72">72 </a>            <span class="php-var">$input</span> .= <span class="php-quote">'&lt;/div&gt;'</span>;
-</span><span id="73" class="l"><a href="#73">73 </a>        }
-</span><span id="74" class="l"><a href="#74">74 </a>
-</span><span id="75" class="l"><a href="#75">75 </a>        <span class="php-keyword1">return</span> <span class="php-var">$input</span>;
-</span><span id="76" class="l"><a href="#76">76 </a>    }  
-</span><span id="77" class="l"><a href="#77">77 </a>
-</span><span id="78" class="l"><a href="#78">78 </a>}</span></code></pre>
+</span><span id="59" class="l"><a href="#59">59 </a>
+</span><span id="60" class="l"><a href="#60">60 </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'choices'</span>] <span class="php-keyword1">as</span> <span class="php-var">$option_value</span> =&gt; <span class="php-var">$option_label</span>) {
+</span><span id="61" class="l"><a href="#61">61 </a>            <span class="php-var">$sel</span>        = <span class="php-keyword1">null</span>;
+</span><span id="62" class="l"><a href="#62">62 </a>            <span class="php-var">$option_id</span>  = <span class="php-var">$id</span> . <span class="php-quote">'-'</span> . sanitize_key( <span class="php-var">$option_value</span> );
+</span><span id="63" class="l"><a href="#63">63 </a>            <span class="php-keyword1">if</span>( <span class="php-keyword2">in_array</span>( <span class="php-var">$option_value</span>, <span class="php-var">$values</span> ) )
+</span><span id="64" class="l"><a href="#64">64 </a>                <span class="php-var">$sel</span> = <span class="php-quote">' checked=&quot;checked&quot;'</span>;
+</span><span id="65" class="l"><a href="#65">65 </a>
+</span><span id="66" class="l"><a href="#66">66 </a>            <span class="php-var">$input</span> .= <span class="php-quote">'&lt;div class=&quot;uix-'</span> . esc_attr( <span class="php-var">$this</span>-&gt;type ) . <span class="php-quote">'&quot;&gt;'</span>;
+</span><span id="67" class="l"><a href="#67">67 </a>                <span class="php-var">$input</span> .= <span class="php-quote">'&lt;label for=&quot;'</span> . <span class="php-var">$option_id</span> . <span class="php-quote">'&quot;&gt;'</span>;
+</span><span id="68" class="l"><a href="#68">68 </a>                <span class="php-var">$input</span> .= <span class="php-quote">'&lt;input id=&quot;'</span> . <span class="php-var">$option_id</span> . <span class="php-quote">'&quot; '</span> . <span class="php-var">$this</span>-&gt;build_attributes() . <span class="php-quote">' value=&quot;'</span> . esc_attr( <span class="php-var">$option_value</span> ) . <span class="php-quote">'&quot;'</span> . <span class="php-var">$sel</span> . <span class="php-quote">'&gt;'</span>;
+</span><span id="69" class="l"><a href="#69">69 </a>                <span class="php-var">$input</span> .= esc_html( <span class="php-var">$option_label</span> );
+</span><span id="70" class="l"><a href="#70">70 </a>                <span class="php-var">$input</span> .= <span class="php-quote">'&lt;/label&gt;'</span>;
+</span><span id="71" class="l"><a href="#71">71 </a>            <span class="php-var">$input</span> .= <span class="php-quote">'&lt;/div&gt;'</span>;
+</span><span id="72" class="l"><a href="#72">72 </a>        }
+</span><span id="73" class="l"><a href="#73">73 </a>
+</span><span id="74" class="l"><a href="#74">74 </a>        <span class="php-keyword1">return</span> <span class="php-var">$input</span>;
+</span><span id="75" class="l"><a href="#75">75 </a>    }  
+</span><span id="76" class="l"><a href="#76">76 </a>
+</span><span id="77" class="l"><a href="#77">77 </a>}</span></code></pre>
 	</div>
 
 	<div id="footer">
@@ -218,6 +219,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?bf4333a6435d92c53edff831cbfbec1c7ed593bc"></script>
+<script src="elementlist.js?b1a393574aa207567f599a2a2b112652116e835a"></script>
 </body>
 </html>

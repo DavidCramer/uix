@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File classes/uix2/ui.php | UIX Documentation</title>
+	<title>File classes/uix/ui.php | UIX Documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -82,6 +82,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Test_UIX.html">Test_UIX</a></li>
 				<li><a href="class-uix.data.data.html">uix\data\data</a></li>
 				<li><a href="class-uix.data.localized.html">uix\data\localized</a></li>
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
@@ -107,7 +108,6 @@
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
-				<li><a href="class-uix.ui.shortcodes.html">uix\ui\shortcodes</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
 
@@ -122,8 +122,10 @@
 
 			<h3>Functions</h3>
 			<ul>
+				<li><a href="function-_manually_load_plugin.html">_manually_load_plugin</a></li>
 				<li><a href="function-uix.html">uix</a></li>
 				<li><a href="function-uix_autoload_class.html">uix_autoload_class</a></li>
+				<li><a href="function-uix_load_test_structures.html">uix_load_test_structures</a></li>
 			</ul>
 		</div>
 	</div>
@@ -192,7 +194,7 @@
 </span><span id="57" class="l"><a href="#57"> 57 </a>        <span class="php-comment">/**
 </span></span><span id="58" class="l"><a href="#58"> 58 </a><span class="php-comment">         * do UI loader locations
 </span></span><span id="59" class="l"><a href="#59"> 59 </a><span class="php-comment">         *
-</span></span><span id="60" class="l"><a href="#60"> 60 </a><span class="php-comment">         * @param uix/ui $current UI instance
+</span></span><span id="60" class="l"><a href="#60"> 60 </a><span class="php-comment">         * @param ui current instance of this class
 </span></span><span id="61" class="l"><a href="#61"> 61 </a><span class="php-comment">         */</span>
 </span><span id="62" class="l"><a href="#62"> 62 </a>        do_action( <span class="php-quote">'uix_register'</span>, <span class="php-var">$this</span> );
 </span><span id="63" class="l"><a href="#63"> 63 </a>
@@ -218,9 +220,9 @@
 </span></span><span id="83" class="l"><a href="#83"> 83 </a><span class="php-comment">     * @since 1.0.0
 </span></span><span id="84" class="l"><a href="#84"> 84 </a><span class="php-comment">     * @param string $type The type of object to add
 </span></span><span id="85" class="l"><a href="#85"> 85 </a><span class="php-comment">     * @param string $slug The objects slug to add
-</span></span><span id="86" class="l"><a href="#86"> 86 </a><span class="php-comment">     * @param string $structure The objects structure
+</span></span><span id="86" class="l"><a href="#86"> 86 </a><span class="php-comment">     * @param array $structure The objects structure
 </span></span><span id="87" class="l"><a href="#87"> 87 </a><span class="php-comment">     * @param object $parent object
-</span></span><span id="88" class="l"><a href="#88"> 88 </a><span class="php-comment">     * @return  object|\uix\/null    the instance of the object type or null if invalid
+</span></span><span id="88" class="l"><a href="#88"> 88 </a><span class="php-comment">     * @return uix|null The instance of the object type or null if invalid
 </span></span><span id="89" class="l"><a href="#89"> 89 </a><span class="php-comment">     */</span>
 </span><span id="90" class="l"><a href="#90"> 90 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> add( <span class="php-var">$type</span>, <span class="php-var">$slug</span>, <span class="php-var">$structure</span>, <span class="php-var">$parent</span> = <span class="php-keyword1">null</span> ) {
 </span><span id="91" class="l"><a href="#91"> 91 </a>        <span class="php-var">$init</span> = <span class="php-var">$this</span>-&gt;get_register_callback( <span class="php-var">$type</span> );
@@ -254,7 +256,7 @@
 </span></span><span id="119" class="l"><a href="#119">119 </a><span class="php-comment">     *
 </span></span><span id="120" class="l"><a href="#120">120 </a><span class="php-comment">     * @since 1.0.0
 </span></span><span id="121" class="l"><a href="#121">121 </a><span class="php-comment">     *
-</span></span><span id="122" class="l"><a href="#122">122 </a><span class="php-comment">     * @return    object|UI    A single instance
+</span></span><span id="122" class="l"><a href="#122">122 </a><span class="php-comment">     * @return ui A single instance of this class
 </span></span><span id="123" class="l"><a href="#123">123 </a><span class="php-comment">     */</span>
 </span><span id="124" class="l"><a href="#124">124 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> get_instance() {
 </span><span id="125" class="l"><a href="#125">125 </a>
@@ -290,74 +292,70 @@
 </span></span><span id="155" class="l"><a href="#155">155 </a><span class="php-comment">     * @since 1.0.0
 </span></span><span id="156" class="l"><a href="#156">156 </a><span class="php-comment">     *
 </span></span><span id="157" class="l"><a href="#157">157 </a><span class="php-comment">     * @param string $type Request type to get
-</span></span><span id="158" class="l"><a href="#158">158 </a><span class="php-comment">     * @return array Regest vars array
+</span></span><span id="158" class="l"><a href="#158">158 </a><span class="php-comment">     * @return array Request vars array
 </span></span><span id="159" class="l"><a href="#159">159 </a><span class="php-comment">     */</span>
 </span><span id="160" class="l"><a href="#160">160 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> request_vars( <span class="php-var">$type</span> ) {
 </span><span id="161" class="l"><a href="#161">161 </a>        <span class="php-keyword1">switch</span> ( <span class="php-var">$type</span> ) {
 </span><span id="162" class="l"><a href="#162">162 </a>            <span class="php-keyword1">case</span> <span class="php-quote">'post'</span>:
-</span><span id="163" class="l"><a href="#163">163 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_POST</span>;
-</span><span id="164" class="l"><a href="#164">164 </a>                <span class="php-keyword1">break</span>;
-</span><span id="165" class="l"><a href="#165">165 </a>            <span class="php-keyword1">case</span> <span class="php-quote">'get'</span>:
-</span><span id="166" class="l"><a href="#166">166 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_POST</span>;
-</span><span id="167" class="l"><a href="#167">167 </a>                <span class="php-keyword1">break</span>;
-</span><span id="168" class="l"><a href="#168">168 </a>            <span class="php-keyword1">case</span> <span class="php-quote">'files'</span>:
-</span><span id="169" class="l"><a href="#169">169 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_POST</span>;
-</span><span id="170" class="l"><a href="#170">170 </a>                <span class="php-keyword1">break</span>;
-</span><span id="171" class="l"><a href="#171">171 </a>            <span class="php-keyword1">default</span>:
-</span><span id="172" class="l"><a href="#172">172 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_REQUEST</span>;
-</span><span id="173" class="l"><a href="#173">173 </a>                <span class="php-keyword1">break</span>;
-</span><span id="174" class="l"><a href="#174">174 </a>        }
-</span><span id="175" class="l"><a href="#175">175 </a>    }    
-</span><span id="176" class="l"><a href="#176">176 </a>
-</span><span id="177" class="l"><a href="#177">177 </a>
-</span><span id="178" class="l"><a href="#178">178 </a>    <span class="php-comment">/**
-</span></span><span id="179" class="l"><a href="#179">179 </a><span class="php-comment">     * Gets the file structures and converts it if needed
-</span></span><span id="180" class="l"><a href="#180">180 </a><span class="php-comment">     *
-</span></span><span id="181" class="l"><a href="#181">181 </a><span class="php-comment">     * @since 1.0.0
-</span></span><span id="182" class="l"><a href="#182">182 </a><span class="php-comment">     * @access private
-</span></span><span id="183" class="l"><a href="#183">183 </a><span class="php-comment">     * @param string $path The file path to load
-</span></span><span id="184" class="l"><a href="#184">184 </a><span class="php-comment">     * @return array|bool object structure array or false if invalid
-</span></span><span id="185" class="l"><a href="#185">185 </a><span class="php-comment">     */</span>
-</span><span id="186" class="l"><a href="#186">186 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> get_file_structure( <span class="php-var">$path</span> ){
-</span><span id="187" class="l"><a href="#187">187 </a>        <span class="php-keyword2">ob_start</span>();
-</span><span id="188" class="l"><a href="#188">188 </a>        <span class="php-var">$content</span> = <span class="php-keyword1">include</span> <span class="php-var">$path</span>;
-</span><span id="189" class="l"><a href="#189">189 </a>        <span class="php-var">$has_output</span> = <span class="php-keyword2">ob_get_clean</span>();
-</span><span id="190" class="l"><a href="#190">190 </a>        <span class="php-comment">// did stuff output</span>
-</span><span id="191" class="l"><a href="#191">191 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$has_output</span> ) )
-</span><span id="192" class="l"><a href="#192">192 </a>            <span class="php-var">$content</span> = <span class="php-keyword2">json_decode</span>( <span class="php-var">$has_output</span>, ARRAY_A );
+</span><span id="163" class="l"><a href="#163">163 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_POST</span>;                
+</span><span id="164" class="l"><a href="#164">164 </a>            <span class="php-keyword1">case</span> <span class="php-quote">'get'</span>:
+</span><span id="165" class="l"><a href="#165">165 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_POST</span>;                
+</span><span id="166" class="l"><a href="#166">166 </a>            <span class="php-keyword1">case</span> <span class="php-quote">'files'</span>:
+</span><span id="167" class="l"><a href="#167">167 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_POST</span>;                
+</span><span id="168" class="l"><a href="#168">168 </a>            <span class="php-keyword1">default</span>:
+</span><span id="169" class="l"><a href="#169">169 </a>                <span class="php-keyword1">return</span> <span class="php-var">$_REQUEST</span>;                
+</span><span id="170" class="l"><a href="#170">170 </a>        }
+</span><span id="171" class="l"><a href="#171">171 </a>    }    
+</span><span id="172" class="l"><a href="#172">172 </a>
+</span><span id="173" class="l"><a href="#173">173 </a>
+</span><span id="174" class="l"><a href="#174">174 </a>    <span class="php-comment">/**
+</span></span><span id="175" class="l"><a href="#175">175 </a><span class="php-comment">     * Gets the file structures and converts it if needed
+</span></span><span id="176" class="l"><a href="#176">176 </a><span class="php-comment">     *
+</span></span><span id="177" class="l"><a href="#177">177 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="178" class="l"><a href="#178">178 </a><span class="php-comment">     * @access private
+</span></span><span id="179" class="l"><a href="#179">179 </a><span class="php-comment">     * @param string $path The file path to load
+</span></span><span id="180" class="l"><a href="#180">180 </a><span class="php-comment">     * @return array|bool object structure array or false if invalid
+</span></span><span id="181" class="l"><a href="#181">181 </a><span class="php-comment">     */</span>
+</span><span id="182" class="l"><a href="#182">182 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> get_file_structure( <span class="php-var">$path</span> ){
+</span><span id="183" class="l"><a href="#183">183 </a>        <span class="php-keyword2">ob_start</span>();
+</span><span id="184" class="l"><a href="#184">184 </a>        <span class="php-var">$content</span> = <span class="php-keyword1">include</span> <span class="php-var">$path</span>;
+</span><span id="185" class="l"><a href="#185">185 </a>        <span class="php-var">$has_output</span> = <span class="php-keyword2">ob_get_clean</span>();
+</span><span id="186" class="l"><a href="#186">186 </a>        <span class="php-comment">// did stuff output</span>
+</span><span id="187" class="l"><a href="#187">187 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$has_output</span> ) )
+</span><span id="188" class="l"><a href="#188">188 </a>            <span class="php-var">$content</span> = <span class="php-keyword2">json_decode</span>( <span class="php-var">$has_output</span>, ARRAY_A );
+</span><span id="189" class="l"><a href="#189">189 </a>
+</span><span id="190" class="l"><a href="#190">190 </a>        <span class="php-keyword1">return</span> <span class="php-var">$content</span>;
+</span><span id="191" class="l"><a href="#191">191 </a>    }
+</span><span id="192" class="l"><a href="#192">192 </a>
 </span><span id="193" class="l"><a href="#193">193 </a>
-</span><span id="194" class="l"><a href="#194">194 </a>        <span class="php-keyword1">return</span> <span class="php-var">$content</span>;
-</span><span id="195" class="l"><a href="#195">195 </a>    }
-</span><span id="196" class="l"><a href="#196">196 </a>
-</span><span id="197" class="l"><a href="#197">197 </a>
-</span><span id="198" class="l"><a href="#198">198 </a>    <span class="php-comment">/**
-</span></span><span id="199" class="l"><a href="#199">199 </a><span class="php-comment">     * Opens a location and gets the file to load for each folder
-</span></span><span id="200" class="l"><a href="#200">200 </a><span class="php-comment">     *
-</span></span><span id="201" class="l"><a href="#201">201 </a><span class="php-comment">     * @since 1.0.0
-</span></span><span id="202" class="l"><a href="#202">202 </a><span class="php-comment">     * @access private
-</span></span><span id="203" class="l"><a href="#203">203 </a><span class="php-comment">     * @param array $paths to fetch contents of
-</span></span><span id="204" class="l"><a href="#204">204 </a><span class="php-comment">     * @param bool $file flag to set file fetching
-</span></span><span id="205" class="l"><a href="#205">205 </a><span class="php-comment">     * @return array List of folders and files
-</span></span><span id="206" class="l"><a href="#206">206 </a><span class="php-comment">     */</span>
-</span><span id="207" class="l"><a href="#207">207 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> get_files_from_folders( <span class="php-var">$path</span>, <span class="php-var">$file</span> = <span class="php-keyword1">false</span> ) {
-</span><span id="208" class="l"><a href="#208">208 </a>        <span class="php-var">$items</span> = <span class="php-keyword1">array</span>();
-</span><span id="209" class="l"><a href="#209">209 </a>        <span class="php-var">$uid</span> = @ <span class="php-keyword2">opendir</span>( <span class="php-var">$path</span> );
-</span><span id="210" class="l"><a href="#210">210 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$uid</span> ) {
-</span><span id="211" class="l"><a href="#211">211 </a>            <span class="php-keyword1">while</span>( ( <span class="php-var">$item</span> = <span class="php-keyword2">readdir</span>( <span class="php-var">$uid</span> ) ) !== <span class="php-keyword1">false</span> ) {
-</span><span id="212" class="l"><a href="#212">212 </a>                <span class="php-keyword1">if</span> ( <span class="php-keyword2">substr</span>( <span class="php-var">$item</span>, <span class="php-num">0</span>, <span class="php-num">1</span>) == <span class="php-quote">'.'</span> )
-</span><span id="213" class="l"><a href="#213">213 </a>                    <span class="php-keyword1">continue</span>;
-</span><span id="214" class="l"><a href="#214">214 </a>                <span class="php-keyword1">if</span>( <span class="php-keyword1">false</span> === <span class="php-var">$file</span> ){
-</span><span id="215" class="l"><a href="#215">215 </a>                    <span class="php-var">$items</span>[ <span class="php-var">$item</span> ] = <span class="php-var">$this</span>-&gt;get_files_from_folders( <span class="php-var">$path</span> . <span class="php-var">$item</span>, <span class="php-keyword1">true</span> );
-</span><span id="216" class="l"><a href="#216">216 </a>                }<span class="php-keyword1">else</span>{
-</span><span id="217" class="l"><a href="#217">217 </a>                    <span class="php-var">$items</span>[] = <span class="php-var">$path</span> . <span class="php-quote">'/'</span> . <span class="php-var">$item</span>;
-</span><span id="218" class="l"><a href="#218">218 </a>                }
-</span><span id="219" class="l"><a href="#219">219 </a>            }
-</span><span id="220" class="l"><a href="#220">220 </a>            @<span class="php-keyword2">closedir</span>( <span class="php-var">$uid</span> );
-</span><span id="221" class="l"><a href="#221">221 </a>        }
-</span><span id="222" class="l"><a href="#222">222 </a>
-</span><span id="223" class="l"><a href="#223">223 </a>        <span class="php-keyword1">return</span> <span class="php-var">$items</span>;
-</span><span id="224" class="l"><a href="#224">224 </a>    }
-</span><span id="225" class="l"><a href="#225">225 </a>}</span></code></pre>
+</span><span id="194" class="l"><a href="#194">194 </a>    <span class="php-comment">/**
+</span></span><span id="195" class="l"><a href="#195">195 </a><span class="php-comment">     * Opens a location and gets the file to load for each folder
+</span></span><span id="196" class="l"><a href="#196">196 </a><span class="php-comment">     *
+</span></span><span id="197" class="l"><a href="#197">197 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="198" class="l"><a href="#198">198 </a><span class="php-comment">     * @access private
+</span></span><span id="199" class="l"><a href="#199">199 </a><span class="php-comment">     * @param string $path  The file patch to examine and to fetch contents from
+</span></span><span id="200" class="l"><a href="#200">200 </a><span class="php-comment">     * @param bool $file flag to set file fetching vs folder load
+</span></span><span id="201" class="l"><a href="#201">201 </a><span class="php-comment">     * @return array List of folders and files
+</span></span><span id="202" class="l"><a href="#202">202 </a><span class="php-comment">     */</span>
+</span><span id="203" class="l"><a href="#203">203 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> get_files_from_folders( <span class="php-var">$path</span>, <span class="php-var">$file</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="204" class="l"><a href="#204">204 </a>        <span class="php-var">$items</span> = <span class="php-keyword1">array</span>();
+</span><span id="205" class="l"><a href="#205">205 </a>        <span class="php-var">$uid</span> = @ <span class="php-keyword2">opendir</span>( <span class="php-var">$path</span> );
+</span><span id="206" class="l"><a href="#206">206 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$uid</span> ) {
+</span><span id="207" class="l"><a href="#207">207 </a>            <span class="php-keyword1">while</span>( ( <span class="php-var">$item</span> = <span class="php-keyword2">readdir</span>( <span class="php-var">$uid</span> ) ) !== <span class="php-keyword1">false</span> ) {
+</span><span id="208" class="l"><a href="#208">208 </a>                <span class="php-keyword1">if</span> ( <span class="php-keyword2">substr</span>( <span class="php-var">$item</span>, <span class="php-num">0</span>, <span class="php-num">1</span>) == <span class="php-quote">'.'</span> )
+</span><span id="209" class="l"><a href="#209">209 </a>                    <span class="php-keyword1">continue</span>;
+</span><span id="210" class="l"><a href="#210">210 </a>                <span class="php-keyword1">if</span>( <span class="php-keyword1">false</span> === <span class="php-var">$file</span> ){
+</span><span id="211" class="l"><a href="#211">211 </a>                    <span class="php-var">$items</span>[ <span class="php-var">$item</span> ] = <span class="php-var">$this</span>-&gt;get_files_from_folders( <span class="php-var">$path</span> . <span class="php-var">$item</span>, <span class="php-keyword1">true</span> );
+</span><span id="212" class="l"><a href="#212">212 </a>                }<span class="php-keyword1">else</span>{
+</span><span id="213" class="l"><a href="#213">213 </a>                    <span class="php-var">$items</span>[] = <span class="php-var">$path</span> . <span class="php-quote">'/'</span> . <span class="php-var">$item</span>;
+</span><span id="214" class="l"><a href="#214">214 </a>                }
+</span><span id="215" class="l"><a href="#215">215 </a>            }
+</span><span id="216" class="l"><a href="#216">216 </a>            @<span class="php-keyword2">closedir</span>( <span class="php-var">$uid</span> );
+</span><span id="217" class="l"><a href="#217">217 </a>        }
+</span><span id="218" class="l"><a href="#218">218 </a>
+</span><span id="219" class="l"><a href="#219">219 </a>        <span class="php-keyword1">return</span> <span class="php-var">$items</span>;
+</span><span id="220" class="l"><a href="#220">220 </a>    }
+</span><span id="221" class="l"><a href="#221">221 </a>}</span></code></pre>
 	</div>
 
 	<div id="footer">
@@ -365,6 +363,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?bf4333a6435d92c53edff831cbfbec1c7ed593bc"></script>
+<script src="elementlist.js?b1a393574aa207567f599a2a2b112652116e835a"></script>
 </body>
 </html>
