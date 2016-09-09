@@ -11,6 +11,8 @@
 
 // This array is for the Admin Pages. each element defines a page that is seen in the admin
 $pages = array(
+    'nopage'       => array(                                                         // this is the settings array. The key is the page slug
+    ),    
     'childpage'       => array(                                                         // this is the settings array. The key is the page slug
         'page_title'    =>  __( 'UIX Demo Page', 'text-domain'),                        // title of the page
         'menu_title'    =>  __( 'UIX Demo', 'text-domain'),                        // title seen on the menu link
