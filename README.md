@@ -1,4 +1,4 @@
-# UIX2
+# UIX
 
 UIX is a small framework for creating user interfaces ( Post Types, Settings Pages, and Metaboxes ) and config structures with the least code possible. It only handles the UI. The program logic is up to you.
 
@@ -33,20 +33,20 @@ The problem with both the include and composer is versioning. The Grunt installe
 Get the [UIX-WP starter plugin]( https://github.com/Desertsnowman/uix-wp ) and copy it a folder in your plugins directory.
 Edit the `package.json` file with the details of your plugin. Pay close attention to the `namespace` and the `prefix` as these are very important.
 
-Once thats done, run `npm install` and wait. The latest version will be pulled from this repo, and the `uix2` namespace rewritten under your own plugin.
+Once thats done, run `npm install` and wait. The latest version will be pulled from this repo, and the `uix` namespace rewritten under your own plugin.
 So theres no chance of having a clashing version
 
 Then simply go to WordPress admin and activate the plugin.
 
 ## Registration
 
-UIX has a `uix2()` helper function you can use to add UI objects as needed, or it can auto load UI structures from a defined UI folder.
+UIX has a `uix()` helper function you can use to add UI objects as needed, or it can auto load UI structures from a defined UI folder.
 
 ### Helper Function
 
 The helper function makes it easy to add UI structures quickly.
 ```php
-$employees = uix2()->add( 'post_type', 'employees', array(
+$employees = uix()->add( 'post_type', 'employees', array(
     'settings' => array(
         'label'                 => __( 'Employee', 'text-domain' ),
         'description'           => __( 'Employees Post Type', 'text-domain' ),
@@ -87,14 +87,14 @@ $metabox->section( 'employee_details', array(
 
 You can register a folder for UIX to scan and auto load any structures it finds. This means that you don't need ever write registraion code to make stuff happen.
 
-There is a `uix2_register` hook that will allow you to register the folder location where the definition files are kept.
+There is a `uix_register` hook that will allow you to register the folder location where the definition files are kept.
 You can use it like this:
 
 ```php
 function register_ui_folders( $uix ){
     $uix->register( plugin_dir_path( __FILE__ ) . 'includes/ui' );
 }
-add_action( 'uix2_register', 'register_ui_folders' );
+add_action( 'uix_register', 'register_ui_folders' );
 ```
 
 The path registered should have folders of each type of UI object and contain fields defining the UI structure:
