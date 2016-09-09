@@ -31,9 +31,18 @@ class metabox extends panel {
      *
      * @since 1.0.0
      * @access public
-     * @var      object|WP_Post
+     * @var      WP_Post
      */
     public $post = null;
+
+    /**
+     * Status of the metabox to determin if assets should be loaded
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      bool
+     */
+    public $is_active = false;
 
 
     /**
@@ -46,10 +55,27 @@ class metabox extends panel {
 
         // run parent to keep init and enqueuing assets
         parent::actions();
+        // set screen activation
+        add_action( 'current_screen', array( $this, 'set_active_status'), 25 );
         // add metaboxes
-        add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );
+        add_action( 'add_meta_boxes', array( $this, 'add_metaboxes'), 25 );        
         // save metabox
         add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
+
+    }
+
+    /**
+     * Setup submission data
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function setup(){
+        // do parent
+        parent::setup();
+        if( !isset( $this->struct['screen'] ) ){
+            $this->struct['screen'] = null;
+        }
     }
 
     /**
@@ -88,7 +114,20 @@ class metabox extends panel {
         <?php
     }
 
+    /**
+     * Checks the screen object to determin if the metabox should load assets
+     *
+     * @since 1.0.0
+     * @access public
+     * @uses "current_screen" hook
+     * @param screen $screen The current screen object;
+     */
+    public function set_active_status( $screen ){
 
+        if( $screen->base == 'post' && ( null === $this->struct['screen'] || in_array( $screen->id, ( array ) $this->struct['screen'] ) ) )
+            $this->is_active = true;
+
+    }
     /**
      * Add metaboxes to screen
      *
@@ -97,8 +136,6 @@ class metabox extends panel {
      * @uses "add_meta_boxes" hook
      */
     public function add_metaboxes(){
-
-        if( ! $this->is_active() ){ return; }
 
         // metabox defaults
         $defaults = array(
@@ -147,7 +184,7 @@ class metabox extends panel {
      * @access public
      */
     public function render(){
-        
+
         if( !empty( $this->struct['template'] ) ){
             ?>
             <div class="uix-item" data-uix="<?php echo esc_attr( $this->slug ); ?>">
@@ -251,29 +288,7 @@ class metabox extends panel {
      * @access public
      */
     public function is_active(){
-        if( !is_admin() ){ return false; }
-
-        if( !empty( $this->post ) ){
-            if( isset( $this->struct['screen'] ) && in_array( $this->post->post_type, (array) $this->struct['screen'] ) ){
-                return true;
-            }
-        }else{
-
-            if( function_exists( 'get_current_screen' ) ){
-                global $post;
-                // check that the screen object is valid to be safe.
-                $screen = get_current_screen();         
-                if( empty( $screen ) || !is_object( $screen ) || $screen->base !== 'post' ){
-                    return false;
-                }                
-                if( !empty( $screen->post_type ) && isset( $this->struct['screen'] ) && is_array( $this->struct['screen'] ) && in_array( $screen->id, $this->struct['screen'] ) ){
-                    $this->post = $post;
-                    return true;
-                }
-                // set current post                
-            }
-        }
-        return parent::is_active();     
+        return $this->is_active;
     }
 
 }
