@@ -186,29 +186,16 @@ class metabox extends panel {
     public function render(){
 
         if( !empty( $this->struct['template'] ) ){
-            ?>
-            <div class="uix-item" data-uix="<?php echo esc_attr( $this->slug ); ?>">
-            <?php
-                if( file_exists( $this->struct['template'] ) ){
-                    include $this->struct['template'];
-                }else{
-                    echo esc_html__( 'Template not found: ', 'text-domain' ) . $this->struct['template'];
-                }
-            ?>
-            </div>
-        <?php
-            }elseif( !empty( $this->child ) ){
-                // render fields setup
-                parent::render();
+            
+            $this->render_template();
 
-            }else{
-                echo esc_html__( 'No sections or template found', 'text-domain' );
-            }
+        }else{
+             // render fields setup
+            parent::render();
+        
+        }
         ?>
         <script type="text/javascript">
-            <?php if( !empty( $this->struct['chromeless'] ) ){ ?>
-                jQuery('#<?php echo $this->slug; ?>').addClass('uix-chromeless');
-            <?php } ?>
             jQuery('#<?php echo $this->slug; ?>').addClass('uix-metabox');
         </script>        
         <?php
