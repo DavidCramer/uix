@@ -11,6 +11,29 @@
 
 // This array is for the Admin Pages. each element defines a page that is seen in the admin
 $pages = array(
+    'childpage'       => array(                                                         // this is the settings array. The key is the page slug
+        'page_title'    =>  __( 'UIX Demo Page', 'text-domain'),                        // title of the page
+        'menu_title'    =>  __( 'UIX Demo', 'text-domain'),                        // title seen on the menu link
+        'save_button'   =>  __( 'Save Changes', 'text-domain'),
+        'capability'    =>  'manage_options',                                     // required capability to access page
+        'icon'          =>  'dashicons-welcome-learn-more',                              // Icon or image to be used on admin menu
+        'base_color'    =>  '#27ae60',
+        'parent'        =>  'options-general.php',
+        'section'       =>  array(
+            'subbox'       =>  array(
+                'label'         =>  __( 'First Page', 'text-domain' ),
+                'description'   =>  __( 'An example page with some controls.', 'text-domain' ),       
+                'control'       =>  array(
+                    'control_test'         =>  array(
+                        'label'             =>  __( 'Title', 'text-domain' ),
+                        'description'       =>  __( 'A single text field control', 'text-domain' ),
+                        'type'              =>  'text',
+                        'sanitize_callback' =>  'sanitize_text_field',     
+                    ),
+                ),
+            ),
+        ),        
+    ),    
     'uixdemo'       => array(                                                         // this is the settings array. The key is the page slug
         'page_title'    =>  __( 'UIX Demo Page', 'text-domain'),                        // title of the page
         'menu_title'    =>  __( 'UIX Demo', 'text-domain'),                        // title seen on the menu link

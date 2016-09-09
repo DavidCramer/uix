@@ -43,4 +43,18 @@ class Test_UIX extends WP_UnitTestCase {
         return $panel;
     }
 
+    public function test_admin_menu() {
+        global $submenu, $admin_page_hooks;
+
+        $this->assertEmpty( $admin_page_hooks );
+
+        // add register action loaded the page demo
+        $uix = uix();
+        do_action( 'admin_menu' );
+        $this->assertNotEmpty( $admin_page_hooks );
+
+        $this->assertSame( $admin_page_hooks['uixdemo'], 'uix-demo' );
+
+    }    
+
 }
