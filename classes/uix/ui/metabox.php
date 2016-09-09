@@ -126,10 +126,9 @@ class metabox extends panel {
      * @since 1.0.0
      * @uses "add_meta_box" function
      * @access public
-     * @param object/wp_post $post Current post for the metabox
-     * @param array $metabox Metabox args array
+     * @param wp_post $post Current post for the metabox
      */
-    public function create_metabox( $post, $metabox ){
+    public function create_metabox( $post ){
 
         $this->post = $post;    
         
@@ -209,14 +208,11 @@ class metabox extends panel {
      * @since 1.0.0
      * @access public
      * @param int $post_id ID of the current post being saved
-     * @param object/wp_post $post Current post being saved
+     * @param wp_post $post Current post being saved
      */
     public function save_meta( $post_id, $post ){
         $this->post = $post;
         if( ! $this->is_active() ){ return; }
-
-        $data = uix()->request_vars( 'post' );
-
 
         foreach( $this->child as $section ){
             $section_data = $section->get_data();
@@ -249,26 +245,9 @@ class metabox extends panel {
     }
 
     /**
-     * Get current data for all sections of the metabox
-     * @since 1.0.0
-     * @access public
-     * @param string $slug The slug of the metabox to get sections data for
-     */
-    public function get_sections_data( $slug ){
-        
-        $metabox = $this->get( $slug );
-        $data = array();
-        if( !empty( $metabox['sections'] ) ){
-            foreach( $metabox['sections'] as $section_id => $section ){
-                $data[ $section_id ] = uix()->ui->sections->get_data( $section_id );
-            }
-        }
-        return $data;
-    }
-
-    /**
      * Determin which metaboxes are used for the current screen and set them active
      * @since 1.0.0
+     * @todo Need to not use global $post in here.
      * @access public
      */
     public function is_active(){
