@@ -38,6 +38,15 @@ class ui{
     public $ui;
 
     /**
+     * Array of post and get data
+     *
+     * @since 1.0.0
+     * @access private
+     * @var   array
+     */
+    private $data = array();
+
+    /**
      * Holds instance
      *
      * @since 1.0.0
@@ -53,7 +62,6 @@ class ui{
      * @access private
      */
     private function auto_load() {
-
         /**
          * do UI loader locations
          *
@@ -69,12 +77,9 @@ class ui{
             
             foreach( $paths as $path ) {
                 $has_struct = $this->get_file_structure( $path );
-                if( is_array( $has_struct ) ){
-                    foreach( $has_struct as $slug => $struct ){
-                        if( is_array( $struct ) )
-                            $this->add( $type, $slug, $struct );
-                    }
-                }
+                if( is_array( $has_struct ) )
+                    $this->add_objects( $type, $has_struct );
+
             }
         }
     
@@ -131,13 +136,16 @@ class ui{
      * Registers multiple objects
      *
      * @since 1.0.0
-     * @param string $type The type of object to check
-     * @return bool 
+     * @param string $type The type of object to add
+     * @param string $slug The objects slug to add
+     * @param array $structure The objects structure
+     * @param object $parent object
      */
-    public function add_objects( $type, array $objects, uix $parent = null ) {
-
-        $init = array( '\uix\ui\\' . $type, 'register' );
-        return is_callable( $init );
+    public function add_objects( $type, array $objects, $parent = null ) {
+        foreach( $objects as $slug => $struct ){
+            if( is_array( $struct ) )
+                $this->add( $type, $slug, $struct, $parent);
+        }
     }
 
 
@@ -146,14 +154,17 @@ class ui{
      * Return an instance of this class.
      *
      * @since 1.0.0
-     *
+     * @param array $request_data Current REQUEST superglobals
      * @return ui A single instance of this class
      */
-    public static function get_instance() {
+    public static function get_instance( $request_data ) {
 
         // If the single instance hasn't been set, set it now.
-        if ( ! isset( self::$instance ) ) {
+        if ( isset( self::$instance ) ) {
+            self::$instance->data = $request_data;            
+        }else{
             self::$instance = new self;
+            self::$instance->data = $request_data;
             self::$instance->auto_load();
         }
 
@@ -187,16 +198,7 @@ class ui{
      * @return array Request vars array
      */
     public function request_vars( $type ) {
-        switch ( $type ) {
-            case 'post':
-                return $_POST;                
-            case 'get':
-                return $_GET;                
-            case 'files':
-                return $_POST;                
-            default:
-                return $_REQUEST;                
-        }
+        return $this->data[ $type ];
     }    
 
 

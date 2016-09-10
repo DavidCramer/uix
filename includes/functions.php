@@ -37,6 +37,12 @@ function uix_autoload_class( $class ){
  * @since 1.0.0
  */
 function uix(){
+    $request_data = array(
+        'post'      => $_POST,
+        'get'       => $_GET,
+        'files'     => $_FILES,
+        'request'   => $_REQUEST,
+    );
     // init UI
-    return \uix\ui::get_instance();
+    return \uix\ui::get_instance( $request_data );
 }
