@@ -65,6 +65,15 @@ abstract class uix{
     public $parent;    
 
     /**
+     * List of attributes to apply to the wrapper element
+     *
+     * @since 1.0.0
+     * @access public
+     * @var array
+     */
+    public $attributes = array();
+
+    /**
      * Base URL of this class
      *
      * @since 1.0.0
@@ -114,7 +123,10 @@ abstract class uix{
         $this->set_url();
 
         // do setup
-        if( $this->setup() ){ return; }
+        $this->setup();
+
+        // setup attributes
+        $this->set_attributes();
 
         // define then register core styles
         $this->uix_styles();
@@ -141,6 +153,7 @@ abstract class uix{
                 }
             }
         }
+
     }
 
     /**
@@ -474,6 +487,38 @@ abstract class uix{
 
         return '#0073aa';
 
+    }
+
+    /**
+     * Sets the wrappers attributes
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function set_attributes(){
+
+        $this->attributes[ 'id' ] = $this->id();
+
+        if( !empty( $this->struct['attributes'] ) )
+            $this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );
+
+    }
+
+
+    /**
+     * Build Attributes for the input control
+     *
+     * @since  1.0.0
+     * @access public
+     * @return string Attributes string for applying to an element
+     */
+    public function build_attributes() {
+        
+        $attributes = array();
+        foreach( $this->attributes as $att => $value)
+            $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
+
+        return implode( ' ', $attributes );
     }
 
     /**

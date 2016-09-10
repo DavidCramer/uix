@@ -63,7 +63,10 @@ class ui{
 
         // go over each locations
         foreach( $this->locations as $type => $paths ){
-
+            
+            if( !$this->is_callable( $type ) )
+                continue;
+            
             foreach( $paths as $path ) {
                 $has_struct = $this->get_file_structure( $path );
                 if( is_array( $has_struct ) ){
@@ -73,8 +76,8 @@ class ui{
                     }
                 }
             }
-
         }
+    
     }
 
     /**
@@ -97,7 +100,6 @@ class ui{
         return null;
     }
 
-
     /**
      * Returns a callback for registering the object or null if invalid type
      *
@@ -112,6 +114,32 @@ class ui{
         }
         return $init;
     }
+
+    /**
+     * Checks if the object type is callable
+     *
+     * @since 1.0.0
+     * @param string $type The type of object to check
+     * @return bool 
+     */
+    public function is_callable( $type ) {
+        $init = array( '\uix\ui\\' . $type, 'register' );
+        return is_callable( $init );
+    }
+
+    /**
+     * Registers multiple objects
+     *
+     * @since 1.0.0
+     * @param string $type The type of object to check
+     * @return bool 
+     */
+    public function add_objects( $type, array $objects, uix $parent = null ) {
+
+        $init = array( '\uix\ui\\' . $type, 'register' );
+        return is_callable( $init );
+    }
+
 
 
     /**
@@ -141,12 +169,13 @@ class ui{
      * @param array|string $arr path, or array of paths to structures to autoload
      */
     public function register( $arr ) {
+        // set error handler for catching file location errors
+        set_error_handler( array( $this, 'silent_warning' ), E_WARNING );
         // determin how the structure works.
-        foreach( (array) $arr as $key => $value ){
-            if( is_dir( $value ) && !in_array( $value, $this->locations ) ){
-                $this->locations = array_merge( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
-            }
-        }
+        foreach( (array) $arr as $key => $value )
+            $this->locations = array_merge( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
+        // restore original handler
+        restore_error_handler();        
     }
 
     /**
@@ -162,7 +191,7 @@ class ui{
             case 'post':
                 return $_POST;                
             case 'get':
-                return $_POST;                
+                return $_GET;                
             case 'files':
                 return $_POST;                
             default:
@@ -202,7 +231,7 @@ class ui{
      */
     private function get_files_from_folders( $path, $file = false ) {
         $items = array();
-        $uid = @ opendir( $path );
+        $uid = opendir( $path );
         if ( $uid ) {
             while( ( $item = readdir( $uid ) ) !== false ) {
                 if ( substr( $item, 0, 1) == '.' )
@@ -213,9 +242,30 @@ class ui{
                     $items[] = $path . '/' . $item;
                 }
             }
-            @closedir( $uid );
+            closedir( $uid );
         }
 
         return $items;
     }
+
+    /**
+     * Handles E_WARNING error notices whan the file loader runs.
+     *
+     *
+     * @since 1.0.0
+     *
+     * @link http://php.net/manual/en/function.set-error-handler.php
+     * @param int $errno Contains the level of the error raised, as an integer. 
+     * @param string $errstr Contains the error message.
+     * @param string $errfile Which contains the filename that the error was raised in.
+     * @param int $errline which contains the line number the error was raised at.
+     * @return bool|null If built in handler is used then null is returned.
+     */
+    public function silent_warning( $errno, $errstr, $errfile, $errline ) {
+        $this->add( 'notice', 'notice_' . $errno . '-' . $errline, array(
+            'description' => '<strong>' . __( 'Warning' ) . '</strong>: ' . $errstr . '<br>on ' . $errfile .' line ' . $errline,
+            'state'       => 'warning'
+        )  );
+    }
+
 }

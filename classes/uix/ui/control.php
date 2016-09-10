@@ -129,22 +129,6 @@ class control extends \uix\data\data{
     }
 
     /**
-     * Build Attributes for the input control
-     *
-     * @since  1.0.0
-     * @access public
-     * @return string Attributes setup for the input field 
-     */
-    public function build_attributes() {
-        
-        $attributes = array();
-        foreach( $this->attributes() as $att => $value)
-            $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
-
-        return implode( ' ', $attributes );
-    }
-
-    /**
      * Returns the main input field for rendering
      *
      * @since 1.0.0

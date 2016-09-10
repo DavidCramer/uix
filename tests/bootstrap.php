@@ -28,6 +28,7 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 function uix_load_test_structures( $uix ){
     $uix->register( dirname( __FILE__ ) . '/ui' );
+    $uix->register( dirname( __FILE__ ) . '/bad' );
 }
 tests_add_filter( 'uix_register', 'uix_load_test_structures' );
 

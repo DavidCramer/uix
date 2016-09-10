@@ -14,6 +14,7 @@ class Test_UIX extends WP_UnitTestCase {
         $uix->register( __DIR__ . '/ui' );
     }
 
+
     public function test_register_hook() {
         // checks to see if the auto loader loaded structures
         $uix = uix();
@@ -41,6 +42,11 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertEmpty( $panel->get_data() );
 
         return $panel;
+    }
+
+    public function test_failed_auto_adding() {
+        $uix = uix();
+        $this->assertNotEmpty( $uix->ui->notice );
     }
 
     public function test_admin_menu() {
