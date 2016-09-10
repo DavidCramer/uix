@@ -137,8 +137,7 @@ class ui{
      *
      * @since 1.0.0
      * @param string $type The type of object to add
-     * @param string $slug The objects slug to add
-     * @param array $structure The objects structure
+     * @param array $objects The objects structure
      * @param object $parent object
      */
     public function add_objects( $type, array $objects, $parent = null ) {
