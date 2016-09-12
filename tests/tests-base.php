@@ -18,6 +18,7 @@ class Test_UIX extends WP_UnitTestCase {
     public function test_register_hook() {
         // checks to see if the auto loader loaded structures
         $uix = uix();
+        $uix->autoload();
         $this->assertNotEmpty( $uix->ui );
     }
 
