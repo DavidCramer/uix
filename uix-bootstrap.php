@@ -42,7 +42,7 @@ if ( defined( 'WPINC' ) ) {
 
 
     // include uix helper functions and autoloader.
-    require_once( UIX_PATH . 'includes/functions.php' );
+    require_once( UIX_PATH . 'includes/functions.php');
 
     // register uix autoloader
     spl_autoload_register( 'uix_autoload_class', true, false );

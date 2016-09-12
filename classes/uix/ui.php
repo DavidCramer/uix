@@ -11,8 +11,8 @@
 namespace uix;
 
 /**
- * UI loader and handler class. This forms a single instance with UI objects attached.
- * 
+ * UI loader and handler class. This forms a single instance with UI objects attached
+ *
  * @package uix
  * @author  David Cramer
  */
@@ -59,9 +59,9 @@ class ui{
      * UI structure auto load
      *
      * @since 1.0.0
-     * @access private
+     * @access public
      */
-    private function auto_load() {
+    public function auto_load() {
         /**
          * do UI loader locations
          *
@@ -151,7 +151,7 @@ class ui{
 
     /**
      * Return an instance of this class.
-     *
+     * @codeCoverageIgnore
      * @since 1.0.0
      * @param array $request_data Current REQUEST superglobals
      * @return ui A single instance of this class

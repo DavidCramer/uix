@@ -10,7 +10,7 @@
 
 class Test_Data extends WP_UnitTestCase {
 
-    public function test_sumbit_data() {
+    public function test_submit_data() {
         $uix = uix();
         $control = $uix->add('control', 'test_field', array(
             'type'  =>  'text',
@@ -60,6 +60,44 @@ class Test_Data extends WP_UnitTestCase {
         $changed_hash = md5( json_encode( $changed_data ) );
         $this->assertSame( $new_hash, $changed_hash );
 
-    }    
+    }
+
+    public function test_new_box() {
+        $uix = uix();
+
+        $box = $uix->add( 'box', 'my_test', array(
+            'label'         => 'Test Box',
+            'description'   => 'A New Added Box',
+            'control'   => array(
+                'box_input' => array(
+                    'type'  =>  'text',
+                    'value' =>  'default'
+                )
+            )
+        ));
+        $this->assertTrue( isset( $uix->ui->box['my_test'] ) );
+
+        $box->init();
+
+        $data = $box->get_data();
+        $this->assertSame( $data['box_input'], 'default' );
+
+
+        $nonce = wp_create_nonce( $box->id() );
+        $_POST[ 'uixNonce_' . $box->id() ] = $nonce;
+        $_POST[ 'uix-text-box_inputuix-box-my_test'] = 'sweet';
+        $box->init();
+
+        $box->set_data( array( 'box_input' => 'sweet' ) );
+        $new_data = $box->get_data();
+
+        $this->assertSame( $new_data['box_input'], 'sweet' );
+        ob_start();
+        $box->render();
+        $rendered = ob_get_clean();
+        $this->assertTrue( is_string( $rendered ) );
+        $this->assertTrue( ( strlen( $rendered ) === 609 ) );
+
+    }
 
 }

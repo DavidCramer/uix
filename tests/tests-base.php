@@ -44,6 +44,12 @@ class Test_UIX extends WP_UnitTestCase {
         return $panel;
     }
 
+    public function test_invalid_add() {
+        $uix = uix();
+        $object = $uix->add('invalid', 'thing', array() );
+        $this->assertTrue( is_null( $object ) );
+    }
+
     public function test_failed_auto_adding() {
         $uix = uix();
         $this->assertNotEmpty( $uix->ui->notice );
