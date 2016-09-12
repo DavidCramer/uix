@@ -35,7 +35,7 @@ $pages = array(
                 ),
             ),
         ),        
-    ),    
+    ),
     'uixdemo'       => array(                                                         // this is the settings array. The key is the page slug
         'page_title'    =>  __( 'UIX Demo Page', 'text-domain'),                        // title of the page
         'menu_title'    =>  __( 'UIX Demo', 'text-domain'),                        // title seen on the menu link
@@ -46,13 +46,13 @@ $pages = array(
         'section'       =>  array(
             'general'       =>  array(
                 'label'         =>  __( 'First Page', 'text-domain' ),
-                'description'   =>  __( 'An example page with some controls.', 'text-domain' ),       
+                'description'   =>  __( 'An example page with some controls.', 'text-domain' ),
                 'control'       =>  array(
                     'title'         =>  array(
                         'label'             =>  __( 'Title', 'text-domain' ),
                         'description'       =>  __( 'A single text field control', 'text-domain' ),
                         'type'              =>  'text',
-                        'sanitize_callback' =>  'sanitize_text_field',     
+                        'sanitize_callback' =>  'sanitize_text_field',
                     ),
                     'options'       => array(
                         'label'             =>  __( 'Options', 'text-domain' ),
@@ -70,9 +70,9 @@ $pages = array(
                         'description'   =>  __( 'A textarea description block.', 'text-domain' ),
                         'type'          => 'textarea'
                     ),
-                ), 
-                
-            ),            
+                ),
+
+            ),
             'controls'            => array(
                 'label'             =>  __( 'Controls', 'text-domain' ),
                 'description'       =>  __( 'A Few controls, with nested panels and sections.', 'text-domain' ),
@@ -116,11 +116,11 @@ $pages = array(
                                 'panel'                 =>  array(
                                     'extended_panel'        =>  array(
                                         'top_tabs'              =>  true,
-                                        'base_color'            =>  '#e67e22',   
+                                        'base_color'            =>  '#e67e22',
                                         'section'               =>  array(
                                             'nested_section'        =>  array(
                                                 'label'                 =>  __( 'Section One', 'text-domain' ),
-                                                'description'           =>  __( 'A Nested section in a panel.', 'text-domain' ),                                                
+                                                'description'           =>  __( 'A Nested section in a panel.', 'text-domain' ),
                                                 'control'               => array(
                                                     'nested_editor'         => array(
                                                         'type'                  =>  'editor',
@@ -129,14 +129,14 @@ $pages = array(
                                             ),
                                             'second_nested'     =>  array(
                                                 'label'             =>  __( 'Section Two', 'text-domain' ),
-                                                'description'       =>  __( 'A Two Nested Section.', 'text-domain' ),        
+                                                'description'       =>  __( 'A Two Nested Section.', 'text-domain' ),
                                                 'panel'           =>  array(
                                                     'uber_nested'        =>  array(
                                                         'base_color'            =>  '#8e44ad',
                                                         'section'               =>  array(
                                                             'uber_nested_section'       =>  array(
                                                                 'label'                 =>  __( 'Section One', 'text-domain' ),
-                                                                'description'           =>  __( 'A Nested section in a panel.', 'text-domain' ),                                                
+                                                                'description'           =>  __( 'A Nested section in a panel.', 'text-domain' ),
                                                                 'control'               => array(
                                                                     'nested_editor'         => array(
                                                                         'type'                  =>  'editor',
@@ -145,28 +145,28 @@ $pages = array(
                                                             ),
                                                             'uber_second_nested'    =>  array(
                                                                 'label'             =>  __( 'Section Two', 'text-domain' ),
-                                                                'description'       =>  __( 'A Two Nested Section.', 'text-domain' ),        
+                                                                'description'       =>  __( 'A Two Nested Section.', 'text-domain' ),
                                                                 'control'           =>  array(
                                                                     'uber_second_email'  => array(
                                                                         'label'             =>  __( 'Email', 'text-domain' ),
                                                                         'type'              =>  'email',
                                                                         'sanitize_callback' =>  'sanitize_email',
-                                                                    ), 
+                                                                    ),
                                                                     'uber_second_age'    => array(
                                                                         'label'             =>  __( 'Age', 'text-domain' ),
                                                                         'type'              =>  'number',
-                                                                    ), 
+                                                                    ),
                                                                 ),
                                                             ),
                                                             'third_nested_uber'   =>  array(
                                                                 'label'             =>  __( 'Section Three', 'text-domain' ),
-                                                                'description'       =>  __( 'A Three Nested Section.', 'text-domain' ),        
+                                                                'description'       =>  __( 'A Three Nested Section.', 'text-domain' ),
                                                                 'control'           =>  array(
                                                                     'ubr_third_name'   => array(
                                                                         'label'             =>  __( 'Name', 'text-domain' ),
                                                                         'type'              =>  'text',
                                                                         'sanitize_callback' =>  'sanitize_text_field',
-                                                                    ), 
+                                                                    ),
                                                                     'ubr_third_bio'    => array(
                                                                         'label'             =>  __( 'Bio', 'text-domain' ),
                                                                         'type'              =>  'textarea',
@@ -175,53 +175,53 @@ $pages = array(
                                                             ),
                                                             'fourth_nested_uber'   =>  array(
                                                                 'label'             =>  __( 'Section Three', 'text-domain' ),
-                                                                'description'       =>  __( 'A Three Nested Section.', 'text-domain' ),        
+                                                                'description'       =>  __( 'A Three Nested Section.', 'text-domain' ),
                                                                 'control'           =>  array(
                                                                     'ubr_fourth_name'   => array(
                                                                         'label'             =>  __( 'Name', 'text-domain' ),
                                                                         'type'              =>  'text',
                                                                         'sanitize_callback' =>  'sanitize_text_field',
-                                                                    ), 
+                                                                    ),
                                                                     'ubr_fourth_email'  => array(
                                                                         'label'             =>  __( 'Email', 'text-domain' ),
                                                                         'type'              =>  'email',
                                                                         'sanitize_callback' =>  'sanitize_email',
-                                                                    ), 
+                                                                    ),
                                                                 ),
                                                             ),
                                                             'fifth_nested_uber'   =>  array(
                                                                 'label'             =>  __( 'Section Five', 'text-domain' ),
-                                                                'description'       =>  __( 'A Five Nested Section.', 'text-domain' ),        
+                                                                'description'       =>  __( 'A Five Nested Section.', 'text-domain' ),
                                                                 'control'           =>  array(
                                                                     'ubr_fifth_name'   => array(
                                                                         'label'             =>  __( 'Name', 'text-domain' ),
                                                                         'type'              =>  'text',
                                                                         'sanitize_callback' =>  'sanitize_text_field',
-                                                                    ), 
+                                                                    ),
                                                                     'ubr_fifth_email'  => array(
                                                                         'label'             =>  __( 'Email', 'text-domain' ),
                                                                         'type'              =>  'email',
                                                                         'sanitize_callback' =>  'sanitize_email',
-                                                                    ), 
+                                                                    ),
                                                                     'ubr_fifth_age'    => array(
                                                                         'label'             =>  __( 'Age', 'text-domain' ),
                                                                         'type'              =>  'number',
-                                                                    ), 
+                                                                    ),
                                                                 ),
                                                             ),
                                                             'sixth_nested_uber'   =>  array(
                                                                 'label'             =>  __( 'Section Size', 'text-domain' ),
-                                                                'description'       =>  __( 'A Size Nested Section.', 'text-domain' ),        
+                                                                'description'       =>  __( 'A Size Nested Section.', 'text-domain' ),
                                                                 'control'           =>  array(
                                                                     'ubr_sixth_email'  => array(
                                                                         'label'             =>  __( 'Email', 'text-domain' ),
                                                                         'type'              =>  'email',
                                                                         'sanitize_callback' =>  'sanitize_email',
-                                                                    ), 
+                                                                    ),
                                                                     'ubr_sixth_age'    => array(
                                                                         'label'             =>  __( 'Age', 'text-domain' ),
                                                                         'type'              =>  'number',
-                                                                    ), 
+                                                                    ),
                                                                     'ubr_sixth_bio'    => array(
                                                                         'label'             =>  __( 'Bio', 'text-domain' ),
                                                                         'type'              =>  'textarea',
@@ -234,7 +234,7 @@ $pages = array(
                                             ),
                                             'third_nested'     =>  array(
                                                 'label'             =>  __( 'Section Three', 'text-domain' ),
-                                                'description'       =>  __( 'A Three Nested Section.', 'text-domain' ),        
+                                                'description'       =>  __( 'A Three Nested Section.', 'text-domain' ),
                                                 'control'           =>  array(
                                                     'third_bio'    => array(
                                                         'label'             =>  __( 'Bio', 'text-domain' ),
@@ -244,28 +244,28 @@ $pages = array(
                                             ),
                                             'fourth_nested'     =>  array(
                                                 'label'             =>  __( 'Section Four', 'text-domain' ),
-                                                'description'       =>  __( 'A Four Nested Section.', 'text-domain' ),        
+                                                'description'       =>  __( 'A Four Nested Section.', 'text-domain' ),
                                                 'control'           =>  array(
                                                     'fourth_name'   => array(
                                                         'label'             =>  __( 'Name', 'text-domain' ),
                                                         'type'              =>  'text',
                                                         'sanitize_callback' =>  'sanitize_text_field',
-                                                    ), 
+                                                    ),
                                                 ),
                                             ),
                                             'fifth_nested'     =>  array(
                                                 'label'             =>  __( 'Section Five', 'text-domain' ),
-                                                'description'       =>  __( 'A Five Nested Section.', 'text-domain' ),        
+                                                'description'       =>  __( 'A Five Nested Section.', 'text-domain' ),
                                                 'control'           =>  array(
                                                     'fifth_email'  => array(
                                                         'label'             =>  __( 'Email', 'text-domain' ),
                                                         'type'              =>  'email',
                                                         'sanitize_callback' =>  'sanitize_email',
-                                                    ), 
+                                                    ),
                                                     'fifth_age'    => array(
                                                         'label'             =>  __( 'Age', 'text-domain' ),
                                                         'type'              =>  'number',
-                                                    ), 
+                                                    ),
                                                     'fifth_bio'    => array(
                                                         'label'             =>  __( 'Bio', 'text-domain' ),
                                                         'type'              =>  'textarea',
@@ -274,13 +274,13 @@ $pages = array(
                                             ),
                                             'sixth_nested'     =>  array(
                                                 'label'             =>  __( 'Section Size', 'text-domain' ),
-                                                'description'       =>  __( 'A Size Nested Section.', 'text-domain' ),        
+                                                'description'       =>  __( 'A Size Nested Section.', 'text-domain' ),
                                                 'control'           =>  array(
                                                     'sixth_email'  => array(
                                                         'label'             =>  __( 'Email', 'text-domain' ),
                                                         'type'              =>  'email',
                                                         'sanitize_callback' =>  'sanitize_email',
-                                                    ), 
+                                                    ),
                                                     'sixth_bio'    => array(
                                                         'label'             =>  __( 'Bio', 'text-domain' ),
                                                         'type'              =>  'textarea',
