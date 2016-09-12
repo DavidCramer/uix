@@ -282,20 +282,7 @@ abstract class uix{
             $caller = get_called_class();
             return new $caller( $slug, $object, $parent );
     }
-
-    /**
-     * Adds child objects to the current object
-     *
-     * @since 1.0.0
-     * @access public
-     * @param string $type Child object type
-     * @param string $slug Child object slug
-     * @param array $structure object structure array
-     * @return uix the child object added
-     */
-    public function add_child( $type, $slug, $structure ) {
-        return $this->{$type}( $slug, $structure );
-    }
+    
 
     /**
      * Magic caller for adding child objects

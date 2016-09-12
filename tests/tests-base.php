@@ -125,4 +125,22 @@ class Test_UIX extends WP_UnitTestCase {
 
     }
 
+    public function test_notice(){
+
+        $uix = uix();
+
+        $notice = $uix->add('notice', 'error', array(
+            'description' => 'error',
+            'dismissable' => true
+        ));
+
+        ob_start();
+        $notice->render();
+        $html = ob_get_clean();
+        $hash = md5( $html );
+        $this->assertSame( $hash, '07ce1d7a186fc0e98b5942003bec63ac');
+
+    }
+
 }
+
