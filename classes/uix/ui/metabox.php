@@ -110,23 +110,36 @@ class metabox extends panel {
         #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
         box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
-        <?php if( !empty( $this->struct['chromeless'] ) ){ ?>
-        #metabox-<?php echo $this->id(); ?>{
-            background: transparent none repeat scroll 0 0;
-            border: 0 none;
-            box-shadow: none;
-            margin: 0 0 20px;
-            padding: 0;
-        }
-        #metabox-<?php echo $this->id(); ?> .handlediv.button-link,
-        #metabox-<?php echo $this->id(); ?> .hndle {display: none;}
-        #metabox-<?php echo $this->id(); ?> > .inside {padding: 0;}
-        <?php } ?>
+        <?php
+        $this->chromeless();
+        ?>
         </style>
         <?php
 
     }
 
+    /**
+     * Writes script required to make a metabox `chromeless`
+     *
+     * @since 1.0.0
+     * @access protected
+     */
+    protected function chromeless(){
+
+        if( !empty( $this->struct['chromeless'] ) ){ ?>
+            #metabox-<?php echo $this->id(); ?>{
+            background: transparent none repeat scroll 0 0;
+            border: 0 none;
+            box-shadow: none;
+            margin: 0 0 20px;
+            padding: 0;
+            }
+            #metabox-<?php echo $this->id(); ?> .handlediv.button-link,
+            #metabox-<?php echo $this->id(); ?> .hndle {display: none;}
+            #metabox-<?php echo $this->id(); ?> > .inside {padding: 0;}
+        <?php }
+
+    }
     /**
      * Checks the screen object to determin if the metabox should load assets
      *
