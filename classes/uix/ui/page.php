@@ -131,12 +131,11 @@ class page extends panel implements \uix\data\save{
      */
     public function is_active(){
         if( !is_admin() ){ return false; }
-        // check that the scrren object is valid to be safe.
+
+        // check that the screen object is valid to be safe.
         $screen = get_current_screen();
-        if( empty( $screen ) || !is_object( $screen ) || $screen->base !== $this->plugin_screen_hook_suffix ){
-            return false;
-        }
-        return true;
+        return $screen->base === $this->plugin_screen_hook_suffix;
+
     }
 
     /**
