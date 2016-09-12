@@ -91,9 +91,8 @@ class post_type extends uix{
      */
     public function render() {
 
-        if( !empty( $this->struct['settings'] ) ){
+        if( !empty( $this->struct['settings'] ) )
             register_post_type( $this->slug, $this->struct['settings'] );
-        }
 
     }
 
@@ -109,11 +108,8 @@ class post_type extends uix{
 
         $screen = get_current_screen();
 
-        // check the screen is valid and is a uix post type page
-        if( !is_object( $screen ) || empty( $screen->post_type ) || $screen->post_type !== $this->slug ){
-            return false;
-        }
-        return true;
+        return $screen->post_type === $this->slug;
+
     }
 
 }
