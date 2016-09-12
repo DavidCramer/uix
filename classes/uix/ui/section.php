@@ -77,12 +77,11 @@ class section extends panel {
         if( !empty( $this->struct['template'] ) ){
             $this->render_template();
             return;
-        }
-
-        if( empty( $this->child ) ){ return; }
-
-        foreach ( $this->child as $control ) {
-            $control->render();
+        } elseif( empty( $this->child ) ){
+            return;
+        } else {
+            foreach ($this->child as $control)
+                $control->render();
         }
     }
 

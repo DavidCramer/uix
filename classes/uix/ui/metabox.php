@@ -110,8 +110,21 @@ class metabox extends panel {
         #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
         box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
+        <?php if( !empty( $this->struct['chromeless'] ) ){ ?>
+        #metabox-<?php echo $this->id(); ?>{
+            background: transparent none repeat scroll 0 0;
+            border: 0 none;
+            box-shadow: none;
+            margin: 0 0 20px;
+            padding: 0;
+        }
+        #metabox-<?php echo $this->id(); ?> .handlediv.button-link,
+        #metabox-<?php echo $this->id(); ?> .hndle {display: none;}
+        #metabox-<?php echo $this->id(); ?> > .inside {padding: 0;}
+        <?php } ?>
         </style>
         <?php
+
     }
 
     /**
@@ -147,7 +160,7 @@ class metabox extends panel {
         $metabox = array_merge( $defaults, $this->struct );
 
         add_meta_box(
-            $this->slug,
+            'metabox-' . $this->id(),
             $metabox['name'],
             array( $this, 'create_metabox' ),
             $metabox['screen'],
@@ -168,8 +181,8 @@ class metabox extends panel {
     public function create_metabox( $post ){
 
         $this->post = $post;    
-        
-        $data = get_post_meta( $post->ID );
+
+        $data = get_post_meta( $post->ID, $this->slug, true );
         
         $this->set_data( $data );
 
@@ -192,11 +205,10 @@ class metabox extends panel {
         }else{
              // render fields setup
             parent::render();
-        
         }
         ?>
         <script type="text/javascript">
-            jQuery('#<?php echo $this->slug; ?>').addClass('uix-metabox');
+            jQuery('#<?php echo $this->slug; ?>').addClass('uix-metabox')<?php if( $this->struct['chromeless'] ){ echo ".addClass('uix-chromeless')"; } ?>;
         </script>        
         <?php
         
@@ -214,15 +226,19 @@ class metabox extends panel {
      */
     public function save_meta( $post_id, $post ){
         $this->post = $post;
-        if( ! $this->is_active() ){ return; }
+        $data = $this->get_data();
 
-        foreach( $this->child as $section ){
-            $section_data = $section->get_data();
-            if( null === $section_data ){ continue; }
-            foreach( (array) $section_data as $meta_key=>$meta_value ){
-                $this->save_meta_data( $meta_key, $meta_value );
-            }
+        if( ! $this->is_active() || empty( $data ) ){ return; }
+
+        // save compiled data
+        update_post_meta( $post_id, $this->slug, $data );
+
+        $flat_data = call_user_func_array( 'array_merge', $data );
+
+        foreach( $flat_data as $meta_key => $meta_value ){
+            $this->save_meta_data( $meta_key, $meta_value );
         }
+
 
     }
 
@@ -230,11 +246,11 @@ class metabox extends panel {
      * Save the meta data for the post
      *
      * @since 1.0.0
-     * @access public
+     * @access private
      * @param string $slug slug of the meta_key
      * @param mixed $data Data to be saved
      */
-    public function save_meta_data( $slug, $data ){
+    private function save_meta_data( $slug, $data ){
 
         $prev = get_post_meta( $this->post->ID, $slug, true );
 
@@ -249,7 +265,6 @@ class metabox extends panel {
     /**
      * Determin which metaboxes are used for the current screen and set them active
      * @since 1.0.0
-     * @todo Need to not use global $post in here.
      * @access public
      */
     public function is_active(){

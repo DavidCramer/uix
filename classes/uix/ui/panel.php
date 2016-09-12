@@ -153,17 +153,31 @@ class panel extends \uix\data\data{
         $active = 'true';
         foreach( $this->child as $child ){
 
-            $label = esc_html( $child->struct['label'] );
-            if( !empty( $child->struct['icon'] ) )
-                $label = '<i class="dashicons ' . $child->struct['icon'] . '"></i><span class="label">' . esc_html( $child->struct['label'] ) . '</span>';
-
-            echo '<li aria-selected="' . esc_attr( $active ) . '">';
-                echo '<a href="#' . esc_attr( $child->id() ) . '" data-parent="' . esc_attr( $this->id() ) . '" class="uix-tab-trigger">' . $label . '</a>';
-            echo '</li>';
+            $this->tab_label( $child, $active );
 
             $active = 'false';
         }
         echo '</ul>';
+    }
+
+    /**
+     * Render the tabs label
+     *
+     * @since 1.0.0
+     * @param object $child Child object to render tab for.
+     * @param string $active Set the tabactive or not.
+     * @access private
+     */
+    private function tab_label( $child, $active ){
+
+        $label = esc_html( $child->struct['label'] );
+
+        if( !empty( $child->struct['icon'] ) )
+            $label = '<i class="dashicons ' . $child->struct['icon'] . '"></i><span class="label">' . esc_html( $child->struct['label'] ) . '</span>';
+
+        echo '<li aria-selected="' . esc_attr( $active ) . '">';
+        echo '<a href="#' . esc_attr( $child->id() ) . '" data-parent="' . esc_attr( $this->id() ) . '" class="uix-tab-trigger">' . $label . '</a>';
+        echo '</li>';
     }
 
     /**

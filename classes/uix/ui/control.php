@@ -36,13 +36,15 @@ class control extends \uix\data\data{
      * @return object|\uix object instance
      */
     public static function register( $slug, $object, $parent = null ) {
-            // get the current instance
-            if( empty( $object['type'] ) )
-                $object['type'] = 'text';
 
-            $caller = get_called_class() . '\\' . $object['type'];
-            
-            return new $caller( $slug, $object, $parent );
+        $caller = get_called_class();
+        // get the current instance
+        if( empty( $object['type'] ) || !is_callable( $caller . '\\' . $object['type'] ) )
+            $object['type'] = 'text';
+
+        $caller = $caller . '\\' . $object['type'];
+        return new $caller( $slug, $object, $parent );
+
     }
 
     /**
@@ -56,6 +58,7 @@ class control extends \uix\data\data{
         // run parents to setup sanitization filters
         parent::setup();
         $data = uix()->request_vars( 'post' );
+
         if( isset( $data[ $this->id() ] ) ){
             $this->set_data( $data[ $this->id() ] );
         }else{
@@ -114,18 +117,16 @@ class control extends \uix\data\data{
      * @access public
      * @return array Attributes for the input field
      */
-    public function attributes() {
+    public function set_attributes() {
 
-        $attributes = array(
+        parent::set_attributes();
+
+        $this->attributes = array_merge( $this->attributes, array(
             'id'        =>  'control-' . $this->id(),
             'name'      =>  $this->name(),
             'class'     =>  implode( ' ', $this->classes() )
-        );
+        ) );
 
-        if( !empty( $this->struct['attributes'] ) && is_array( $this->struct['attributes'] ) )
-            $attributes = array_merge( $attributes, $this->struct['attributes'] );
-
-        return $attributes;
     }
 
     /**
