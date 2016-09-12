@@ -61,16 +61,14 @@ class slider extends \uix\ui\control\text{
      *
      * @since  1.0.0
      * @access public
-     * @return array
      */
-    public function attributes() {
+    public function set_attributes() {
 
-        $attributes = parent::attributes();
-        $attributes['class']                        = 'uix-slider';
-        $attributes['data-type']                    = 'single';
-        $attributes['data-input-values-separator']  = ';';
-        
-        return $attributes;
+        parent::set_attributes();
+        $this->attributes['class']                        = 'uix-slider';
+        $this->attributes['data-type']                    = 'single';
+        $this->attributes['data-input-values-separator']  = ';';
+
     }
 
 }

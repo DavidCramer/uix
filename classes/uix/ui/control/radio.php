@@ -31,15 +31,13 @@ class radio extends \uix\ui\control{
      *
      * @since  1.0.0
      * @access public
-     * @return array
      */
-    public function attributes() {
+    public function set_attributes() {
+        parent::set_attributes();
 
-        $attributes         = parent::attributes();
-        $attributes['type'] = $this->type;
-        unset( $attributes['id'] );
+        $this->attributes['type'] = $this->type;
+        unset( $this->attributes['id'] );
 
-        return $attributes;
     }
 
 

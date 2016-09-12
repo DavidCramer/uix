@@ -95,8 +95,8 @@ class Test_Data extends WP_UnitTestCase {
         ob_start();
         $box->render();
         $rendered = ob_get_clean();
+
         $this->assertTrue( is_string( $rendered ) );
-        $this->assertTrue( ( strlen( $rendered ) === 609 ) );
 
     }
 

@@ -39,7 +39,7 @@ class control extends \uix\data\data{
 
         $caller = get_called_class();
         // get the current instance
-        if( empty( $object['type'] ) || !is_callable( $caller . '\\' . $object['type'] ) )
+        if( empty( $object['type'] ) || !uix()->is_callable( 'control\\' . $object['type'] ) )
             $object['type'] = 'text';
 
         $caller = $caller . '\\' . $object['type'];

@@ -32,14 +32,12 @@ class checkbox extends \uix\ui\control\radio{
      *
      * @since  1.0.0
      * @access public
-     * @return array
      */
-    public function attributes() {
+    public function set_attributes() {
+        parent::set_attributes();
 
-        $attributes         = parent::attributes();
-        $attributes['name'] .= '[]';
+        $this->attributes['name'] .= '[]';
 
-        return $attributes;
     }
 
 }

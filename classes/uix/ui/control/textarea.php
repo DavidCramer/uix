@@ -31,19 +31,17 @@ class textarea extends \uix\ui\control{
      *
      * @since  1.0.0
      * @access public
-     * @return array
      */
-    public function attributes() {
+    public function set_attributes() {
 
-        $attributes             = parent::attributes();
-        $attributes['rows']     = '5';
-        $attributes['class']    = 'widefat';
+        parent::set_attributes();
+        $this->attributes['rows']     = '5';
+        $this->attributes['class']    = 'widefat';
         
         if( !empty( $this->struct['rows'] ) ){
-            $attributes['rows'] = $this->struct['rows'];
+            $this->attributes['rows'] = $this->struct['rows'];
         }
 
-        return $attributes;
     }
 
     /**

@@ -60,14 +60,12 @@ class color extends \uix\ui\control\text{
      *
      * @since  1.0.0
      * @access public
-     * @return array
      */
-    public function attributes() {
+    public function set_attributes() {
 
-        $attributes = parent::attributes();
-        $attributes['class'] = 'color-field';
+        parent::set_attributes();
+        $this->attributes['class'] = 'color-field';
 
-        return $attributes;
     }
 
 }

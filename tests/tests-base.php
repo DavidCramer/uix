@@ -108,7 +108,7 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertNotEmpty( $styles );
         $this->assertNotEmpty( $wp_scripts );
 
-    }    
+    }
     public function test_post_type() {
 
         $uix = uix();
@@ -148,17 +148,19 @@ class Test_UIX extends WP_UnitTestCase {
         $uix = uix();
 
         // radio atts
-        $radio_atts = $uix->ui->box['saving']->child['radio']->attributes();
+        $uix->ui->box['saving']->child['radio']->set_attributes();
+        $radio_atts = $uix->ui->box['saving']->child['radio']->attributes;
 
         $test_atts = array(
-            'name' => "uix-radio-radiouix-box-saving",
-            'class' =>"widefat",
-            'type' => "radio"
+            'name' => 'uix-radio-radiouix-box-saving',
+            'class' => 'widefat',
+            'type' => 'radio',
         );
         $this->assertSame( $radio_atts, $test_atts );
 
         // checkbox atts
-        $check_atts = $uix->ui->box['saving']->child['checkbox']->attributes();
+        $uix->ui->box['saving']->child['checkbox']->set_attributes();
+        $check_atts = $uix->ui->box['saving']->child['checkbox']->attributes;
 
         $test_atts = array(
             'name' => "uix-checkbox-checkboxuix-box-saving[]",
@@ -171,8 +173,9 @@ class Test_UIX extends WP_UnitTestCase {
         ob_start();
         $uix->ui->box['saving']->child['checkbox']->render();
         $check_html = ob_get_clean();
+
         $hash = md5( $check_html );
-        $this->assertSame( $hash, '6bcac50fe799eba8b85dea35f5380dd4' );
+        $this->assertSame( $hash, '15f1f25dc5b62a89cd20b2a92d14c81a' );
 
 
         // text classes

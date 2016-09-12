@@ -105,15 +105,13 @@ class toggle extends \uix\ui\control{
      *
      * @since  1.0.0
      * @access public
-     * @return array Attributes for the input field
      */
-    public function attributes() {
+    public function set_attributes() {
 
-        $attributes = parent::attributes();
+        parent::set_attributes();
         if( !empty( $this->struct['toggle_all'] ) )
-            $attributes['data-toggle-all'] = 'true';
+            $this->attributes['data-toggle-all'] = 'true';
 
-        return $attributes;
     }
 
     /**
