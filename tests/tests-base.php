@@ -142,5 +142,48 @@ class Test_UIX extends WP_UnitTestCase {
 
     }
 
+
+    public function test_controls(){
+
+        $uix = uix();
+
+        // radio atts
+        $radio_atts = $uix->ui->box['saving']->child['radio']->attributes();
+
+        $test_atts = array(
+            'name' => "uix-radio-radiouix-box-saving",
+            'class' =>"widefat",
+            'type' => "radio"
+        );
+        $this->assertSame( $radio_atts, $test_atts );
+
+        // checkbox atts
+        $check_atts = $uix->ui->box['saving']->child['checkbox']->attributes();
+
+        $test_atts = array(
+            'name' => "uix-checkbox-checkboxuix-box-saving[]",
+            'class' =>"widefat",
+            'type' => "checkbox"
+        );
+        $this->assertSame( $check_atts, $test_atts );
+
+        // render checks
+        ob_start();
+        $uix->ui->box['saving']->child['checkbox']->render();
+        $check_html = ob_get_clean();
+        $hash = md5( $check_html );
+        $this->assertSame( $hash, '6bcac50fe799eba8b85dea35f5380dd4' );
+
+
+        // text classes
+        $text_classes = $uix->ui->box['saving']->child['text']->classes();
+        $test_classes = array( 'regular-text' );
+        $this->assertSame( $text_classes, $test_classes );
+
+
+
+    }
+
+
 }
 
