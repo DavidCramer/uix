@@ -153,6 +153,8 @@ class panel extends \uix\data\data{
         $active = 'true';
         foreach( $this->child as $child ){
 
+            if( $child->type === 'help' ){ continue; }
+
             $this->tab_label( $child, $active );
 
             $active = 'false';

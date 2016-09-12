@@ -175,8 +175,7 @@ abstract class uix{
         add_action( 'init', array( $this, 'init' ) );
         // init UIX headers
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_core' ) );
-        // queue helps
-        add_action( 'admin_head', array( $this, 'add_help' ) );        
+
     }
 
     /**
@@ -429,33 +428,6 @@ abstract class uix{
             return $this->parent->is_active();
         
         return true; // base is_active will result in true;
-    }
-
-    /**
-     * Add defined contextual help to current screen
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function add_help(){
-        
-        if( ! $this->is_active() ){ return; }
-
-        $screen = get_current_screen();
-        
-        if( !empty( $this->struct['help'] ) ){
-            foreach( (array) $this->struct['help'] as $help_slug => $help ){
-
-                $screen->add_help_tab( array(
-                    'id'       =>   $help_slug,
-                    'title'    =>   $help['title'],
-                    'content'  =>   $help['content']
-                ));
-            }
-        }            
-        // Help sidebars are optional
-        if(!empty( $this->struct['help_sidebar'] ) )
-            $screen->set_help_sidebar( $this->struct['help_sidebar'] );
     }
 
     /**
