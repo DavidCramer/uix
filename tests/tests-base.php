@@ -366,7 +366,7 @@ class Test_UIX extends WP_UnitTestCase {
 
         ob_start();
         do_action( 'admin_enqueue_scripts' );
-        do_action( 'wp_enqueue_scripts' );
+        do_action( 'wp_print_styles' );
         $styles = ob_get_clean();
 
         $this->assertNotEmpty( $wp_styles->registered['slider-control'] );
