@@ -23,3 +23,4 @@ after_script:
 branches:
     only:
         - master
+        - 1.0.x
