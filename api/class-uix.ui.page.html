@@ -84,7 +84,9 @@
 			<ul>
 				<li><a href="class-uix.ui.box.html">box</a></li>
 				<li><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.notice.html">notice</a></li>
 				<li class="active"><a href="class-uix.ui.page.html">page</a></li>
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
@@ -135,6 +137,17 @@
 		</dd>
 		<dd style="padding-left:90px">
 			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-uix.ui.box.html"><span>uix\ui\box</span></a>
+			
+			 implements 
+				<a href="class-uix.data.save.html"><span>uix\data\save</span></a>, 
+			
+				<a href="class-uix.data.load.html"><span>uix\data\load</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by">
 <b><span>uix\ui\page</span></b>			
 			 implements 
 				<a href="class-uix.data.save.html"><span>uix\data\save</span></a>
@@ -158,7 +171,7 @@
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.page.html#13-251" title="Go to source code">classes/uix/ui/page.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.page.html#13-226" title="Go to source code">classes/uix/ui/page.php</a>
 		<br>
 	</div>
 
@@ -178,7 +191,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_actions">#</a>
-			<code><a href="source-class-uix.ui.page.html#39-50" title="Go to source code">actions</a>( )</code>
+			<code><a href="source-class-uix.ui.page.html#39-55" title="Go to source code">actions</a>( )</code>
 
 			<div class="description short">
 				<p>setup actions and hooks to add settings pate and save settings</p>
@@ -202,7 +215,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setup" id="_setup">
+		<tr data-order="set_assets" id="_set_assets">
 
 			<td class="attributes"><code>
 				 public 
@@ -212,43 +225,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_setup">#</a>
-			<code><a href="source-class-uix.ui.page.html#52-73" title="Go to source code">setup</a>( )</code>
-
-			<div class="description short">
-				<p>Setup submission data</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Setup submission data</p>
-
-
-
-
-
-					<h4>Since</h4>
-					<div class="list">
-							1.0.0<br>
-					</div>
-
-					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-uix.data.data.html#_setup">uix\data\data::setup</a></code></div>
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="uix_styles" id="_uix_styles">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_uix_styles">#</a>
-			<code><a href="source-class-uix.ui.page.html#75-87" title="Go to source code">uix_styles</a>( )</code>
+			<a class="anchor" href="#_set_assets">#</a>
+			<code><a href="source-class-uix.ui.page.html#81-92" title="Go to source code">set_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Define core page styles</p>
@@ -267,43 +245,8 @@
 					</div>
 
 					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-uix.ui.panel.html#_uix_styles">uix\ui\panel::uix_styles</a></code></div>
+					<div class="list"><code><a href="class-uix.ui.panel.html#_set_assets">uix\ui\panel::set_assets</a></code></div>
 
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="save_data" id="_save_data">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_save_data">#</a>
-			<code><a href="source-class-uix.ui.page.html#89-108" title="Go to source code">save_data</a>( )</code>
-
-			<div class="description short">
-				<p>Save data for a page</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Save data for a page</p>
-
-
-
-
-
-					<h4>Since</h4>
-					<div class="list">
-							1.0.0<br>
-					</div>
-
-
-					<h4>Implementation of</h4>
-					<div class="list"><code><a href="class-uix.data.save.html#_save_data">uix\data\save::save_data()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -318,7 +261,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_store_key">#</a>
-			<code><a href="source-class-uix.ui.page.html#110-125" title="Go to source code">store_key</a>( )</code>
+			<code><a href="source-class-uix.ui.page.html#95-110" title="Go to source code">store_key</a>( )</code>
 
 			<div class="description short">
 				<p>get a UIX config store key</p>
@@ -340,6 +283,8 @@
 							1.0.0<br>
 					</div>
 
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-uix.ui.box.html#_store_key">uix\ui\box::store_key</a></code></div>
 
 					<h4>Implementation of</h4>
 					<div class="list"><code><a href="class-uix.data.save.html#_store_key">uix\data\save::store_key()</a></code></div>
@@ -357,7 +302,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is_active">#</a>
-			<code><a href="source-class-uix.ui.page.html#127-140" title="Go to source code">is_active</a>( )</code>
+			<code><a href="source-class-uix.ui.page.html#112-124" title="Go to source code">is_active</a>( )</code>
 
 			<div class="description short">
 				<p>Determin if a page is to be loaded and set it active</p>
@@ -392,7 +337,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_active_assets">#</a>
-			<code><a href="source-class-uix.ui.page.html#142-175" title="Go to source code">enqueue_active_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.page.html#126-157" title="Go to source code">enqueue_active_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Enqueues specific tabs assets for the active pages</p>
@@ -427,7 +372,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_add_settings_page">#</a>
-			<code><a href="source-class-uix.ui.page.html#177-221" title="Go to source code">add_settings_page</a>( )</code>
+			<code><a href="source-class-uix.ui.page.html#159-178" title="Go to source code">add_settings_page</a>( )</code>
 
 			<div class="description short">
 				<p>Add the settings page</p>
@@ -435,6 +380,43 @@
 
 			<div class="description detailed hidden">
 				<p>Add the settings page</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							"admin_menu" hook<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="add_sub_page" id="_add_sub_page">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add_sub_page">#</a>
+			<code><a href="source-class-uix.ui.page.html#180-198" title="Go to source code">add_sub_page</a>( )</code>
+
+			<div class="description short">
+				<p>Add the sub settings page</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Add the sub settings page</p>
 
 
 
@@ -464,7 +446,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.page.html#224-249" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.page.html#201-224" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the page</p>
@@ -483,7 +465,7 @@
 					</div>
 
 					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-uix.ui.panel.html#_render">uix\ui\panel::render</a></code></div>
+					<div class="list"><code><a href="class-uix.ui.box.html#_render">uix\ui\box::render</a></code></div>
 
 			</div>
 			</div></td>
@@ -492,16 +474,30 @@
 		</div>
 
 		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.box.html#methods">uix\ui\box</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-uix.ui.box.html#_init">init()</a></code>, 
+				<code><a href="class-uix.ui.box.html#_load_data">load_data()</a></code>, 
+				<code><a href="class-uix.ui.box.html#_save_data">save_data()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.panel.html#methods">uix\ui\panel</a></h3></div>
 			<p class="elementList">
 				<code><a href="class-uix.ui.panel.html#_description">description()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_get_data">get_data()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_label">label()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_navigation">navigation()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_panel_section">panel_section()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_render_template">render_template()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_set_data">set_data()</a></code>, 
-				<code><a href="class-uix.ui.panel.html#_uix_scripts">uix_scripts()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_wrapper_class_names">wrapper_class_names()</a></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.data.data.html#methods">uix\data\data</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-uix.data.data.html#_setup">setup()</a></code>
 			</p>
 		</div>
 		<div class="panel panel-default">
@@ -509,17 +505,14 @@
 			<p class="elementList">
 				<code><a href="class-uix.ui.uix.html#___call">__call()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#___construct">__construct()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_add_child">add_child()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_add_help">add_help()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_base_color">base_color()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_enqueue">enqueue()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_build_attributes">build_attributes()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_register">register()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_scripts">scripts()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_styles">styles()</a></code>
+				<code><a href="class-uix.ui.uix.html#_set_attributes">set_attributes()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>
 		</div>
 
@@ -564,14 +557,14 @@
 				</div>
 			</td>
 		</tr>
-		<tr data-order="plugin_screen_hook_suffix" id="$plugin_screen_hook_suffix">
+		<tr data-order="screen_hook_suffix" id="$screen_hook_suffix">
 			<td class="attributes"><code>
-				protected  
+				public  
 				array
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-uix.ui.page.html#29-36" title="Go to source code"><var>$plugin_screen_hook_suffix</var></a>
+					<a href="source-class-uix.ui.page.html#29-36" title="Go to source code"><var>$screen_hook_suffix</var></a>
 
 				<div class="description short">
 					<p>Holds the option screen prefix</p>
@@ -588,7 +581,7 @@
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$plugin_screen_hook_suffix" class="anchor">#</a>
+					<a href="#$screen_hook_suffix" class="anchor">#</a>
 					<code><span class="php-keyword1">array</span>()</code>
 				</div>
 			</td>
@@ -599,6 +592,8 @@
 		<div class="panel panel-default">
             <div class="panel-heading"><h3>Properties inherited from <a href="class-uix.ui.uix.html#properties">uix\ui\uix</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-uix.ui.uix.html#$assets"><var>$assets</var></a></code>, 
+				<code><a href="class-uix.ui.uix.html#$attributes"><var>$attributes</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$child"><var>$child</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$parent"><var>$parent</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$scripts"><var>$scripts</var></a></code>, 

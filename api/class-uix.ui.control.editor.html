@@ -170,7 +170,7 @@
 
 				<b>Since:</b>
 				1.0.0<br>
-			<b>Located at</b> <a href="source-class-uix.ui.control.editor.html#13-37" title="Go to source code">classes/uix/ui/control/editor.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.control.editor.html#13-46" title="Go to source code">classes/uix/ui/control/editor.php</a>
 		<br>
 	</div>
 
@@ -190,7 +190,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_input">#</a>
-			<code><a href="source-class-uix.ui.control.editor.html#20-35" title="Go to source code">input</a>( )</code>
+			<code><a href="source-class-uix.ui.control.editor.html#29-44" title="Go to source code">input</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the main input field for rendering</p>
@@ -228,13 +228,12 @@
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.control.textarea.html#methods">uix\ui\control\textarea</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-uix.ui.control.textarea.html#_attributes">attributes()</a></code>
+				<code><a href="class-uix.ui.control.textarea.html#_set_attributes">set_attributes()</a></code>
 			</p>
 		</div>
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.control.html#methods">uix\ui\control</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-uix.ui.control.html#_build_attributes">build_attributes()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_classes">classes()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_description">description()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_is_active">is_active()</a></code>, 
@@ -242,8 +241,8 @@
 				<code><a href="class-uix.ui.control.html#_name">name()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_register">register()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_render">render()</a></code>, 
-				<code><a href="class-uix.ui.control.html#_setup">setup()</a></code>, 
-				<code><a href="class-uix.ui.control.html#_uix_styles">uix_styles()</a></code>
+				<code><a href="class-uix.ui.control.html#_set_assets">set_assets()</a></code>, 
+				<code><a href="class-uix.ui.control.html#_setup">setup()</a></code>
 			</p>
 		</div>
 		<div class="panel panel-default">
@@ -259,18 +258,14 @@
 				<code><a href="class-uix.ui.uix.html#___call">__call()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#___construct">__construct()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_actions">actions()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_add_child">add_child()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_add_help">add_help()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_base_color">base_color()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_enqueue">enqueue()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_build_attributes">build_attributes()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_enqueue_active_assets">enqueue_active_assets()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_scripts">scripts()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_styles">styles()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_uix_scripts">uix_scripts()</a></code>
+				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>
 		</div>
 
@@ -285,17 +280,44 @@
 
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="type" id="$type">
+			<td class="attributes"><code>
+				public  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.control.editor.html#20-27" title="Go to source code"><var>$type</var></a>
+
+				<div class="description short">
+					<p>The type of object</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The type of object</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$type" class="anchor">#</a>
+					<code><span class="php-quote">'editor'</span></code>
+				</div>
+			</td>
+		</tr>
+			</table>
 		</div>
 
 		<div class="panel panel-default">
-            <div class="panel-heading"><h3>Properties inherited from <a href="class-uix.ui.control.textarea.html#properties">uix\ui\control\textarea</a></h3></div>
-			<p class="elementList">
-				<code><a href="class-uix.ui.control.textarea.html#$type"><var>$type</var></a></code>
-			</p>
-		</div>
-		<div class="panel panel-default">
             <div class="panel-heading"><h3>Properties inherited from <a href="class-uix.ui.uix.html#properties">uix\ui\uix</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-uix.ui.uix.html#$assets"><var>$assets</var></a></code>, 
+				<code><a href="class-uix.ui.uix.html#$attributes"><var>$attributes</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$child"><var>$child</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$parent"><var>$parent</var></a></code>, 
 				<code><a href="class-uix.ui.uix.html#$scripts"><var>$scripts</var></a></code>, 
