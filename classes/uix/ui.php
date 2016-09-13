@@ -72,17 +72,28 @@ class ui{
         // go over each locations
         foreach( $this->locations as $type => $paths ){
             
-            if( !$this->is_callable( $type ) )
-                continue;
-            
-            foreach( $paths as $path ) {
-                $has_struct = $this->get_file_structure( $path );
-                if( is_array( $has_struct ) )
-                    $this->add_objects( $type, $has_struct );
+            if( $this->is_callable( $type ) )
+                $this->process_paths( $type, $paths );
 
-            }
         }
     
+    }
+
+    /**
+     * Add a single structure object
+     *
+     * @since 1.0.0
+     * @param string $type The type of object to add
+     * @param array $paths array of paths to process and add
+     */
+    private function process_paths( $type, $paths ){
+
+        foreach( $paths as $path ) {
+            $has_struct = $this->get_file_structure( $path );
+            if( is_array( $has_struct ) )
+                $this->add_objects( $type, $has_struct );
+
+        }
     }
 
     /**

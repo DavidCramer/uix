@@ -126,9 +126,9 @@ abstract class uix{
         $this->slug = $slug;
         // set the object
         $this->struct = $object;
+
         // set parent if given
-        if( null !== $parent && is_object( $parent ) )
-            $this->parent = $parent;
+        $this->parent = $parent;
 
         // Set the root URL for this plugin.
         $this->set_url();

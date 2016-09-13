@@ -54,11 +54,29 @@ class select extends \uix\ui\control{
     public function input(){
         
         $input      = '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>';
+
+        if( !isset( $this->struct['value'] ) )
+            $input .= '<option></option>';
+
+        $input .= $this->build_options();
+
+        $input .= '</' . esc_html( $this->type ) . '>';
+
+        return $input;
+    }
+
+    /**
+     * Builds the set of options to select
+     *
+     * @since 1.0.0
+     * @see \uix\ui\uix
+     * @access public
+     * @return string
+     */
+    private function build_options(){
+        $input = '';
         $value      = $this->get_data();
 
-        if( !isset( $this->struct['value'] ) ){
-            $input .= '<option></option>';
-        }
         if( !empty( $this->struct['choices'] ) ){
             foreach( $this->struct['choices'] as $option_value => $option_label) {
                 $sel = null;
@@ -68,9 +86,7 @@ class select extends \uix\ui\control{
                 $input .= '<option value="' . esc_attr( $option_value ) . '"' . $sel . '>' . esc_html( $option_label ) . '</option>';
             }
         }
-        $input .= '</' . esc_html( $this->type ) . '>';
-
         return $input;
-    }  
+    }
 
 }
