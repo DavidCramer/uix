@@ -117,17 +117,9 @@ class panel extends \uix\data\data{
             $this->description();
             // render navigation tabs
             $this->navigation();
-            // render the section wrapper
-            echo '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
-                
-                $hidden = 'false';
-                foreach( $this->child as $section ){
-                    $section->struct['active'] = $hidden;
-                    $section->render();
-                    $hidden = 'true';
-                }
+            // sections
+            $this->panel_section();
 
-            echo '</div>';
 
         echo '</div>';
     }
@@ -195,6 +187,20 @@ class panel extends \uix\data\data{
         if( !empty( $this->struct['description'] ) )
             echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><p class="uix-' . esc_attr( $this->type ) . '-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
         
+    }
+
+    public function panel_section(){
+        // render the section wrapper
+        echo '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
+
+        $hidden = 'false';
+        foreach( $this->child as $section ){
+            $section->struct['active'] = $hidden;
+            $section->render();
+            $hidden = 'true';
+        }
+
+        echo '</div>';
     }
 
     /**

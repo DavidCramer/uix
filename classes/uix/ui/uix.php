@@ -126,22 +126,16 @@ abstract class uix{
         $this->slug = $slug;
         // set the object
         $this->struct = $object;
-
         // set parent if given
         $this->parent = $parent;
-
         // Set the root URL for this plugin.
         $this->set_url();
-
         // do setup
         $this->setup();
-
         // setup attributes
         $this->set_attributes();
-
         // Set required assets
         $this->set_assets();
-
         // start internal actions to allow for automating post init
         $this->actions();
 
@@ -155,12 +149,22 @@ abstract class uix{
      */
     public function setup(){
         foreach ( $this->struct as $struct_key=>$sub_struct ){
-            if( is_array( $sub_struct ) && uix()->get_register_callback( $struct_key ) ){
-                foreach( $sub_struct as $sub_slug => $sub_structure ){
-                    $this->{$struct_key}( $sub_slug, $sub_structure );    
-                }
-            }
+            if( is_array( $sub_struct ) && uix()->get_register_callback( $struct_key ) )
+                $this->process_children( $struct_key );
         }
+    }
+
+    /**
+     * All objects loaded - application method for finishing off loading objects
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function process_children( $type ){
+
+        foreach( $this->struct[ $type ]  as $sub_slug => $sub_structure )
+            $this->{$type}( $sub_slug, $sub_structure );
+
     }
 
     /**

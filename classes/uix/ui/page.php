@@ -135,15 +135,9 @@ class page extends box implements \uix\data\save{
             .contextual-help-tabs .active {
                 border-left: 6px solid <?php echo $this->base_color(); ?> !important;
             }
-            <?php if( !empty( $this->child ) && count( $this->child ) > 1 ){ ?>
-            #page-<?php echo $this->id(); ?> h1{
-                box-shadow: 0 0px 13px 12px <?php echo $this->base_color(); ?>, 11px 0 0 <?php echo $this->base_color(); ?> inset;
-            }
-            <?php }else{ ?>
             #page-<?php echo $this->id(); ?> h1{
                 box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->base_color(); ?> inset;
             }
-            <?php } ?>            
              #page-<?php echo $this->id(); ?> .page-title-action:hover{
                 background: <?php echo $this->base_color(); ?>;
                 border-color: rgba(0,0,0,0.1);
@@ -152,7 +146,11 @@ class page extends box implements \uix\data\save{
                 box-shadow: 0 0 2px <?php echo $this->base_color(); ?>;
                 border-color: <?php echo $this->base_color(); ?>;
             }
-
+            <?php if( count( (array) $this->child ) > 1 ){ ?>
+            #page-<?php echo $this->id(); ?> h1{
+                box-shadow: 0 0px 13px 12px <?php echo $this->base_color(); ?>, 11px 0 0 <?php echo $this->base_color(); ?> inset;
+            }
+            <?php } ?>
         </style>
         <?php
 
