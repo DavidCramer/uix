@@ -187,13 +187,13 @@ abstract class uix{
         add_action( 'init', array( $this, 'init' ) );
 
         // set location
-        $location = 'wp';
+        $location = 'wp_print_styles';
 
         if( is_admin() )
-            $location = 'admin';
+            $location = 'admin_enqueue_scripts';
 
         // init UIX headers
-        add_action( $location . '_enqueue_scripts', array( $this, 'enqueue_core' ) );
+        add_action( $location, array( $this, 'enqueue_core' ) );
 
     }
 
@@ -292,7 +292,7 @@ abstract class uix{
 
         // push assets to ui manager
         uix()->set_assets( $this->assets );
-        $uix = uix();
+
         // done enqueuing - dpo inline or manual enqueue.
         $this->enqueue_active_assets();
     }
