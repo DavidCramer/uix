@@ -45,8 +45,36 @@ class page extends panel implements \uix\data\save{
     protected function actions() {
         // run parent actions ( keep 'admin_head' hook )
         parent::actions();
-        // add settings page
-        add_action( 'admin_menu', array( $this, 'add_settings_page' ), 9 );
+
+        if( empty( $this->struct[ 'page_title' ] ) || empty( $this->struct['menu_title'] ) )
+            return;
+
+
+        $this->setup_pages();
+
+    }
+
+    /**
+     * Adds settings page to adminh
+     *
+     * @since 1.0.0
+     * @access private
+     */
+    private function setup_pages(){
+
+        $args = array(
+            'capability'    => 'manage_options',
+            'icon'          =>  null,
+            'position'      => null
+        );
+        $this->struct['args'] = array_merge( $args, $this->struct );
+
+        if( !isset( $this->struct['parent'] ) ) {
+            add_action('admin_menu', array($this, 'add_settings_page'), 9);
+        }else{
+            add_action('admin_menu', array($this, 'add_sub_page'), 9);
+        }
+
     }
 
     /**
@@ -181,40 +209,35 @@ class page extends panel implements \uix\data\save{
      */
     public function add_settings_page(){
 
-        if( empty( $this->struct[ 'page_title' ] ) || empty( $this->struct['menu_title'] ) ){
-            return;
-        }
-
-        $args = array(
-            'capability'    => 'manage_options',
-            'icon'          =>  null,
-            'position'      => null
+        $this->plugin_screen_hook_suffix = add_menu_page(
+            $this->struct['args'][ 'page_title' ],
+            $this->struct['args'][ 'menu_title' ],
+            $this->struct['args'][ 'capability' ],
+            $this->slug,
+            array( $this, 'render' ),
+            $this->struct['args'][ 'icon' ],
+            $this->struct['args'][ 'position' ]
         );
-        $args = array_merge( $args, $this->struct );
 
-        if( !empty( $args['parent'] ) ){
+    }
 
-            $this->plugin_screen_hook_suffix = add_submenu_page(
-                $args[ 'parent' ],
-                $args[ 'page_title' ],
-                $args[ 'menu_title' ],
-                $args[ 'capability' ], 
-                $this->slug,
-                array( $this, 'render' )
-            );
+    /**
+     * Add the sub settings page
+     *
+     * @since 1.0.0
+     * @access public
+     * @uses "admin_menu" hook
+     */
+    public function add_sub_page(){
 
-        }else{
-
-            $this->plugin_screen_hook_suffix = add_menu_page(
-                $args[ 'page_title' ],
-                $args[ 'menu_title' ],
-                $args[ 'capability' ], 
-                $this->slug,
-                array( $this, 'render' ),
-                $args[ 'icon' ],
-                $args[ 'position' ]
-            );
-        }
+        $this->plugin_screen_hook_suffix = add_submenu_page(
+            $this->struct['args'][ 'parent' ],
+            $this->struct['args'][ 'page_title' ],
+            $this->struct['args'][ 'menu_title' ],
+            $this->struct['args'][ 'capability' ],
+            $this->slug,
+            array( $this, 'render' )
+        );
 
     }
 

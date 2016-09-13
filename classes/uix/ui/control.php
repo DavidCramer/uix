@@ -74,11 +74,9 @@ class control extends \uix\data\data{
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        $styles = array(
-            'controls'    =>  $this->url . 'assets/css/uix-control' . UIX_ASSET_DEBUG . '.css',
-        );
-        $this->styles( $styles );
+    public function set_assets() {
+        $this->assets['style']['controls']  =   $this->url . 'assets/css/uix-control' . UIX_ASSET_DEBUG . '.css';
+        parent::set_assets();
     }
 
     /**
