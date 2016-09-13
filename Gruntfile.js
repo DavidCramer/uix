@@ -14,7 +14,7 @@
                         expand: false,
                         cwd: './',
                         src: 'uix-bootstrap.php',
-                        dest: '../'
+                        dest: '../<%= pkg.namespace %>-bootstrap.php'
                     },
                     {
                         expand: true,

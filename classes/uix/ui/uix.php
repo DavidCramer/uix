@@ -44,8 +44,8 @@ abstract class uix{
      * @var      array
      */
     public $assets = array(
-        'scripts' => array(),
-        'styles' => array()
+        'script' => array(),
+        'style' => array()
     );
 
     /**
@@ -182,10 +182,18 @@ abstract class uix{
      * @access protected
      */
     protected function actions() {
+
         // init uix after loaded
         add_action( 'init', array( $this, 'init' ) );
+
+        // set location
+        $location = 'wp_print_styles';
+
+        if( is_admin() )
+            $location = 'admin_enqueue_scripts';
+
         // init UIX headers
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_core' ) );
+        add_action( $location, array( $this, 'enqueue_core' ) );
 
     }
 
