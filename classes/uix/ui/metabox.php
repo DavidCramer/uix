@@ -85,13 +85,10 @@ class metabox extends panel {
      * @see \uix\ui\uix
      * @access public
      */
-    public function uix_styles() {
-        parent::uix_styles();
-        // Add metabox style
-        $styles = array(
-            'metabox'        =>  $this->url . 'assets/css/uix-metabox' . UIX_ASSET_DEBUG . '.css'
-        );
-        $this->styles( $styles );
+    public function set_assets() {
+
+        $this->assets['style']['metabox'] = $this->url . 'assets/css/uix-metabox' . UIX_ASSET_DEBUG . '.css';
+        parent::set_assets();
     }
 
 

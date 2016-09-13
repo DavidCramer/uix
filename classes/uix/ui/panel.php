@@ -48,31 +48,20 @@ class panel extends \uix\data\data{
 
 
     /**
-     * Define core panel styles
+     * Define core panel styles ans scripts
      *
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        $styles = array(
-            'panel'    =>  $this->url . 'assets/css/uix-panel' . UIX_ASSET_DEBUG . '.css',
-        );
-        $this->styles( $styles );
+    public function set_assets() {
+
+        $this->assets['script']['panel']     =  $this->url . 'assets/js/uix-panel' . UIX_ASSET_DEBUG . '.js';
+        $this->assets['style']['panel']   =  $this->url . 'assets/css/uix-panel' . UIX_ASSET_DEBUG . '.css';
+
+        parent::set_assets();
+
     }
 
-    /**
-     * set metabox scripts
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public
-     */
-    public function uix_scripts() {
-        $scripts = array(
-            'panel'        =>  $this->url . 'assets/js/uix-panel' . UIX_ASSET_DEBUG . '.js'
-        );
-        $this->scripts( $scripts );
-    }
 
     /**
      * Get Data from all controls of this section

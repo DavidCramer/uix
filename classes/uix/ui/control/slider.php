@@ -24,36 +24,21 @@ class slider extends \uix\ui\control\text{
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        parent::uix_styles();
+    public function set_assets() {
+
         // Initilize core styles
-        $styles = array(
-            'slider-control'        => $this->url . 'assets/controls/slider/css/ion.rangeSlider' . UIX_ASSET_DEBUG . '.css',
-            'slider-control-theme'  => $this->url . 'assets/controls/slider/css/ion.rangeSlider.skinHTML5' . UIX_ASSET_DEBUG . '.css',
-        );
-        // push to activly register styles
-        $this->styles( $styles );
+        $this->assets['style']['slider-control']        = $this->url . 'assets/controls/slider/css/ion.rangeSlider' . UIX_ASSET_DEBUG . '.css';
+        $this->assets['style']['slider-control-theme']  = $this->url . 'assets/controls/slider/css/ion.rangeSlider.skinHTML5' . UIX_ASSET_DEBUG . '.css';
 
-    }
 
-    /**
-     * Define core UIX scripts - override to register core ( common scripts for uix type )
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function uix_scripts() {
-        parent::uix_scripts();
         // Initilize core scripts
-        $scripts = array(
-            'slider-control'        => $this->url . 'assets/controls/slider/js/ion.rangeSlider' . UIX_ASSET_DEBUG . '.js',
-            'slider-control-init'   => array(
-                "src"       => $this->url . 'assets/controls/slider/js/ion.rangeSlider.init' . UIX_ASSET_DEBUG . '.js',
-                "in_footer" => true
-            )
+        $this->assets['script']['slider-control']        = $this->url . 'assets/controls/slider/js/ion.rangeSlider' . UIX_ASSET_DEBUG . '.js';
+        $this->assets['script']['slider-control-init']  = array(
+            "src"       => $this->url . 'assets/controls/slider/js/ion.rangeSlider.init' . UIX_ASSET_DEBUG . '.js',
+            "in_footer" => true
         );
-        // push to activly register scripts
-        $this->scripts( $scripts );
+
+        parent::set_assets();
     }
 
     /**

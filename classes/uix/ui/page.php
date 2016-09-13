@@ -78,12 +78,11 @@ class page extends panel implements \uix\data\save{
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        parent::uix_styles();
-        $pages_styles = array(
-            'page'    =>  $this->url . 'assets/css/uix-page' . UIX_ASSET_DEBUG . '.css',
-        );
-        $this->styles( $pages_styles );
+    public function set_assets() {
+
+        $this->assets['style']['page'] =  $this->url . 'assets/css/uix-page' . UIX_ASSET_DEBUG . '.css';
+
+        parent::set_assets();
     }
 
     /**

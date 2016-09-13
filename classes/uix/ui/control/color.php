@@ -19,40 +19,25 @@ class color extends \uix\ui\control\text{
 
 
     /**
-     * Define core UIX styles - override to register core ( common styles for uix type )
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function uix_styles() {
-
-        parent::uix_styles();
-        // Initilize core styles
-        $styles = array(
-            'wp-color-picker'
-        );
-        // push to activly register styles
-        $this->styles( $styles );
-
-    }
-
-    /**
      * Define core UIX scripts - override to register core ( common scripts for uix type )
      *
      * @since 1.0.0
      * @access public
      */
-    public function uix_scripts() {
-        // Initilize core scripts
-        $scripts = array(
-            'wp-color-picker',
-            'color-control-init'   => array(
-                "src"       => $this->url . 'assets/controls/color/js/color' . UIX_ASSET_DEBUG . '.js',
-                "in_footer" => true
-            )
+    public function set_assets() {
+
+        // set style
+        $this->assets['style'][] = 'wp-color-picker';
+
+
+        // push to register script
+        $this->assets['script'][]                     = 'wp-color-picker';
+        $this->assets['script']['color-control-init'] = array(
+            "src"       => $this->url . 'assets/controls/color/js/color' . UIX_ASSET_DEBUG . '.js',
+            "in_footer" => true
         );
-        // push to activly register scripts
-        $this->scripts( $scripts );
+
+        parent::set_assets();
     }
 
     /**

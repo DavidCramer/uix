@@ -29,16 +29,16 @@ class section extends panel {
 
 
     /**
-     * Define core page styles
+     * Define core page style
      *
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        $pages_styles = array(
-            'sections'    =>  $this->url . 'assets/css/uix-sections' . UIX_ASSET_DEBUG . '.css',
-        );
-        $this->styles( $pages_styles );
+    public function set_assets() {
+
+        $this->assets['style']['sections']   =  $this->url . 'assets/css/uix-sections' . UIX_ASSET_DEBUG . '.css';
+
+        parent::set_assets();
     }
 
     /**

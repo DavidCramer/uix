@@ -19,16 +19,6 @@ namespace uix\ui;
 abstract class uix{
 
     /**
-     * Config Structure of object
-     *
-     * @since 1.0.0
-     * @access public
-     * @var      array
-     */
-    public $struct = array();
-
-
-    /**
      * The type of UI object
      *
      * @since 1.0.0
@@ -36,6 +26,18 @@ abstract class uix{
      * @var      string
      */
     public $type = 'uix';
+
+    /**
+     * Set this object type assets
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      array
+     */
+    public $assets = array(
+        'scripts' => array(),
+        'styles' => array()
+    );
 
     /**
      * object slug
@@ -128,11 +130,8 @@ abstract class uix{
         // setup attributes
         $this->set_attributes();
 
-        // define then register core styles
-        $this->uix_styles();
-
-        // define then register core scripts
-        $this->uix_scripts();
+        // Set required assets
+        $this->set_assets();
 
         // start internal actions to allow for automating post init
         $this->actions();
@@ -153,7 +152,6 @@ abstract class uix{
                 }
             }
         }
-
     }
 
     /**
@@ -184,25 +182,16 @@ abstract class uix{
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        // Initilize core styles
-        $styles = array();
-        // push to activly register styles
-        $this->styles( $styles );
+    public function set_assets() {
 
-    }
 
-    /**
-     * Define core UIX scripts - override to register core ( common scripts for uix type )
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function uix_scripts() {
-        // Initilize core scripts
-        $scripts = array();
-        // push to activly register scripts
-        $this->scripts( $scripts );
+        if( !empty( $this->struct['style'] ) )
+            $this->assets['style'] = array_merge( $this->assets['style'], $this->struct['style'] );
+
+        if( !empty( $this->struct['script'] ) )
+            $this->assets['script'] = array_merge( $this->assets['script'], $this->struct['script'] );
+
+
     }
 
 
@@ -220,52 +209,6 @@ abstract class uix{
         return $id;
     }
 
-    /**
-     * Register the core UIX styles
-     *
-     * @since 1.0.0
-     * @access public
-     * @param array Array of styles to be enqueued for all objects of current instance
-     */
-    public function styles( array $styles ) {
-        
-        if( !empty( $this->struct['styles'] ) )
-            $styles = array_merge( $this->struct['styles'], $styles );
-
-        /**
-         * Filter UIX styles
-         *
-         * @param array $styles array of UIX styles to be registered
-         */
-        $styles = apply_filters( 'uix_set_styles-' . $this->type, $styles );
-
-        $this->styles = array_merge( $this->styles, $styles );
-
-    }
-
-
-    /**
-     * Register the core UIX scripts
-     *
-     * @since 1.0.0
-     * @access public
-     * @param array Array of scripts to be enqueued for all objects of current instance
-     */
-    public function scripts( array $scripts ) {
-
-        if( !empty( $this->struct['scripts'] ) )
-            $scripts = array_merge( $this->struct['scripts'], $scripts );
-
-        /**
-         * Filter UIX scripts
-         *
-         * @param array $scripts array of core UIX scripts to be registered
-         */
-        $scripts = apply_filters( 'uix_set_scripts-' . $this->type, $scripts );
-
-        $this->scripts = array_merge( $this->scripts, $scripts );
-
-    }
 
     /**
      * Register the UIX objects
@@ -316,6 +259,9 @@ abstract class uix{
         // attempt to get a config
         if( !$this->is_active() ){ return; }
 
+        // set assets . methods at before this point can set assets, after this not so much.
+        $this->set_assets();
+
         /**
          * do object initilisation
          *
@@ -323,13 +269,10 @@ abstract class uix{
          */
         do_action( 'uix_admin_enqueue_scripts' . $this->type, $this );
 
-        // enqueue core scripts
-        $this->enqueue( $this->scripts, 'script' );
+        // push assets to ui manager
+        uix()->set_assets( $this->assets );
 
-        // enqueue core styles
-        $this->enqueue( $this->styles, 'style' );
-
-        // done enqueuing 
+        // done enqueuing - dpo inline or manual enqueue.
         $this->enqueue_active_assets();
     }
 
@@ -362,60 +305,6 @@ abstract class uix{
         $this->url = trailingslashit( $plugins_url . '/' . $this_url );
     }
 
-    /**
-     * enqueue a set of styles and scripts
-     *
-     * @since 1.0.0
-     * @access protected
-     * @param array $set Array of assets to be enqueued
-     * @param string $type The type of asset
-     */
-    protected function enqueue( $set, $type ){
-        // go over the set to see if it has styles or scripts
-
-        $enqueue_type = 'wp_enqueue_' . $type;
-
-        foreach( $set as $key => $item ){
-            
-            if( is_int( $key ) ){
-                $enqueue_type( $item );
-                continue;
-            }
-                
-            $args = $this->build_asset_args( $item );
-            $enqueue_type( $key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
-
-        }
-
-    }   
-
-    /**
-     * Checks the asset type
-     *
-     * @since 1.0.0
-     * @access private
-     * @param array|string $asset Asset structure, slug or path to build
-     * @return array Params for enqueuing the asset
-     */
-    private function build_asset_args( $asset ){
-
-        // setup default args for array type includes
-        $args = array(
-            "src"       => false,
-            "deps"      => array(),
-            "ver"       => false,
-            "in_footer" => false,
-            "media"     => false
-        );
-
-        if( is_array( $asset ) ){
-            $args = array_merge( $args, $asset );
-        }else{
-            $args['src'] = $asset;
-        }
-
-        return $args;
-    }
 
     /**
      * Determin if a UIX object should be active for this screen

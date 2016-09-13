@@ -48,34 +48,18 @@ class toggle extends \uix\ui\control{
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
+    public function set_assets() {
 
-        parent::uix_styles();
         // Initilize core styles
-        $styles = array(
-            'toggle' => $this->url . 'assets/controls/toggle/css/toggle' . UIX_ASSET_DEBUG . '.css',
-        );
-        // push to activly register styles
-        $this->styles( $styles );
+        $this->assets['style']['toggle']    = $this->url . 'assets/controls/toggle/css/toggle' . UIX_ASSET_DEBUG . '.css';
 
-    }
-
-    /**
-     * Define core UIX scripts - override to register core ( common scripts for uix type )
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function uix_scripts() {
         // Initilize core scripts
-        $scripts = array(
-            'toggle-control-init'   => array(
-                "src"       => $this->url . 'assets/controls/toggle/js/toggle' . UIX_ASSET_DEBUG . '.js',
-                "in_footer" => true
-            )
+        $this->assets['script']['toggle-control-init']  = array(
+            "src"       => $this->url . 'assets/controls/toggle/js/toggle' . UIX_ASSET_DEBUG . '.js',
+            "in_footer" => true
         );
-        // push to activly register scripts
-        $this->scripts( $scripts );
+
+        parent::set_assets();
     }
 
 

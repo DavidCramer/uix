@@ -76,11 +76,9 @@ class post_type extends uix{
      * @since 1.0.0
      * @access public
      */
-    public function uix_styles() {
-        $pages_styles = array(
-            'post'    =>  $this->url . 'assets/css/uix-post' . UIX_ASSET_DEBUG . '.css',           
-        );
-        $this->styles( $pages_styles );
+    public function set_assets() {
+        $this->assets['style']['post'] = $this->url . 'assets/css/uix-post' . UIX_ASSET_DEBUG . '.css';
+        parent::set_assets();
     }
 
     /**

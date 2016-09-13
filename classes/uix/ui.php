@@ -44,7 +44,7 @@ class ui{
      * @access private
      * @var   array
      */
-    private $data = array();
+    protected $data = array();
 
     /**
      * Holds instance
@@ -65,7 +65,7 @@ class ui{
         /**
          * do UI loader locations
          *
-         * @param ui current instance of this class
+         * @param ui $this Current instance of this class
          */
         do_action( 'uix_register', $this );
 
@@ -93,7 +93,7 @@ class ui{
      * @param string $slug The objects slug to add
      * @param array $structure The objects structure
      * @param object $parent object
-     * @return uix|null The instance of the object type or null if invalid
+     * @return object The instance of the object type or null if invalid
      */
     public function add( $type, $slug, $structure, $parent = null ) {
         $init = $this->get_register_callback( $type );
@@ -260,7 +260,6 @@ class ui{
      * @param string $errstr Contains the error message.
      * @param string $errfile Which contains the filename that the error was raised in.
      * @param int $errline which contains the line number the error was raised at.
-     * @return bool|null If built in handler is used then null is returned.
      */
     public function silent_warning( $errno, $errstr, $errfile, $errline ) {
         $this->add( 'notice', 'notice_' . $errno . '-' . $errline, array(
@@ -268,5 +267,75 @@ class ui{
             'state'       => 'warning'
         )  );
     }
+
+
+    /**
+     * Sets assets to be enqueued for this instance.
+     *
+     * @param array $assets the asset to enqueue where the key is the type and the value the asset
+     */
+    public function set_assets( $assets ){
+
+        foreach ( $assets as $type => $asset )
+            $this->enqueue( $asset, $type );
+
+    }
+
+    /**
+     * enqueue a set of styles and scripts
+     *
+     * @since 1.0.0
+     * @access protected
+     * @param array $set Array of assets to be enqueued
+     * @param string $type The type of asset
+     */
+    protected function enqueue( $set, $type ){
+        // go over the set to see if it has styles or scripts
+
+        $enqueue_type = 'wp_enqueue_' . $type;
+
+        foreach( $set as $key => $item ){
+
+            if( is_int( $key ) ){
+                $enqueue_type( $item );
+                continue;
+            }
+
+            $args = $this->build_asset_args( $item );
+            $enqueue_type( $key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+
+        }
+
+    }
+
+
+    /**
+     * Checks the asset type
+     *
+     * @since 1.0.0
+     * @access private
+     * @param array|string $asset Asset structure, slug or path to build
+     * @return array Params for enqueuing the asset
+     */
+    private function build_asset_args( $asset ){
+
+        // setup default args for array type includes
+        $args = array(
+            "src"       => false,
+            "deps"      => array(),
+            "ver"       => false,
+            "in_footer" => false,
+            "media"     => false
+        );
+
+        if( is_array( $asset ) ){
+            $args = array_merge( $args, $asset );
+        }else{
+            $args['src'] = $asset;
+        }
+
+        return $args;
+    }
+
 
 }
