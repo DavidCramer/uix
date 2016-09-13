@@ -28,6 +28,15 @@ abstract class uix{
     public $type = 'uix';
 
     /**
+     * Config Structure of object
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      array
+     */
+    public $struct = array();
+
+    /**
      * Set this object type assets
      *
      * @since 1.0.0
