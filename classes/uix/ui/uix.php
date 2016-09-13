@@ -44,8 +44,8 @@ abstract class uix{
      * @var      array
      */
     public $assets = array(
-        'scripts' => array(),
-        'styles' => array()
+        'script' => array(),
+        'style' => array()
     );
 
     /**
@@ -182,10 +182,18 @@ abstract class uix{
      * @access protected
      */
     protected function actions() {
+
         // init uix after loaded
         add_action( 'init', array( $this, 'init' ) );
+
+        // set location
+        $location = 'wp';
+
+        if( is_admin() )
+            $location = 'admin';
+
         // init UIX headers
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_core' ) );
+        add_action( $location . '_enqueue_scripts', array( $this, 'enqueue_core' ) );
 
     }
 
@@ -284,7 +292,7 @@ abstract class uix{
 
         // push assets to ui manager
         uix()->set_assets( $this->assets );
-
+        $uix = uix();
         // done enqueuing - dpo inline or manual enqueue.
         $this->enqueue_active_assets();
     }
