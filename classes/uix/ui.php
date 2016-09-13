@@ -242,16 +242,17 @@ class ui{
      * @return array List of folders and files
      */
     private function get_files_from_folders( $path, $file = false ) {
+
         $items = array();
         $uid = opendir( $path );
         if ( $uid ) {
             while( ( $item = readdir( $uid ) ) !== false ) {
-                if ( substr( $item, 0, 1) == '.' )
-                    continue;
-                if( false === $file ){
-                    $items[ $item ] = $this->get_files_from_folders( $path . $item, true );
-                }else{
-                    $items[] = $path . '/' . $item;
+                if ( substr( $item, 0, 1) != '.' ){
+                    if( false === $file ){
+                        $items[ $item ] = $this->get_files_from_folders( $path . $item, true );
+                    }else{
+                        $items[] = $path . '/' . $item;
+                    }
                 }
             }
             closedir( $uid );
