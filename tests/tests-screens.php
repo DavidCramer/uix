@@ -84,7 +84,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
         $html = ob_get_clean();
         $hash = md5( $html );
 
-        $this->assertSame( $hash, '78846006a73c3aada672b9fc3c991153' );
+        $this->assertSame( $html, '78846006a73c3aada672b9fc3c991153' );
 
         $GLOBALS['current_screen'] = $screen;
 
@@ -119,7 +119,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
         $type->enqueue_core();
         $html = ob_get_clean();
         $hash = md5( $html );
-        $this->assertSame( $hash, '9779e7196e0f58b96551025672b2f7dd' );
+        $this->assertSame( $html, '9779e7196e0f58b96551025672b2f7dd' );
 
     }
 
@@ -189,7 +189,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
         $metabox->enqueue_core();
         $html = ob_get_clean();
         $hash = md5( $html );
-        $this->assertSame( $hash, '94cb7cb8c3ef84c4f7d407a935eaade3' );
+        $this->assertSame( $html, '94cb7cb8c3ef84c4f7d407a935eaade3' );
 
         ob_start();
         $metabox->create_metabox( $post );
@@ -239,7 +239,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
         $separator->enqueue_core();
         $html = ob_get_clean();
         $hash = md5( $html );
-        $this->assertSame( $hash, '94ffb6bf632b999201fe6fde6be65790' );
+        $this->assertSame( $html, '94ffb6bf632b999201fe6fde6be65790' );
 
         ob_start();
         $separator->render();
