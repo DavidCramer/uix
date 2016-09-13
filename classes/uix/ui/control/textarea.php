@@ -38,9 +38,8 @@ class textarea extends \uix\ui\control{
         $this->attributes['rows']     = '5';
         $this->attributes['class']    = 'widefat';
         
-        if( !empty( $this->struct['rows'] ) ){
+        if( !empty( $this->struct['rows'] ) )
             $this->attributes['rows'] = $this->struct['rows'];
-        }
 
     }
 

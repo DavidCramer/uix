@@ -15,7 +15,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-class page extends panel implements \uix\data\save{
+class page extends box implements \uix\data\save{
 
     /**
      * The type of object
@@ -30,10 +30,10 @@ class page extends panel implements \uix\data\save{
      * Holds the option screen prefix
      *
      * @since 1.0.0
-     * @access protected
+     * @access public
      * @var      array
      */
-    protected $plugin_screen_hook_suffix = array();
+    public $screen_hook_suffix = array();
 
 
     /**
@@ -77,28 +77,6 @@ class page extends panel implements \uix\data\save{
 
     }
 
-    /**
-     * Setup submission data
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function setup(){
-        parent::setup();
-        $data = uix()->request_vars( 'post' );
-
-        if( !isset( $data[ 'uix_' . $this->type . '_' . $this->slug ] ) || !wp_verify_nonce( $data[ 'uix_' . $this->type . '_' . $this->slug ], $this->type ) ){
-
-            $store_key = $this->store_key();
-            // get object data and push to children
-            $data = get_option( $store_key, $data, array() );
-            $this->set_data( $data );
-
-            return;
-        }        
-        
-        $this->save_data();
-    }
 
     /**
      * Define core page styles
@@ -113,26 +91,6 @@ class page extends panel implements \uix\data\save{
         parent::set_assets();
     }
 
-    /**
-     * Save data for a page
-     * @since 1.0.0
-     * @access public
-     */
-    public function save_data(){
-        
-        /**
-         * Filter config object
-         *
-         * @param array $config the config array to save
-         * @param array $uix the uix config to be saved for
-         */
-        $data = apply_filters( 'uix_save_config-' . $this->type, $this->get_data(), $this );
-        $store_key = $this->store_key();
-
-        // save object
-        update_option( $store_key, $data );
-        
-    }
 
     /**
      * get a UIX config store key
@@ -161,7 +119,7 @@ class page extends panel implements \uix\data\save{
 
         // check that the screen object is valid to be safe.
         $screen = get_current_screen();
-        return $screen->base === $this->plugin_screen_hook_suffix;
+        return $screen->base === $this->screen_hook_suffix;
 
     }
 
@@ -209,7 +167,7 @@ class page extends panel implements \uix\data\save{
      */
     public function add_settings_page(){
 
-        $this->plugin_screen_hook_suffix = add_menu_page(
+        $this->screen_hook_suffix = add_menu_page(
             $this->struct['args'][ 'page_title' ],
             $this->struct['args'][ 'menu_title' ],
             $this->struct['args'][ 'capability' ],
@@ -230,7 +188,7 @@ class page extends panel implements \uix\data\save{
      */
     public function add_sub_page(){
 
-        $this->plugin_screen_hook_suffix = add_submenu_page(
+        $this->screen_hook_suffix = add_submenu_page(
             $this->struct['args'][ 'parent' ],
             $this->struct['args'][ 'page_title' ],
             $this->struct['args'][ 'menu_title' ],
@@ -261,9 +219,7 @@ class page extends panel implements \uix\data\save{
                 <?php } ?>
             </h1>        
             <?php 
-                wp_nonce_field( $this->type, 'uix_' . $this->type . '_' . $this->slug );
-                parent::render(); 
-
+                parent::render();
             ?>
         </form>
         <?php

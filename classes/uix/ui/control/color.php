@@ -17,6 +17,15 @@ namespace uix\ui\control;
  */
 class color extends \uix\ui\control\text{
 
+    /**
+     * The type of object
+     *
+     * @since       1.0.0
+     * @access public
+     * @var         string
+     */
+    public $type = 'color';
+
 
     /**
      * Define core UIX scripts - override to register core ( common scripts for uix type )

@@ -48,7 +48,7 @@ class section extends panel {
      * @access public
      */
     public function render(){
-        
+
         if( !isset( $this->struct['active'] ) )
             $this->struct['active'] = 'true';
 
@@ -58,7 +58,10 @@ class section extends panel {
 
             echo '<div class="uix-section-content">';
 
-                $this->render_section();
+                $this->render_template();
+
+                if( !empty( $this->child ) )
+                    $this->render_section();
                 
             echo '</div>';
 
@@ -74,16 +77,11 @@ class section extends panel {
      */
     public function render_section(){
 
-        if( !empty( $this->struct['template'] ) ){
-            $this->render_template();
-            return;
-        } elseif( empty( $this->child ) ){
-            return;
-        } else {
-            foreach ($this->child as $control)
-                $control->render();
-        }
+        foreach ($this->child as $control)
+            $control->render();
+
     }
+
 
     /**
      * checks if the current section is active

@@ -104,8 +104,11 @@ class panel extends \uix\data\data{
      * @access public
      */
     public function render(){
-        
-        if( empty( $this->child ) ){ return; }
+
+        $this->render_template();
+
+        if( empty( $this->child ) )
+            return;
 
         echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside ' . esc_attr( $this->wrapper_class_names() ) . '">';
             // render a lable
@@ -201,12 +204,10 @@ class panel extends \uix\data\data{
      * @access public
      */
     public function render_template(){
-        // tempalte
-        if( file_exists( $this->struct['template'] ) ){
+        // template
+        if( !empty( $this->struct['template'] ) )
             include $this->struct['template'];
-        }else{
-            echo esc_html__( 'Template not found: ', 'text-domain' ) . $this->struct['template'];
-        }
+
     }
 
 

@@ -336,7 +336,7 @@ class Test_UIX extends WP_UnitTestCase {
         $uix->ui->page['uixdemo']->render();
         $template = ob_get_clean();
         $this->assertTrue( is_string( $template ) );
-    }    
+    }
 
     public function test_control_register() {
 

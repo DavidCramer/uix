@@ -34,7 +34,21 @@ $pages = array(
                     ),
                 ),
             ),
-        ),        
+            'templated' => array(
+                'template' => __DIR__,
+            )
+        ),
+        'help'  => array(   // the wordpress contextual help is also included
+            // key is the help slug
+            'default-help' => array(
+                'title'     =>  'first help',
+                'content'   =>  'first help content',
+            ),
+            'more-help' => array(
+                'title'     =>  'more help',
+                'content'   =>  'more content',
+            )
+        ),
     ),
     'uixdemo'       => array(                                                         // this is the settings array. The key is the page slug
         'page_title'    =>  __( 'UIX Demo Page', 'text-domain'),                        // title of the page

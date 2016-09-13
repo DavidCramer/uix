@@ -17,6 +17,14 @@ namespace uix\ui\control;
  */
 class template extends \uix\ui\control{
 
+    /**
+     * The type of object
+     *
+     * @since       1.0.0
+     * @access public
+     * @var         string
+     */
+    public $type = 'template';
 
     /**
      * Returns the main input field for rendering

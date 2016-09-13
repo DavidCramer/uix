@@ -62,6 +62,25 @@ class Test_Data extends WP_UnitTestCase {
 
     }
 
+    public function test_store_key(){
+
+        $uix = uix();
+        $key = $uix->ui->page['childpage']->store_key();
+        $this->assertSame( $key, 'uix-page-childpage');
+    }
+
+    public function test_set_store_key(){
+
+        $page = uix()->add('page', 'store_key_test', array(
+            'page_title' => 'Test Key',
+            'menu_title' => 'Test Key',
+            'store_key' => 'wooter-storage'
+        ) );
+        $key = $page->store_key();
+        $this->assertSame( $key, 'wooter-storage');
+    }
+
+
     public function test_new_box() {
         $uix = uix();
 

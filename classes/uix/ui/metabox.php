@@ -208,19 +208,10 @@ class metabox extends panel {
      */
     public function render(){
 
-        if( !empty( $this->struct['template'] ) ){
-            
-            $this->render_template();
 
-        }else{
-             // render fields setup
-            parent::render();
-        }
-        ?>
-        <script type="text/javascript">
-            jQuery('#<?php echo $this->slug; ?>').addClass('uix-metabox')<?php if( $this->struct['chromeless'] ){ echo ".addClass('uix-chromeless')"; } ?>;
-        </script>        
-        <?php
+        // render fields setup
+        parent::render();
+
         
     }
     

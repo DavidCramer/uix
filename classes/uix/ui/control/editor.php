@@ -18,6 +18,15 @@ namespace uix\ui\control;
 class editor extends \uix\ui\control\textarea{
 
     /**
+     * The type of object
+     *
+     * @since       1.0.0
+     * @access public
+     * @var         string
+     */
+    public $type = 'editor';
+
+    /**
      * Returns the main input field for rendering
      *
      * @since 1.0.0

@@ -19,6 +19,15 @@ namespace uix\ui\control;
 class slider extends \uix\ui\control\text{
 
     /**
+     * The type of object
+     *
+     * @since       1.0.0
+     * @access public
+     * @var         string
+     */
+    public $type = 'slider';
+
+    /**
      * Define core UIX styles - override to register core ( common styles for uix type )
      *
      * @since 1.0.0
