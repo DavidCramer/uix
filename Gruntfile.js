@@ -1,5 +1,5 @@
  module.exports = function (grunt) {
-    
+
     // Project configuration.
     grunt.initConfig({
         pkg :   grunt.file.readJSON( '../package.json' ),
@@ -11,7 +11,7 @@
             main: {
                 files:[
                     {
-                        expand: true,
+                        expand: false,
                         cwd: './',
                         src: 'uix-bootstrap.php',
                         dest: '../<%= pkg.namespace %>-bootstrap.php'
