@@ -50,25 +50,18 @@ class section extends panel {
      */
     public function render(){
 
-        $output = null;
-
         if( !isset( $this->struct['active'] ) )
             $this->struct['active'] = 'true';
 
-        $output .= '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
+        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">' . $this->description();
 
-            $output .= $this->description();
+        $output .='<div class="uix-section-content">';
 
-            $output .='<div class="uix-section-content">';
+        $output .= $this->render_template();
+        if( !empty( $this->child ) )
+            $output .= $this->render_section();
 
-                $output .= $this->render_template();
-
-                if( !empty( $this->child ) )
-                    $output .= $this->render_section();
-
-            $output .= '</div>';
-
-        $output .= '</div>';
+        $output .= '</div></div>';
 
         return $output;
     }
