@@ -333,7 +333,7 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertSame( $admin_page_hooks['uixdemo'], 'uix-demo' );
         $this->assertFalse( isset( $admin_page_hooks['nopage'] ) );
         ob_start();
-        $uix->ui->page['uixdemo']->render();
+        $uix->ui->page['uixdemo']->create_page();
         $template = ob_get_clean();
         $this->assertTrue( is_string( $template ) );
     }

@@ -71,7 +71,7 @@ class ui{
 
         // go over each locations
         foreach( $this->locations as $type => $paths ){
-            
+
             if( $this->is_callable( $type ) )
                 $this->process_paths( $type, $paths );
 
@@ -194,7 +194,8 @@ class ui{
         set_error_handler( array( $this, 'silent_warning' ), E_WARNING );
         // determin how the structure works.
         foreach( (array) $arr as $key => $value )
-            $this->locations = array_merge( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
+            $this->locations = array_merge_recursive( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
+
         // restore original handler
         restore_error_handler();        
     }
@@ -233,6 +234,29 @@ class ui{
 
 
     /**
+     * Opens a location and gets the folders to check
+     *
+     * @since 1.0.0
+     * @access private
+     * @param string $path  The file patch to examine and to fetch contents from
+     * @return array List of folders
+     */
+    private function get_folder_contents( $path ) {
+
+        $items = array();
+        if( $uid = opendir( $path ) ) {
+            while (($item = readdir($uid)) !== false) {
+                if ( substr($item, 0, 1) != '.' )
+                    $items[ $item ] = $path . $item;
+
+            }
+            closedir( $uid );
+        }
+
+        return $items;
+    }
+
+    /**
      * Opens a location and gets the file to load for each folder
      *
      * @since 1.0.0
@@ -241,21 +265,13 @@ class ui{
      * @param bool $file flag to set file fetching vs folder load
      * @return array List of folders and files
      */
-    private function get_files_from_folders( $path, $file = false ) {
+    private function get_files_from_folders( $path ) {
 
-        $items = array();
-        $uid = opendir( $path );
-        if ( $uid ) {
-            while( ( $item = readdir( $uid ) ) !== false ) {
-                if ( substr( $item, 0, 1) != '.' ){
-                    if( false === $file ){
-                        $items[ $item ] = $this->get_files_from_folders( $path . $item, true );
-                    }else{
-                        $items[] = $path . '/' . $item;
-                    }
-                }
-            }
-            closedir( $uid );
+        $items = $this::get_folder_contents( $path );
+
+        foreach ( $items as $type => &$location ){
+            $location = $this::get_folder_contents( trailingslashit( $location ) );
+            sort($location);
         }
 
         return $items;
