@@ -395,6 +395,7 @@ abstract class uix{
      *
      * @since 1.0.0
      * @access public
+     * @return string HTML of rendered object
      */
     abstract public function render();
 

@@ -46,27 +46,31 @@ class section extends panel {
      *
      * @since 1.0.0
      * @access public
+     * @return string|null HTML of rendered notice
      */
     public function render(){
+
+        $output = null;
 
         if( !isset( $this->struct['active'] ) )
             $this->struct['active'] = 'true';
 
-        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
+        $output .= '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">';
 
-            $this->description();
+            $output .= $this->description();
 
-            echo '<div class="uix-section-content">';
+            $output .='<div class="uix-section-content">';
 
-                $this->render_template();
+                $output .= $this->render_template();
 
                 if( !empty( $this->child ) )
-                    $this->render_section();
-                
-            echo '</div>';
+                    $output .= $this->render_section();
 
-        echo '</div>';
+            $output .= '</div>';
 
+        $output .= '</div>';
+
+        return $output;
     }
 
     /**
@@ -74,12 +78,14 @@ class section extends panel {
      *
      * @since 1.0.0
      * @access public
+     * @return string|null
      */
     public function render_section(){
-
+        $output = null;
         foreach ($this->child as $control)
-            $control->render();
+            $output .= $control->render();
 
+        return $output;
     }
 
 

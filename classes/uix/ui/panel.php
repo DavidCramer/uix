@@ -104,24 +104,27 @@ class panel extends \uix\data\data{
      * @access public
      */
     public function render(){
+        $output = null;
 
-        $this->render_template();
+        $output .= $this->render_template();
 
-        if( empty( $this->child ) )
-            return;
+        if( !empty( $this->child ) ) {
 
-        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside ' . esc_attr( $this->wrapper_class_names() ) . '">';
+            $output .= '<div id="' . esc_attr($this->id()) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
             // render a lable
-            $this->label();
+            $output .= $this->label();
             // render a desciption
-            $this->description();
+            $output .= $this->description();
             // render navigation tabs
-            $this->navigation();
+            $output .= $this->navigation();
             // sections
-            $this->panel_section();
+            $output .= $this->panel_section();
 
 
-        echo '</div>';
+            $output .= '</div>';
+        }
+
+        return $output;
     }
 
     /**
@@ -129,21 +132,26 @@ class panel extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
+     * @return string|null Html of rendered navigation tabs
      */
     public function navigation(){
-        if( count( $this->child ) <= 1 ){ return; }
+        $output = null;
 
-        echo '<ul class="uix-' . esc_attr( $this->type ) . '-tabs uix-panel-tabs">';
-        $active = 'true';
-        foreach( $this->child as $child ){
+        if( count( $this->child ) > 1 ) {
 
-            if( $child->type === 'help' ){ continue; }
+            $output .= '<ul class="uix-' . esc_attr($this->type) . '-tabs uix-panel-tabs">';
+            $active = 'true';
+            foreach ($this->child as $child) {
 
-            $this->tab_label( $child, $active );
-
-            $active = 'false';
+                if ($child->type !== 'help') {
+                    $output .= $this->tab_label($child, $active);
+                    $active = 'false';
+                }
+                
+            }
+            $output .= '</ul>';
         }
-        echo '</ul>';
+        return $output;
     }
 
     /**
@@ -153,17 +161,22 @@ class panel extends \uix\data\data{
      * @param object $child Child object to render tab for.
      * @param string $active Set the tabactive or not.
      * @access private
+     * @return string|null html of rendered label
      */
     private function tab_label( $child, $active ){
+
+        $output = null;
 
         $label = esc_html( $child->struct['label'] );
 
         if( !empty( $child->struct['icon'] ) )
             $label = '<i class="dashicons ' . $child->struct['icon'] . '"></i><span class="label">' . esc_html( $child->struct['label'] ) . '</span>';
 
-        echo '<li aria-selected="' . esc_attr( $active ) . '">';
-        echo '<a href="#' . esc_attr( $child->id() ) . '" data-parent="' . esc_attr( $this->id() ) . '" class="uix-tab-trigger">' . $label . '</a>';
-        echo '</li>';
+        $output .= '<li aria-selected="' . esc_attr( $active ) . '">';
+        $output .= '<a href="#' . esc_attr( $child->id() ) . '" data-parent="' . esc_attr( $this->id() ) . '" class="uix-tab-trigger">' . $label . '</a>';
+        $output .= '</li>';
+
+        return $output;
     }
 
     /**
@@ -171,10 +184,14 @@ class panel extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
+     * @return string|null rendered html of label
      */
     public function label(){
+        $output = null;
         if( !empty( $this->struct['label'] ) )
-            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><h3 class="uix-' . esc_attr( $this->type ) . '-title">' . esc_html( $this->struct['label'] ) . '</h3></div>';
+            $output .= '<div class="uix-' . esc_attr( $this->type ) . '-heading"><h3 class="uix-' . esc_attr( $this->type ) . '-title">' . esc_html( $this->struct['label'] ) . '</h3></div>';
+
+        return $output;
     }
 
     /**
@@ -182,25 +199,39 @@ class panel extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
+     * @return string|null HTML of rendered description
      */
     public function description(){
+        $output = null;
         if( !empty( $this->struct['description'] ) )
-            echo '<div class="uix-' . esc_attr( $this->type ) . '-heading"><p class="uix-' . esc_attr( $this->type ) . '-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
-        
+            $output .= '<div class="uix-' . esc_attr( $this->type ) . '-heading"><p class="uix-' . esc_attr( $this->type ) . '-subtitle description">' . esc_html( $this->struct['description'] ) . '</p></div>';
+
+        return $output;
     }
 
+    /**
+     * Render the panels Description
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string|null HTML of rendered description
+     */
     public function panel_section(){
+        $output = null;
+
         // render the section wrapper
-        echo '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
+        $output .= '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
 
         $hidden = 'false';
         foreach( $this->child as $section ){
             $section->struct['active'] = $hidden;
-            $section->render();
+            $output .= $section->render();
             $hidden = 'true';
         }
 
-        echo '</div>';
+        $output .= '</div>';
+
+        return $output;
     }
 
     /**
@@ -208,12 +239,19 @@ class panel extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
+     * @return string|null HTML of rendered template
      */
     public function render_template(){
         // template
-        if( !empty( $this->struct['template'] ) )
-            include $this->struct['template'];
+        $output = null;
 
+        if( !empty( $this->struct['template'] ) ){
+            ob_start();
+                include $this->struct['template'];
+            $output .= ob_get_clean();
+        }
+
+        return $output;
     }
 
 

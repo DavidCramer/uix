@@ -35,9 +35,13 @@ class template extends \uix\ui\control{
      * @return string 
      */
     public function input(){
-        
-        if( !empty( $this->struct['template'] ) && file_exists( $this->struct['template'] ) )
+        $output = null;
+        if( !empty( $this->struct['template'] ) && file_exists( $this->struct['template'] ) ) {
+            ob_start();
             include $this->struct['template'];
+            $output .= ob_get_clean();
+        }
+        return $output;
     }    
      
 

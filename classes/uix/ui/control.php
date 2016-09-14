@@ -145,14 +145,14 @@ class control extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
-     * @return string Lable string 
+     * @return string label of control
      */
     public function label(){
-        
+        $output = null;
         if( isset( $this->struct['label'] ) )
-            return '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
+            $output .= '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
 
-        return '';
+        return $output;
     }
 
 
@@ -164,11 +164,11 @@ class control extends \uix\data\data{
      * @return string description string 
      */
     public function description(){
-        
+        $output = null;
         if( isset( $this->struct['description'] ) )
-            return '<span class="uix-control-description">' . esc_html( $this->struct['description'] ) . '</span>';
+            $output .= '<span class="uix-control-description">' . esc_html( $this->struct['description'] ) . '</span>';
 
-        return '';
+        return $output;
     }
 
 
@@ -178,17 +178,19 @@ class control extends \uix\data\data{
      * @since 1.0.0
      * @see \uix\ui\uix
      * @access public
+     * @return string HTML of rendered control
      */
     public function render(){
 
-        echo '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
-            
-            echo $this->label();
-            echo $this->input();
-            echo $this->description();
+        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
 
-        echo '</div>';
+        $output .= $this->label();
+        $output .= $this->input();
+        $output .= $this->description();
 
+        $output .= '</div>';
+
+        return $output;
     }
 
     /**

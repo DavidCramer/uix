@@ -203,24 +203,25 @@ class page extends box implements \uix\data\save{
      *
      * @since 1.0.0
      * @access public
+     * @return string HMTL of rendered page
      */
     public function render(){
+        $output = null;
 
-        ?>
-        <form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="<?php echo esc_attr( $this->slug ); ?>" id="page-<?php echo esc_attr( $this->id() ); ?>">
-            <h1 class="uix-title"><?php esc_html_e( $this->struct['page_title'] , 'text-domain' ); ?>
-                <?php if( !empty( $this->struct['version'] ) ){ ?><small><?php esc_html_e( $this->struct['version'], 'text-domain' ); ?></small><?php } ?>
-                <?php if( !empty( $this->struct['save_button'] ) ){ ?>
-                <button type="submit" class="page-title-action">
-                    <?php esc_html_e( $this->struct['save_button'], 'text-domain' ); ?>
-                </button>
-                <?php } ?>
-            </h1>        
-            <?php 
-                parent::render();
-            ?>
-        </form>
-        <?php
+        $output .= '<form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="' . esc_attr( $this->slug ) . '" id="page-' . esc_attr( $this->id() ) . '">';
+        $output .= '<h1 class="uix-title">' . esc_html( $this->struct['page_title'] );
+        if( !empty( $this->struct['version'] ) )
+            $output .= '<small>' . esc_html( $this->struct['version'] ) . '</small>';
+
+        if( !empty( $this->struct['save_button'] ) )
+            $output .= '<button type="submit" class="page-title-action">' . esc_html( $this->struct['save_button'] ) . '</button>';
+
+        $output .= '</h1>';
+        $output .= parent::render();
+
+        $output .= '</form>';
+
+        return $output;
     }
     
 }

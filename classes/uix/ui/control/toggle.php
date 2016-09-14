@@ -129,11 +129,11 @@ class toggle extends \uix\ui\control{
      * @return string description string 
      */
     public function description(){
-        
+        $output = null;
         if( isset( $this->struct['description'] ) )
-            return '<span class="uix-toggle-description">' . esc_html( $this->struct['description'] ) . '</span>';
+            $output .= '<span class="uix-toggle-description">' . esc_html( $this->struct['description'] ) . '</span>';
 
-        return '';
+        return $output;
     }
 
 }

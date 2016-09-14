@@ -55,7 +55,7 @@ class separator extends \uix\ui\control{
      */
     public function input(){
 
-        echo '<hr class="uix-separator" id="control-' . esc_attr( $this->id() ) . '" />';
+        return '<hr class="uix-separator" id="control-' . esc_attr( $this->id() ) . '" />';
 
     }
 

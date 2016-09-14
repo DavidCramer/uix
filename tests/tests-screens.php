@@ -94,11 +94,8 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
         $uix = uix()->add('panel', 'torender', array(
             'template' => __DIR__ . '/ui/page/template.php',
         ) );
-        ob_start();
-        $uix->render();
-        $output = ob_get_clean();
 
-        $this->assertSame( $output, 'I am rendered' );
+        $this->assertSame( $uix->render(), 'I am rendered' );
     }
 
     function test_post_type_as_hookname() {

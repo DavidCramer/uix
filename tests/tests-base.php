@@ -399,9 +399,7 @@ class Test_UIX extends WP_UnitTestCase {
             'dismissable' => true
         ));
 
-        ob_start();
-        $notice->render();
-        $html = ob_get_clean();
+        $html = $notice->render();
         $hash = md5( $html );
         $this->assertSame( $hash, '07ce1d7a186fc0e98b5942003bec63ac');
 
@@ -435,9 +433,8 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertSame( $check_atts, $test_atts );
 
         // render checks
-        ob_start();
-        $uix->ui->box['saving']->child['checkbox']->render();
-        $check_html = ob_get_clean();
+
+        $check_html = $uix->ui->box['saving']->child['checkbox']->render();
 
         $hash = md5( $check_html );
         $this->assertSame( $hash, '15f1f25dc5b62a89cd20b2a92d14c81a' );

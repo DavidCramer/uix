@@ -89,15 +89,21 @@ class notice extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
+     * @return string HTML of notice
      */
     public function render(){
+        $output = null;
+
         $this->attributes['class'] = implode( ' ', $this->classes );
-        echo '<div ' . $this->build_attributes() . '>';
-            echo '<p>';
-                echo $this->get_data();
-            echo '</p>';
-            $this->dismiss();
-        echo '</div>';
+
+        $output .= '<div ' . $this->build_attributes() . '>';
+        $output .= '<p>';
+        $output .= $this->get_data();
+        $output .= '</p>';
+        $output .= $this->dismiss();
+        $output .= '</div>';
+
+        return $output;
 
     }
 
@@ -106,10 +112,14 @@ class notice extends \uix\data\data{
      *
      * @since 1.0.0
      * @access public
+     * @return string|null HTML of dismiss button
      */
     public function dismiss(){
+        $output = null;
         if( !empty( $this->struct['dismissable'] ) )
-            echo '<button class="notice-dismiss" type="button"><span class="screen-reader-text">' . esc_attr__( 'Dismiss this notice.' ) . '</span></button>';
+            $output .= '<button class="notice-dismiss" type="button"><span class="screen-reader-text">' . esc_attr__( 'Dismiss this notice.' ) . '</span></button>';
+
+        return $output;
     }
 
     /**

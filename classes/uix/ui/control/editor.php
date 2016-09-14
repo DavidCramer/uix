@@ -39,7 +39,11 @@ class editor extends \uix\ui\control\textarea{
         if( !empty( $this->struct['settings'] ) && is_array( $this->struct['settings'] ) )
             $settings = array_merge( $this->struct['settings'], $settings );
 
+        ob_start();
+
         wp_editor( $this->get_data(), 'control-' . $this->id(), $settings );
+
+        return ob_get_clean();
 
     }    
 

@@ -196,7 +196,7 @@ class metabox extends panel {
         
         $this->set_data( $data );
 
-        $this->render();
+        echo $this->render();
 
     }
 
@@ -205,12 +205,13 @@ class metabox extends panel {
      *
      * @since 1.0.0
      * @access public
+     * @return string HTML of rendered metabox
      */
     public function render(){
 
 
         // render fields setup
-        parent::render();
+        return parent::render();
 
         
     }

@@ -91,11 +91,14 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @since 1.0.0
      * @see \uix\ui\uix
      * @access public
+     * @return string HTML of rendered box
      */
     public function render(){
 
-        wp_nonce_field( $this->id(), 'uixNonce_' . $this->id() );
-        parent::render();
+        $output = wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
+        $output .= parent::render();
+
+        return $output;
     }
 
 }
