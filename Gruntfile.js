@@ -36,6 +36,12 @@
                     },
                     {
                         expand: true,
+                        cwd: 'assets/controls',
+                        src: '**',
+                        dest: '../assets/controls/'
+                    },
+                    {
+                        expand: true,
                         cwd: 'classes/uix/',
                         src: '**',
                         dest: '../classes/<%= pkg.namespace %>/'
