@@ -1,4 +1,3 @@
-
   Handlebars.registerHelper("even", function(options) {
     var intval = options.data.index / 2;
     if( intval === Math.ceil( intval ) ){
