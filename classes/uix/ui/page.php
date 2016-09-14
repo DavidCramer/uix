@@ -170,7 +170,7 @@ class page extends box implements \uix\data\save{
             $this->struct['args'][ 'menu_title' ],
             $this->struct['args'][ 'capability' ],
             $this->slug,
-            array( $this, 'render' ),
+            array( $this, 'create_page' ),
             $this->struct['args'][ 'icon' ],
             $this->struct['args'][ 'position' ]
         );
@@ -192,11 +192,20 @@ class page extends box implements \uix\data\save{
             $this->struct['args'][ 'menu_title' ],
             $this->struct['args'][ 'capability' ],
             $this->slug,
-            array( $this, 'render' )
+            array( $this, 'create_page' )
         );
 
     }
 
+    /**
+     * create the admin page
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function create_page(){
+        echo $this->render();
+    }
 
     /**
      * Render the page
@@ -221,7 +230,7 @@ class page extends box implements \uix\data\save{
 
         $output .= '</form>';
 
-        return $output;
+        render $output;
     }
     
 }
