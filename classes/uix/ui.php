@@ -262,7 +262,6 @@ class ui{
      * @since 1.0.0
      * @access private
      * @param string $path  The file patch to examine and to fetch contents from
-     * @param bool $file flag to set file fetching vs folder load
      * @return array List of folders and files
      */
     private function get_files_from_folders( $path ) {
