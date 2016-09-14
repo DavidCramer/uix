@@ -230,7 +230,7 @@ class page extends box implements \uix\data\save{
 
         $output .= '</form>';
 
-        render $output;
+        return $output;
     }
     
 }
