@@ -86,7 +86,7 @@ class page extends box implements \uix\data\save{
      */
     public function set_assets() {
 
-        $this->assets['style']['page'] =  $this->url . 'assets/css/uix-page' . UIX_ASSET_DEBUG . '.css';
+        $this->assets['style']['page'] =  $this->url . 'assets/css/page' . UIX_ASSET_DEBUG . '.css';
 
         parent::set_assets();
     }

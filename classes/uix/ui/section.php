@@ -36,7 +36,7 @@ class section extends panel {
      */
     public function set_assets() {
 
-        $this->assets['style']['sections']   =  $this->url . 'assets/css/uix-sections' . UIX_ASSET_DEBUG . '.css';
+        $this->assets['style']['sections']   =  $this->url . 'assets/css/sections' . UIX_ASSET_DEBUG . '.css';
 
         parent::set_assets();
     }

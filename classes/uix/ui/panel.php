@@ -55,8 +55,8 @@ class panel extends \uix\data\data{
      */
     public function set_assets() {
 
-        $this->assets['script']['panel']     =  $this->url . 'assets/js/uix-panel' . UIX_ASSET_DEBUG . '.js';
-        $this->assets['style']['panel']   =  $this->url . 'assets/css/uix-panel' . UIX_ASSET_DEBUG . '.css';
+        $this->assets['script']['panel']     =  $this->url . 'assets/js/panel' . UIX_ASSET_DEBUG . '.js';
+        $this->assets['style']['panel']   =  $this->url . 'assets/css/panel' . UIX_ASSET_DEBUG . '.css';
 
         parent::set_assets();
 

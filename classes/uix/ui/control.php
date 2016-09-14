@@ -75,7 +75,7 @@ class control extends \uix\data\data{
      * @access public
      */
     public function set_assets() {
-        $this->assets['style']['controls']  =   $this->url . 'assets/css/uix-control' . UIX_ASSET_DEBUG . '.css';
+        $this->assets['style']['controls']  =   $this->url . 'assets/css/control' . UIX_ASSET_DEBUG . '.css';
         parent::set_assets();
     }
 
