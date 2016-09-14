@@ -131,28 +131,18 @@ class page extends box implements \uix\data\save{
      */
     protected function enqueue_active_assets(){
 
-        ?><style type="text/css">
-            .contextual-help-tabs .active {
-                border-left: 6px solid <?php echo $this->base_color(); ?> !important;
-            }
-            #page-<?php echo $this->id(); ?> h1{
-                box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 <?php echo $this->base_color(); ?> inset;
-            }
-             #page-<?php echo $this->id(); ?> .page-title-action:hover{
-                background: <?php echo $this->base_color(); ?>;
-                border-color: rgba(0,0,0,0.1);
-            }
-             #page-<?php echo $this->id(); ?> .page-title-action:focus{
-                box-shadow: 0 0 2px <?php echo $this->base_color(); ?>;
-                border-color: <?php echo $this->base_color(); ?>;
-            }
-            <?php if( count( (array) $this->child ) > 1 ){ ?>
-            #page-<?php echo $this->id(); ?> h1{
-                box-shadow: 0 0px 13px 12px <?php echo $this->base_color(); ?>, 11px 0 0 <?php echo $this->base_color(); ?> inset;
-            }
-            <?php } ?>
-        </style>
-        <?php
+        $child_count = count( (array) $this->child );
+
+        echo '<style type="text/css">';
+        echo '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color(). ' !important;}';
+        echo '#page-' . $this->id() . ' h1{box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 ' . $this->base_color() . ' inset;}';
+        echo '#page-' . $this->id() . ' .page-title-action:hover{background: ' . $this->base_color() . ';border-color: rgba(0,0,0,0.1);}';
+        echo '#page-' . $this->id() . '.page-title-action:focus{box-shadow: 0 0 2px ' . $this->base_color() . ';border-color: ' . $this->base_color() . ';}';
+
+        if( $child_count > 1 )
+            echo 'page-' . $this->id() . 'h1{ box-shadow: 0 0px 13px 12px ' . $this->base_color() . ', 11px 0 0 ' . $this->base_color() . ' inset;}';
+
+        echo '</style>';
 
     }
 
