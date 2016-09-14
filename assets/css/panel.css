@@ -125,9 +125,11 @@ h3.uix-panel-title {
 }
 
 .uix-section-content .description {
+  color: #838383;
   font-style: normal;
-  font-weight: 600;
-  margin: 2px 0 10px;
+  font-weight: 500;
+  margin: 2px 0 0;
+  padding: 6px 12px 0;
 }
 
 .uix-panel-tabs .dashicons {
