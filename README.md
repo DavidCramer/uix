@@ -147,7 +147,7 @@ $post_type = array(
                         'employee_name' =>  array(
                             'label'     => esc_html__( 'Name', 'text-domain' ),
                         ),
-                        employee_bio    =>  array(
+                        'employee_bio'    =>  array(
                             'label' => esc_html__( 'Bio', 'text-domain' ),
                             'type' => 'textarea'
                         ),

@@ -185,7 +185,9 @@ class control extends \uix\data\data{
         $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
 
         $output .= $this->label();
-        $output .= $this->input();
+        $output .= '<div class="uix-control-input">';
+            $output .= $this->input();
+        $output .= '</div>';
         $output .= $this->description();
 
         $output .= '</div>';

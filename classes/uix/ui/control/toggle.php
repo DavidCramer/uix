@@ -72,11 +72,11 @@ class toggle extends \uix\ui\control{
     protected function enqueue_active_assets(){
         parent::enqueue_active_assets();
         ?><style type="text/css">
-        #<?php echo $this->id(); ?> > .switch.active {
+        #<?php echo $this->id(); ?> > .uix-control-input > .switch.active {
             background: <?php echo $this->base_color(); ?>;
         }
         <?php if( !empty( $this->struct['off_color'] ) ){ ?>
-            #<?php echo $this->id(); ?> > .switch {
+            #<?php echo $this->id(); ?> > .uix-control-input > .switch {
                 background: <?php echo $this->struct['off_color']; ?>;
             }
         <?php } ?>

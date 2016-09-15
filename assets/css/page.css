@@ -163,34 +163,6 @@ form.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 
-.uix-page-sections > .uix-section > .uix-section-content > .uix-control {
-  margin-bottom: 21px;
-  margin-left: 150px;
-}
-.uix-page-sections > .uix-section > .uix-section-content > .uix-control .uix-control-label {
-  display: inline-block;
-  float: left;
-  margin-left: -150px;
-  font-weight: 600;
-  margin-bottom: 3px;
-}
-.uix-page-sections > .uix-section > .uix-section-content > .uix-control.uix-control-separator label > span.uix-control-label {
-  font-style: oblique;
-  font-weight: 500;
-  margin-top: -12px;
-  color: #8f8f8f;
-}
-.uix-page-sections > .uix-section > .uix-section-content > .description {
-  font-size: 1.05em;
-  margin: 12px 0 26px;
-}
-.uix-page-sections > .uix-section > .uix-section-content > .uix-control .uix-control-description {
-  color: #808080;
-  display: block;
-  font-style: oblique;
-  font-weight: 400;
-  margin-bottom: 3px;
-}
 
 
 
