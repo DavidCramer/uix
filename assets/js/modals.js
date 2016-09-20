@@ -1,7 +1,7 @@
 (function($){
-    
-    var uixBackdrop = null,
-        uixModals   = {},
+
+    var dbptBackdrop = null,
+        dbptModals   = {},
         activeModals    = [],
         activeSticky    = [],
         pageHTML,
@@ -16,14 +16,14 @@
         var modalId  = ( activeModals.length ? activeModals[ ( activeModals.length - 1 ) ] : activeSticky[ ( activeSticky.length - 1 ) ] ),
             windowWidth  = mainWindow.width(),
             windowHeight = mainWindow.height(),
-            modalHeight  = uixModals[ modalId ].config.height,
+            modalHeight  = dbptModals[ modalId ].config.height,
             modalOuterHeight  = modalHeight,
-            modalWidth  = uixModals[ modalId ].config.width,
+            modalWidth  = dbptModals[ modalId ].config.width,
             top          = 0,
             flickerBD    = false,
             modalReduced = false;
 
-        if( uixBackdrop ){ pageHTML.addClass('has-uix-modal'); }
+        if( dbptBackdrop ){ pageHTML.addClass('has-dbpt-modal'); }
 
         // check modals for %
         if( typeof modalWidth === 'string' ){
@@ -33,30 +33,30 @@
         if( typeof modalHeight === 'string' ){
             modalHeight = parseInt( modalHeight );
             modalHeight = windowHeight / 100 * parseInt( modalHeight );
-        }       
+        }
         // top
         top = (windowHeight - modalHeight ) / 2.2;
 
         if( top < 0 ){
             top = 0;
         }
-        if( modalHeight + ( uixModals[ modalId ].config.padding * 2 ) > windowHeight && uixBackdrop ){
-            modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 );
+        if( modalHeight + ( dbptModals[ modalId ].config.padding * 2 ) > windowHeight && dbptBackdrop ){
+            modalHeight = windowHeight - ( dbptModals[ modalId ].config.padding * 2 );
             modalOuterHeight = '100%';
-            if( uixBackdrop ){ 
-                uixBackdrop.css( {
-                    paddingTop: uixModals[ modalId ].config.padding,
-                    paddingBottom: uixModals[ modalId ].config.padding,
+            if( dbptBackdrop ){
+                dbptBackdrop.css( {
+                    paddingTop: dbptModals[ modalId ].config.padding,
+                    paddingBottom: dbptModals[ modalId ].config.padding,
                 });
             }
             modalReduced = true;
         }
-        if( modalWidth + ( uixModals[ modalId ].config.padding * 2 ) >= windowWidth ){
+        if( modalWidth + ( dbptModals[ modalId ].config.padding * 2 ) >= windowWidth ){
             modalWidth = '100%';
-            if( uixBackdrop ){ 
-                uixBackdrop.css( {
-                    paddingLeft: uixModals[ modalId ].config.padding,
-                    paddingRight: uixModals[ modalId ].config.padding,
+            if( dbptBackdrop ){
+                dbptBackdrop.css( {
+                    paddingLeft: dbptModals[ modalId ].config.padding,
+                    paddingRight: dbptModals[ modalId ].config.padding,
                 });
             }
             modalReduced = true;
@@ -64,126 +64,126 @@
 
         if( true === modalReduced ){
             if( windowWidth <= 700 && windowWidth > 600 ){
-                if( uixBackdrop ){ modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 ); }
+                if( dbptBackdrop ){ modalHeight = windowHeight - ( dbptModals[ modalId ].config.padding * 2 ); }
                 modalWidth = windowWidth;
-                modalOuterHeight = modalHeight - ( uixModals[ modalId ].config.padding * 2 );
+                modalOuterHeight = modalHeight - ( dbptModals[ modalId ].config.padding * 2 );
                 modalWidth = '100%';
                 top = 0;
-                if( uixBackdrop ){ uixBackdrop.css( { padding : uixModals[ modalId ].config.padding } ); }
+                if( dbptBackdrop ){ dbptBackdrop.css( { padding : dbptModals[ modalId ].config.padding } ); }
             }else if( windowWidth <= 600 ){
-                if( uixBackdrop ){ modalHeight = windowHeight; }
+                if( dbptBackdrop ){ modalHeight = windowHeight; }
                 modalWidth = windowWidth;
                 modalOuterHeight = '100%';
                 top = 0;
-                if( uixBackdrop ){ uixBackdrop.css( { padding : 0 } ); }
+                if( dbptBackdrop ){ dbptBackdrop.css( { padding : 0 } ); }
             }
         }
 
 
         // set backdrop
-        if( uixBackdrop && uixBackdrop.is(':hidden') ){
+        if( dbptBackdrop && dbptBackdrop.is(':hidden') ){
             flickerBD = true;
-            uixBackdrop.show();
+            dbptBackdrop.show();
         }
         // title?
-        if( uixModals[ modalId ].header ){
-            if( uixBackdrop ){ uixBackdrop.show(); }
-            modalHeight -= uixModals[ modalId ].header.outerHeight();
-            uixModals[ modalId ].closer.css( { 
-                padding     : ( uixModals[ modalId ].header.outerHeight() / 2 ) - 0.5
+        if( dbptModals[ modalId ].header ){
+            if( dbptBackdrop ){ dbptBackdrop.show(); }
+            modalHeight -= dbptModals[ modalId ].header.outerHeight();
+            dbptModals[ modalId ].closer.css( {
+                padding     : ( dbptModals[ modalId ].header.outerHeight() / 2 ) - 3.8
             } );
-            uixModals[ modalId ].title.css({ paddingRight: uixModals[ modalId ].closer.outerWidth() } );
+            dbptModals[ modalId ].title.css({ paddingRight: dbptModals[ modalId ].closer.outerWidth() } );
         }
         // footer?
-        if( uixModals[ modalId ].footer ){
-            if( uixBackdrop ){ uixBackdrop.show(); }
-            modalHeight -= uixModals[ modalId ].footer.outerHeight();           
+        if( dbptModals[ modalId ].footer ){
+            if( dbptBackdrop ){ dbptBackdrop.show(); }
+            modalHeight -= dbptModals[ modalId ].footer.outerHeight();
         }
 
-        if( uixBackdrop && flickerBD === true ){
-            uixBackdrop.hide();
+        if( dbptBackdrop && flickerBD === true ){
+            dbptBackdrop.hide();
             flickerBD = false;
         }
 
         // set final height
         if( modalHeight != modalOuterHeight ){
-            uixModals[ modalId ].body.css( { 
-                height      : modalHeight           
+            dbptModals[ modalId ].body.css( {
+                height      : modalHeight
             } );
         }
-        uixModals[ modalId ].modal.css( {
-            width       : modalWidth    
+        dbptModals[ modalId ].modal.css( {
+            width       : modalWidth
         } );
-        if( uixModals[ modalId ].config.sticky && uixModals[ modalId ].config.minimized ){
+        if( dbptModals[ modalId ].config.sticky && dbptModals[ modalId ].config.minimized ){
             var toggle = {},
-                minimizedPosition = uixModals[ modalId ].title.outerHeight() - uixModals[ modalId ].modal.outerHeight();
-            if( uixModals[ modalId ].config.sticky.indexOf( 'bottom' ) > -1 ){
+                minimizedPosition = dbptModals[ modalId ].title.outerHeight() - dbptModals[ modalId ].modal.outerHeight();
+            if( dbptModals[ modalId ].config.sticky.indexOf( 'bottom' ) > -1 ){
                 toggle['margin-bottom'] = minimizedPosition;
-            }else if( uixModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
+            }else if( dbptModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
                 toggle['margin-top'] = minimizedPosition;
             }
-            uixModals[ modalId ].modal.css( toggle );
-            if( uixModals[ modalId ].config.sticky.length >= 3 ){
-                pageBody.css( "margin-" + uixModals[ modalId ].config.sticky[0] , uixModals[ modalId ].title.outerHeight() );
+            dbptModals[ modalId ].modal.css( toggle );
+            if( dbptModals[ modalId ].config.sticky.length >= 3 ){
+                pageBody.css( "margin-" + dbptModals[ modalId ].config.sticky[0] , dbptModals[ modalId ].title.outerHeight() );
                 if( modalReduced ){
-                    uixModals[ modalId ].modal.css( uixModals[ modalId ].config.sticky[1] , 0 );
+                    dbptModals[ modalId ].modal.css( dbptModals[ modalId ].config.sticky[1] , 0 );
                 }else{
-                    uixModals[ modalId ].modal.css( uixModals[ modalId ].config.sticky[1] , parseFloat( uixModals[ modalId ].config.sticky[2] ) );
+                    dbptModals[ modalId ].modal.css( dbptModals[ modalId ].config.sticky[1] , parseFloat( dbptModals[ modalId ].config.sticky[2] ) );
                 }
             }
         }
-        if( uixBackdrop ){
-            uixModals[ modalId ].modal.css( {
+        if( dbptBackdrop ){
+            dbptModals[ modalId ].modal.css( {
                 marginTop   : top,
                 height      : modalOuterHeight
             } );
             setTimeout( function(){
-                uixModals[ modalId ].modal.addClass( 'uix-animate' );
+                dbptModals[ modalId ].modal.addClass( 'dbpt-animate' );
             }, 10);
 
-            uixBackdrop.fadeIn( uixModals[ modalId ].config.speed );
+            dbptBackdrop.fadeIn( dbptModals[ modalId ].config.speed );
         }
 
-        return uixModals; 
+        return dbptModals;
     }
 
-    var closeModal = function( obj ){   
+    var closeModal = function( obj ){
         var modalId = $(obj).data('modal'),
             position = 0,
             toggle = {};
 
-        if( obj && uixModals[ modalId ].config.sticky ){
+        if( obj && dbptModals[ modalId ].config.sticky ){
 
-            if( uixModals[ modalId ].config.minimized ){
-                uixModals[ modalId ].config.minimized = false
+            if( dbptModals[ modalId ].config.minimized ){
+                dbptModals[ modalId ].config.minimized = false
                 position = 0;
             }else{
-                uixModals[ modalId ].config.minimized = true;
-                position = uixModals[ modalId ].title.outerHeight() - uixModals[ modalId ].modal.outerHeight();
+                dbptModals[ modalId ].config.minimized = true;
+                position = dbptModals[ modalId ].title.outerHeight() - dbptModals[ modalId ].modal.outerHeight();
             }
-            if( uixModals[ modalId ].config.sticky.indexOf( 'bottom' ) > -1 ){
+            if( dbptModals[ modalId ].config.sticky.indexOf( 'bottom' ) > -1 ){
                 toggle['margin-bottom'] = position;
-            }else if( uixModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
+            }else if( dbptModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
                 toggle['margin-top'] = position;
             }
-            uixModals[ modalId ].modal.stop().animate( toggle , uixModals[ modalId ].config.speed );
+            dbptModals[ modalId ].modal.stop().animate( toggle , dbptModals[ modalId ].config.speed );
             return;
         }
         var lastModal;
         if( activeModals.length ){
-            
+
             lastModal = activeModals.pop();
-            if( uixModals[ lastModal ].modal.hasClass( 'uix-animate' ) && !activeModals.length ){
-                uixModals[ lastModal ].modal.removeClass( 'uix-animate' );
+            if( dbptModals[ lastModal ].modal.hasClass( 'dbpt-animate' ) && !activeModals.length ){
+                dbptModals[ lastModal ].modal.removeClass( 'dbpt-animate' );
                 setTimeout( function(){
-                    uixModals[ lastModal ].modal.remove();
-                    delete uixModals[ lastModal ];
+                    dbptModals[ lastModal ].modal.remove();
+                    delete dbptModals[ lastModal ];
                 }, 500 );
             }else{
-                if( uixBackdrop ){
-                    uixModals[ lastModal ].modal.hide( 0 , function(){
+                if( dbptBackdrop ){
+                    dbptModals[ lastModal ].modal.hide( 0 , function(){
                         $( this ).remove();
-                        delete uixModals[ lastModal ];
+                        delete dbptModals[ lastModal ];
                     });
                 }
             }
@@ -191,39 +191,39 @@
         }
 
         if( !activeModals.length ){
-            if( uixBackdrop ){ 
-                uixBackdrop.fadeOut( 250 , function(){
+            if( dbptBackdrop ){
+                dbptBackdrop.fadeOut( 250 , function(){
                     $( this ).remove();
-                    uixBackdrop = null;
+                    dbptBackdrop = null;
                 });
             }
-            pageHTML.removeClass('has-uix-modal');
-        }else{          
-            uixModals[ activeModals[ ( activeModals.length - 1 ) ] ].modal.show();
+            pageHTML.removeClass('has-dbpt-modal');
+        }else{
+            dbptModals[ activeModals[ ( activeModals.length - 1 ) ] ].modal.show();
         }
 
     }
-    $.uixModal = function(opts,trigger){
+    $.dbptModal = function(opts,trigger){
         var defaults    = $.extend(true, {
             element             :   'div',
             height              :   550,
             width               :   620,
             padding             :   12,
             speed               :   250,
-            content             :   conduitModal
+            content             :   ''
         }, opts );
         defaults.trigger = trigger;
-        if( !uixBackdrop && ! defaults.sticky ){
-            uixBackdrop = $('<div>', {"class" : "uix-backdrop"});
+        if( !dbptBackdrop && ! defaults.sticky ){
+            dbptBackdrop = $('<div>', {"class" : "dbpt-backdrop"});
             if( ! defaults.focus ){
-                uixBackdrop.on('click', function( e ){
+                dbptBackdrop.on('click', function( e ){
                     if( e.target == this ){
                         closeModal();
                     }
                 });
             }
-            pageBody.append( uixBackdrop );
-            uixBackdrop.hide();
+            pageBody.append( dbptBackdrop );
+            dbptBackdrop.hide();
         }
 
 
@@ -235,11 +235,11 @@
         if( activeModals.length ){
 
             if( activeModals[ ( activeModals.length - 1 ) ] !== modalId ){
-                uixModals[ activeModals[ ( activeModals.length - 1 ) ] ].modal.hide();
+                dbptModals[ activeModals[ ( activeModals.length - 1 ) ] ].modal.hide();
             }
         }
 
-        if( typeof uixModals[ modalId ] === 'undefined' ){
+        if( typeof dbptModals[ modalId ] === 'undefined' ){
             if( defaults.sticky ){
                 defaults.sticky = defaults.sticky.split(' ');
                 if( defaults.sticky.length < 2 ){
@@ -247,22 +247,22 @@
                 }
                 activeSticky.push( modalId );
             }
-            uixModals[ modalId ] = {
+            dbptModals[ modalId ] = {
                 config  :   defaults,
                 modal   :   $('<' + modalElement + '>', {
-                    id                  : modalId + '_uixModal',
+                    id                  : modalId + '_dbptModal',
                     tabIndex            : -1,
-                    "ariaLabelled-by"   : modalId + '_uixModalLable',
-                    "class"             : "uix-modal-wrap" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
+                    "ariaLabelled-by"   : modalId + '_dbptModalLable',
+                    "class"             : "dbpt-modal-wrap" + ( defaults.sticky ? ' dbpt-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
                 })
             };
             if( !defaults.sticky ){ activeModals.push( modalId ); }
         }else{
-            uixModals[ modalId ].config = defaults;
-            uixModals[ modalId ].modal.empty();
+            dbptModals[ modalId ].config = defaults;
+            dbptModals[ modalId ].modal.empty();
         }
-        // add animate      
-        if( defaults.animate && uixBackdrop ){
+        // add animate
+        if( defaults.animate && dbptBackdrop ){
             var animate         = defaults.animate.split( ' ' ),
                 animateSpeed    = defaults.speed + 'ms',
                 animateEase     = ( defaults.animateEase ? defaults.animateEase : 'ease' );
@@ -271,7 +271,7 @@
                 animate[1] = 0;
             }
 
-            uixModals[ modalId ].modal.css( { 
+            dbptModals[ modalId ].modal.css( {
                 transform               : 'translate(' + animate[0] + ', ' + animate[1] + ')',
                 '-web-kit-transition'   : 'transform ' + animateSpeed + ' ' + animateEase,
                 '-moz-transition'       : 'transform ' + animateSpeed + ' ' + animateEase,
@@ -279,85 +279,85 @@
             } );
 
         }
-        uixModals[ modalId ].body = $('<div>', {"class" : "uix-modal-body",id: modalId + '_uixModalBody'});
-        uixModals[ modalId ].content = $('<div>', {"class" : "uix-modal-content",id: modalId + '_uixModalContent'});
+        dbptModals[ modalId ].body = $('<div>', {"class" : "dbpt-modal-body",id: modalId + '_dbptModalBody'});
+        dbptModals[ modalId ].content = $('<div>', {"class" : "dbpt-modal-content",id: modalId + '_dbptModalContent'});
 
 
-        // padd content     
-        uixModals[ modalId ].content.css( { 
+        // padd content
+        dbptModals[ modalId ].content.css( {
             margin : defaults.padding
         } );
-        uixModals[ modalId ].body.append( uixModals[ modalId ].content ).appendTo( uixModals[ modalId ].modal );
-        if( uixBackdrop ){ uixBackdrop.append( uixModals[ modalId ].modal ); }else{
-            uixModals[ modalId ].modal . appendTo( $( 'body' ) );
+        dbptModals[ modalId ].body.append( dbptModals[ modalId ].content ).appendTo( dbptModals[ modalId ].modal );
+        if( dbptBackdrop ){ dbptBackdrop.append( dbptModals[ modalId ].modal ); }else{
+            dbptModals[ modalId ].modal . appendTo( $( 'body' ) );
         }
 
 
         if( defaults.footer ){
-            uixModals[ modalId ].footer = $('<div>', {"class" : "uix-modal-footer",id: modalId + '_uixModalFooter'});
-            uixModals[ modalId ].footer.css({ padding: defaults.padding });
-            uixModals[ modalId ].footer.appendTo( uixModals[ modalId ].modal );
+            dbptModals[ modalId ].footer = $('<div>', {"class" : "dbpt-modal-footer",id: modalId + '_dbptModalFooter'});
+            dbptModals[ modalId ].footer.css({ padding: defaults.padding });
+            dbptModals[ modalId ].footer.appendTo( dbptModals[ modalId ].modal );
             // function?
             if( typeof window[defaults.footer] === 'function' ){
-                uixModals[ modalId ].footer.append( window[defaults.footer]( defaults, uixModals[ modalId ] ) );
+                dbptModals[ modalId ].footer.append( window[defaults.footer]( defaults, dbptModals[ modalId ] ) );
             }else if( typeof defaults.footer === 'string' ){
                 // is jquery selector?
-                  try {
+                try {
                     var footerElement = $( defaults.footer );
-                    uixModals[ modalId ].footer.html( footerElement.html() );
-                  } catch (err) {
-                    uixModals[ modalId ].footer.html( defaults.footer );
-                  }
+                    dbptModals[ modalId ].footer.html( footerElement.html() );
+                } catch (err) {
+                    dbptModals[ modalId ].footer.html( defaults.footer );
+                }
             }
         }
 
         if( defaults.title ){
             var headerAppend = 'prependTo';
-            uixModals[ modalId ].header = $('<div>', {"class" : "uix-modal-title", id : modalId + '_uixModalTitle'});
-            uixModals[ modalId ].closer = $('<a>', { "href" : "#close", "class":"uix-modal-closer", "data-dismiss":"modal", "aria-hidden":"true",id: modalId + '_uixModalCloser'}).html('&times;');
-            uixModals[ modalId ].title = $('<h3>', {"class" : "modal-label", id : modalId + '_uixModalLable'});
-            
-            uixModals[ modalId ].title.html( defaults.title ).appendTo( uixModals[ modalId ].header );
-            uixModals[ modalId ].title.css({ padding: defaults.padding });
-            uixModals[ modalId ].title.append( uixModals[ modalId ].closer );
-            if( uixModals[ modalId ].config.sticky ){
-                if( uixModals[ modalId ].config.minimized && true !== uixModals[ modalId ].config.minimized ){
+            dbptModals[ modalId ].header = $('<div>', {"class" : "dbpt-modal-title", id : modalId + '_dbptModalTitle'});
+            dbptModals[ modalId ].closer = $('<a>', { "href" : "#close", "class":"dbpt-modal-closer", "data-dismiss":"modal", "aria-hidden":"true",id: modalId + '_dbptModalCloser'}).html('&times;');
+            dbptModals[ modalId ].title = $('<h3>', {"class" : "modal-label", id : modalId + '_dbptModalLable'});
+
+            dbptModals[ modalId ].title.html( defaults.title ).appendTo( dbptModals[ modalId ].header );
+            dbptModals[ modalId ].title.css({ padding: defaults.padding });
+            dbptModals[ modalId ].title.append( dbptModals[ modalId ].closer );
+            if( dbptModals[ modalId ].config.sticky ){
+                if( dbptModals[ modalId ].config.minimized && true !== dbptModals[ modalId ].config.minimized ){
                     setTimeout( function(){
-                        uixModals[ modalId ].title.trigger('click');
-                    }, parseInt( uixModals[ modalId ].config.minimized ) );
-                    uixModals[ modalId ].config.minimized = false;
+                        dbptModals[ modalId ].title.trigger('click');
+                    }, parseInt( dbptModals[ modalId ].config.minimized ) );
+                    dbptModals[ modalId ].config.minimized = false;
                 }
-                uixModals[ modalId ].closer.hide();
-                uixModals[ modalId ].title.addClass( 'uix-modal-closer' ).data('modal', modalId).appendTo( uixModals[ modalId ].header );
-                if( uixModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
+                dbptModals[ modalId ].closer.hide();
+                dbptModals[ modalId ].title.addClass( 'dbpt-modal-closer' ).data('modal', modalId).appendTo( dbptModals[ modalId ].header );
+                if( dbptModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
                     headerAppend = 'appendTo';
                 }
             }else{
-                uixModals[ modalId ].closer.data('modal', modalId).appendTo( uixModals[ modalId ].header );
+                dbptModals[ modalId ].closer.data('modal', modalId).appendTo( dbptModals[ modalId ].header );
             }
-            uixModals[ modalId ].header[headerAppend]( uixModals[ modalId ].modal );
+            dbptModals[ modalId ].header[headerAppend]( dbptModals[ modalId ].modal );
         }
         // hide modal
-        uixModals[ modalId ].modal.outerHeight( defaults.height );
-        uixModals[ modalId ].modal.outerWidth( defaults.width );
+        dbptModals[ modalId ].modal.outerHeight( defaults.height );
+        dbptModals[ modalId ].modal.outerWidth( defaults.width );
 
         if( defaults.content ){
             // function?
             if( typeof defaults.content === 'function' ){
-                uixModals[ modalId ].content.append( defaults.content( defaults, uixModals[ modalId ] ) );
+                dbptModals[ modalId ].content.append( defaults.content( defaults, dbptModals[ modalId ] ) );
             }else if( typeof defaults.content === 'string' ){
                 // is jquery selector?
-                  try {
+                try {
                     var contentElement = $( defaults.content );
                     if( contentElement.length ){
-                        uixModals[ modalId ].content.append( contentElement.detach() );
+                        dbptModals[ modalId ].content.append( contentElement.detach() );
                         contentElement.show();
                     }else{
-                        uixModals[ modalId ].content.html( defaults.content );
+                        dbptModals[ modalId ].content.html( defaults.content );
                     }
-                  } catch (err) {
-                    uixModals[ modalId ].content.html( defaults.content );
-                  }
+                } catch (err) {
+                    dbptModals[ modalId ].content.html( defaults.content );
+                }
             }
         }
 
@@ -365,26 +365,26 @@
         positionModals();
         // return main object
         $( window ).trigger('modal.open');
-        return uixModals[ modalId ];
+        return dbptModals[ modalId ];
     }
 
-    $.fn.uixModal = function( opts ){
-        
+    $.fn.dbptModal = function( opts ){
+
         pageHTML        = $('html');
         pageBody        = $('body');
         mainWindow      = $(window);
 
         if( !opts ){ opts = {}; }
         opts = $.extend( {}, this.data(), opts );
-        return $.uixModal( opts, this );
+        return $.dbptModal( opts, this );
     }
 
     // setup resize positioning and keypresses
     if ( window.addEventListener ) {
         window.addEventListener( "resize", positionModals, false );
         window.addEventListener( "keypress", function(e){
-            if( e.keyCode === 27 && uixBackdrop !== null ){
-                uixBackdrop.trigger('click');
+            if( e.keyCode === 27 && dbptBackdrop !== null ){
+                dbptBackdrop.trigger('click');
             }
         }, false );
 
@@ -396,12 +396,12 @@
 
 
 
-    $(document).on('click', '[data-modal]:not(.uix-modal-closer)', function( e ){
+    $(document).on('click', '[data-modal]:not(.dbpt-modal-closer)', function( e ){
         e.preventDefault();
-        $(this).uixModal();
+        $(this).dbptModal();
     });
 
-    $(document).on( 'click', '.uix-modal-closer', function( e ) {
+    $(document).on( 'click', '.dbpt-modal-closer', function( e ) {
         e.preventDefault();
         $(window).trigger('close.modal');
     })
@@ -411,9 +411,9 @@
     })
     $(window).on( 'modal.init', function( e ) {
         $('[data-modal][data-autoload]').each( function(){
-            $( this ).uixModal();
+            $( this ).dbptModal();
         });
-    })  
+    })
 
     $(window).load( function(){
         $(window).trigger('modal.init');

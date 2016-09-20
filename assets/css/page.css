@@ -88,15 +88,14 @@ p.search-box {
     background-color: #e0e0e0;
     color: #8f8f8f;
 }
-
-form.uix-page > .uix-has-tabs.uix-page-inside{
-    background-color: transparent;
-}
 form.uix-page > .uix-page-inside{
     overflow: visible;
     margin: 0 -20px 0 -11px;
-
 }
+form.uix-page > .uix-has-tabs.uix-page-inside{
+    background-color: transparent;
+}
+
 form.uix-page .uix-panel-inside{
     margin-bottom: 8px;
 }
@@ -151,12 +150,19 @@ form.uix-page > .uix-page-inside.uix-has-tabs {
     box-shadow: none;
     border: 0;
 }
+.uix-page-inside > .uix-page-sections > .uix-section {
+    padding: 12px 12px 0 0;
+}
+.uix-page-inside > .uix-page-sections > .uix-section > .uix-section-heading {
+    padding: 0 12px;
+}
 form.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
     border-left: none;
     float: none;
     margin: 0;  
     width: 100%;
 }
+
 .uix-has-tabs.uix-page-inside{
 }
 .uix-page-inside .uix-has-tabs.uix-page-inside{
@@ -265,6 +271,7 @@ body{
     text-decoration: none !important;
     line-height: 0;
     border: 0;
+    height: 7px;
 }
 .uix-modal-closer:hover {
     background-color: rgba(0,0,0,.1);
