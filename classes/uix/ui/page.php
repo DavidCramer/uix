@@ -208,19 +208,34 @@ class page extends box implements \uix\data\save{
         $output = null;
 
         $output .= '<form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="' . esc_attr( $this->slug ) . '" id="page-' . esc_attr( $this->id() ) . '">';
-        $output .= '<h1 class="uix-title">' . esc_html( $this->struct['page_title'] );
-        if( !empty( $this->struct['version'] ) )
-            $output .= '<small>' . esc_html( $this->struct['version'] ) . '</small>';
 
-        if( !empty( $this->struct['save_button'] ) )
-            $output .= '<button type="submit" class="page-title-action">' . esc_html( $this->struct['save_button'] ) . '</button>';
+        $output .= $this->render_header();
 
-        $output .= '</h1>';
         $output .= parent::render();
 
         $output .= '</form>';
 
         return $output;
     }
-    
+
+    /**
+     * Render the page
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string HMTL of rendered page
+     */
+    public function render_header(){
+
+        $output = null;
+
+        if( !empty( $this->struct['header'] ) ){
+            foreach( $this->struct['header'] as $header_slug=>$header )
+                $output .= $this->child[$header_slug]->render();
+        }
+
+        return $output;
+
+    }
+
 }

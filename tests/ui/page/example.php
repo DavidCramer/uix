@@ -21,6 +21,12 @@ $pages = array(
         'icon'          =>  'dashicons-welcome-learn-more',                              // Icon or image to be used on admin menu
         'base_color'    =>  '#27ae60',
         'parent'        =>  'options-general.php',
+        'header'        =>  array(
+            'main'      =>  array(
+                'label' =>  'Header',
+                'version' => '100'
+            )
+        ),
         'section'       =>  array(
             'subbox'       =>  array(
                 'label'         =>  __( 'First Page', 'text-domain' ),

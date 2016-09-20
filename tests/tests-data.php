@@ -74,10 +74,19 @@ class Test_Data extends WP_UnitTestCase {
         $page = uix()->add('page', 'store_key_test', array(
             'page_title' => 'Test Key',
             'menu_title' => 'Test Key',
-            'store_key' => 'wooter-storage'
+            'store_key' => 'wooter-storage',
+            'header'    =>  array(
+                'head'  =>  array(
+                    'label' =>  'Wooter',
+                    'version' => 'tooter',
+                )
+            )
         ) );
         $key = $page->store_key();
         $this->assertSame( $key, 'wooter-storage');
+
+        $html = $page->render();
+        $this->assertTrue( is_string( $html ) );
     }
 
 

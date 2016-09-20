@@ -108,7 +108,7 @@ class panel extends \uix\data\data{
 
         $output .= $this->render_template();
 
-        if( !empty( $this->child ) ) {
+        if( !empty( $this->child_count() ) ) {
 
             $output .= '<div id="' . esc_attr($this->id()) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
             // render a lable
@@ -137,13 +137,14 @@ class panel extends \uix\data\data{
     public function navigation(){
         $output = null;
 
-        if( count( $this->child ) > 1 ) {
+        if( $this->child_count() > 1 ) {
 
             $output .= '<ul class="uix-' . esc_attr($this->type) . '-tabs uix-panel-tabs">';
             $active = 'true';
             foreach ($this->child as $child) {
 
-                if ($child->type !== 'help') {
+
+                if ( !in_array( $child->type, array( 'help', 'header' ) ) ) {
                     $output .= $this->tab_label($child, $active);
                     $active = 'false';
                 }
@@ -152,6 +153,23 @@ class panel extends \uix\data\data{
             $output .= '</ul>';
         }
         return $output;
+    }
+
+    /**
+     * Determines the number of useable children for tab display
+     *
+     * @since 1.0.0
+     * @access public
+     * @return int Number of tabable children
+     */
+    private function child_count(){
+
+        $count = count( $this->child );
+
+        if( !empty( $this->struct['header'] ) )
+            $count = $count - count( $this->struct['header'] );
+
+        return $count;
     }
 
     /**
@@ -224,6 +242,10 @@ class panel extends \uix\data\data{
 
         $hidden = 'false';
         foreach( $this->child as $section ){
+
+            if ( in_array( $section->type, array( 'help', 'header' ) ) )
+                continue;
+
             $section->struct['active'] = $hidden;
             $output .= $section->render();
             $hidden = 'true';
