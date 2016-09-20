@@ -62,21 +62,9 @@ p.search-box {
 }
 .wrap button.page-title-action{
     color: #505050;
-    margin-left: 28px;
 }
-.wrap button.page-title-action:active{
-    margin-left: 28px; 
-}
-.wrap button.page-title-action::before {
-    background: rgba(0,0,0,0.1) none repeat scroll 0 0;
-    bottom: -16px;
-    content: "";
-    display: inline-block;
-    left: -18px;
-    position: absolute;
-    top: -15px;
-    width: 1px;
-}
+
+
 .wrap button.page-title-action:hover{
     background: rgb(195, 0, 40);
 }

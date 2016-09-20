@@ -33,3 +33,35 @@
     font-weight: 500;
     color: #8f8f8f;
 }
+.uix-title .uix-control {
+    display: inline-block;
+    margin: 0;
+}
+.uix-title .uix-control.uix-control-separator{
+    position: relative;
+    width:23px;
+}
+.uix-title .uix-control.uix-control-separator label{
+    display: none;
+}
+.uix-title .uix-control.uix-control-separator .uix-control-input::before {
+    background: rgba(0, 0, 0, 0.1) none repeat scroll 0 0;
+    bottom: -16px;
+    content: "";
+    display: inline-block;
+    left: 12px;
+    position: absolute;
+    top: -15px;
+    width: 1px;
+}
+.uix-title .uix-control.uix-control-separator hr{
+    display: none;
+}
+.uix-title .uix-control-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+    padding: 3px 6px 0 0;
+    width: auto;
+}
