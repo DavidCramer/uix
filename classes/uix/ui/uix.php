@@ -162,8 +162,12 @@ abstract class uix{
      */
     public function process_children( $type ){
 
-        foreach( $this->struct[ $type ]  as $sub_slug => $sub_structure )
-            $this->{$type}( $sub_slug, $sub_structure );
+        foreach( $this->struct[ $type ]  as $sub_slug => $sub_structure ){
+            if( !empty( $sub_structure['id'] ) )
+                $sub_slug = $sub_structure['id'];
+
+            $this->{$type}($sub_slug, $sub_structure);
+        }
 
     }
 
