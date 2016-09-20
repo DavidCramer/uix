@@ -108,7 +108,7 @@ class panel extends \uix\data\data{
 
         $output .= $this->render_template();
 
-        if( !empty( $this->child_count() ) ) {
+        if( $this->child_count() > 0 ) {
 
             $output .= '<div id="' . esc_attr($this->id()) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
             // render a lable
