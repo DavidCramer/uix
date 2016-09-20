@@ -16,7 +16,7 @@ namespace uix\ui;
  * @since 1.0.0
  * @see \uix\uix
  */
-class header extends uix {
+class header extends section {
 
     /**
      * The type of object
