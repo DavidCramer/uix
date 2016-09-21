@@ -150,7 +150,7 @@
         return uixModals;
     }
 
-    var closeModal = function( remove ){
+    var closeModal = function(  ){
 
         var lastModal;
         if( activeModals.length ){
@@ -160,7 +160,7 @@
                 uixModals[ lastModal ].modal.removeClass( 'uix-animate' );
                 setTimeout( function(){
                     uixModals[ lastModal ].modal.remove();
-                    if( remove ){
+                    if( uixModals[ lastModal ].flush ){
                         delete uixModals[ lastModal ];
                     }
                 }, 500 );
@@ -168,7 +168,7 @@
                 if( uixBackdrop ){
                     uixModals[ lastModal ].modal.hide( 0 , function(){
                         $( this ).remove();
-                        if( remove ){
+                        if( uixModals[ lastModal ].flush ){
                             delete uixModals[ lastModal ];
                         }
 
@@ -206,7 +206,7 @@
             if( ! defaults.focus ){
                 uixBackdrop.on('click', function( e ){
                     if( e.target == this ){
-                        closeModal( true );
+                        closeModal();
                     }
                 });
             }
@@ -398,7 +398,16 @@
 
     $(document).on('click', '[data-modal]:not(.uix-modal-closer)', function( e ){
         e.preventDefault();
-        var modal = $(this).uixModal();
+        var modal = $(this).uixModal(),
+            submit = modal.modal.find('button[type="submit"]');
+        
+        if( !submit.length ){
+            modal.modal.find('input').on('change', function(){
+                modal.modal.submit();
+            })
+        }else{
+            modal.flush = true;
+        }
 
         modal.modal.attr('data-load-element', '_parent' ).baldrick({
             request : window.location.href,
@@ -407,12 +416,14 @@
             },
             callback : function( obj ){
                 obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
-                if( obj.data.success ){
-                    closeModal();
-                }else{
+                if( submit.length ) {
+                    modal.flush = false;
+                    if (obj.data.success) {
+                        closeModal();
+                    } else {
 
+                    }
                 }
-
             }
         });
     });
@@ -423,7 +434,7 @@
     })
 
     $(window).on( 'close.modal', function( e ) {
-        closeModal( true );
+        closeModal();
     })
     $(window).on( 'modal.init', function( e ) {
         $('[data-modal][data-autoload]').each( function(){
