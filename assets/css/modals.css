@@ -188,3 +188,7 @@ body{
 .uix-modal-body .uix-control-separator .uix-control-label {
     width: 120px;
 }
+.uix-modal-footer .uix-control-label {
+    margin: 3px 6px 0 0;
+    width: auto;
+}

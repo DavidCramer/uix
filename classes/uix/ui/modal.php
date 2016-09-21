@@ -151,7 +151,6 @@ class modal extends box{
         $output = '<button ' . $this->build_attributes() . '>' . $this->struct['label'] . '</button>';
 
         $this->templates .= $this->render_modal_template();
-        $this->templates .= $this->render_footer_template();
 
         return $output;
     }
@@ -169,7 +168,7 @@ class modal extends box{
         $output = '<script type="text/html" id="' . esc_attr( $this->id() ) . '-tmpl">';
         $output .= parent::render();
         $output .= '</script>';
-        //$output .= $this->render_footer_template();
+        $output .= $this->render_footer_template();
         echo $output;
     }
 
