@@ -206,6 +206,8 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
             'type' => 'hidden'
         ));
         $this->assertSame( $hidden->type, 'hidden' );
+        $this->assertSame( '<input type="hidden" value="" id="control-uix-hidden-hidden_field"  name="uix-hidden-hidden_field"  class="widefat" >', $hidden->render() );
+
 
         $number = uix()->add('control', 'number_field', array(
             'type' => 'number'
@@ -223,6 +225,15 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
         ));
         $this->assertSame( $separator->type, 'separator' );
 
+        $button = uix()->add('control', 'button_field', array(
+            'type' => 'button',
+            'label' => 'button',
+            'attributes' => array(
+                'class' => 'special'
+            )
+        ));
+        $this->assertSame( $button->type, 'button' );
+        $this->assertSame( '<button id="control-uix-button-button_field"  class="special"  name="uix-button-button_field" >button</button>', $button->render() );
 
 
         ob_start();

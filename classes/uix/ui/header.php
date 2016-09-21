@@ -39,11 +39,9 @@ class header extends section {
 
         $output = '<h1 class="uix-title">';
 
-        if( !empty( $this->struct['label'] ) )
-            $output .= esc_html( $this->struct['label'] );
+        $output .= $this->label();
 
-        if( !empty( $this->struct['description'] ) )
-            $output .= ' <small>' . esc_html( $this->struct['description'] ) . '</small>';
+        $output .= $this->description();
 
         $output .= $this->render_template();
 
@@ -58,6 +56,35 @@ class header extends section {
         return $output;
     }
 
+    /**
+     * Render the panels label
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string|null rendered html of label
+     */
+    public function label(){
+        $output = null;
+        if( !empty( $this->struct['label'] ) )
+            $output .= '<span class="uix-text">' . esc_html( $this->struct['label'] ) . '</span>';
+
+        return $output;
+    }
+
+    /**
+     * Render the panels Description
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string|null HTML of rendered description
+     */
+    public function description(){
+        $output = null;
+        if( !empty( $this->struct['description'] ) )
+            $output .= ' <small>' . esc_html( $this->struct['description'] ) . '</small>';
+
+        return $output;
+    }
 
     /**
      * checks if the current section is active
