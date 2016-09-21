@@ -148,28 +148,8 @@
         return uixModals;
     }
 
-    var closeModal = function( obj ){   
-        var modalId = $(obj).data('modal'),
-            position = 0,
-            toggle = {};
+    var closeModal = function( remove ){
 
-        if( obj && uixModals[ modalId ].config.sticky ){
-
-            if( uixModals[ modalId ].config.minimized ){
-                uixModals[ modalId ].config.minimized = false
-                position = 0;
-            }else{
-                uixModals[ modalId ].config.minimized = true;
-                position = uixModals[ modalId ].title.outerHeight() - uixModals[ modalId ].modal.outerHeight();
-            }
-            if( uixModals[ modalId ].config.sticky.indexOf( 'bottom' ) > -1 ){
-                toggle['margin-bottom'] = position;
-            }else if( uixModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
-                toggle['margin-top'] = position;
-            }
-            uixModals[ modalId ].modal.stop().animate( toggle , uixModals[ modalId ].config.speed );
-            return;
-        }
         var lastModal;
         if( activeModals.length ){
             
@@ -178,13 +158,18 @@
                 uixModals[ lastModal ].modal.removeClass( 'uix-animate' );
                 setTimeout( function(){
                     uixModals[ lastModal ].modal.remove();
-                    //delete uixModals[ lastModal ];
+                    if( remove ){
+                        delete uixModals[ lastModal ];
+                    }
                 }, 500 );
             }else{
                 if( uixBackdrop ){
                     uixModals[ lastModal ].modal.hide( 0 , function(){
                         $( this ).remove();
-                        //delete uixModals[ lastModal ];
+                        if( remove ){
+                            delete uixModals[ lastModal ];
+                        }
+
                     });
                 }
             }
@@ -219,7 +204,7 @@
             if( ! defaults.focus ){
                 uixBackdrop.on('click', function( e ){
                     if( e.target == this ){
-                        closeModal();
+                        closeModal( true );
                     }
                 });
             }
@@ -436,7 +421,7 @@
     })
 
     $(window).on( 'close.modal', function( e ) {
-        closeModal();
+        closeModal( true );
     })
     $(window).on( 'modal.init', function( e ) {
         $('[data-modal][data-autoload]').each( function(){
