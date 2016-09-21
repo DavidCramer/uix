@@ -228,10 +228,11 @@ class page extends box implements \uix\data\save{
     public function render_header(){
 
         $output = null;
-
-        if( !empty( $this->struct['header'] ) ){
-            foreach( $this->struct['header'] as $header_slug=>$header )
-                $output .= $this->child[$header_slug]->render();
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ){
+                if( $child->type == 'header' )
+                    $output .= $child->render();
+            }
         }
 
         return $output;
