@@ -65,3 +65,10 @@
     padding: 3px 6px 0 0;
     width: auto;
 }
+.uix-modal-body .uix-control-text .uix-control-input {
+    min-width: 100%;
+    width: 100%;
+}
+.uix-modal-body .uix-control-input input.regular-text{
+    width: 100%;
+}
