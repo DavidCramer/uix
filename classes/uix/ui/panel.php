@@ -142,7 +142,7 @@ class panel extends \uix\data\data{
             $output .= '<ul class="uix-' . esc_attr($this->type) . '-tabs uix-panel-tabs">';
             $active = 'true';
             foreach ($this->child as $child) {
-                if ( !in_array( $child->type, array( 'help', 'header', 'footer' ) ) ) {
+                if ( $this->is_section_object( $child ) ){
                     $output .= $this->tab_label($child, $active);
                     $active = 'false';
                 }
@@ -162,10 +162,14 @@ class panel extends \uix\data\data{
      */
     private function child_count(){
 
-        $count = count( $this->child );
-
-        if( !empty( $this->struct['header'] ) )
-            $count = $count - count( $this->struct['header'] );
+        $count = 0;
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ){
+                if ( $this->is_section_object( $child ) ){
+                    $count++;
+                }
+            }
+        }
 
         return $count;
     }
@@ -226,6 +230,18 @@ class panel extends \uix\data\data{
     }
 
     /**
+     * Check if child is a section object
+     *
+     * @since 1.0.0
+     * @access public
+     * @param uix Object to test if it is to be rendered in a section
+     * @return string|null HTML of rendered description
+     */
+    public function is_section_object( $section ){
+        return !in_array( $section->type, array( 'help', 'header', 'footer' ) );
+    }
+
+    /**
      * Render the panels Description
      *
      * @since 1.0.0
@@ -241,7 +257,7 @@ class panel extends \uix\data\data{
         $hidden = 'false';
         foreach( $this->child as $section ){
 
-            if ( in_array( $section->type, array( 'help', 'header', 'footer' ) ) )
+            if ( !$this->is_section_object( $section ) )
                 continue;
 
             $section->struct['active'] = $hidden;
@@ -287,7 +303,7 @@ class panel extends \uix\data\data{
             'uix-panel-inside'
         );
 
-        if( count( $this->child ) > 1 )
+        if( $this->child_count() > 1 )
             $wrapper_class_names[] = 'uix-has-tabs';
 
         if( !empty( $this->struct['top_tabs'] ) )

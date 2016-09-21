@@ -37,6 +37,15 @@ class modal extends box{
     public $footer;
 
     /**
+     * modal template
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      string
+     */
+    public $templates = null;
+
+    /**
      * Sets the controls data
      *
      * @since 1.0.0
@@ -136,10 +145,13 @@ class modal extends box{
 
         $this->set_footers();
 
-        add_action( 'admin_footer', array( $this, 'render_modal_template' ) );
-        add_action( 'wp_footer', array( $this, 'render_modal_template' ) );
+        add_action( 'admin_footer', array( $this, 'output_templates' ) );
+        add_action( 'wp_footer', array( $this, 'output_templates' ) );
 
         $output = '<button ' . $this->build_attributes() . '>' . $this->struct['label'] . '</button>';
+
+        $this->templates .= $this->render_modal_template();
+        $this->templates .= $this->render_footer_template();
 
         return $output;
     }
@@ -157,7 +169,7 @@ class modal extends box{
         $output = '<script type="text/html" id="' . esc_attr( $this->id() ) . '-tmpl">';
         $output .= parent::render();
         $output .= '</script>';
-        $output .= $this->render_footer_template();
+        //$output .= $this->render_footer_template();
         echo $output;
     }
 
@@ -179,6 +191,18 @@ class modal extends box{
         }
 
         echo $output;
+    }
+
+    /**
+     * Render templates to page
+     *
+     * @since 1.0.0
+     * @see \uix\ui\uix
+     * @access public
+     * @return string HTML of rendered box
+     */
+    public function output_templates(){
+        echo $this->templates;
     }
 
 }
