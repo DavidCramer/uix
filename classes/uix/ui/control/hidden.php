@@ -25,4 +25,20 @@ class hidden extends \uix\ui\control{
      * @var         string
      */
     public $type = 'hidden';
+
+    /**
+     * Render the Control
+     *
+     * @since 1.0.0
+     * @see \uix\ui\uix
+     * @access public
+     * @return string HTML of rendered control
+     */
+    public function render(){
+
+        $output = $this->input();
+
+        return $output;
+    }
+
 }
