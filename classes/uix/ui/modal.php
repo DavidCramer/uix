@@ -89,7 +89,6 @@ class modal extends box{
         $this->attributes = array(
             'data-modal'    =>  $this->id(),
             'data-content'  =>  '#' . $this->id() . '-tmpl',
-            'data-title'    =>  $this->struct['label'],
             'data-margin'   =>  12,
             'data-element'  =>  'form',
             'class'         =>  'button',

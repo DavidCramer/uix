@@ -42,12 +42,12 @@
         }
 
         if( modalHeight + ( uixModals[ modalId ].config.padding * 2 ) > windowHeight && uixBackdrop ){
-            modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 );
+            modalHeight = windowHeight;// - ( uixModals[ modalId ].config.padding * 2 );
             modalOuterHeight = '100%';
             if( uixBackdrop ){
                 uixBackdrop.css( {
-                    paddingTop: uixModals[ modalId ].config.padding,
-                    paddingBottom: uixModals[ modalId ].config.padding,
+                    //paddingTop: uixModals[ modalId ].config.padding,
+                    //paddingBottom: uixModals[ modalId ].config.padding,
                 });
             }
             modalReduced = true;
@@ -56,8 +56,8 @@
             modalWidth = '100%';
             if( uixBackdrop ){
                 uixBackdrop.css( {
-                    paddingLeft: uixModals[ modalId ].config.padding,
-                    paddingRight: uixModals[ modalId ].config.padding,
+                    //paddingLeft: uixModals[ modalId ].config.padding,
+                    //paddingRight: uixModals[ modalId ].config.padding,
                 });
             }
             modalReduced = true;
@@ -65,7 +65,9 @@
 
         if( true === modalReduced ){
             if( windowWidth <= 700 && windowWidth > 600 ){
-                if( uixBackdrop ){ modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 ); }
+                if( uixBackdrop ){
+                    modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 );
+                }
                 modalWidth = windowWidth;
                 modalOuterHeight = modalHeight - ( uixModals[ modalId ].config.padding * 2 );
                 modalWidth = '100%';
