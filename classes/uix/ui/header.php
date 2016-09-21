@@ -42,8 +42,8 @@ class header extends section {
         if( !empty( $this->struct['label'] ) )
             $output .= esc_html( $this->struct['label'] );
 
-        if( !empty( $this->struct['version'] ) )
-            $output .= '<small>' . esc_html( $this->struct['version'] ) . '</small>';
+        if( !empty( $this->struct['description'] ) )
+            $output .= ' <small>' . esc_html( $this->struct['description'] ) . '</small>';
 
         $output .= $this->render_template();
 
