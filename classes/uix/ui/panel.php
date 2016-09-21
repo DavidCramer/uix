@@ -142,9 +142,7 @@ class panel extends \uix\data\data{
             $output .= '<ul class="uix-' . esc_attr($this->type) . '-tabs uix-panel-tabs">';
             $active = 'true';
             foreach ($this->child as $child) {
-
-
-                if ( !in_array( $child->type, array( 'help', 'header' ) ) ) {
+                if ( !in_array( $child->type, array( 'help', 'header', 'footer' ) ) ) {
                     $output .= $this->tab_label($child, $active);
                     $active = 'false';
                 }
@@ -243,7 +241,7 @@ class panel extends \uix\data\data{
         $hidden = 'false';
         foreach( $this->child as $section ){
 
-            if ( in_array( $section->type, array( 'help', 'header' ) ) )
+            if ( in_array( $section->type, array( 'help', 'header', 'footer' ) ) )
                 continue;
 
             $section->struct['active'] = $hidden;

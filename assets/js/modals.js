@@ -178,13 +178,13 @@
                 uixModals[ lastModal ].modal.removeClass( 'uix-animate' );
                 setTimeout( function(){
                     uixModals[ lastModal ].modal.remove();
-                    delete uixModals[ lastModal ];
+                    //delete uixModals[ lastModal ];
                 }, 500 );
             }else{
                 if( uixBackdrop ){
                     uixModals[ lastModal ].modal.hide( 0 , function(){
                         $( this ).remove();
-                        delete uixModals[ lastModal ];
+                        //delete uixModals[ lastModal ];
                     });
                 }
             }
@@ -206,7 +206,7 @@
     }
     $.uixModal = function(opts,trigger){
         var defaults    = $.extend(true, {
-            element             :   'div',
+            element             :   'form',
             height              :   550,
             width               :   620,
             padding             :   12,
@@ -249,19 +249,29 @@
                 activeSticky.push( modalId );
             }
             uixModals[ modalId ] = {
-                config  :   defaults,
-                modal   :   $('<' + modalElement + '>', {
-                    id                  : modalId + '_uixModal',
-                    tabIndex            : -1,
-                    "ariaLabelled-by"   : modalId + '_uixModalLable',
-                    "class"             : "uix-modal-wrap" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
-                })
+                config  :   defaults
             };
-            if( !defaults.sticky ){ activeModals.push( modalId ); }
+
+            uixModals[ modalId ].body = $('<div>', {"class" : "uix-modal-body",id: modalId + '_uixModalBody'});
+            uixModals[modalId].content = $('<div>', {"class": "uix-modal-content", id: modalId + '_uixModalContent'});
+
+
         }else{
             uixModals[ modalId ].config = defaults;
-            uixModals[ modalId ].modal.empty();
         }
+        //add in wrapper
+        uixModals[ modalId ].modal = $('<' + modalElement + '>', {
+            id                  : modalId + '_uixModal',
+            tabIndex            : -1,
+            "ariaLabelled-by"   : modalId + '_uixModalLable',
+            "method"            : 'post',
+            "enctype"           : 'multipart/form-data',
+            "class"             : "uix-modal-wrap" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
+        });
+
+        // push active
+        if( !defaults.sticky ){ activeModals.push( modalId ); }
+
         // add animate      
         if( defaults.animate && uixBackdrop ){
             var animate         = defaults.animate.split( ' ' ),
@@ -280,13 +290,13 @@
             } );
 
         }
-        uixModals[ modalId ].body = $('<div>', {"class" : "uix-modal-body",id: modalId + '_uixModalBody'});
-        uixModals[ modalId ].content = $('<div>', {"class" : "uix-modal-content",id: modalId + '_uixModalContent'});
 
 
-        // padd content     
+
+
+        // padd content
         uixModals[ modalId ].content.css( {
-            margin : defaults.padding
+            //padding : defaults.padding
         } );
         uixModals[ modalId ].body.append( uixModals[ modalId ].content ).appendTo( uixModals[ modalId ].modal );
         if( uixBackdrop ){ uixBackdrop.append( uixModals[ modalId ].modal ); }else{
@@ -295,21 +305,25 @@
 
 
         if( defaults.footer ){
-            uixModals[ modalId ].footer = $('<div>', {"class" : "uix-modal-footer",id: modalId + '_uixModalFooter'});
-            uixModals[ modalId ].footer.css({ padding: defaults.padding });
-            uixModals[ modalId ].footer.appendTo( uixModals[ modalId ].modal );
-            // function?
-            if( typeof window[defaults.footer] === 'function' ){
-                uixModals[ modalId ].footer.append( window[defaults.footer]( defaults, uixModals[ modalId ] ) );
-            }else if( typeof defaults.footer === 'string' ){
-                // is jquery selector?
-                  try {
-                    var footerElement = $( defaults.footer );
-                    uixModals[ modalId ].footer.html( footerElement.html() );
-                  } catch (err) {
-                    uixModals[ modalId ].footer.html( defaults.footer );
-                  }
+            if( !uixModals[ modalId ].footer ) {
+                uixModals[modalId].footer = $('<div>', {"class": "uix-modal-footer", id: modalId + '_uixModalFooter'});
+                uixModals[ modalId ].footer.css({ padding: defaults.padding });
+
+                // function?
+                if( typeof window[defaults.footer] === 'function' ){
+                    uixModals[ modalId ].footer.append( window[defaults.footer]( defaults, uixModals[ modalId ] ) );
+                }else if( typeof defaults.footer === 'string' ){
+                    // is jquery selector?
+                    try {
+                        var footerElement = $( defaults.footer );
+                        uixModals[ modalId ].footer.html( footerElement.html() );
+                    } catch (err) {
+                        uixModals[ modalId ].footer.html( defaults.footer );
+                    }
+                }
             }
+
+            uixModals[ modalId ].footer.appendTo( uixModals[ modalId ].modal );
         }
 
         if( defaults.title ){
@@ -317,7 +331,7 @@
             uixModals[ modalId ].header = $('<div>', {"class" : "uix-modal-title", id : modalId + '_uixModalTitle'});
             uixModals[ modalId ].closer = $('<a>', { "href" : "#close", "class":"uix-modal-closer", "data-dismiss":"modal", "aria-hidden":"true",id: modalId + '_uixModalCloser'}).html('&times;');
             uixModals[ modalId ].title = $('<h3>', {"class" : "modal-label", id : modalId + '_uixModalLable'});
-            
+
             uixModals[ modalId ].title.html( defaults.title ).appendTo( uixModals[ modalId ].header );
             uixModals[ modalId ].title.css({ padding: defaults.padding });
             uixModals[ modalId ].title.append( uixModals[ modalId ].closer );
@@ -342,7 +356,7 @@
         uixModals[ modalId ].modal.outerHeight( defaults.height );
         uixModals[ modalId ].modal.outerWidth( defaults.width );
 
-        if( defaults.content ){
+        if( defaults.content && !uixModals[ modalId ].content.children().length ){
             // function?
             if( typeof defaults.content === 'function' ){
                 uixModals[ modalId ].content.append( defaults.content( defaults, uixModals[ modalId ] ) );
@@ -395,11 +409,25 @@
         window["onresize"] = positionModals;
     }
 
-
-
     $(document).on('click', '[data-modal]:not(.uix-modal-closer)', function( e ){
         e.preventDefault();
-        $(this).uixModal();
+        var modal = $(this).uixModal();
+
+        modal.modal.attr('data-load-element', '_parent' ).baldrick({
+            request : window.location.href,
+            before : function( el, e ){
+                $( el ).find( '[type="submit"],button' ).prop( 'disabled', true );
+            },
+            callback : function( obj ){
+                obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
+                if( obj.data.success ){
+                    closeModal();
+                }else{
+
+                }
+
+            }
+        });
     });
 
     $(document).on( 'click', '.uix-modal-closer', function( e ) {
@@ -419,5 +447,7 @@
     $(window).load( function(){
         $(window).trigger('modal.init');
     });
+
+
 
 })(jQuery);
