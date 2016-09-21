@@ -1,6 +1,9 @@
 .uix-control {
   margin-bottom: 21px;
 }
+.uix-tab-trigger .label{
+    color: #333;
+}
 .uix-control-label {
     float: left;
     font-weight: 600;

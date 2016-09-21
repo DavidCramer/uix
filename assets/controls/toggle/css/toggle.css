@@ -12,6 +12,7 @@ input.toggle-checkbox {
   position: relative;
   transition: background-color 150ms ease-in;
   width: 46px;
+  box-sizing: content-box;
 }
 .box-wrapper {
   height: 21px;

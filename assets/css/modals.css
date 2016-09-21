@@ -9,9 +9,8 @@
 }
 
 /* MODALS */
-html.has-uix-modal{
+html.has-uix-modal-{
     overflow: hidden;
-
 }
 body{
     overflow-y: scroll;
@@ -120,6 +119,9 @@ body{
     box-sizing: padding-box;
     height: 100%;
 }
+.uix-modal-body .uix-control-input {
+    min-width: auto;
+}
 .uix-modal-footer .uix-control{
     display: inline-block;
     margin: 0;
@@ -142,6 +144,9 @@ body{
     top: -13px;
     width: 1px;
 }
+.uix-modal-footer .uix-control-input {
+    min-width: auto;
+}
 .uix-modal-footer .uix-control.uix-control-separator hr{
     display: none;
 }
@@ -152,7 +157,7 @@ body{
 .uix-modal-body .uix-control-input input.regular-text{
     width: 100%;
 }
-.uix-modal-content .uix-has-tabs.uix-panel-inside {
+.uix-modal-content > .uix-has-tabs.uix-panel-inside {
     background-color: #fff;
     box-sizing: border-box;
     height: 100%;
@@ -162,7 +167,7 @@ body{
     height: 100%;
     overflow: auto;
 }
-.uix-modal-body .uix-has-tabs.uix-panel-inside{
+.uix-modal-content > .uix-has-tabs.uix-panel-inside{
     border: none;
 }
 .uix-modal-tabs.uix-panel-tabs {
