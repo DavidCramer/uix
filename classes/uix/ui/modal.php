@@ -90,10 +90,15 @@ class modal extends box{
             'data-modal'    =>  $this->id(),
             'data-content'  =>  '#' . $this->id() . '-tmpl',
             'data-title'    =>  $this->struct['label'],
-            'data-margin'  =>  12,
+            'data-margin'   =>  12,
             'data-element'  =>  'form',
             'class'         =>  'button',
         );
+
+        if( !empty( $this->struct['description'] ) ){
+            $this->attributes['data-title'] = $this->struct['description'];
+            unset( $this->struct['description'] );
+        }
 
         parent::set_attributes();
 
