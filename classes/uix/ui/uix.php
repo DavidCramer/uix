@@ -132,8 +132,6 @@ abstract class uix{
         $this->set_url();
         // do setup
         $this->setup();
-        // setup attributes
-        $this->set_attributes();
         // Set required assets
         $this->set_assets();
         // start internal actions to allow for automating post init
@@ -401,7 +399,9 @@ abstract class uix{
      * @return string Attributes string for applying to an element
      */
     public function build_attributes() {
-        
+        // setup attributes
+        $this->set_attributes();
+
         $attributes = array();
         foreach( $this->attributes as $att => $value)
             $attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
