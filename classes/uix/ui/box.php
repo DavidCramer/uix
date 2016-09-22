@@ -108,21 +108,65 @@ class box extends panel implements \uix\data\save, \uix\data\load{
         return sanitize_key( $this->slug );
     }
 
-
     /**
-     * Render the Control
+     * Sets the wrappers attributes
      *
      * @since 1.0.0
-     * @see \uix\ui\uix
      * @access public
-     * @return string HTML of rendered box
+     */
+    public function set_attributes(){
+
+        $this->attributes += array(
+            'enctype'   =>  'multipart/form-data',
+            'method'    =>  'post',
+            'class'     =>  'uix-ajax uix-' . $this->type,
+            'data-uix'  =>  $this->slug,
+            'action'    =>  uix()->request_vars('server')['REQUEST_URI']
+        );
+
+        parent::set_attributes();
+
+    }
+
+    /**
+     * Render the box
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string HMTL of rendered page
      */
     public function render(){
+        $output = null;
 
-        $output = wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
+        $output .= '<form ' . $this->build_attributes() . '>';
+
+        $output .= $this->render_header();
+        $output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
         $output .= parent::render();
+
+        $output .= '</form>';
 
         return $output;
     }
 
+    /**
+     * Render the page
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string HMTL of rendered page
+     */
+    public function render_header(){
+
+        $output = null;
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ){
+                if( $child->type == 'header' )
+                    $output .= $child->render();
+            }
+        }
+
+        return $output;
+
+    }
 }
