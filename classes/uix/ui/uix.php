@@ -389,7 +389,7 @@ abstract class uix{
         
         $attributes = array();
         foreach( $this->attributes as $att => $value)
-            $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
+            $attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
 
         return implode( ' ', $attributes );
     }
