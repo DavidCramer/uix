@@ -16,7 +16,7 @@
 		filter			: function(opts){
 			return opts;
 		},
-		target			: function(opts){
+		target			: function(opts, params, e){
 			if(opts.params.target){
 
 				if(opts.params.target.is('textarea,input') && typeof opts.data === 'object'){
@@ -26,10 +26,10 @@
 				}
 				if(typeof opts.params.callback === 'string'){
 					if(typeof window[opts.params.callback] === 'function'){
-						return window[opts.params.callback](opts);
+						return window[opts.params.callback](opts, e);
 					}
 				}else if(typeof opts.params.callback === 'function'){
-					return opts.params.callback(opts);
+					return opts.params.callback(opts, e);
 				}
 			}
 		},
@@ -268,7 +268,7 @@
 					var dt = window[params.url](params, ev);
 					dt = do_helper('pre_filter', {data:dt, params: params});
 					dt = do_helper('filter', {data:dt, rawData: dt, params: params});
-					do_helper('target', dt);
+					do_helper('target', dt, e);
 					do_helper('refresh', {params:params});
 					do_helper('request_complete', {jqxhr:null, textStatus:'complete', request:request, params:params});
 
@@ -286,7 +286,7 @@
 
 							dt = do_helper('pre_filter', {data:dt, params: params});
 							dt = do_helper('filter', {data:dt, rawData: dt, params: params});
-							do_helper('target', dt);
+							do_helper('target', dt, e);
 							do_helper('refresh', {params:params});
 							do_helper('request_complete', {jqxhr:null, textStatus:'complete', request:request, params:params});
 
@@ -464,7 +464,7 @@
 
 							dt = do_helper('pre_filter', {data:dt, request: request, params: params, xhr: xhr});
 							dt = do_helper('filter', {data:dt, rawData: rawdata, request: request, params: params, xhr: xhr});
-							do_helper('target', dt);
+							do_helper('target', dt, e);
 						},
 						complete: function(xhr,ts){
 							

@@ -1,0 +1,22 @@
+.uix-ajax.spinner {
+    display: inline-block;
+    margin: 0 0 4px 12px;
+    visibility: visible;
+}
+.uix-ajax.inline {
+    float: none;
+}
+.uix-ajax.dashicons-yes {
+    color: #689f38;
+    font-size: 30px;
+    margin-left: 8px;
+}
+.uix-ajax button.disabled {
+    color: #9f9f9f !important;
+}
+.uix-ajax button.disabled:hover {
+    background: #efefef !important;
+}
+.ajax-triggered {
+    opacity: 0.6;
+}
