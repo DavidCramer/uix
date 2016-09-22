@@ -59,24 +59,9 @@ class section extends panel {
 
         $output .= $this->render_template();
         if( !empty( $this->child ) )
-            $output .= $this->render_section();
+            $output .= $this->render_children();
 
         $output .= '</div></div>';
-
-        return $output;
-    }
-
-    /**
-     * Render the section body
-     *
-     * @since 1.0.0
-     * @access public
-     * @return string|null
-     */
-    public function render_section(){
-        $output = null;
-        foreach ($this->child as $control)
-            $output .= $control->render();
 
         return $output;
     }

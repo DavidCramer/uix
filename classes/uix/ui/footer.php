@@ -41,7 +41,7 @@ class footer extends section{
 
         $output = $this->render_template();
         if( !empty( $this->child ) )
-            $output .= $this->render_section();
+            $output .= $this->render_children();
 
         return $output;
     }

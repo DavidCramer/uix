@@ -403,4 +403,20 @@ abstract class uix{
      */
     abstract public function render();
 
+    /**
+     * Render the child objects
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string|null
+     */
+    public function render_children(){
+        $output = null;
+        foreach ($this->child as $child)
+            $output .= $child->render();
+
+        return $output;
+    }
+
+
 }
