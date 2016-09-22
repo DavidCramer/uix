@@ -265,6 +265,9 @@ abstract class uix{
         $init = uix()->get_register_callback( $type );
         $child = null;
         if( null !== $init ){
+            if( null === $args[0] ){
+                $args[0] = count( $this->child );
+            }
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
             if( null !== $child ){
