@@ -34,14 +34,15 @@ class panel extends \uix\data\data{
      * @access protected
      */
     protected function enqueue_active_assets(){
+
         ?><style type="text/css">
-        #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
+        #panel-<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
-        #<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
+        #panel-<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 0 3px 0 <?php echo $this->base_color(); ?> inset;
         }
-        
+
         </style>
         <?php
     }
@@ -110,7 +111,7 @@ class panel extends \uix\data\data{
 
         if( $this->child_count() > 0 ) {
 
-            $output .= '<div id="' . esc_attr($this->id()) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
+            $output .= '<div id="panel-' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
             // render a lable
             $output .= $this->label();
             // render a desciption
@@ -137,7 +138,7 @@ class panel extends \uix\data\data{
     public function navigation(){
         $output = null;
 
-        if( $this->child_count() > 1 ) {
+            if( $this->child_count() > 1 ) {
 
             $output .= '<ul class="uix-' . esc_attr($this->type) . '-tabs uix-panel-tabs">';
             $active = 'true';
