@@ -91,6 +91,26 @@ class page extends box implements \uix\data\save{
         parent::set_assets();
     }
 
+    /**
+     * Sets the wrappers attributes
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function set_attributes(){
+
+        $this->attributes = array(
+            'enctype'   =>  'multipart/form-data',
+            'method'    =>  'post',
+            'class'     =>  'wrap uix-ajax uix-page',
+            'data-uix'  =>  $this->slug,
+            'action'    =>  uix()->request_vars('server')['REQUEST_URI']
+        );
+
+        parent::set_attributes();
+
+    }
+
 
     /**
      * get a UIX config store key
@@ -135,12 +155,12 @@ class page extends box implements \uix\data\save{
 
         echo '<style type="text/css">';
         echo '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color(). ' !important;}';
-        echo '#page-' . $this->id() . ' h1{box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 ' . $this->base_color() . ' inset;}';
-        echo '#page-' . $this->id() . ' .page-title-action:hover{background: ' . $this->base_color() . ';border-color: rgba(0,0,0,0.1);}';
-        echo '#page-' . $this->id() . '.page-title-action:focus{box-shadow: 0 0 2px ' . $this->base_color() . ';border-color: ' . $this->base_color() . ';}';
+        echo '#' . $this->id() . '.uix-page h1{box-shadow: 0 0 2px rgba(0, 2, 0, 0.1),11px 0 0 ' . $this->base_color() . ' inset;}';
+        echo '#' . $this->id() . '.uix-page .page-title-action:hover{background: ' . $this->base_color() . ';border-color: rgba(0,0,0,0.1);}';
+        echo '#' . $this->id() . '.uix-page .page-title-action:focus{box-shadow: 0 0 2px ' . $this->base_color() . ';border-color: ' . $this->base_color() . ';}';
 
         if( $child_count > 1 )
-            echo 'page-' . $this->id() . 'h1{ box-shadow: 0 0px 13px 12px ' . $this->base_color() . ', 11px 0 0 ' . $this->base_color() . ' inset;}';
+            echo '#' . $this->id() . '.uix-page h1{ box-shadow: 0 0px 13px 12px ' . $this->base_color() . ', 11px 0 0 ' . $this->base_color() . ' inset;}';
 
         echo '</style>';
 
@@ -207,7 +227,7 @@ class page extends box implements \uix\data\save{
     public function render(){
         $output = null;
 
-        $output .= '<form enctype="multipart/form-data" method="post" class="wrap uix-page" data-uix="' . esc_attr( $this->slug ) . '" id="page-' . esc_attr( $this->id() ) . '">';
+        $output .= '<form ' . $this->build_attributes() . '>';
 
         $output .= $this->render_header();
 

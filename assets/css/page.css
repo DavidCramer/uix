@@ -42,7 +42,7 @@ p.search-box {
 .contextual-help-tabs a {
     color: #808080;
 }
-.wrap > h1 {
+.uix-page > h1 {
     background-color: #fff;
     color: #505050;
     font-weight: 300;
@@ -60,19 +60,19 @@ p.search-box {
     visibility: visible;
     display: none;
 }
-.wrap button.page-title-action{
+.uix-page button.page-title-action{
     color: #505050;
 }
 
 
-.wrap button.page-title-action:hover{
+.uix-page button.page-title-action:hover{
     background: rgb(195, 0, 40);
 }
-.wrap button.page-title-action.saving {
+.uix-page button.page-title-action.saving {
     color: #8f8f8f;
     cursor: wait;
 }
-.wrap button.page-title-action.saving:hover{
+.uix-page button.page-title-action.saving:hover{
     background-color: #e0e0e0;
     color: #8f8f8f;
 }
