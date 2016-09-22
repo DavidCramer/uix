@@ -228,9 +228,10 @@ abstract class uix{
      * @return string The object ID
      */
     public function id(){
-        $id = 'uix-' . $this->type . '-' . $this->slug;
+        $id = 'uix-' . $this->slug;
         if( !empty( $this->parent ) )
-            $id .= $this->parent->id();
+            $id = $this->parent->id() . '-' . $this->slug;
+
         return $id;
     }
 
