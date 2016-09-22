@@ -265,9 +265,7 @@ abstract class uix{
         $init = uix()->get_register_callback( $type );
         $child = null;
         if( null !== $init ){
-            if( null === $args[0] ){
-                $args[0] = count( $this->child );
-            }
+            $this->sanitize_slug( $args[0] );
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
             if( null !== $child ){
@@ -275,6 +273,19 @@ abstract class uix{
             }
         }
         return $child;
+    }
+
+    /**
+     * Create a slug for the object
+     *
+     * @since 1.0.0
+     * @param string $slug The slug to be checked and created
+     * @access private
+     */
+    private function sanitize_slug( &$slug ) {
+        $slug = sanitize_key( $slug );
+        if( '' === $slug )
+            $slug = count( $this->child );
     }
 
     /**
