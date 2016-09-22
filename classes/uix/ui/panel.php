@@ -279,15 +279,15 @@ class panel extends \uix\data\data{
      */
     public function render_template(){
         // template
-        $output = null;
+        $_output = null;
 
         if( !empty( $this->struct['template'] ) ){
             ob_start();
                 include $this->struct['template'];
-            $output .= ob_get_clean();
+            $_output .= ob_get_clean();
         }
 
-        return $output;
+        return $_output;
     }
 
 
