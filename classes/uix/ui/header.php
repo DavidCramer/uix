@@ -27,6 +27,36 @@ class header extends section {
      */
     public $type = 'header';
 
+    /**
+     * type of header element
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      string
+     */
+    public $element = 'h1';
+
+    /**
+     * List of attributes to apply to the wrapper element
+     *
+     * @since 1.0.0
+     * @access public
+     * @var array
+     */
+    public $attributes = array( 'class' => 'uix-title' );
+
+    /**
+     * Set the element type
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function init(){
+        if( !empty( $this->struct['element'] ) )
+            $this->element = $this->struct['element'];
+    }
+
+
 
     /**
      * Render the complete section
@@ -37,7 +67,7 @@ class header extends section {
      */
     public function render(){
 
-        $output = '<h1 class="uix-title">';
+        $output = '<' . $this->element . ' ' . $this->build_attributes() . '>';
 
         $output .= $this->label();
 
@@ -54,6 +84,19 @@ class header extends section {
 
 
         return $output;
+    }
+
+    /**
+     * Define core header styles
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function set_assets() {
+
+        $this->assets['style']['header'] =  $this->url . 'assets/css/header' . UIX_ASSET_DEBUG . '.css';
+
+        parent::set_assets();
     }
 
     /**
