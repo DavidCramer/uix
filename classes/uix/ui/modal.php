@@ -115,7 +115,7 @@ class modal extends box{
     }
 
     /**
-     * set metabox styles
+     * set assets
      *
      * @since 1.0.0
      * @see \uix\ui\uix
@@ -123,10 +123,6 @@ class modal extends box{
      */
     public function set_assets() {
 
-        $this->assets['script']['baldrick'] = array(
-            'src' => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-            'deps' => array( 'jquery' ),
-        );
         $this->assets['script']['modals'] = array(
             'src' => $this->url . 'assets/js/modals' . UIX_ASSET_DEBUG . '.js',
             'deps' => array( 'baldrick' ),

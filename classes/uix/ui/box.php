@@ -51,6 +51,30 @@ class box extends panel implements \uix\data\save, \uix\data\load{
 
     }
 
+
+    /**
+     * set metabox styles
+     *
+     * @since 1.0.0
+     * @see \uix\ui\uix
+     * @access public
+     */
+    public function set_assets() {
+
+        $this->assets['script']['baldrick'] = array(
+            'src' => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+            'deps' => array( 'jquery' ),
+        );
+        $this->assets['script']['uix-ajax'] = array(
+            'src' => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
+            'deps' => array( 'baldrick' ),
+        );
+        $this->assets['style']['uix-ajax'] =  $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css';
+
+        parent::set_assets();
+    }
+
+
     /**
      * save data to database
      *
