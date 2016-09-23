@@ -32,7 +32,7 @@ class repeat extends panel {
      *
      * @since 1.0.0
      * @access public
-     * @var      int
+     * @var      int|string
      */
     public $instance = 0;
 
@@ -117,7 +117,6 @@ class repeat extends panel {
      * @access public
      */
     public function prepare_data() {
-        //parent::setup();
         $submit_data = uix()->request_vars( 'post' );
         if( !empty( $submit_data ) ){
             $instances = array_filter( array_keys( $submit_data ), array( $this, 'compare_var_key' ) );
@@ -126,9 +125,7 @@ class repeat extends panel {
         }
         $this->instance = 0; // reset instance;
     }
-    public function inist(){
-        die;
-    }
+
     /**
      * Sets the data for all children
      *
@@ -143,9 +140,7 @@ class repeat extends panel {
 
                 while( null !== $child->get_data() ){
 
-                    $line = $child->get_data();
-                    if( !empty( $line ) )
-                        $data[ $this->instance ][$child->slug] = $line;
+                    $data[ $this->instance ][$child->slug] = $child->get_data();
 
                     $this->instance++;
 
