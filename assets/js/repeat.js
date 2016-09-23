@@ -27,9 +27,9 @@
                 var new_id = id_parts.join('-');
                 reseset_attributes(el, 'name', index, id_parts, 'attr');
                 reseset_attributes(el, 'data-uix-template', index, id_parts, 'attr');
-                reseset_attributes(el, 'id', index, id_parts, 'prop');
-                reseset_attributes(el, 'for', index, id_parts, 'attr');
-                reseset_attributes(el, 'data-for', index, id_parts, 'attr');
+                //reseset_attributes(el, 'id', index, id_parts, 'prop');
+                //reseset_attributes(el, 'for', index, id_parts, 'attr');
+                //reseset_attributes(el, 'data-for', index, id_parts, 'attr');
             })
         }
 
