@@ -80,6 +80,9 @@ class panel extends \uix\data\data{
             }
         }
 
+        if( empty( $data ) )
+            $data = null;
+
         return $data;
     }
 
