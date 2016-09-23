@@ -58,8 +58,7 @@ class section extends panel {
         $output .='<div class="uix-section-content">';
 
         $output .= $this->render_template();
-        if( !empty( $this->child ) )
-            $output .= $this->render_children();
+        $output .= $this->render_children();
 
         $output .= '</div></div>';
 

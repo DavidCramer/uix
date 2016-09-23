@@ -8,7 +8,7 @@
     float: left;
     font-weight: 600;
     margin-bottom: 3px;
-    width: 240px;
+    width: 193px;
 }
 .uix-control-description {
     color: #808080;
@@ -19,7 +19,7 @@
 }
 .uix-control-input {
     display: inline-block;
-    min-width: 352px;
+    min-width: calc(100% - 193px);
 }
 .uix-control.uix-control-separator {
     margin-top: 25px;

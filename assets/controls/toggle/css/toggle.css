@@ -14,6 +14,9 @@ input.toggle-checkbox {
   width: 46px;
   box-sizing: content-box;
 }
+.switch.active{
+    background-color: #8BC34A;
+}
 .box-wrapper {
   height: 21px;
   position: absolute;
@@ -42,3 +45,6 @@ input.toggle-checkbox {
   margin-bottom: 3px;
 }
 
+.uix-control-toggle .uix-control-input {
+    min-width: 50px;
+}

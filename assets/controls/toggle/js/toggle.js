@@ -8,7 +8,7 @@
                 allcount    = parent.find( '.uix-control .switch > input' ).not( toggleAll ).length,
                 tottlecount = parent.find( '.uix-control .switch > input:checked' ).not( toggleAll ).length,
                 control     = $( '#' + clicked.data('for') );
-
+            console.log( '#' + clicked.data('for') );
             if( control.is(':checked') ){
                 clicked.addClass( 'active' );
                 if( allcount === tottlecount ){

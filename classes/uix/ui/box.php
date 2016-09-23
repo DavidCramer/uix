@@ -37,8 +37,6 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      */
     public function init() {
         // run parents to setup sanitization filters
-        parent::init();
-        
         $data = uix()->request_vars( 'post' );
         if( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ){
             
@@ -48,6 +46,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
             // load data normally
             $this->set_data( $this->load_data() );
         }
+
 
     }
 

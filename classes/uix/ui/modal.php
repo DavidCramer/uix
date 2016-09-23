@@ -16,7 +16,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-class modal extends box{
+class modal extends panel{
 
     /**
      * The type of object
@@ -98,8 +98,9 @@ class modal extends box{
             $this->attributes['data-title'] = $this->struct['description'];
             unset( $this->struct['description'] );
         }
+        if( !empty( $this->struct['attributes'] ) )
+            $this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );
 
-        parent::set_attributes();
 
     }
 
@@ -169,7 +170,7 @@ class modal extends box{
         $output .= parent::render();
         $output .= '</script>';
         $output .= $this->render_footer_template();
-        echo $output;
+        return $output;
     }
 
 
@@ -189,7 +190,7 @@ class modal extends box{
             $output .= '</script>';
         }
 
-        echo $output;
+        return $output;
     }
 
     /**

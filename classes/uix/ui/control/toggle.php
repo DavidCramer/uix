@@ -72,11 +72,11 @@ class toggle extends \uix\ui\control{
     protected function enqueue_active_assets(){
         parent::enqueue_active_assets();
         ?><style type="text/css">
-        #<?php echo $this->id(); ?> > .uix-control-input > .switch.active {
+        .<?php echo $this->id(); ?> > .uix-control-input > .switch.active {
             background: <?php echo $this->base_color(); ?>;
         }
         <?php if( !empty( $this->struct['off_color'] ) ){ ?>
-            #<?php echo $this->id(); ?> > .uix-control-input > .switch {
+            .<?php echo $this->id(); ?> > .uix-control-input > .switch {
                 background: <?php echo $this->struct['off_color']; ?>;
             }
         <?php } ?>
@@ -113,7 +113,7 @@ class toggle extends \uix\ui\control{
         if( !empty( $value ) )
             $status_class = ' active';        
 
-        $input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="control-' . esc_attr( $this->id() ) . '">';
+        $input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="' . esc_attr( $this->id() ) . '-control">';
             $input .= '<input type="checkbox" value="1" ' . $this->build_attributes() . ' ' . checked( 1, $value, false ) . '>';
             $input .= '<div class="box"></div>';
         $input .= '</label>';

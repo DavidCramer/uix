@@ -120,7 +120,7 @@ class control extends \uix\data\data{
         parent::set_attributes();
 
         $this->attributes = array_merge( $this->attributes, array(
-            'id'        =>  'control-' . $this->id(),
+            'id'        =>  $this->id() . '-control',
             'name'      =>  $this->name(),
             'class'     =>  implode( ' ', $this->classes() )
         ) );
@@ -150,7 +150,7 @@ class control extends \uix\data\data{
     public function label(){
         $output = null;
         if( isset( $this->struct['label'] ) )
-            $output .= '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
+            $output .= '<label for="' . esc_attr( $this->id() ) . '-control"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
 
         return $output;
     }
@@ -182,7 +182,7 @@ class control extends \uix\data\data{
      */
     public function render(){
 
-        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
+        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . ' ' . esc_attr( $this->id() ) . '">';
 
         $output .= $this->label();
         $output .= '<div class="uix-control-input">';

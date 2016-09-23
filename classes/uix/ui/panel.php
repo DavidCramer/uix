@@ -75,7 +75,8 @@ class panel extends \uix\data\data{
         $data = array();
         if( !empty( $this->child ) ){
             foreach( $this->child as $child ) {
-                $data[ $child->slug ] = $child->get_data();
+                if( null !== $child->get_data() )
+                    $data[ $child->slug ] = $child->get_data();
             }
         }
 

@@ -13,13 +13,14 @@ var uix_edit_state = false;
                 }
                 spinner = $( '<span class="uix-ajax spinner"></span>' );
                 if( ev.originalEvent && ev.originalEvent.explicitOriginalTarget ){
-                    $( ev.originalEvent.explicitOriginalTarget ).prop('disabled', 'disabled' ).addClass('disabled');
+                    //$( ev.originalEvent.explicitOriginalTarget ).prop('disabled', 'disabled' ).addClass('disabled');
                     spinner.addClass('inline');
                 }
                 $(el).find('.uix-title').append( spinner );
             },
             callback : function( obj, ev ){
-                if( ev.originalEvent && ev.originalEvent.explicitOriginalTarget ) {
+
+                if( ev && ev.originalEvent && ev.originalEvent.explicitOriginalTarget ) {
                     spinner.removeClass( 'spinner' ).addClass('dashicons dashicons-yes');
                     setTimeout( function(){
                         spinner.fadeOut( 1000, function(){
@@ -38,7 +39,7 @@ var uix_edit_state = false;
 
         $('form.uix-ajax').each( function(){
             var form = $( this );
-            if( !form.find('button').length ){
+            if( !form.find('button[type="submit"]').length ){
                 form.on('change', '[name]', function( e ){
                     $(this).addClass('ajax-triggered');
                     form.trigger( 'submit' );

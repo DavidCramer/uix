@@ -6,6 +6,10 @@
 /* =====================================================================================================================
 // RangeSlider */
 
+.uix-control-slider .uix-control-input {
+    min-width: calc(100% - 134px);
+}
+
 .irs {
     position: relative; display: block;
     -webkit-touch-callout: none;
