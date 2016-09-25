@@ -56,16 +56,17 @@ class slider extends \uix\ui\control\text{
      * @access protected
      */
     protected function enqueue_active_assets(){
-
         parent::enqueue_active_assets();
-        echo '<style type="text/css">';
+        if( !empty( $this->struct['base_color'] ) ){
+            echo '<style type="text/css">';
 
-        echo '.' . $this->id() . ' .irs-grid-pol {background: ' . $this->struct['base_color'] . ';}';
-        echo '.' . $this->id() . ' .irs-bar {border-top: 1px solid ' . $this->struct['base_color'] . ';border-bottom: 1px solid ' . $this->struct['base_color'] . ';background: ' . $this->struct['base_color'] . ';}';
-        echo '.' . $this->id() . ' .irs-bar-edge {border: 1px solid ' . $this->struct['base_color'] . ';background: ' . $this->struct['base_color'] . ';}';
-        echo '.' . $this->id() . ' .irs-from, .' . $this->id() . ' .irs-to, .' . $this->id() . ' .irs-single {background: ' . $this->struct['base_color'] . ';}';
+            echo '.' . $this->id() . ' .irs-grid-pol {background: ' . $this->struct['base_color'] . ';}';
+            echo '.' . $this->id() . ' .irs-bar {border-top: 1px solid ' . $this->struct['base_color'] . ';border-bottom: 1px solid ' . $this->struct['base_color'] . ';background: ' . $this->struct['base_color'] . ';}';
+            echo '.' . $this->id() . ' .irs-bar-edge {border: 1px solid ' . $this->struct['base_color'] . ';background: ' . $this->struct['base_color'] . ';}';
+            echo '.' . $this->id() . ' .irs-from, .' . $this->id() . ' .irs-to, .' . $this->id() . ' .irs-single {background: ' . $this->struct['base_color'] . ';}';
 
-        echo '</style>';
+            echo '</style>';
+        }
 
     }
     /**
