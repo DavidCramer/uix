@@ -1,0 +1,26 @@
+language: php
+
+php:
+    - 5.3
+    - 5.5
+    - 7.0
+
+env:
+    - WP_VERSION=latest WP_MULTISITE=0
+
+matrix:
+  fast_finish: true
+
+before_script:
+    - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+
+script:
+  - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then phpunit --coverage-clover=coverage.clover; else phpunit; fi
+
+after_script:
+    - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+    - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+branches:
+    only:
+        - master
+        - 1.0.x
