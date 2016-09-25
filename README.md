@@ -1,6 +1,6 @@
 # UIX
 
-[![Travis](https://img.shields.io/travis/Desertsnowman/uix.svg)](https://travis-ci.org/Desertsnowman/uix/)
+[![Travis](https://img.shields.io/travis/Desertsnowman/uix.svg?branch=master)](https://travis-ci.org/Desertsnowman/uix/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/Desertsnowman/uix.svg)](https://scrutinizer-ci.com/g/Desertsnowman/uix/?branch=master)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/Desertsnowman/uix.svg)](https://scrutinizer-ci.com/g/Desertsnowman/uix/?branch=master)
 
