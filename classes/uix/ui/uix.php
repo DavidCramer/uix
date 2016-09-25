@@ -181,26 +181,11 @@ abstract class uix{
     public function process_children( $type ){
         $this->struct[ $type ] = array_filter( $this->struct[ $type ], 'is_array' );
         foreach( $this->struct[ $type ]  as $sub_slug => $sub_structure ){
-            if( !is_array( $sub_structure ) ){
-                die;
-                continue;
-            }
-
             if( !empty( $sub_structure['id'] ) )
                 $sub_slug = $sub_structure['id'];
 
             $this->{$type}($sub_slug, $sub_structure);
         }
-
-    }
-
-    /**
-     * Checks if a structure is valid
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function valid_struct( $struct ){
 
     }
 
@@ -335,8 +320,6 @@ abstract class uix{
         // register uix core asset
         wp_register_script( 'uix', $this->url . 'assets/js/uix' . UIX_ASSET_DEBUG . '.js' );
         wp_register_style( 'uix', $this->url . 'assets/css/uix' . UIX_ASSET_DEBUG . '.css' );
-        //var_dump(  $this->url );
-        //die;
 
         // set assets . methods at before this point can set assets, after this not so much.
         $this->set_assets();
