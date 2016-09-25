@@ -103,6 +103,9 @@ class page extends box implements \uix\data\save{
 
         $this->attributes['class'] = 'wrap uix-ajax uix-page';
 
+        if( empty( $this->struct['full_width'] ) )
+            $this->attributes['class'] .= ' uix-half-page';
+
         if( !empty( $this->struct['attributes'] ) )
             $this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );
 

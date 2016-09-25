@@ -173,6 +173,7 @@
 			// give json object to trigger
 			//params.data = JSON.stringify(config);
 			//params.data = config;
+
 			return config;
 		},
 		triggerClass	= this.selector,

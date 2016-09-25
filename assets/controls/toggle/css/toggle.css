@@ -14,6 +14,26 @@ input.toggle-checkbox {
   width: 46px;
   box-sizing: content-box;
 }
+.switch .toggle-off,
+.switch .toggle-on{
+    color: #fff;
+    float: left;
+    margin: 1px 0 0 3px;
+    opacity: 0;
+    transition: opacity 100ms ease-in;
+}
+.switch .toggle-off {
+    float: right;
+    margin: 1px 3px 0 0;
+    opacity: 1;
+}
+
+.switch.active .toggle-on{
+    opacity: 1;
+}
+.switch.active .toggle-off{
+    opacity: 0;
+}
 .switch.active{
     background-color: #8BC34A;
 }
@@ -36,7 +56,7 @@ input.toggle-checkbox {
 .switch.load .box {
   background-color: #a6a6a6;
 }
-.uix-control.uix-control-toggle > span.uix-toggle-description {
+.uix-control.uix-control-toggle .uix-control-description {
   display: inline-block;
   margin-left: 12px;
   color: #808080;
@@ -46,5 +66,6 @@ input.toggle-checkbox {
 }
 
 .uix-control-toggle .uix-control-input {
+    display: inline-block;
     min-width: 50px;
 }

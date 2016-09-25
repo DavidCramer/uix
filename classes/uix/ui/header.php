@@ -80,7 +80,7 @@ class header extends section {
 
 
 
-        $output .= '</h1>';
+        $output .= '</' . $this->element . '>';
 
 
         return $output;

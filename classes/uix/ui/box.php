@@ -39,15 +39,11 @@ class box extends panel implements \uix\data\save, \uix\data\load{
         // run parents to setup sanitization filters
         $data = uix()->request_vars( 'post' );
         if( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ){
-            
             $this->save_data();
-
-        }else{  
+        }else{
             // load data normally
             $this->set_data( $this->load_data() );
         }
-
-
     }
 
 
@@ -117,7 +113,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
 
         $this->attributes += array(
             'enctype'   =>  'multipart/form-data',
-            'method'    =>  'post',
+            'method'    =>  'POST',
             'class'     =>  'uix-ajax uix-' . $this->type,
             'data-uix'  =>  $this->slug,
             'action'    =>  uix()->request_vars('server')['REQUEST_URI']
@@ -140,8 +136,8 @@ class box extends panel implements \uix\data\save, \uix\data\load{
         $output .= '<form ' . $this->build_attributes() . '>';
 
         $output .= $this->render_header();
-        $output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
         $output .= parent::render();
+        $output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
 
         $output .= '</form>';
 

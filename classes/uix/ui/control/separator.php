@@ -46,6 +46,16 @@ class separator extends \uix\ui\control{
     }
 
     /**
+     * Return null alwasy since a separator should not show up as an input.
+     * @since 1.0.0
+     * @access public
+     * @return mixed $data
+     */
+    public function get_data(){
+        return null;
+    }
+
+    /**
      * Returns the main input field for rendering
      *
      * @since 1.0.0

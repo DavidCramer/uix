@@ -45,7 +45,19 @@ class button extends template{
         return $classes;
     }
 
+    /**
+     * Only if a button is given a value, then return it. this helps to determin which control was clicked.
+     * @since 1.0.0
+     * @access public
+     * @return mixed $data
+     */
+    public function get_data(){
+        $data = null;
+        if( !empty( $this->struct['value'] ) )
+            $data = $this->struct['value'];
 
+        return $data;
+    }
 
     /**
      * Returns the main input field for rendering

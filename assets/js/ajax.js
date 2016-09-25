@@ -49,7 +49,9 @@ var uix_edit_state = false;
                     uix_edit_state = true;
                 });
             }
-
+            $( document ).on('uix.init', function(){
+                form.trigger( 'submit' );
+            })
         });
     })
 

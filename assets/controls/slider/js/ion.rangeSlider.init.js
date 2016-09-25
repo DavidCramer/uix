@@ -4,5 +4,4 @@
             $(".uix-slider").ionRangeSlider();
         });
     });
-    $( document ).trigger('uix.init');
 })( jQuery )

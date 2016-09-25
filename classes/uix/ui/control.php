@@ -59,12 +59,14 @@ class control extends \uix\data\data{
         parent::setup();
         $data = uix()->request_vars( 'post' );
 
-        if( isset( $data[ $this->id() ] ) ){
+        $this->set_data('');
+
+        if( !empty( $this->struct['value'] ) )
+            $this->set_data( $this->struct['value'] );
+
+        if( isset( $data[ $this->id() ] ) )
             $this->set_data( $data[ $this->id() ] );
-        }else{
-            if( !empty( $this->struct['value'] ) )
-                $this->set_data( $this->struct['value'] );
-        }
+
 
     }
     
@@ -117,13 +119,12 @@ class control extends \uix\data\data{
      */
     public function set_attributes() {
 
+        $this->attributes['name']      =  $this->name();
+        $this->attributes['class']     =  implode( ' ', $this->classes() );
+
         parent::set_attributes();
 
-        $this->attributes = array_merge( $this->attributes, array(
-            'id'        =>  $this->id() . '-control',
-            'name'      =>  $this->name(),
-            'class'     =>  implode( ' ', $this->classes() )
-        ) );
+        $this->attributes['id']        =  $this->id() . '-control';
 
     }
 

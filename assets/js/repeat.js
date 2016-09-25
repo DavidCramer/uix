@@ -27,8 +27,8 @@
                 var new_id = id_parts.join('-');
                 reseset_attributes(el, 'name', index, id_parts, 'attr');
                 reseset_attributes(el, 'data-uix-template', index, id_parts, 'attr');
-                //reseset_attributes(el, 'id', index, id_parts, 'prop');
-                //reseset_attributes(el, 'for', index, id_parts, 'attr');
+                reseset_attributes(el, 'id', index, id_parts, 'prop');
+                reseset_attributes(el, 'for', index, id_parts, 'attr');
                 //reseset_attributes(el, 'data-for', index, id_parts, 'attr');
             })
         }
@@ -38,8 +38,9 @@
                 id = clicked.data('uixRepeat'),
                 template = '';
             template = $( '#' + id + '-tmpl' ).html();
-            template = template.replace(/{{_inst_}}/g, 0 );
+            template = $( template.replace(/{{_inst_}}/g, 0 ) ).hide();
             clicked.parent().prev().append( template );
+            template.slideDown(100);
             //reset_repeatable_index( id );
 
 
@@ -50,7 +51,9 @@
             var clicked = $( this ),
                 template = clicked.closest('[data-uix-template]'),
                 id = template.data('uixTemplate');
-                $( this ).parent().remove();
+                $( this ).parent().slideUp( 100, function(){
+                    $(this).remove();
+                });
 
             $( document ).trigger('uix.init');
             //reset_repeatable_index( id );
@@ -62,6 +65,7 @@
             wrappers.each( function(){
                 var id = $( this ).attr('data-uix-template');
                 reset_repeatable_index( id );
+
             })
         });
 
@@ -76,6 +80,8 @@
             $( this ).attr( 'data-uix-repeat', id );
 
         });
+
+        $( document ).trigger('uix.init');
 
     })
 

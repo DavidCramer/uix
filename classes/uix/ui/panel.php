@@ -111,8 +111,6 @@ class panel extends \uix\data\data{
     public function render(){
         $output = null;
 
-        $output .= $this->render_template();
-
         if( $this->child_count() > 0 ) {
 
             $output .= '<div id="panel-' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
@@ -128,6 +126,8 @@ class panel extends \uix\data\data{
 
             $output .= '</div>';
         }
+
+        $output .= $this->render_template();
 
         return $output;
     }
@@ -165,7 +165,7 @@ class panel extends \uix\data\data{
      * @access public
      * @return int Number of tabable children
      */
-    private function child_count(){
+    public function child_count(){
 
         $count = 0;
         if( !empty( $this->child ) ){

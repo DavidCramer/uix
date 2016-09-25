@@ -45,6 +45,15 @@ class repeat extends panel {
      */
     public $templates = null;
 
+    /**
+     * Button Label
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      string
+     */
+    public $button_label;
+
 
     /**
      * Define core page style
@@ -195,6 +204,21 @@ class repeat extends panel {
     }
 
     /**
+     * Enqueues specific tabs assets for the active pages
+     *
+     * @since 1.0.0
+     * @access protected
+     */
+    protected function enqueue_active_assets(){
+
+        parent::enqueue_active_assets();
+
+        echo '<style type="text/css">';
+            echo '#' . $this->id() .' .uix-repeat{ box-shadow: 1px 0 0 ' . $this->base_color() . ' inset, -37px 0 0 #f5f5f5 inset, -38px 0 0 #ddd inset, 0 2px 3px rgba(0, 0, 0, 0.05); };';
+        echo '</stype>';
+    }
+
+    /**
      * Render the complete section
      *
      * @since 1.0.0
@@ -220,13 +244,35 @@ class repeat extends panel {
         }
         $output .= '</div>';
 
+
+        $output .= $this->render_repeatable_more();
+
+        return $output;
+    }
+
+
+    /**
+     * Render the add more button and template
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string|null HTML of rendered object
+     */
+    public function render_repeatable_more(){
+
+        $label = __( 'Add Another', 'uix' );
+
+        if( !empty( $this->struct['label'] ) )
+            $label = $this->struct['label'];
+
         $this->instance = '{{_inst_}}';
         $this->templates = $this->render_repeatable();
         $this->instance = 0;
-        $output .= '<div class="repeatable-footer"><button type="button" class="button" data-uix-repeat="' . esc_attr( $this->id() ) . '">' . esc_html( $this->struct['label'] ) . '</button></div>';
+        $output = '<div class="repeatable-footer"><button type="button" class="button" data-uix-repeat="' . esc_attr( $this->id() ) . '">' . esc_html( $label ) . '</button></div>';
 
 
         return $output;
+
     }
 
     /**

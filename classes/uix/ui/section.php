@@ -28,6 +28,7 @@ class section extends panel {
     public $type = 'section';
 
 
+
     /**
      * Define core page style
      *
@@ -65,15 +66,5 @@ class section extends panel {
         return $output;
     }
 
-
-    /**
-     * checks if the current section is active
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function is_active(){
-        return $this->parent->is_active();
-    }
 
 }
