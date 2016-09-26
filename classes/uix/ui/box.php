@@ -116,7 +116,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
             'method'    =>  'POST',
             'class'     =>  'uix-ajax uix-' . $this->type,
             'data-uix'  =>  $this->slug,
-            'action'    =>  uix()->request_vars('server')['REQUEST_URI']
+            'action'    =>  uix()->request_vars('server')['REQUEST_URI'],
         );
 
         parent::set_attributes();
