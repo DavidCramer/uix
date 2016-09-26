@@ -44,14 +44,15 @@ var uix_edit_state = false;
                     $(this).addClass('ajax-triggered');
                     form.trigger( 'submit' );
                 })
+                $( document ).on('uix.init', function(){
+                    form.trigger( 'submit' );
+                })
             }else{
                 form.on( 'change', '[name]', function(){
                     uix_edit_state = true;
                 });
             }
-            $( document ).on('uix.init', function(){
-                form.trigger( 'submit' );
-            })
+
         });
     })
 
