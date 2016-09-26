@@ -192,8 +192,14 @@ class metabox extends panel {
 
         $this->post = $post;    
 
-        $data = get_post_meta( $post->ID, $this->slug, true );
-        
+        $pre_data = $this->get_data();
+        $data = array();
+        foreach( (array) $pre_data as $pkey => $pvalue ){
+            foreach( (array) $pvalue as $key => $value ){
+                $data[$pkey][$key] = get_post_meta($post->ID, $key, true);
+            }
+        }
+
         $this->set_data( $data );
 
         echo $this->render();
@@ -227,6 +233,7 @@ class metabox extends panel {
      * @param wp_post $post Current post being saved
      */
     public function save_meta( $post_id, $post ){
+
         $this->post = $post;
         $data = $this->get_data();
 
@@ -234,10 +241,10 @@ class metabox extends panel {
 
         // save compiled data
         update_post_meta( $post_id, $this->slug, $data );
+        $data = call_user_func_array( 'array_merge', $data );
 
-        $flat_data = call_user_func_array( 'array_merge', $data );
+        foreach( $data as $meta_key => $meta_value ){
 
-        foreach( $flat_data as $meta_key => $meta_value ){
             $this->save_meta_data( $meta_key, $meta_value );
         }
 
