@@ -139,21 +139,21 @@ $post_type = array(
                 'name'              =>  esc_html__( 'Metabox Fields', 'text-domain' ),
                 'context'           =>  'normal',
                 'priority'          =>  'high',
-            ),
-            'section'               =>  array(
-                'employee_details'  =>  array(
-                    'label'         =>  esc_html__( 'Employee Details', 'text-domain' ),
-                    'control'       =>  array(
-                        'employee_name' =>  array(
-                            'label'     => esc_html__( 'Name', 'text-domain' ),
-                        ),
-                        'employee_bio'    =>  array(
-                            'label' => esc_html__( 'Bio', 'text-domain' ),
-                            'type' => 'textarea'
+                'section'               =>  array(
+                    'employee_details'  =>  array(
+                        'label'         =>  esc_html__( 'Employee Details', 'text-domain' ),
+                        'control'       =>  array(
+                            'employee_name' =>  array(
+                                'label'     => esc_html__( 'Name', 'text-domain' ),
+                            ),
+                            'employee_bio'    =>  array(
+                                'label' => esc_html__( 'Bio', 'text-domain' ),
+                                'type' => 'textarea'
+                            ),
                         ),
                     ),
                 ),
-            ),
+            ),  
         ),
     ),
 );
