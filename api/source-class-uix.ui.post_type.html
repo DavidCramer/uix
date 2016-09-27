@@ -86,6 +86,8 @@
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
 				<li><a href="class-uix.ui.box.html">uix\ui\box</a></li>
 				<li><a href="class-uix.ui.control.html">uix\ui\control</a></li>
+				<li><a href="class-uix.ui.control.autocomplete.html">uix\ui\control\autocomplete</a></li>
+				<li><a href="class-uix.ui.control.button.html">uix\ui\control\button</a></li>
 				<li><a href="class-uix.ui.control.checkbox.html">uix\ui\control\checkbox</a></li>
 				<li><a href="class-uix.ui.control.color.html">uix\ui\control\color</a></li>
 				<li><a href="class-uix.ui.control.editor.html">uix\ui\control\editor</a></li>
@@ -93,6 +95,7 @@
 				<li><a href="class-uix.ui.control.file.html">uix\ui\control\file</a></li>
 				<li><a href="class-uix.ui.control.hidden.html">uix\ui\control\hidden</a></li>
 				<li><a href="class-uix.ui.control.number.html">uix\ui\control\number</a></li>
+				<li><a href="class-uix.ui.control.post_relation.html">uix\ui\control\post_relation</a></li>
 				<li><a href="class-uix.ui.control.radio.html">uix\ui\control\radio</a></li>
 				<li><a href="class-uix.ui.control.select.html">uix\ui\control\select</a></li>
 				<li><a href="class-uix.ui.control.separator.html">uix\ui\control\separator</a></li>
@@ -101,12 +104,17 @@
 				<li><a href="class-uix.ui.control.text.html">uix\ui\control\text</a></li>
 				<li><a href="class-uix.ui.control.textarea.html">uix\ui\control\textarea</a></li>
 				<li><a href="class-uix.ui.control.toggle.html">uix\ui\control\toggle</a></li>
+				<li><a href="class-uix.ui.footer.html">uix\ui\footer</a></li>
+				<li><a href="class-uix.ui.grid.html">uix\ui\grid</a></li>
+				<li><a href="class-uix.ui.header.html">uix\ui\header</a></li>
 				<li><a href="class-uix.ui.help.html">uix\ui\help</a></li>
 				<li><a href="class-uix.ui.metabox.html">uix\ui\metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">uix\ui\modal</a></li>
 				<li><a href="class-uix.ui.notice.html">uix\ui\notice</a></li>
 				<li><a href="class-uix.ui.page.html">uix\ui\page</a></li>
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">uix\ui\repeat</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
@@ -212,7 +220,7 @@
 </span></span><span id="77" class="l"><a href="#77"> 77 </a><span class="php-comment">     * @access public
 </span></span><span id="78" class="l"><a href="#78"> 78 </a><span class="php-comment">     */</span>
 </span><span id="79" class="l"><a href="#79"> 79 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> set_assets() {
-</span><span id="80" class="l"><a href="#80"> 80 </a>        <span class="php-var">$this</span>-&gt;assets[<span class="php-quote">'style'</span>][<span class="php-quote">'post'</span>] = <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/css/uix-post'</span> . UIX_ASSET_DEBUG . <span class="php-quote">'.css'</span>;
+</span><span id="80" class="l"><a href="#80"> 80 </a>        <span class="php-var">$this</span>-&gt;assets[<span class="php-quote">'style'</span>][<span class="php-quote">'post'</span>] = <span class="php-var">$this</span>-&gt;url . <span class="php-quote">'assets/css/post'</span> . UIX_ASSET_DEBUG . <span class="php-quote">'.css'</span>;
 </span><span id="81" class="l"><a href="#81"> 81 </a>        parent::set_assets();
 </span><span id="82" class="l"><a href="#82"> 82 </a>    }
 </span><span id="83" class="l"><a href="#83"> 83 </a>
@@ -253,6 +261,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?78e2f76d8d1919633fa7ca0f1c3d7ad52e82ad89"></script>
+<script src="elementlist.js?32bfe88d61ce7e002017483b95ced41c634aa477"></script>
 </body>
 </html>

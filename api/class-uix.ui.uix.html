@@ -84,12 +84,17 @@
 			<ul>
 				<li><a href="class-uix.ui.box.html">box</a></li>
 				<li><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.footer.html">footer</a></li>
+				<li><a href="class-uix.ui.grid.html">grid</a></li>
+				<li><a href="class-uix.ui.header.html">header</a></li>
 				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">modal</a></li>
 				<li><a href="class-uix.ui.notice.html">notice</a></li>
 				<li><a href="class-uix.ui.page.html">page</a></li>
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">repeat</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
 				<li class="active"><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
@@ -130,6 +135,9 @@
 		<p class="elementList">
 			<code><a href="class-uix.ui.box.html">uix\ui\box</a></code>, 
 			<code><a href="class-uix.ui.control.html">uix\ui\control</a></code>, 
+			<code><a href="class-uix.ui.control.number.html">uix\ui\control\number</a></code>, 
+			<code><a href="class-uix.ui.control.post_relation.html">uix\ui\control\post_relation</a></code>, 
+			<code><a href="class-uix.ui.control.radio.html">uix\ui\control\radio</a></code>, 
 			<code><a href="class-uix.ui.control.select.html">uix\ui\control\select</a></code>, 
 			<code><a href="class-uix.ui.control.separator.html">uix\ui\control\separator</a></code>, 
 			<code><a href="class-uix.ui.control.slider.html">uix\ui\control\slider</a></code>, 
@@ -137,19 +145,24 @@
 			<code><a href="class-uix.ui.control.text.html">uix\ui\control\text</a></code>, 
 			<code><a href="class-uix.ui.control.textarea.html">uix\ui\control\textarea</a></code>, 
 			<code><a href="class-uix.ui.control.toggle.html">uix\ui\control\toggle</a></code>, 
+			<code><a href="class-uix.ui.control.autocomplete.html">uix\ui\control\autocomplete</a></code>, 
+			<code><a href="class-uix.ui.footer.html">uix\ui\footer</a></code>, 
+			<code><a href="class-uix.ui.grid.html">uix\ui\grid</a></code>, 
+			<code><a href="class-uix.ui.header.html">uix\ui\header</a></code>, 
 			<code><a href="class-uix.ui.metabox.html">uix\ui\metabox</a></code>, 
+			<code><a href="class-uix.ui.modal.html">uix\ui\modal</a></code>, 
 			<code><a href="class-uix.ui.notice.html">uix\ui\notice</a></code>, 
 			<code><a href="class-uix.ui.page.html">uix\ui\page</a></code>, 
-			<code><a href="class-uix.ui.control.checkbox.html">uix\ui\control\checkbox</a></code>, 
 			<code><a href="class-uix.ui.panel.html">uix\ui\panel</a></code>, 
+			<code><a href="class-uix.ui.repeat.html">uix\ui\repeat</a></code>, 
 			<code><a href="class-uix.ui.section.html">uix\ui\section</a></code>, 
+			<code><a href="class-uix.ui.control.button.html">uix\ui\control\button</a></code>, 
+			<code><a href="class-uix.ui.control.checkbox.html">uix\ui\control\checkbox</a></code>, 
 			<code><a href="class-uix.ui.control.color.html">uix\ui\control\color</a></code>, 
 			<code><a href="class-uix.ui.control.editor.html">uix\ui\control\editor</a></code>, 
 			<code><a href="class-uix.ui.control.email.html">uix\ui\control\email</a></code>, 
 			<code><a href="class-uix.ui.control.file.html">uix\ui\control\file</a></code>, 
-			<code><a href="class-uix.ui.control.hidden.html">uix\ui\control\hidden</a></code>, 
-			<code><a href="class-uix.ui.control.number.html">uix\ui\control\number</a></code>, 
-			<code><a href="class-uix.ui.control.radio.html">uix\ui\control\radio</a></code>
+			<code><a href="class-uix.ui.control.hidden.html">uix\ui\control\hidden</a></code>
 		</p>
 	</div>
 
@@ -165,7 +178,7 @@
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.uix.html#13-401" title="Go to source code">classes/uix/ui/uix.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.uix.html#13-462" title="Go to source code">classes/uix/ui/uix.php</a>
 		<br>
 	</div>
 
@@ -185,7 +198,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-uix.ui.uix.html#114-142" title="Go to source code">__construct</a>( <span>string <var>$slug</var></span>, <span>array <var>$object</var></span>, <span><code><a href="class-uix.ui.uix.html">uix\ui\uix</a></code> <var>$parent</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-uix.ui.uix.html#114-140" title="Go to source code">__construct</a>( <span>string <var>$slug</var></span>, <span>array <var>$object</var></span>, <span><code><a href="class-uix.ui.uix.html">uix\ui\uix</a></code> <var>$parent</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				<p>UIX constructor</p>
@@ -227,7 +240,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setup">#</a>
-			<code><a href="source-class-uix.ui.uix.html#144-155" title="Go to source code">setup</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#142-154" title="Go to source code">setup</a>( )</code>
 
 			<div class="description short">
 				<p>Autoload Children - Checks structure for nested structures</p>
@@ -235,6 +248,39 @@
 
 			<div class="description detailed hidden">
 				<p>Autoload Children - Checks structure for nested structures</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="process_child" id="_process_child">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_process_child">#</a>
+			<code><a href="source-class-uix.ui.uix.html#157-172" title="Go to source code">process_child</a>( <span> <var>$type</var></span> )</code>
+
+			<div class="description short">
+				<p>process type key child</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>process type key child</p>
 
 
 
@@ -260,14 +306,14 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_process_children">#</a>
-			<code><a href="source-class-uix.ui.uix.html#157-168" title="Go to source code">process_children</a>( <span> <var>$type</var></span> )</code>
+			<code><a href="source-class-uix.ui.uix.html#175-190" title="Go to source code">process_children</a>( <span> <var>$type</var></span> )</code>
 
 			<div class="description short">
-				<p>All objects loaded - application method for finishing off loading objects</p>
+				<p>Process all children under type key</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>All objects loaded - application method for finishing off loading objects</p>
+				<p>Process all children under type key</p>
 
 
 
@@ -293,7 +339,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_init">#</a>
-			<code><a href="source-class-uix.ui.uix.html#170-176" title="Go to source code">init</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#192-198" title="Go to source code">init</a>( )</code>
 
 			<div class="description short">
 				<p>All objects loaded - application method for finishing off loading objects</p>
@@ -326,7 +372,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_actions">#</a>
-			<code><a href="source-class-uix.ui.uix.html#178-198" title="Go to source code">actions</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#200-220" title="Go to source code">actions</a>( )</code>
 
 			<div class="description short">
 				<p>setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head</p>
@@ -359,7 +405,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_assets">#</a>
-			<code><a href="source-class-uix.ui.uix.html#200-216" title="Go to source code">set_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#222-238" title="Go to source code">set_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Define core UIX styles - override to register core ( common styles for uix type )</p>
@@ -392,7 +438,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_id">#</a>
-			<code><a href="source-class-uix.ui.uix.html#219-231" title="Go to source code">id</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#241-254" title="Go to source code">id</a>( )</code>
 
 			<div class="description short">
 				<p>uix object id</p>
@@ -429,7 +475,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_register">#</a>
-			<code><a href="source-class-uix.ui.uix.html#234-247" title="Go to source code">register</a>( <span>string <var>$slug</var></span>, <span>array <var>$object</var></span>, <span> <var>$parent</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-uix.ui.uix.html#257-270" title="Go to source code">register</a>( <span>string <var>$slug</var></span>, <span>array <var>$object</var></span>, <span> <var>$parent</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				<p>Register the UIX objects</p>
@@ -475,7 +521,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___call">#</a>
-			<code><a href="source-class-uix.ui.uix.html#250-270" title="Go to source code">__call</a>( <span>string <var>$type</var></span>, <span>array <var>$args</var></span> )</code>
+			<code><a href="source-class-uix.ui.uix.html#273-294" title="Go to source code">__call</a>( <span>string <var>$type</var></span>, <span>array <var>$args</var></span> )</code>
 
 			<div class="description short">
 				<p>Magic caller for adding child objects</p>
@@ -519,7 +565,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_core">#</a>
-			<code><a href="source-class-uix.ui.uix.html#272-298" title="Go to source code">enqueue_core</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#309-339" title="Go to source code">enqueue_core</a>( )</code>
 
 			<div class="description short">
 				<p>enqueue core assets</p>
@@ -552,7 +598,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_active_assets">#</a>
-			<code><a href="source-class-uix.ui.uix.html#300-306" title="Go to source code">enqueue_active_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#341-347" title="Go to source code">enqueue_active_assets</a>( )</code>
 
 			<div class="description short">
 				<p>runs after assets have been enqueued</p>
@@ -585,7 +631,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_url">#</a>
-			<code><a href="source-class-uix.ui.uix.html#308-327" title="Go to source code">set_url</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#349-368" title="Go to source code">set_url</a>( )</code>
 
 			<div class="description short">
 				<p>Detects the root of the plugin folder and sets the URL</p>
@@ -618,7 +664,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is_active">#</a>
-			<code><a href="source-class-uix.ui.uix.html#330-341" title="Go to source code">is_active</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#371-382" title="Go to source code">is_active</a>( )</code>
 
 			<div class="description short">
 				<p>Determin if a UIX object should be active for this screen
@@ -653,7 +699,7 @@ Intended to be ovveridden</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_base_color">#</a>
-			<code><a href="source-class-uix.ui.uix.html#343-359" title="Go to source code">base_color</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#384-400" title="Go to source code">base_color</a>( )</code>
 
 			<div class="description short">
 				<p>Base color helper</p>
@@ -686,7 +732,7 @@ Intended to be ovveridden</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_attributes">#</a>
-			<code><a href="source-class-uix.ui.uix.html#361-374" title="Go to source code">set_attributes</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#402-416" title="Go to source code">set_attributes</a>( )</code>
 
 			<div class="description short">
 				<p>Sets the wrappers attributes</p>
@@ -719,7 +765,7 @@ Intended to be ovveridden</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_build_attributes">#</a>
-			<code><a href="source-class-uix.ui.uix.html#377-391" title="Go to source code">build_attributes</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#419-435" title="Go to source code">build_attributes</a>( )</code>
 
 			<div class="description short">
 				<p>Build Attributes for the input control</p>
@@ -749,14 +795,14 @@ Intended to be ovveridden</p>
 
 			<td class="attributes"><code>
 				abstract public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.uix.html#393-399" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.uix.html#437-444" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the UIX object</p>
@@ -767,6 +813,47 @@ Intended to be ovveridden</p>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HTML of rendered object
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="render_children" id="_render_children">
+
+			<td class="attributes"><code>
+				 public 
+				string|null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_render_children">#</a>
+			<code><a href="source-class-uix.ui.uix.html#446-459" title="Go to source code">render_children</a>( )</code>
+
+			<div class="description short">
+				<p>Render the child objects</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Render the child objects</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string|null
+					</div>
 
 
 					<h4>Since</h4>

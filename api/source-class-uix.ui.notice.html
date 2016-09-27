@@ -86,6 +86,8 @@
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
 				<li><a href="class-uix.ui.box.html">uix\ui\box</a></li>
 				<li><a href="class-uix.ui.control.html">uix\ui\control</a></li>
+				<li><a href="class-uix.ui.control.autocomplete.html">uix\ui\control\autocomplete</a></li>
+				<li><a href="class-uix.ui.control.button.html">uix\ui\control\button</a></li>
 				<li><a href="class-uix.ui.control.checkbox.html">uix\ui\control\checkbox</a></li>
 				<li><a href="class-uix.ui.control.color.html">uix\ui\control\color</a></li>
 				<li><a href="class-uix.ui.control.editor.html">uix\ui\control\editor</a></li>
@@ -93,6 +95,7 @@
 				<li><a href="class-uix.ui.control.file.html">uix\ui\control\file</a></li>
 				<li><a href="class-uix.ui.control.hidden.html">uix\ui\control\hidden</a></li>
 				<li><a href="class-uix.ui.control.number.html">uix\ui\control\number</a></li>
+				<li><a href="class-uix.ui.control.post_relation.html">uix\ui\control\post_relation</a></li>
 				<li><a href="class-uix.ui.control.radio.html">uix\ui\control\radio</a></li>
 				<li><a href="class-uix.ui.control.select.html">uix\ui\control\select</a></li>
 				<li><a href="class-uix.ui.control.separator.html">uix\ui\control\separator</a></li>
@@ -101,12 +104,17 @@
 				<li><a href="class-uix.ui.control.text.html">uix\ui\control\text</a></li>
 				<li><a href="class-uix.ui.control.textarea.html">uix\ui\control\textarea</a></li>
 				<li><a href="class-uix.ui.control.toggle.html">uix\ui\control\toggle</a></li>
+				<li><a href="class-uix.ui.footer.html">uix\ui\footer</a></li>
+				<li><a href="class-uix.ui.grid.html">uix\ui\grid</a></li>
+				<li><a href="class-uix.ui.header.html">uix\ui\header</a></li>
 				<li><a href="class-uix.ui.help.html">uix\ui\help</a></li>
 				<li><a href="class-uix.ui.metabox.html">uix\ui\metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">uix\ui\modal</a></li>
 				<li><a href="class-uix.ui.notice.html">uix\ui\notice</a></li>
 				<li><a href="class-uix.ui.page.html">uix\ui\page</a></li>
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">uix\ui\repeat</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
@@ -224,55 +232,65 @@
 </span></span><span id="89" class="l"><a href="#89"> 89 </a><span class="php-comment">     *
 </span></span><span id="90" class="l"><a href="#90"> 90 </a><span class="php-comment">     * @since 1.0.0
 </span></span><span id="91" class="l"><a href="#91"> 91 </a><span class="php-comment">     * @access public
-</span></span><span id="92" class="l"><a href="#92"> 92 </a><span class="php-comment">     */</span>
-</span><span id="93" class="l"><a href="#93"> 93 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> render(){
-</span><span id="94" class="l"><a href="#94"> 94 </a>        <span class="php-var">$this</span>-&gt;attributes[<span class="php-quote">'class'</span>] = <span class="php-keyword2">implode</span>( <span class="php-quote">' '</span>, <span class="php-var">$this</span>-&gt;classes );
-</span><span id="95" class="l"><a href="#95"> 95 </a>        <span class="php-keyword1">echo</span> <span class="php-quote">'&lt;div '</span> . <span class="php-var">$this</span>-&gt;build_attributes() . <span class="php-quote">'&gt;'</span>;
-</span><span id="96" class="l"><a href="#96"> 96 </a>            <span class="php-keyword1">echo</span> <span class="php-quote">'&lt;p&gt;'</span>;
-</span><span id="97" class="l"><a href="#97"> 97 </a>                <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;get_data();
-</span><span id="98" class="l"><a href="#98"> 98 </a>            <span class="php-keyword1">echo</span> <span class="php-quote">'&lt;/p&gt;'</span>;
-</span><span id="99" class="l"><a href="#99"> 99 </a>            <span class="php-var">$this</span>-&gt;dismiss();
-</span><span id="100" class="l"><a href="#100">100 </a>        <span class="php-keyword1">echo</span> <span class="php-quote">'&lt;/div&gt;'</span>;
-</span><span id="101" class="l"><a href="#101">101 </a>
-</span><span id="102" class="l"><a href="#102">102 </a>    }
-</span><span id="103" class="l"><a href="#103">103 </a>
-</span><span id="104" class="l"><a href="#104">104 </a>    <span class="php-comment">/**
-</span></span><span id="105" class="l"><a href="#105">105 </a><span class="php-comment">     * Render a dismiss button
-</span></span><span id="106" class="l"><a href="#106">106 </a><span class="php-comment">     *
-</span></span><span id="107" class="l"><a href="#107">107 </a><span class="php-comment">     * @since 1.0.0
-</span></span><span id="108" class="l"><a href="#108">108 </a><span class="php-comment">     * @access public
-</span></span><span id="109" class="l"><a href="#109">109 </a><span class="php-comment">     */</span>
-</span><span id="110" class="l"><a href="#110">110 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> dismiss(){
-</span><span id="111" class="l"><a href="#111">111 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'dismissable'</span>] ) )
-</span><span id="112" class="l"><a href="#112">112 </a>            <span class="php-keyword1">echo</span> <span class="php-quote">'&lt;button class=&quot;notice-dismiss&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;screen-reader-text&quot;&gt;'</span> . esc_attr__( <span class="php-quote">'Dismiss this notice.'</span> ) . <span class="php-quote">'&lt;/span&gt;&lt;/button&gt;'</span>;
-</span><span id="113" class="l"><a href="#113">113 </a>    }
-</span><span id="114" class="l"><a href="#114">114 </a>
-</span><span id="115" class="l"><a href="#115">115 </a>    <span class="php-comment">/**
-</span></span><span id="116" class="l"><a href="#116">116 </a><span class="php-comment">     * Sets the wrappers class names
-</span></span><span id="117" class="l"><a href="#117">117 </a><span class="php-comment">     *
-</span></span><span id="118" class="l"><a href="#118">118 </a><span class="php-comment">     * @since 1.0.0
-</span></span><span id="119" class="l"><a href="#119">119 </a><span class="php-comment">     * @access public
-</span></span><span id="120" class="l"><a href="#120">120 </a><span class="php-comment">     */</span>
-</span><span id="121" class="l"><a href="#121">121 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> set_dismissable(){
-</span><span id="122" class="l"><a href="#122">122 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'dismissable'</span>] ) )
-</span><span id="123" class="l"><a href="#123">123 </a>            <span class="php-var">$this</span>-&gt;classes[] = <span class="php-quote">'is-dismissible'</span>;
-</span><span id="124" class="l"><a href="#124">124 </a>    }
-</span><span id="125" class="l"><a href="#125">125 </a>
-</span><span id="126" class="l"><a href="#126">126 </a>    <span class="php-comment">/**
-</span></span><span id="127" class="l"><a href="#127">127 </a><span class="php-comment">     * Sets the wrappers class names
-</span></span><span id="128" class="l"><a href="#128">128 </a><span class="php-comment">     *
-</span></span><span id="129" class="l"><a href="#129">129 </a><span class="php-comment">     * @since 1.0.0
-</span></span><span id="130" class="l"><a href="#130">130 </a><span class="php-comment">     * @access public
-</span></span><span id="131" class="l"><a href="#131">131 </a><span class="php-comment">     */</span>
-</span><span id="132" class="l"><a href="#132">132 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> set_state(){
-</span><span id="133" class="l"><a href="#133">133 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'state'</span>] ) ){
-</span><span id="134" class="l"><a href="#134">134 </a>            <span class="php-var">$this</span>-&gt;classes[] = <span class="php-quote">'notice-'</span> . <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'state'</span>];
-</span><span id="135" class="l"><a href="#135">135 </a>        }<span class="php-keyword1">else</span>{
-</span><span id="136" class="l"><a href="#136">136 </a>            <span class="php-var">$this</span>-&gt;classes[] = <span class="php-quote">'notice-warning'</span>;
-</span><span id="137" class="l"><a href="#137">137 </a>        }
-</span><span id="138" class="l"><a href="#138">138 </a>    }
-</span><span id="139" class="l"><a href="#139">139 </a>
-</span><span id="140" class="l"><a href="#140">140 </a>}</span></code></pre>
+</span></span><span id="92" class="l"><a href="#92"> 92 </a><span class="php-comment">     * @return string HTML of notice
+</span></span><span id="93" class="l"><a href="#93"> 93 </a><span class="php-comment">     */</span>
+</span><span id="94" class="l"><a href="#94"> 94 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> render(){
+</span><span id="95" class="l"><a href="#95"> 95 </a>        <span class="php-var">$output</span> = <span class="php-keyword1">null</span>;
+</span><span id="96" class="l"><a href="#96"> 96 </a>
+</span><span id="97" class="l"><a href="#97"> 97 </a>        <span class="php-var">$this</span>-&gt;attributes[<span class="php-quote">'class'</span>] = <span class="php-keyword2">implode</span>( <span class="php-quote">' '</span>, <span class="php-var">$this</span>-&gt;classes );
+</span><span id="98" class="l"><a href="#98"> 98 </a>
+</span><span id="99" class="l"><a href="#99"> 99 </a>        <span class="php-var">$output</span> .= <span class="php-quote">'&lt;div '</span> . <span class="php-var">$this</span>-&gt;build_attributes() . <span class="php-quote">'&gt;'</span>;
+</span><span id="100" class="l"><a href="#100">100 </a>        <span class="php-var">$output</span> .= <span class="php-quote">'&lt;p&gt;'</span>;
+</span><span id="101" class="l"><a href="#101">101 </a>        <span class="php-var">$output</span> .= <span class="php-var">$this</span>-&gt;get_data();
+</span><span id="102" class="l"><a href="#102">102 </a>        <span class="php-var">$output</span> .= <span class="php-quote">'&lt;/p&gt;'</span>;
+</span><span id="103" class="l"><a href="#103">103 </a>        <span class="php-var">$output</span> .= <span class="php-var">$this</span>-&gt;dismiss();
+</span><span id="104" class="l"><a href="#104">104 </a>        <span class="php-var">$output</span> .= <span class="php-quote">'&lt;/div&gt;'</span>;
+</span><span id="105" class="l"><a href="#105">105 </a>
+</span><span id="106" class="l"><a href="#106">106 </a>        <span class="php-keyword1">return</span> <span class="php-var">$output</span>;
+</span><span id="107" class="l"><a href="#107">107 </a>
+</span><span id="108" class="l"><a href="#108">108 </a>    }
+</span><span id="109" class="l"><a href="#109">109 </a>
+</span><span id="110" class="l"><a href="#110">110 </a>    <span class="php-comment">/**
+</span></span><span id="111" class="l"><a href="#111">111 </a><span class="php-comment">     * Render a dismiss button
+</span></span><span id="112" class="l"><a href="#112">112 </a><span class="php-comment">     *
+</span></span><span id="113" class="l"><a href="#113">113 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="114" class="l"><a href="#114">114 </a><span class="php-comment">     * @access public
+</span></span><span id="115" class="l"><a href="#115">115 </a><span class="php-comment">     * @return string|null HTML of dismiss button
+</span></span><span id="116" class="l"><a href="#116">116 </a><span class="php-comment">     */</span>
+</span><span id="117" class="l"><a href="#117">117 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> dismiss(){
+</span><span id="118" class="l"><a href="#118">118 </a>        <span class="php-var">$output</span> = <span class="php-keyword1">null</span>;
+</span><span id="119" class="l"><a href="#119">119 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'dismissable'</span>] ) )
+</span><span id="120" class="l"><a href="#120">120 </a>            <span class="php-var">$output</span> .= <span class="php-quote">'&lt;button class=&quot;notice-dismiss&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;screen-reader-text&quot;&gt;'</span> . esc_attr__( <span class="php-quote">'Dismiss this notice.'</span> ) . <span class="php-quote">'&lt;/span&gt;&lt;/button&gt;'</span>;
+</span><span id="121" class="l"><a href="#121">121 </a>
+</span><span id="122" class="l"><a href="#122">122 </a>        <span class="php-keyword1">return</span> <span class="php-var">$output</span>;
+</span><span id="123" class="l"><a href="#123">123 </a>    }
+</span><span id="124" class="l"><a href="#124">124 </a>
+</span><span id="125" class="l"><a href="#125">125 </a>    <span class="php-comment">/**
+</span></span><span id="126" class="l"><a href="#126">126 </a><span class="php-comment">     * Sets the wrappers class names
+</span></span><span id="127" class="l"><a href="#127">127 </a><span class="php-comment">     *
+</span></span><span id="128" class="l"><a href="#128">128 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="129" class="l"><a href="#129">129 </a><span class="php-comment">     * @access public
+</span></span><span id="130" class="l"><a href="#130">130 </a><span class="php-comment">     */</span>
+</span><span id="131" class="l"><a href="#131">131 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> set_dismissable(){
+</span><span id="132" class="l"><a href="#132">132 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'dismissable'</span>] ) )
+</span><span id="133" class="l"><a href="#133">133 </a>            <span class="php-var">$this</span>-&gt;classes[] = <span class="php-quote">'is-dismissible'</span>;
+</span><span id="134" class="l"><a href="#134">134 </a>    }
+</span><span id="135" class="l"><a href="#135">135 </a>
+</span><span id="136" class="l"><a href="#136">136 </a>    <span class="php-comment">/**
+</span></span><span id="137" class="l"><a href="#137">137 </a><span class="php-comment">     * Sets the wrappers class names
+</span></span><span id="138" class="l"><a href="#138">138 </a><span class="php-comment">     *
+</span></span><span id="139" class="l"><a href="#139">139 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="140" class="l"><a href="#140">140 </a><span class="php-comment">     * @access public
+</span></span><span id="141" class="l"><a href="#141">141 </a><span class="php-comment">     */</span>
+</span><span id="142" class="l"><a href="#142">142 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> set_state(){
+</span><span id="143" class="l"><a href="#143">143 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">empty</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'state'</span>] ) ){
+</span><span id="144" class="l"><a href="#144">144 </a>            <span class="php-var">$this</span>-&gt;classes[] = <span class="php-quote">'notice-'</span> . <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'state'</span>];
+</span><span id="145" class="l"><a href="#145">145 </a>        }<span class="php-keyword1">else</span>{
+</span><span id="146" class="l"><a href="#146">146 </a>            <span class="php-var">$this</span>-&gt;classes[] = <span class="php-quote">'notice-warning'</span>;
+</span><span id="147" class="l"><a href="#147">147 </a>        }
+</span><span id="148" class="l"><a href="#148">148 </a>    }
+</span><span id="149" class="l"><a href="#149">149 </a>
+</span><span id="150" class="l"><a href="#150">150 </a>}</span></code></pre>
 	</div>
 
 	<div id="footer">
@@ -280,6 +298,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?78e2f76d8d1919633fa7ca0f1c3d7ad52e82ad89"></script>
+<script src="elementlist.js?32bfe88d61ce7e002017483b95ced41c634aa477"></script>
 </body>
 </html>

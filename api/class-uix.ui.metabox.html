@@ -84,12 +84,17 @@
 			<ul>
 				<li><a href="class-uix.ui.box.html">box</a></li>
 				<li><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.footer.html">footer</a></li>
+				<li><a href="class-uix.ui.grid.html">grid</a></li>
+				<li><a href="class-uix.ui.header.html">header</a></li>
 				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li class="active"><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">modal</a></li>
 				<li><a href="class-uix.ui.notice.html">notice</a></li>
 				<li><a href="class-uix.ui.page.html">page</a></li>
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">repeat</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
@@ -158,7 +163,7 @@
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.metabox.html#13-275" title="Go to source code">classes/uix/ui/metabox.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.metabox.html#13-283" title="Go to source code">classes/uix/ui/metabox.php</a>
 		<br>
 	</div>
 
@@ -434,7 +439,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create_metabox">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#183-201" title="Go to source code">create_metabox</a>( <span>wp_post <var>$post</var></span> )</code>
+			<code><a href="source-class-uix.ui.metabox.html#183-207" title="Go to source code">create_metabox</a>( <span>wp_post <var>$post</var></span> )</code>
 
 			<div class="description short">
 				<p>Callback for the <code>add_meta_box</code> that sets the metabox data and renders it</p>
@@ -469,14 +474,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#203-216" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#209-223" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the Metabox</p>
@@ -487,6 +492,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HTML of rendered metabox
+					</div>
 
 
 					<h4>Since</h4>
@@ -511,7 +520,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_save_meta">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#219-244" title="Go to source code">save_meta</a>( <span>integer <var>$post_id</var></span>, <span>wp_post <var>$post</var></span> )</code>
+			<code><a href="source-class-uix.ui.metabox.html#226-252" title="Go to source code">save_meta</a>( <span>integer <var>$post_id</var></span>, <span>wp_post <var>$post</var></span> )</code>
 
 			<div class="description short">
 				<p>Saves a metabox data</p>
@@ -555,7 +564,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is_active">#</a>
-			<code><a href="source-class-uix.ui.metabox.html#266-273" title="Go to source code">is_active</a>( )</code>
+			<code><a href="source-class-uix.ui.metabox.html#274-281" title="Go to source code">is_active</a>( )</code>
 
 			<div class="description short">
 				<p>Determin which metaboxes are used for the current screen and set them active</p>
@@ -585,8 +594,10 @@
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.panel.html#methods">uix\ui\panel</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-uix.ui.panel.html#_child_count">child_count()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_description">description()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_get_data">get_data()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_is_section_object">is_section_object()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_label">label()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_navigation">navigation()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_panel_section">panel_section()</a></code>, 
@@ -605,8 +616,10 @@
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_child">process_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_register">register()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_render_children">render_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_attributes">set_attributes()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>

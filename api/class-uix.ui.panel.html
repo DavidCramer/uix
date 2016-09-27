@@ -84,12 +84,17 @@
 			<ul>
 				<li><a href="class-uix.ui.box.html">box</a></li>
 				<li><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.footer.html">footer</a></li>
+				<li><a href="class-uix.ui.grid.html">grid</a></li>
+				<li><a href="class-uix.ui.header.html">header</a></li>
 				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">modal</a></li>
 				<li><a href="class-uix.ui.notice.html">notice</a></li>
 				<li><a href="class-uix.ui.page.html">page</a></li>
 				<li class="active"><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">repeat</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
@@ -142,6 +147,8 @@
 		<p class="elementList">
 			<code><a href="class-uix.ui.box.html">uix\ui\box</a></code>, 
 			<code><a href="class-uix.ui.metabox.html">uix\ui\metabox</a></code>, 
+			<code><a href="class-uix.ui.modal.html">uix\ui\modal</a></code>, 
+			<code><a href="class-uix.ui.repeat.html">uix\ui\repeat</a></code>, 
 			<code><a href="class-uix.ui.section.html">uix\ui\section</a></code>
 		</p>
 	</div>
@@ -149,6 +156,9 @@
 	<div>
 		<h3>Indirect known subclasses</h3>
 		<p class="elementList">
+			<code><a href="class-uix.ui.footer.html">uix\ui\footer</a></code>, 
+			<code><a href="class-uix.ui.grid.html">uix\ui\grid</a></code>, 
+			<code><a href="class-uix.ui.header.html">uix\ui\header</a></code>, 
 			<code><a href="class-uix.ui.page.html">uix\ui\page</a></code>
 		</p>
 	</div>
@@ -165,7 +175,7 @@
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.panel.html#13-240" title="Go to source code">classes/uix/ui/panel.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.panel.html#13-319" title="Go to source code">classes/uix/ui/panel.php</a>
 		<br>
 	</div>
 
@@ -185,7 +195,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_active_assets">#</a>
-			<code><a href="source-class-uix.ui.panel.html#30-47" title="Go to source code">enqueue_active_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#30-48" title="Go to source code">enqueue_active_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Enqueues specific tabs assets for the active pages</p>
@@ -220,7 +230,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_assets">#</a>
-			<code><a href="source-class-uix.ui.panel.html#50-63" title="Go to source code">set_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#51-64" title="Go to source code">set_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Define core panel styles ans scripts</p>
@@ -255,7 +265,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get_data">#</a>
-			<code><a href="source-class-uix.ui.panel.html#66-82" title="Go to source code">get_data</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#67-87" title="Go to source code">get_data</a>( )</code>
 
 			<div class="description short">
 				<p>Get Data from all controls of this section</p>
@@ -298,7 +308,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_data">#</a>
-			<code><a href="source-class-uix.ui.panel.html#84-98" title="Go to source code">set_data</a>( <span>mixed <var>$data</var></span> )</code>
+			<code><a href="source-class-uix.ui.panel.html#89-103" title="Go to source code">set_data</a>( <span>mixed <var>$data</var></span> )</code>
 
 			<div class="description short">
 				<p>Sets the data for all children</p>
@@ -331,14 +341,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.panel.html#100-125" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#105-133" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the panel</p>
@@ -349,6 +359,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HTML of rendered object
+					</div>
 
 
 					<h4>Since</h4>
@@ -364,14 +378,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_navigation">#</a>
-			<code><a href="source-class-uix.ui.panel.html#127-147" title="Go to source code">navigation</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#135-159" title="Go to source code">navigation</a>( )</code>
 
 			<div class="description short">
 				<p>Render the panels navigation tabs</p>
@@ -382,6 +396,47 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>Html of rendered navigation tabs
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="child_count" id="_child_count">
+
+			<td class="attributes"><code>
+				 public 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_child_count">#</a>
+			<code><a href="source-class-uix.ui.panel.html#161-180" title="Go to source code">child_count</a>( )</code>
+
+			<div class="description short">
+				<p>Determines the number of useable children for tab display</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Determines the number of useable children for tab display</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer<br>Number of tabable children
+					</div>
 
 
 					<h4>Since</h4>
@@ -397,14 +452,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_label">#</a>
-			<code><a href="source-class-uix.ui.panel.html#169-178" title="Go to source code">label</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#207-220" title="Go to source code">label</a>( )</code>
 
 			<div class="description short">
 				<p>Render the panels label</p>
@@ -415,6 +470,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>rendered html of label
+					</div>
 
 
 					<h4>Since</h4>
@@ -430,14 +489,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_description">#</a>
-			<code><a href="source-class-uix.ui.panel.html#180-190" title="Go to source code">description</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#222-235" title="Go to source code">description</a>( )</code>
 
 			<div class="description short">
 				<p>Render the panels Description</p>
@@ -448,6 +507,52 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>HTML of rendered description
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="is_section_object" id="_is_section_object">
+
+			<td class="attributes"><code>
+				 public 
+				string|null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_is_section_object">#</a>
+			<code><a href="source-class-uix.ui.panel.html#237-247" title="Go to source code">is_section_object</a>( <span><code><a href="class-uix.ui.uix.html">uix\ui\uix</a></code> <var>$section</var></span> )</code>
+
+			<div class="description short">
+				<p>Check if child is a section object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Check if child is a section object</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$section</var></dt>
+						<dd>to test if it is to be rendered in a section</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>HTML of rendered description
+					</div>
 
 
 					<h4>Since</h4>
@@ -463,26 +568,34 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_panel_section">#</a>
-			<code><a href="source-class-uix.ui.panel.html#192-204" title="Go to source code">panel_section</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#249-276" title="Go to source code">panel_section</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Render the panels Description</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Render the panels Description</p>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>HTML of rendered description
+					</div>
 
 
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
 
 
 			</div>
@@ -492,14 +605,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render_template">#</a>
-			<code><a href="source-class-uix.ui.panel.html#206-217" title="Go to source code">render_template</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#278-296" title="Go to source code">render_template</a>( )</code>
 
 			<div class="description short">
 				<p>Render a template based object</p>
@@ -510,6 +623,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>HTML of rendered template
+					</div>
 
 
 					<h4>Since</h4>
@@ -532,7 +649,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_wrapper_class_names">#</a>
-			<code><a href="source-class-uix.ui.panel.html#220-239" title="Go to source code">wrapper_class_names</a>( )</code>
+			<code><a href="source-class-uix.ui.panel.html#299-318" title="Go to source code">wrapper_class_names</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the class names for the tab wrapper</p>
@@ -575,8 +692,10 @@
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_is_active">is_active()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_child">process_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_register">register()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_render_children">render_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_attributes">set_attributes()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>

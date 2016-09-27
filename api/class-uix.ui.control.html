@@ -84,12 +84,17 @@
 			<ul>
 				<li><a href="class-uix.ui.box.html">box</a></li>
 				<li class="active"><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.footer.html">footer</a></li>
+				<li><a href="class-uix.ui.grid.html">grid</a></li>
+				<li><a href="class-uix.ui.header.html">header</a></li>
 				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">modal</a></li>
 				<li><a href="class-uix.ui.notice.html">notice</a></li>
 				<li><a href="class-uix.ui.page.html">page</a></li>
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">repeat</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
@@ -142,21 +147,24 @@
 		<p class="elementList">
 			<code><a href="class-uix.ui.control.email.html">uix\ui\control\email</a></code>, 
 			<code><a href="class-uix.ui.control.file.html">uix\ui\control\file</a></code>, 
+			<code><a href="class-uix.ui.control.textarea.html">uix\ui\control\textarea</a></code>, 
 			<code><a href="class-uix.ui.control.toggle.html">uix\ui\control\toggle</a></code>, 
 			<code><a href="class-uix.ui.control.hidden.html">uix\ui\control\hidden</a></code>, 
 			<code><a href="class-uix.ui.control.number.html">uix\ui\control\number</a></code>, 
+			<code><a href="class-uix.ui.control.post_relation.html">uix\ui\control\post_relation</a></code>, 
 			<code><a href="class-uix.ui.control.radio.html">uix\ui\control\radio</a></code>, 
 			<code><a href="class-uix.ui.control.select.html">uix\ui\control\select</a></code>, 
 			<code><a href="class-uix.ui.control.separator.html">uix\ui\control\separator</a></code>, 
 			<code><a href="class-uix.ui.control.template.html">uix\ui\control\template</a></code>, 
-			<code><a href="class-uix.ui.control.text.html">uix\ui\control\text</a></code>, 
-			<code><a href="class-uix.ui.control.textarea.html">uix\ui\control\textarea</a></code>
+			<code><a href="class-uix.ui.control.text.html">uix\ui\control\text</a></code>
 		</p>
 	</div>
 
 	<div>
 		<h3>Indirect known subclasses</h3>
 		<p class="elementList">
+			<code><a href="class-uix.ui.control.autocomplete.html">uix\ui\control\autocomplete</a></code>, 
+			<code><a href="class-uix.ui.control.button.html">uix\ui\control\button</a></code>, 
 			<code><a href="class-uix.ui.control.checkbox.html">uix\ui\control\checkbox</a></code>, 
 			<code><a href="class-uix.ui.control.color.html">uix\ui\control\color</a></code>, 
 			<code><a href="class-uix.ui.control.editor.html">uix\ui\control\editor</a></code>, 
@@ -176,7 +184,7 @@
 
 				<b>Since:</b>
 				1.0.0<br>
-			<b>Located at</b> <a href="source-class-uix.ui.control.html#13-207" title="Go to source code">classes/uix/ui/control.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.control.html#13-228" title="Go to source code">classes/uix/ui/control.php</a>
 		<br>
 	</div>
 
@@ -244,7 +252,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setup">#</a>
-			<code><a href="source-class-uix.ui.control.html#50-69" title="Go to source code">setup</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#50-74" title="Go to source code">setup</a>( )</code>
 
 			<div class="description short">
 				<p>Sets the controls data</p>
@@ -272,6 +280,78 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="set_config" id="_set_config">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_config">#</a>
+			<code><a href="source-class-uix.ui.control.html#76-86" title="Go to source code">set_config</a>( )</code>
+
+			<div class="description short">
+				<p>Handy method for setting data-* attributes using the setup parameter</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Handy method for setting data-* attributes using the setup parameter</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_attributes" id="_set_attributes">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_attributes">#</a>
+			<code><a href="source-class-uix.ui.control.html#90-106" title="Go to source code">set_attributes</a>( )</code>
+
+			<div class="description short">
+				<p>Gets the attributes for the control.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets the attributes for the control.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>Attributes for the input field
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-uix.ui.uix.html#_set_attributes">uix\ui\uix::set_attributes</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="set_assets" id="_set_assets">
 
 			<td class="attributes"><code>
@@ -283,7 +363,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_assets">#</a>
-			<code><a href="source-class-uix.ui.control.html#71-80" title="Go to source code">set_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#108-117" title="Go to source code">set_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Define core page styles</p>
@@ -318,7 +398,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_name">#</a>
-			<code><a href="source-class-uix.ui.control.html#82-91" title="Go to source code">name</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#119-128" title="Go to source code">name</a>( )</code>
 
 			<div class="description short">
 				<p>Create and Return the control's input name</p>
@@ -355,7 +435,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_classes">#</a>
-			<code><a href="source-class-uix.ui.control.html#94-108" title="Go to source code">classes</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#131-144" title="Go to source code">classes</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the classes for the control input</p>
@@ -381,45 +461,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="set_attributes" id="_set_attributes">
-
-			<td class="attributes"><code>
-				 public 
-				array
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_set_attributes">#</a>
-			<code><a href="source-class-uix.ui.control.html#111-128" title="Go to source code">set_attributes</a>( )</code>
-
-			<div class="description short">
-				<p>Gets the attributes for the control.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Gets the attributes for the control.</p>
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						array<br>Attributes for the input field
-					</div>
-
-
-					<h4>Since</h4>
-					<div class="list">
-							1.0.0<br>
-					</div>
-
-					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-uix.ui.uix.html#_set_attributes">uix\ui\uix::set_attributes</a></code></div>
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="input" id="_input">
 
 			<td class="attributes"><code>
@@ -431,7 +472,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_input">#</a>
-			<code><a href="source-class-uix.ui.control.html#130-141" title="Go to source code">input</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#147-158" title="Go to source code">input</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the main input field for rendering</p>
@@ -472,7 +513,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_label">#</a>
-			<code><a href="source-class-uix.ui.control.html#143-156" title="Go to source code">label</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#160-173" title="Go to source code">label</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the label for the control</p>
@@ -485,7 +526,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						string<br>Lable string
+						string<br>label of control
 					</div>
 
 
@@ -509,7 +550,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_description">#</a>
-			<code><a href="source-class-uix.ui.control.html#159-172" title="Go to source code">description</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#176-189" title="Go to source code">description</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the description for the control</p>
@@ -539,14 +580,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.control.html#175-192" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#192-213" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the Control</p>
@@ -557,6 +598,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HTML of rendered control
+					</div>
 
 
 					<h4>Since</h4>
@@ -583,7 +628,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is_active">#</a>
-			<code><a href="source-class-uix.ui.control.html#194-205" title="Go to source code">is_active</a>( )</code>
+			<code><a href="source-class-uix.ui.control.html#215-226" title="Go to source code">is_active</a>( )</code>
 
 			<div class="description short">
 				<p>checks if the current control is active</p>
@@ -629,7 +674,9 @@
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_child">process_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_render_children">render_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>
 		</div>

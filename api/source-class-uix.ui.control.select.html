@@ -86,6 +86,8 @@
 				<li><a href="class-uix.ui.html">uix\ui</a></li>
 				<li><a href="class-uix.ui.box.html">uix\ui\box</a></li>
 				<li><a href="class-uix.ui.control.html">uix\ui\control</a></li>
+				<li><a href="class-uix.ui.control.autocomplete.html">uix\ui\control\autocomplete</a></li>
+				<li><a href="class-uix.ui.control.button.html">uix\ui\control\button</a></li>
 				<li><a href="class-uix.ui.control.checkbox.html">uix\ui\control\checkbox</a></li>
 				<li><a href="class-uix.ui.control.color.html">uix\ui\control\color</a></li>
 				<li><a href="class-uix.ui.control.editor.html">uix\ui\control\editor</a></li>
@@ -93,6 +95,7 @@
 				<li><a href="class-uix.ui.control.file.html">uix\ui\control\file</a></li>
 				<li><a href="class-uix.ui.control.hidden.html">uix\ui\control\hidden</a></li>
 				<li><a href="class-uix.ui.control.number.html">uix\ui\control\number</a></li>
+				<li><a href="class-uix.ui.control.post_relation.html">uix\ui\control\post_relation</a></li>
 				<li><a href="class-uix.ui.control.radio.html">uix\ui\control\radio</a></li>
 				<li><a href="class-uix.ui.control.select.html">uix\ui\control\select</a></li>
 				<li><a href="class-uix.ui.control.separator.html">uix\ui\control\separator</a></li>
@@ -101,12 +104,17 @@
 				<li><a href="class-uix.ui.control.text.html">uix\ui\control\text</a></li>
 				<li><a href="class-uix.ui.control.textarea.html">uix\ui\control\textarea</a></li>
 				<li><a href="class-uix.ui.control.toggle.html">uix\ui\control\toggle</a></li>
+				<li><a href="class-uix.ui.footer.html">uix\ui\footer</a></li>
+				<li><a href="class-uix.ui.grid.html">uix\ui\grid</a></li>
+				<li><a href="class-uix.ui.header.html">uix\ui\header</a></li>
 				<li><a href="class-uix.ui.help.html">uix\ui\help</a></li>
 				<li><a href="class-uix.ui.metabox.html">uix\ui\metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">uix\ui\modal</a></li>
 				<li><a href="class-uix.ui.notice.html">uix\ui\notice</a></li>
 				<li><a href="class-uix.ui.page.html">uix\ui\page</a></li>
 				<li><a href="class-uix.ui.panel.html">uix\ui\panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">uix\ui\post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">uix\ui\repeat</a></li>
 				<li><a href="class-uix.ui.section.html">uix\ui\section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix\ui\uix</a></li>
 			</ul>
@@ -188,14 +196,14 @@
 </span></span><span id="53" class="l"><a href="#53">53 </a><span class="php-comment">     */</span>
 </span><span id="54" class="l"><a href="#54">54 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> input(){
 </span><span id="55" class="l"><a href="#55">55 </a>        
-</span><span id="56" class="l"><a href="#56">56 </a>        <span class="php-var">$input</span>      = <span class="php-quote">'&lt;'</span> . esc_html( <span class="php-var">$this</span>-&gt;type ) . <span class="php-quote">' '</span> . <span class="php-var">$this</span>-&gt;build_attributes() . <span class="php-quote">'&gt;'</span>;
+</span><span id="56" class="l"><a href="#56">56 </a>        <span class="php-var">$input</span>      = <span class="php-quote">'&lt;select '</span> . <span class="php-var">$this</span>-&gt;build_attributes() . <span class="php-quote">'&gt;'</span>;
 </span><span id="57" class="l"><a href="#57">57 </a>
 </span><span id="58" class="l"><a href="#58">58 </a>        <span class="php-keyword1">if</span>( !<span class="php-keyword1">isset</span>( <span class="php-var">$this</span>-&gt;struct[<span class="php-quote">'value'</span>] ) )
 </span><span id="59" class="l"><a href="#59">59 </a>            <span class="php-var">$input</span> .= <span class="php-quote">'&lt;option&gt;&lt;/option&gt;'</span>;
 </span><span id="60" class="l"><a href="#60">60 </a>
 </span><span id="61" class="l"><a href="#61">61 </a>        <span class="php-var">$input</span> .= <span class="php-var">$this</span>-&gt;build_options();
 </span><span id="62" class="l"><a href="#62">62 </a>
-</span><span id="63" class="l"><a href="#63">63 </a>        <span class="php-var">$input</span> .= <span class="php-quote">'&lt;/'</span> . esc_html( <span class="php-var">$this</span>-&gt;type ) . <span class="php-quote">'&gt;'</span>;
+</span><span id="63" class="l"><a href="#63">63 </a>        <span class="php-var">$input</span> .= <span class="php-quote">'&lt;/select&gt;'</span>;
 </span><span id="64" class="l"><a href="#64">64 </a>
 </span><span id="65" class="l"><a href="#65">65 </a>        <span class="php-keyword1">return</span> <span class="php-var">$input</span>;
 </span><span id="66" class="l"><a href="#66">66 </a>    }
@@ -208,7 +216,7 @@
 </span></span><span id="73" class="l"><a href="#73">73 </a><span class="php-comment">     * @access public
 </span></span><span id="74" class="l"><a href="#74">74 </a><span class="php-comment">     * @return string
 </span></span><span id="75" class="l"><a href="#75">75 </a><span class="php-comment">     */</span>
-</span><span id="76" class="l"><a href="#76">76 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> build_options(){
+</span><span id="76" class="l"><a href="#76">76 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> build_options(){
 </span><span id="77" class="l"><a href="#77">77 </a>        <span class="php-var">$input</span> = <span class="php-quote">''</span>;
 </span><span id="78" class="l"><a href="#78">78 </a>        <span class="php-var">$value</span>      = <span class="php-var">$this</span>-&gt;get_data();
 </span><span id="79" class="l"><a href="#79">79 </a>
@@ -232,6 +240,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?78e2f76d8d1919633fa7ca0f1c3d7ad52e82ad89"></script>
+<script src="elementlist.js?32bfe88d61ce7e002017483b95ced41c634aa477"></script>
 </body>
 </html>

@@ -82,6 +82,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-uix.ui.control.autocomplete.html">autocomplete</a></li>
+				<li><a href="class-uix.ui.control.button.html">button</a></li>
 				<li><a href="class-uix.ui.control.checkbox.html">checkbox</a></li>
 				<li><a href="class-uix.ui.control.color.html">color</a></li>
 				<li><a href="class-uix.ui.control.editor.html">editor</a></li>
@@ -89,6 +91,7 @@
 				<li><a href="class-uix.ui.control.file.html">file</a></li>
 				<li><a href="class-uix.ui.control.hidden.html">hidden</a></li>
 				<li><a href="class-uix.ui.control.number.html">number</a></li>
+				<li><a href="class-uix.ui.control.post_relation.html">post_relation</a></li>
 				<li><a href="class-uix.ui.control.radio.html">radio</a></li>
 				<li><a href="class-uix.ui.control.select.html">select</a></li>
 				<li><a href="class-uix.ui.control.separator.html">separator</a></li>
@@ -163,7 +166,7 @@
 
 				<b>Since:</b>
 				1.0.0<br>
-			<b>Located at</b> <a href="source-class-uix.ui.control.toggle.html#13-139" title="Go to source code">classes/uix/ui/control/toggle.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.control.toggle.html#13-156" title="Go to source code">classes/uix/ui/control/toggle.php</a>
 		<br>
 	</div>
 
@@ -183,7 +186,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_classes">#</a>
-			<code><a href="source-class-uix.ui.control.toggle.html#29-43" title="Go to source code">classes</a>( )</code>
+			<code><a href="source-class-uix.ui.control.toggle.html#39-59" title="Go to source code">classes</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the classes for the control input</p>
@@ -222,7 +225,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_assets">#</a>
-			<code><a href="source-class-uix.ui.control.toggle.html#45-63" title="Go to source code">set_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.control.toggle.html#61-79" title="Go to source code">set_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Define core UIX styles - override to register core ( common styles for uix type )</p>
@@ -257,7 +260,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_active_assets">#</a>
-			<code><a href="source-class-uix.ui.control.toggle.html#66-85" title="Go to source code">enqueue_active_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.control.toggle.html#82-100" title="Go to source code">enqueue_active_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Enqueues specific tabs assets for the active pages</p>
@@ -292,7 +295,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_attributes">#</a>
-			<code><a href="source-class-uix.ui.control.toggle.html#87-99" title="Go to source code">set_attributes</a>( )</code>
+			<code><a href="source-class-uix.ui.control.toggle.html#102-114" title="Go to source code">set_attributes</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the attributes for the control.</p>
@@ -331,7 +334,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_input">#</a>
-			<code><a href="source-class-uix.ui.control.toggle.html#101-122" title="Go to source code">input</a>( )</code>
+			<code><a href="source-class-uix.ui.control.toggle.html#116-139" title="Go to source code">input</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the main input field for rendering</p>
@@ -363,7 +366,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="description" id="_description">
+		<tr data-order="sdescription" id="_sdescription">
 
 			<td class="attributes"><code>
 				 public 
@@ -373,8 +376,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_description">#</a>
-			<code><a href="source-class-uix.ui.control.toggle.html#124-137" title="Go to source code">description</a>( )</code>
+			<a class="anchor" href="#_sdescription">#</a>
+			<code><a href="source-class-uix.ui.control.toggle.html#141-154" title="Go to source code">sdescription</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the description for the control</p>
@@ -396,8 +399,6 @@
 							1.0.0<br>
 					</div>
 
-					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-uix.ui.control.html#_description">uix\ui\control::description</a></code></div>
 
 			</div>
 			</div></td>
@@ -408,11 +409,13 @@
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.control.html#methods">uix\ui\control</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-uix.ui.control.html#_description">description()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_is_active">is_active()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_label">label()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_name">name()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_register">register()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_render">render()</a></code>, 
+				<code><a href="class-uix.ui.control.html#_set_config">set_config()</a></code>, 
 				<code><a href="class-uix.ui.control.html#_setup">setup()</a></code>
 			</p>
 		</div>
@@ -434,7 +437,9 @@
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_child">process_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_render_children">render_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>
 		</div>
@@ -477,6 +482,35 @@
 				<div>
 					<a href="#$type" class="anchor">#</a>
 					<code><span class="php-quote">'toggle'</span></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="icons" id="$icons">
+			<td class="attributes"><code>
+				public  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.control.toggle.html#29-36" title="Go to source code"><var>$icons</var></a>
+
+				<div class="description short">
+					<p>The on and off icons to use</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The on and off icons to use</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$icons" class="anchor">#</a>
+					<code><span class="php-keyword1">array</span>( <span class="php-quote">'on'</span> =&gt; <span class="php-quote">'dashicons-yes'</span>, <span class="php-quote">'off'</span> =&gt; <span class="php-quote">''</span> )</code>
 				</div>
 			</td>
 		</tr>

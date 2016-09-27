@@ -84,12 +84,17 @@
 			<ul>
 				<li><a href="class-uix.ui.box.html">box</a></li>
 				<li><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.footer.html">footer</a></li>
+				<li><a href="class-uix.ui.grid.html">grid</a></li>
+				<li><a href="class-uix.ui.header.html">header</a></li>
 				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">modal</a></li>
 				<li class="active"><a href="class-uix.ui.notice.html">notice</a></li>
 				<li><a href="class-uix.ui.page.html">page</a></li>
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">repeat</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
@@ -151,7 +156,7 @@
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.notice.html#13-140" title="Go to source code">classes/uix/ui/notice.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.notice.html#13-150" title="Go to source code">classes/uix/ui/notice.php</a>
 		<br>
 	</div>
 
@@ -234,14 +239,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.notice.html#87-102" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.notice.html#87-108" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the panel</p>
@@ -252,6 +257,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HTML of notice
+					</div>
 
 
 					<h4>Since</h4>
@@ -267,14 +276,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dismiss">#</a>
-			<code><a href="source-class-uix.ui.notice.html#104-113" title="Go to source code">dismiss</a>( )</code>
+			<code><a href="source-class-uix.ui.notice.html#110-123" title="Go to source code">dismiss</a>( )</code>
 
 			<div class="description short">
 				<p>Render a dismiss button</p>
@@ -285,6 +294,10 @@
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string|null<br>HTML of dismiss button
+					</div>
 
 
 					<h4>Since</h4>
@@ -307,7 +320,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_dismissable">#</a>
-			<code><a href="source-class-uix.ui.notice.html#115-124" title="Go to source code">set_dismissable</a>( )</code>
+			<code><a href="source-class-uix.ui.notice.html#125-134" title="Go to source code">set_dismissable</a>( )</code>
 
 			<div class="description short">
 				<p>Sets the wrappers class names</p>
@@ -340,7 +353,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_state">#</a>
-			<code><a href="source-class-uix.ui.notice.html#126-138" title="Go to source code">set_state</a>( )</code>
+			<code><a href="source-class-uix.ui.notice.html#136-148" title="Go to source code">set_state</a>( )</code>
 
 			<div class="description short">
 				<p>Sets the wrappers class names</p>
@@ -384,8 +397,10 @@
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_init">init()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_is_active">is_active()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_child">process_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_register">register()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_render_children">render_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_assets">set_assets()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_attributes">set_attributes()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>

@@ -84,12 +84,17 @@
 			<ul>
 				<li class="active"><a href="class-uix.ui.box.html">box</a></li>
 				<li><a href="class-uix.ui.control.html">control</a></li>
+				<li><a href="class-uix.ui.footer.html">footer</a></li>
+				<li><a href="class-uix.ui.grid.html">grid</a></li>
+				<li><a href="class-uix.ui.header.html">header</a></li>
 				<li><a href="class-uix.ui.help.html">help</a></li>
 				<li><a href="class-uix.ui.metabox.html">metabox</a></li>
+				<li><a href="class-uix.ui.modal.html">modal</a></li>
 				<li><a href="class-uix.ui.notice.html">notice</a></li>
 				<li><a href="class-uix.ui.page.html">page</a></li>
 				<li><a href="class-uix.ui.panel.html">panel</a></li>
 				<li><a href="class-uix.ui.post_type.html">post_type</a></li>
+				<li><a href="class-uix.ui.repeat.html">repeat</a></li>
 				<li><a href="class-uix.ui.section.html">section</a></li>
 				<li><a href="class-uix.ui.uix.html">uix</a></li>
 			</ul>
@@ -169,7 +174,7 @@ A box also has save on a submission. Data is saved as an array structure based o
 
 				<b>Author:</b>
 				David Cramer<br>
-			<b>Located at</b> <a href="source-class-uix.ui.box.html#13-101" title="Go to source code">classes/uix/ui/box.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.box.html#13-168" title="Go to source code">classes/uix/ui/box.php</a>
 		<br>
 	</div>
 
@@ -189,7 +194,7 @@ A box also has save on a submission. Data is saved as an array structure based o
 
 			<td class="name"><div>
 			<a class="anchor" href="#_init">#</a>
-			<code><a href="source-class-uix.ui.box.html#31-52" title="Go to source code">init</a>( )</code>
+			<code><a href="source-class-uix.ui.box.html#31-47" title="Go to source code">init</a>( )</code>
 
 			<div class="description short">
 				<p>Sets the controls data</p>
@@ -217,6 +222,45 @@ A box also has save on a submission. Data is saved as an array structure based o
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="set_assets" id="_set_assets">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_assets">#</a>
+			<code><a href="source-class-uix.ui.box.html#50-70" title="Go to source code">set_assets</a>( )</code>
+
+			<div class="description short">
+				<p>set metabox styles</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>set metabox styles</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>See</h4>
+					<div class="list">
+							<code><a href="class-uix.ui.uix.html">uix\ui\uix</a></code><br>
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-uix.ui.panel.html#_set_assets">uix\ui\panel::set_assets</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="save_data" id="_save_data">
 
 			<td class="attributes"><code>
@@ -228,7 +272,7 @@ A box also has save on a submission. Data is saved as an array structure based o
 
 			<td class="name"><div>
 			<a class="anchor" href="#_save_data">#</a>
-			<code><a href="source-class-uix.ui.box.html#54-62" title="Go to source code">save_data</a>( )</code>
+			<code><a href="source-class-uix.ui.box.html#73-81" title="Go to source code">save_data</a>( )</code>
 
 			<div class="description short">
 				<p>save data to database</p>
@@ -263,7 +307,7 @@ A box also has save on a submission. Data is saved as an array structure based o
 
 			<td class="name"><div>
 			<a class="anchor" href="#_load_data">#</a>
-			<code><a href="source-class-uix.ui.box.html#64-73" title="Go to source code">load_data</a>( )</code>
+			<code><a href="source-class-uix.ui.box.html#83-92" title="Go to source code">load_data</a>( )</code>
 
 			<div class="description short">
 				<p>Get data</p>
@@ -302,7 +346,7 @@ A box also has save on a submission. Data is saved as an array structure based o
 
 			<td class="name"><div>
 			<a class="anchor" href="#_store_key">#</a>
-			<code><a href="source-class-uix.ui.box.html#75-85" title="Go to source code">store_key</a>( )</code>
+			<code><a href="source-class-uix.ui.box.html#94-104" title="Go to source code">store_key</a>( )</code>
 
 			<div class="description short">
 				<p>get the objects data store key</p>
@@ -330,7 +374,7 @@ A box also has save on a submission. Data is saved as an array structure based o
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="render" id="_render">
+		<tr data-order="set_attributes" id="_set_attributes">
 
 			<td class="attributes"><code>
 				 public 
@@ -340,15 +384,15 @@ A box also has save on a submission. Data is saved as an array structure based o
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.box.html#88-99" title="Go to source code">render</a>( )</code>
+			<a class="anchor" href="#_set_attributes">#</a>
+			<code><a href="source-class-uix.ui.box.html#106-125" title="Go to source code">set_attributes</a>( )</code>
 
 			<div class="description short">
-				<p>Render the Control</p>
+				<p>Sets the wrappers attributes</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Render the Control</p>
+				<p>Sets the wrappers attributes</p>
 
 
 
@@ -358,13 +402,85 @@ A box also has save on a submission. Data is saved as an array structure based o
 					<div class="list">
 							1.0.0<br>
 					</div>
-					<h4>See</h4>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-uix.ui.uix.html#_set_attributes">uix\ui\uix::set_attributes</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="render" id="_render">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_render">#</a>
+			<code><a href="source-class-uix.ui.box.html#127-146" title="Go to source code">render</a>( )</code>
+
+			<div class="description short">
+				<p>Render the box</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Render the box</p>
+
+
+
+					<h4>Returns</h4>
 					<div class="list">
-							<code><a href="class-uix.ui.uix.html">uix\ui\uix</a></code><br>
+						string<br>HMTL of rendered page
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
 					</div>
 
 					<h4>Overrides</h4>
 					<div class="list"><code><a href="class-uix.ui.panel.html#_render">uix\ui\panel::render</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="render_header" id="_render_header">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_render_header">#</a>
+			<code><a href="source-class-uix.ui.box.html#148-167" title="Go to source code">render_header</a>( )</code>
+
+			<div class="description short">
+				<p>Render the page</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Render the page</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>HMTL of rendered page
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
 
 			</div>
 			</div></td>
@@ -375,14 +491,15 @@ A box also has save on a submission. Data is saved as an array structure based o
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.ui.panel.html#methods">uix\ui\panel</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-uix.ui.panel.html#_child_count">child_count()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_description">description()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_enqueue_active_assets">enqueue_active_assets()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_get_data">get_data()</a></code>, 
+				<code><a href="class-uix.ui.panel.html#_is_section_object">is_section_object()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_label">label()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_navigation">navigation()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_panel_section">panel_section()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_render_template">render_template()</a></code>, 
-				<code><a href="class-uix.ui.panel.html#_set_assets">set_assets()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_set_data">set_data()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_wrapper_class_names">wrapper_class_names()</a></code>
 			</p>
@@ -404,9 +521,10 @@ A box also has save on a submission. Data is saved as an array structure based o
 				<code><a href="class-uix.ui.uix.html#_enqueue_core">enqueue_core()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_id">id()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_is_active">is_active()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_process_child">process_child()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_process_children">process_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_register">register()</a></code>, 
-				<code><a href="class-uix.ui.uix.html#_set_attributes">set_attributes()</a></code>, 
+				<code><a href="class-uix.ui.uix.html#_render_children">render_children()</a></code>, 
 				<code><a href="class-uix.ui.uix.html#_set_url">set_url()</a></code>
 			</p>
 		</div>
