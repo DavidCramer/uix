@@ -318,8 +318,8 @@ abstract class uix{
         if( !$this->is_active() ){ return; }
 
         // register uix core asset
-        wp_register_script( 'uix', $this->url . 'assets/js/uix' . UIX_ASSET_DEBUG . '.js' );
-        wp_register_style( 'uix', $this->url . 'assets/css/uix' . UIX_ASSET_DEBUG . '.css' );
+        wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
+        wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css' );
 
         // set assets . methods at before this point can set assets, after this not so much.
         $this->set_assets();

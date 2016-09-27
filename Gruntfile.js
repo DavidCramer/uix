@@ -35,18 +35,6 @@
                         dest: '../assets/js/'
                     },
                     {
-                        expand: false,
-                        cwd: 'assets/js',
-                        src: 'uix.js',
-                        dest: '../<%= pkg.namespace %>.js'
-                    },
-                    {
-                        expand: false,
-                        cwd: 'assets/js',
-                        src: 'uix.min.js',
-                        dest: '../<%= pkg.namespace %>.min.js'
-                    },
-                    {
                         expand: true,
                         cwd: 'assets/controls',
                         src: '**',
