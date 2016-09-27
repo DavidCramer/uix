@@ -40,23 +40,24 @@
         if( top < 0 ){
             top = 0;
         }
+
         if( modalHeight + ( uixModals[ modalId ].config.padding * 2 ) > windowHeight && uixBackdrop ){
-            modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 );
+            modalHeight = windowHeight;// - ( uixModals[ modalId ].config.padding * 2 );
             modalOuterHeight = '100%';
-            if( uixBackdrop ){ 
+            if( uixBackdrop ){
                 uixBackdrop.css( {
-                    paddingTop: uixModals[ modalId ].config.padding,
-                    paddingBottom: uixModals[ modalId ].config.padding,
+                    //paddingTop: uixModals[ modalId ].config.padding,
+                    //paddingBottom: uixModals[ modalId ].config.padding,
                 });
             }
             modalReduced = true;
         }
         if( modalWidth + ( uixModals[ modalId ].config.padding * 2 ) >= windowWidth ){
             modalWidth = '100%';
-            if( uixBackdrop ){ 
+            if( uixBackdrop ){
                 uixBackdrop.css( {
-                    paddingLeft: uixModals[ modalId ].config.padding,
-                    paddingRight: uixModals[ modalId ].config.padding,
+                    //paddingLeft: uixModals[ modalId ].config.padding,
+                    //paddingRight: uixModals[ modalId ].config.padding,
                 });
             }
             modalReduced = true;
@@ -64,7 +65,9 @@
 
         if( true === modalReduced ){
             if( windowWidth <= 700 && windowWidth > 600 ){
-                if( uixBackdrop ){ modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 ); }
+                if( uixBackdrop ){
+                    modalHeight = windowHeight - ( uixModals[ modalId ].config.padding * 2 );
+                }
                 modalWidth = windowWidth;
                 modalOuterHeight = modalHeight - ( uixModals[ modalId ].config.padding * 2 );
                 modalWidth = '100%';
@@ -89,15 +92,15 @@
         if( uixModals[ modalId ].header ){
             if( uixBackdrop ){ uixBackdrop.show(); }
             modalHeight -= uixModals[ modalId ].header.outerHeight();
-            uixModals[ modalId ].closer.css( { 
-                padding     : ( uixModals[ modalId ].header.outerHeight() / 2 ) - 0.5
+            uixModals[ modalId ].closer.css( {
+                padding     : ( uixModals[ modalId ].header.outerHeight() / 2 ) - 3.8
             } );
             uixModals[ modalId ].title.css({ paddingRight: uixModals[ modalId ].closer.outerWidth() } );
         }
         // footer?
         if( uixModals[ modalId ].footer ){
             if( uixBackdrop ){ uixBackdrop.show(); }
-            modalHeight -= uixModals[ modalId ].footer.outerHeight();           
+            modalHeight -= uixModals[ modalId ].footer.outerHeight();
         }
 
         if( uixBackdrop && flickerBD === true ){
@@ -107,7 +110,7 @@
 
         // set final height
         if( modalHeight != modalOuterHeight ){
-            uixModals[ modalId ].body.css( { 
+            uixModals[ modalId ].body.css( {
                 height      : modalHeight           
             } );
         }
@@ -144,31 +147,11 @@
             uixBackdrop.fadeIn( uixModals[ modalId ].config.speed );
         }
 
-        return uixModals; 
+        return uixModals;
     }
 
-    var closeModal = function( obj ){   
-        var modalId = $(obj).data('modal'),
-            position = 0,
-            toggle = {};
+    var closeModal = function(  ){
 
-        if( obj && uixModals[ modalId ].config.sticky ){
-
-            if( uixModals[ modalId ].config.minimized ){
-                uixModals[ modalId ].config.minimized = false
-                position = 0;
-            }else{
-                uixModals[ modalId ].config.minimized = true;
-                position = uixModals[ modalId ].title.outerHeight() - uixModals[ modalId ].modal.outerHeight();
-            }
-            if( uixModals[ modalId ].config.sticky.indexOf( 'bottom' ) > -1 ){
-                toggle['margin-bottom'] = position;
-            }else if( uixModals[ modalId ].config.sticky.indexOf( 'top' ) > -1 ){
-                toggle['margin-top'] = position;
-            }
-            uixModals[ modalId ].modal.stop().animate( toggle , uixModals[ modalId ].config.speed );
-            return;
-        }
         var lastModal;
         if( activeModals.length ){
             
@@ -177,13 +160,18 @@
                 uixModals[ lastModal ].modal.removeClass( 'uix-animate' );
                 setTimeout( function(){
                     uixModals[ lastModal ].modal.remove();
-                    delete uixModals[ lastModal ];
+                    if( uixModals[ lastModal ].flush ){
+                        delete uixModals[ lastModal ];
+                    }
                 }, 500 );
             }else{
                 if( uixBackdrop ){
                     uixModals[ lastModal ].modal.hide( 0 , function(){
                         $( this ).remove();
-                        delete uixModals[ lastModal ];
+                        if( uixModals[ lastModal ].flush ){
+                            delete uixModals[ lastModal ];
+                        }
+
                     });
                 }
             }
@@ -191,7 +179,7 @@
         }
 
         if( !activeModals.length ){
-            if( uixBackdrop ){ 
+            if( uixBackdrop ){
                 uixBackdrop.fadeOut( 250 , function(){
                     $( this ).remove();
                     uixBackdrop = null;
@@ -205,12 +193,12 @@
     }
     $.uixModal = function(opts,trigger){
         var defaults    = $.extend(true, {
-            element             :   'div',
+            element             :   'form',
             height              :   550,
             width               :   620,
             padding             :   12,
             speed               :   250,
-            content             :   conduitModal
+            content             :   ''
         }, opts );
         defaults.trigger = trigger;
         if( !uixBackdrop && ! defaults.sticky ){
@@ -248,19 +236,29 @@
                 activeSticky.push( modalId );
             }
             uixModals[ modalId ] = {
-                config  :   defaults,
-                modal   :   $('<' + modalElement + '>', {
-                    id                  : modalId + '_uixModal',
-                    tabIndex            : -1,
-                    "ariaLabelled-by"   : modalId + '_uixModalLable',
-                    "class"             : "uix-modal-wrap" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
-                })
+                config  :   defaults
             };
-            if( !defaults.sticky ){ activeModals.push( modalId ); }
+
+            uixModals[ modalId ].body = $('<div>', {"class" : "uix-modal-body",id: modalId + '_uixModalBody'});
+            uixModals[modalId].content = $('<div>', {"class": "uix-modal-content", id: modalId + '_uixModalContent'});
+
+
         }else{
             uixModals[ modalId ].config = defaults;
-            uixModals[ modalId ].modal.empty();
         }
+        //add in wrapper
+        uixModals[ modalId ].modal = $('<' + modalElement + '>', {
+            id                  : modalId + '_uixModal',
+            tabIndex            : -1,
+            "ariaLabelled-by"   : modalId + '_uixModalLable',
+            "method"            : 'post',
+            "enctype"           : 'multipart/form-data',
+            "class"             : "uix-modal-wrap" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
+        });
+
+        // push active
+        if( !defaults.sticky ){ activeModals.push( modalId ); }
+
         // add animate      
         if( defaults.animate && uixBackdrop ){
             var animate         = defaults.animate.split( ' ' ),
@@ -271,7 +269,7 @@
                 animate[1] = 0;
             }
 
-            uixModals[ modalId ].modal.css( { 
+            uixModals[ modalId ].modal.css( {
                 transform               : 'translate(' + animate[0] + ', ' + animate[1] + ')',
                 '-web-kit-transition'   : 'transform ' + animateSpeed + ' ' + animateEase,
                 '-moz-transition'       : 'transform ' + animateSpeed + ' ' + animateEase,
@@ -279,13 +277,13 @@
             } );
 
         }
-        uixModals[ modalId ].body = $('<div>', {"class" : "uix-modal-body",id: modalId + '_uixModalBody'});
-        uixModals[ modalId ].content = $('<div>', {"class" : "uix-modal-content",id: modalId + '_uixModalContent'});
 
 
-        // padd content     
-        uixModals[ modalId ].content.css( { 
-            margin : defaults.padding
+
+
+        // padd content
+        uixModals[ modalId ].content.css( {
+            //padding : defaults.padding
         } );
         uixModals[ modalId ].body.append( uixModals[ modalId ].content ).appendTo( uixModals[ modalId ].modal );
         if( uixBackdrop ){ uixBackdrop.append( uixModals[ modalId ].modal ); }else{
@@ -294,21 +292,25 @@
 
 
         if( defaults.footer ){
-            uixModals[ modalId ].footer = $('<div>', {"class" : "uix-modal-footer",id: modalId + '_uixModalFooter'});
-            uixModals[ modalId ].footer.css({ padding: defaults.padding });
-            uixModals[ modalId ].footer.appendTo( uixModals[ modalId ].modal );
-            // function?
-            if( typeof window[defaults.footer] === 'function' ){
-                uixModals[ modalId ].footer.append( window[defaults.footer]( defaults, uixModals[ modalId ] ) );
-            }else if( typeof defaults.footer === 'string' ){
-                // is jquery selector?
-                  try {
-                    var footerElement = $( defaults.footer );
-                    uixModals[ modalId ].footer.html( footerElement.html() );
-                  } catch (err) {
-                    uixModals[ modalId ].footer.html( defaults.footer );
-                  }
+            if( !uixModals[ modalId ].footer ) {
+                uixModals[modalId].footer = $('<div>', {"class": "uix-modal-footer", id: modalId + '_uixModalFooter'});
+                uixModals[ modalId ].footer.css({ padding: defaults.padding });
+
+                // function?
+                if( typeof window[defaults.footer] === 'function' ){
+                    uixModals[ modalId ].footer.append( window[defaults.footer]( defaults, uixModals[ modalId ] ) );
+                }else if( typeof defaults.footer === 'string' ){
+                    // is jquery selector?
+                    try {
+                        var footerElement = $( defaults.footer );
+                        uixModals[ modalId ].footer.html( footerElement.html() );
+                    } catch (err) {
+                        uixModals[ modalId ].footer.html( defaults.footer );
+                    }
+                }
             }
+
+            uixModals[ modalId ].footer.appendTo( uixModals[ modalId ].modal );
         }
 
         if( defaults.title ){
@@ -316,7 +318,7 @@
             uixModals[ modalId ].header = $('<div>', {"class" : "uix-modal-title", id : modalId + '_uixModalTitle'});
             uixModals[ modalId ].closer = $('<a>', { "href" : "#close", "class":"uix-modal-closer", "data-dismiss":"modal", "aria-hidden":"true",id: modalId + '_uixModalCloser'}).html('&times;');
             uixModals[ modalId ].title = $('<h3>', {"class" : "modal-label", id : modalId + '_uixModalLable'});
-            
+
             uixModals[ modalId ].title.html( defaults.title ).appendTo( uixModals[ modalId ].header );
             uixModals[ modalId ].title.css({ padding: defaults.padding });
             uixModals[ modalId ].title.append( uixModals[ modalId ].closer );
@@ -341,7 +343,7 @@
         uixModals[ modalId ].modal.outerHeight( defaults.height );
         uixModals[ modalId ].modal.outerWidth( defaults.width );
 
-        if( defaults.content ){
+        if( defaults.content && !uixModals[ modalId ].content.children().length ){
             // function?
             if( typeof defaults.content === 'function' ){
                 uixModals[ modalId ].content.append( defaults.content( defaults, uixModals[ modalId ] ) );
@@ -350,7 +352,7 @@
                   try {
                     var contentElement = $( defaults.content );
                     if( contentElement.length ){
-                        uixModals[ modalId ].content.append( contentElement.detach() );
+                        uixModals[ modalId ].content.append( contentElement.html() );
                         contentElement.show();
                     }else{
                         uixModals[ modalId ].content.html( defaults.content );
@@ -394,11 +396,36 @@
         window["onresize"] = positionModals;
     }
 
-
-
     $(document).on('click', '[data-modal]:not(.uix-modal-closer)', function( e ){
         e.preventDefault();
-        $(this).uixModal();
+        var modal = $(this).uixModal(),
+            submit = modal.modal.find('button[type="submit"]');
+        
+        if( !submit.length ){
+            modal.modal.find('input').on('change', function(){
+                modal.modal.submit();
+            })
+        }else{
+            modal.flush = true;
+        }
+
+        modal.modal.attr('data-load-element', '_parent' ).baldrick({
+            request : window.location.href,
+            before : function( el, e ){
+                $( el ).find( '[type="submit"],button' ).prop( 'disabled', true );
+            },
+            callback : function( obj ){
+                obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
+                if( submit.length ) {
+                    modal.flush = false;
+                    if (obj.data.success) {
+                        closeModal();
+                    } else {
+
+                    }
+                }
+            }
+        });
     });
 
     $(document).on( 'click', '.uix-modal-closer', function( e ) {
@@ -418,5 +445,7 @@
     $(window).load( function(){
         $(window).trigger('modal.init');
     });
+
+
 
 })(jQuery);

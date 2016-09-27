@@ -16,7 +16,7 @@ namespace uix\ui\control;
  * @since 1.0.0
  */
 class toggle extends \uix\ui\control{
-    
+
     /**
      * The type of object
      *
@@ -25,6 +25,16 @@ class toggle extends \uix\ui\control{
      * @var         string
      */
     public $type = 'toggle';
+
+    /**
+     * The on and off icons to use
+     *
+     * @since       1.0.0
+     * @access public
+     * @var        array
+     */
+    public $icons = array( 'on' => 'dashicons-yes', 'off' => '' );
+
 
     /**
      * Gets the classes for the control input
@@ -38,7 +48,13 @@ class toggle extends \uix\ui\control{
         $classes = array( 
             'toggle-checkbox'
         );
-        
+
+        if( !empty( $this->struct['on_icon'] ) )
+            $this->icons['on'] = $this->struct['on_icon'];
+
+        if( !empty( $this->struct['off_icon'] ) )
+            $this->icons['off'] = $this->struct['off_icon'];
+
         return $classes;
     }
 
@@ -70,18 +86,17 @@ class toggle extends \uix\ui\control{
      * @access protected
      */
     protected function enqueue_active_assets(){
-        parent::enqueue_active_assets();
-        ?><style type="text/css">
-        #<?php echo $this->id(); ?> > .uix-control-input > .switch.active {
-            background: <?php echo $this->base_color(); ?>;
-        }
-        <?php if( !empty( $this->struct['off_color'] ) ){ ?>
-            #<?php echo $this->id(); ?> > .uix-control-input > .switch {
-                background: <?php echo $this->struct['off_color']; ?>;
-            }
-        <?php } ?>
-        </style>
-        <?php
+
+        echo '<style type="text/css">';
+
+        if( !empty( $this->struct['base_color'] ) )
+            echo '.' . $this->id() . ' > .uix-control-input > .switch.active {background: ' . $this->struct['base_color'] . ';}';
+
+        if( !empty( $this->struct['off_color'] ) )
+            echo '.' . $this->id() . '> .uix-control-input > .switch { background: ' . $this->struct['off_color'] . ';}';
+
+        echo '</style>';
+
     }
 
     /**
@@ -113,8 +128,10 @@ class toggle extends \uix\ui\control{
         if( !empty( $value ) )
             $status_class = ' active';        
 
-        $input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="control-' . esc_attr( $this->id() ) . '">';
+        $input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="' . esc_attr( $this->id() ) . '-control">';
             $input .= '<input type="checkbox" value="1" ' . $this->build_attributes() . ' ' . checked( 1, $value, false ) . '>';
+            $input .= '<span class="toggle-on dashicons ' . esc_attr( $this->icons['on'] ) . '"></span>';
+            $input .= '<span class="toggle-off dashicons ' . esc_attr( $this->icons['off'] ) . '"></span>';
             $input .= '<div class="box"></div>';
         $input .= '</label>';
 
@@ -128,7 +145,7 @@ class toggle extends \uix\ui\control{
      * @access public
      * @return string description string 
      */
-    public function description(){
+    public function sdescription(){
         $output = null;
         if( isset( $this->struct['description'] ) )
             $output .= '<span class="uix-toggle-description">' . esc_html( $this->struct['description'] ) . '</span>';

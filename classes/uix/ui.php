@@ -306,6 +306,7 @@ class ui{
         foreach ( $assets as $type => $asset )
             $this->enqueue( $asset, $type );
 
+
     }
 
     /**
@@ -348,18 +349,18 @@ class ui{
 
         // setup default args for array type includes
         $args = array(
-            "src"       => false,
+            "src"       => $asset,
             "deps"      => array(),
             "ver"       => false,
             "in_footer" => false,
             "media"     => false
         );
 
-        if( is_array( $asset ) ){
+        if( is_array( $asset ) )
             $args = array_merge( $args, $asset );
-        }else{
-            $args['src'] = $asset;
-        }
+
+        // add uix dep
+        $args['deps'][] = 'uix';
 
         return $args;
     }

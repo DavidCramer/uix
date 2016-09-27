@@ -34,14 +34,15 @@ class panel extends \uix\data\data{
      * @access protected
      */
     protected function enqueue_active_assets(){
+
         ?><style type="text/css">
-        #<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
+        #panel-<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
         }
-        #<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
+        #panel-<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
             box-shadow: 0 3px 0 <?php echo $this->base_color(); ?> inset;
         }
-        
+
         </style>
         <?php
     }
@@ -74,9 +75,13 @@ class panel extends \uix\data\data{
         $data = array();
         if( !empty( $this->child ) ){
             foreach( $this->child as $child ) {
-                $data[ $child->slug ] = $child->get_data();
+                if( null !== $child->get_data() )
+                    $data[ $child->slug ] = $child->get_data();
             }
         }
+
+        if( empty( $data ) )
+            $data = null;
 
         return $data;
     }
@@ -106,11 +111,9 @@ class panel extends \uix\data\data{
     public function render(){
         $output = null;
 
-        $output .= $this->render_template();
+        if( $this->child_count() > 0 ) {
 
-        if( !empty( $this->child ) ) {
-
-            $output .= '<div id="' . esc_attr($this->id()) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
+            $output .= '<div id="panel-' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr($this->type) . '-inside ' . esc_attr($this->wrapper_class_names()) . '">';
             // render a lable
             $output .= $this->label();
             // render a desciption
@@ -123,6 +126,8 @@ class panel extends \uix\data\data{
 
             $output .= '</div>';
         }
+
+        $output .= $this->render_template();
 
         return $output;
     }
@@ -137,13 +142,12 @@ class panel extends \uix\data\data{
     public function navigation(){
         $output = null;
 
-        if( count( $this->child ) > 1 ) {
+            if( $this->child_count() > 1 ) {
 
             $output .= '<ul class="uix-' . esc_attr($this->type) . '-tabs uix-panel-tabs">';
             $active = 'true';
             foreach ($this->child as $child) {
-
-                if ($child->type !== 'help') {
+                if ( $this->is_section_object( $child ) ){
                     $output .= $this->tab_label($child, $active);
                     $active = 'false';
                 }
@@ -152,6 +156,27 @@ class panel extends \uix\data\data{
             $output .= '</ul>';
         }
         return $output;
+    }
+
+    /**
+     * Determines the number of useable children for tab display
+     *
+     * @since 1.0.0
+     * @access public
+     * @return int Number of tabable children
+     */
+    public function child_count(){
+
+        $count = 0;
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ){
+                if ( $this->is_section_object( $child ) ){
+                    $count++;
+                }
+            }
+        }
+
+        return $count;
     }
 
     /**
@@ -210,6 +235,18 @@ class panel extends \uix\data\data{
     }
 
     /**
+     * Check if child is a section object
+     *
+     * @since 1.0.0
+     * @access public
+     * @param uix Object to test if it is to be rendered in a section
+     * @return string|null HTML of rendered description
+     */
+    public function is_section_object( $section ){
+        return !in_array( $section->type, array( 'help', 'header', 'footer' ) );
+    }
+
+    /**
      * Render the panels Description
      *
      * @since 1.0.0
@@ -224,6 +261,10 @@ class panel extends \uix\data\data{
 
         $hidden = 'false';
         foreach( $this->child as $section ){
+
+            if ( !$this->is_section_object( $section ) )
+                continue;
+
             $section->struct['active'] = $hidden;
             $output .= $section->render();
             $hidden = 'true';
@@ -243,15 +284,15 @@ class panel extends \uix\data\data{
      */
     public function render_template(){
         // template
-        $output = null;
+        $_output = null;
 
         if( !empty( $this->struct['template'] ) ){
             ob_start();
                 include $this->struct['template'];
-            $output .= ob_get_clean();
+            $_output .= ob_get_clean();
         }
 
-        return $output;
+        return $_output;
     }
 
 
@@ -267,7 +308,7 @@ class panel extends \uix\data\data{
             'uix-panel-inside'
         );
 
-        if( count( $this->child ) > 1 )
+        if( $this->child_count() > 1 )
             $wrapper_class_names[] = 'uix-has-tabs';
 
         if( !empty( $this->struct['top_tabs'] ) )

@@ -132,8 +132,6 @@ abstract class uix{
         $this->set_url();
         // do setup
         $this->setup();
-        // setup attributes
-        $this->set_attributes();
         // Set required assets
         $this->set_assets();
         // start internal actions to allow for automating post init
@@ -148,22 +146,46 @@ abstract class uix{
      * @access public
      */
     public function setup(){
+
         foreach ( $this->struct as $struct_key=>$sub_struct ){
             if( is_array( $sub_struct ) && uix()->get_register_callback( $struct_key ) )
-                $this->process_children( $struct_key );
+                $this->process_child( $struct_key );
         }
     }
 
+
     /**
-     * All objects loaded - application method for finishing off loading objects
+     * process type key child
+     *
+     * @since 1.0.0
+     * @access public
+     */
+    public function process_child( $type ){
+
+        if( isset( $this->struct[ $type ]['id'] ) ){
+            $this->{$type}( $this->struct[ $type ]['id'], $this->struct[ $type ] );
+        }else{
+
+            $this->process_children( $type );
+        }
+
+    }
+
+
+    /**
+     * Process all children under type key
      *
      * @since 1.0.0
      * @access public
      */
     public function process_children( $type ){
+        $this->struct[ $type ] = array_filter( $this->struct[ $type ], 'is_array' );
+        foreach( $this->struct[ $type ]  as $sub_slug => $sub_structure ){
+            if( !empty( $sub_structure['id'] ) )
+                $sub_slug = $sub_structure['id'];
 
-        foreach( $this->struct[ $type ]  as $sub_slug => $sub_structure )
-            $this->{$type}( $sub_slug, $sub_structure );
+            $this->{$type}($sub_slug, $sub_structure);
+        }
 
     }
 
@@ -224,9 +246,10 @@ abstract class uix{
      * @return string The object ID
      */
     public function id(){
-        $id = 'uix-' . $this->type . '-' . $this->slug;
+        $id = 'uix-' . $this->slug;
         if( !empty( $this->parent ) )
-            $id .= $this->parent->id();
+            $id = $this->parent->id() . '-' . $this->slug;
+
         return $id;
     }
 
@@ -260,6 +283,7 @@ abstract class uix{
         $init = uix()->get_register_callback( $type );
         $child = null;
         if( null !== $init ){
+            $this->sanitize_slug( $args[0] );
             $args[] = $this;
             $child = call_user_func_array( $init, $args );
             if( null !== $child ){
@@ -267,6 +291,19 @@ abstract class uix{
             }
         }
         return $child;
+    }
+
+    /**
+     * Create a slug for the object
+     *
+     * @since 1.0.0
+     * @param string $slug The slug to be checked and created
+     * @access private
+     */
+    private function sanitize_slug( &$slug ) {
+        $slug = sanitize_key( $slug );
+        if( '' === $slug )
+            $slug = count( $this->child );
     }
 
     /**
@@ -279,6 +316,10 @@ abstract class uix{
 
         // attempt to get a config
         if( !$this->is_active() ){ return; }
+
+        // register uix core asset
+        wp_register_script( 'uix', $this->url . 'assets/js/uix' . UIX_ASSET_DEBUG . '.js' );
+        wp_register_style( 'uix', $this->url . 'assets/css/uix' . UIX_ASSET_DEBUG . '.css' );
 
         // set assets . methods at before this point can set assets, after this not so much.
         $this->set_assets();
@@ -354,7 +395,7 @@ abstract class uix{
             return $this->struct['base_color'];
         }
 
-        return '#0073aa';
+        return '#D84315';
 
     }
 
@@ -366,7 +407,8 @@ abstract class uix{
      */
     public function set_attributes(){
 
-        $this->attributes[ 'id' ] = $this->id();
+        if( empty( $this->attributes[ 'id' ] ) )
+            $this->attributes[ 'id' ] = $this->id();
 
         if( !empty( $this->struct['attributes'] ) )
             $this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );
@@ -382,10 +424,12 @@ abstract class uix{
      * @return string Attributes string for applying to an element
      */
     public function build_attributes() {
-        
+        // setup attributes
+        $this->set_attributes();
+
         $attributes = array();
         foreach( $this->attributes as $att => $value)
-            $attributes[] = sprintf( '%s="%s" ', esc_html( $att ), esc_attr( $value ) );
+            $attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
 
         return implode( ' ', $attributes );
     }
@@ -398,5 +442,21 @@ abstract class uix{
      * @return string HTML of rendered object
      */
     abstract public function render();
+
+    /**
+     * Render the child objects
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string|null
+     */
+    public function render_children(){
+        $output = null;
+        foreach ($this->child as $child)
+            $output .= $child->render();
+
+        return $output;
+    }
+
 
 }

@@ -37,19 +37,38 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      */
     public function init() {
         // run parents to setup sanitization filters
-        parent::init();
-        
         $data = uix()->request_vars( 'post' );
         if( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ){
-            
             $this->save_data();
-
-        }else{  
+        }else{
             // load data normally
             $this->set_data( $this->load_data() );
         }
-
     }
+
+
+    /**
+     * set metabox styles
+     *
+     * @since 1.0.0
+     * @see \uix\ui\uix
+     * @access public
+     */
+    public function set_assets() {
+
+        $this->assets['script']['baldrick'] = array(
+            'src' => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+            'deps' => array( 'jquery' ),
+        );
+        $this->assets['script']['uix-ajax'] = array(
+            'src' => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
+            'deps' => array( 'baldrick' ),
+        );
+        $this->assets['style']['uix-ajax'] =  $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css';
+
+        parent::set_assets();
+    }
+
 
     /**
      * save data to database
@@ -84,21 +103,66 @@ class box extends panel implements \uix\data\save, \uix\data\load{
         return sanitize_key( $this->slug );
     }
 
-
     /**
-     * Render the Control
+     * Sets the wrappers attributes
      *
      * @since 1.0.0
-     * @see \uix\ui\uix
      * @access public
-     * @return string HTML of rendered box
+     */
+    public function set_attributes(){
+
+        $action = uix()->request_vars('server');
+        $this->attributes += array(
+            'enctype'   =>  'multipart/form-data',
+            'method'    =>  'POST',
+            'class'     =>  'uix-ajax uix-' . $this->type,
+            'data-uix'  =>  $this->slug,
+            'action'    =>  $action['REQUEST_URI'],
+        );
+
+        parent::set_attributes();
+
+    }
+
+    /**
+     * Render the box
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string HMTL of rendered page
      */
     public function render(){
+        $output = null;
 
-        $output = wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
+        $output .= '<form ' . $this->build_attributes() . '>';
+
+        $output .= $this->render_header();
         $output .= parent::render();
+        $output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
+
+        $output .= '</form>';
 
         return $output;
     }
 
+    /**
+     * Render the page
+     *
+     * @since 1.0.0
+     * @access public
+     * @return string HMTL of rendered page
+     */
+    public function render_header(){
+
+        $output = null;
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ){
+                if( $child->type == 'header' )
+                    $output .= $child->render();
+            }
+        }
+
+        return $output;
+
+    }
 }

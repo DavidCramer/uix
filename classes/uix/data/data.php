@@ -18,9 +18,9 @@ abstract class data extends \uix\ui\uix{
      *
      * @since 1.0.0
      * @access private
-     * @var     mixed
+     * @var     array
      */
-    private $data;
+    private $data = array();
 
     /**
      * Sets the objects sanitization filter
@@ -43,7 +43,7 @@ abstract class data extends \uix\ui\uix{
      * @param mixed $data the data to be set
      */
     public function set_data( $data ){
-        $this->data = apply_filters( 'uix_' . $this->slug . '_sanitize_' . $this->type, $data, $this );
+        $this->data[ $this->id() ] = apply_filters( 'uix_' . $this->slug . '_sanitize_' . $this->type, $data, $this );
     }
 
     /**
@@ -53,7 +53,11 @@ abstract class data extends \uix\ui\uix{
      * @return mixed $data
      */
     public function get_data(){
-        return $this->data;
+        $data = null;
+        if( isset( $this->data[ $this->id() ] ) )
+            $data = $this->data[ $this->id() ];
+
+        return $data;
     }
 
 

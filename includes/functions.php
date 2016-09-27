@@ -42,6 +42,7 @@ function uix(){
         'get'       => $_GET,
         'files'     => $_FILES,
         'request'   => $_REQUEST,
+        'server'    => $_SERVER,
     );
     // init UI
     return \uix\ui::get_instance( $request_data );

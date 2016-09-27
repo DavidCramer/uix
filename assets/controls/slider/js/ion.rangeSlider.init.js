@@ -1,5 +1,7 @@
 ( function( $ ){
     jQuery( function( $ ){
-        $(".uix-slider").ionRangeSlider();
+        $( document ).on('uix.init', function(){
+            $(".uix-slider").ionRangeSlider();
+        });
     });
 })( jQuery )

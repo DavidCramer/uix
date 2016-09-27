@@ -59,15 +59,52 @@ class control extends \uix\data\data{
         parent::setup();
         $data = uix()->request_vars( 'post' );
 
-        if( isset( $data[ $this->id() ] ) ){
+        $this->set_data('');
+
+        if( !empty( $this->struct['value'] ) )
+            $this->set_data( $this->struct['value'] );
+
+        if( isset( $data[ $this->id() ] ) )
             $this->set_data( $data[ $this->id() ] );
-        }else{
-            if( !empty( $this->struct['value'] ) )
-                $this->set_data( $this->struct['value'] );
-        }
+
+        // base attributes defined
+        $this->attributes['name']      =  $this->name();
+        $this->attributes['id']        =  $this->id() . '-control';
 
     }
-    
+
+    /**
+     * Handy method for setting data-* attributes using the setup parameter
+     * @since  1.0.0
+     * @access public
+     */
+    public function set_config() {
+
+        foreach( $this->struct['config'] as $key=>$setting )
+            $this->attributes['data-' . $key ] = $setting;
+
+    }
+
+
+
+    /**
+     * Gets the attributes for the control.
+     *
+     * @since  1.0.0
+     * @access public
+     * @return array Attributes for the input field
+     */
+    public function set_attributes() {
+
+        if( !empty( $this->struct['config'] ) )
+            $this->set_config();
+
+        $this->attributes['class']     =  implode( ' ', $this->classes() );
+
+        parent::set_attributes();
+
+    }
+
     /**
      * Define core page styles
      *
@@ -100,32 +137,12 @@ class control extends \uix\data\data{
      */
     public function classes() {
 
-        $classes = array(
+        return array(
             'widefat'
         );
 
-        return $classes;
     }
 
-
-    /**
-     * Gets the attributes for the control.
-     *
-     * @since  1.0.0
-     * @access public
-     * @return array Attributes for the input field
-     */
-    public function set_attributes() {
-
-        parent::set_attributes();
-
-        $this->attributes = array_merge( $this->attributes, array(
-            'id'        =>  'control-' . $this->id(),
-            'name'      =>  $this->name(),
-            'class'     =>  implode( ' ', $this->classes() )
-        ) );
-
-    }
 
     /**
      * Returns the main input field for rendering
@@ -150,7 +167,7 @@ class control extends \uix\data\data{
     public function label(){
         $output = null;
         if( isset( $this->struct['label'] ) )
-            $output .= '<label for="control-' . esc_attr( $this->id() ) . '"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
+            $output .= '<label for="' . esc_attr( $this->id() ) . '-control"><span class="uix-control-label">' . esc_html( $this->struct['label'] ) . '</span></label>';
 
         return $output;
     }
@@ -182,7 +199,7 @@ class control extends \uix\data\data{
      */
     public function render(){
 
-        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . '">';
+        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-control uix-control-' . esc_attr( $this->type ) . ' ' . esc_attr( $this->id() ) . '">';
 
         $output .= $this->label();
         $output .= '<div class="uix-control-input">';

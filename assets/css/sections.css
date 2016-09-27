@@ -30,13 +30,6 @@
   margin: 0;
   padding: 10px 12px;
 }
-.uix-section-content{
-    padding: 6px 12px;
-}
-
-.uix-chromeless .uix-section-content{
-    padding: 0;
-}
 
 .uix-has-tabs .uix-section-content{
     padding: 8px 12px 8px;

@@ -42,7 +42,21 @@ class template extends \uix\ui\control{
             $output .= ob_get_clean();
         }
         return $output;
-    }    
-     
+    }
+
+    /**
+     * Render the Control
+     *
+     * @since 1.0.0
+     * @see \uix\ui\uix
+     * @access public
+     * @return string HTML of rendered control
+     */
+    public function render(){
+
+        $output = $this->input();
+
+        return $output;
+    }
 
 }

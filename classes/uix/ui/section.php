@@ -28,6 +28,7 @@ class section extends panel {
     public $type = 'section';
 
 
+
     /**
      * Define core page style
      *
@@ -58,38 +59,12 @@ class section extends panel {
         $output .='<div class="uix-section-content">';
 
         $output .= $this->render_template();
-        if( !empty( $this->child ) )
-            $output .= $this->render_section();
+        $output .= $this->render_children();
 
         $output .= '</div></div>';
 
         return $output;
     }
 
-    /**
-     * Render the section body
-     *
-     * @since 1.0.0
-     * @access public
-     * @return string|null
-     */
-    public function render_section(){
-        $output = null;
-        foreach ($this->child as $control)
-            $output .= $control->render();
-
-        return $output;
-    }
-
-
-    /**
-     * checks if the current section is active
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function is_active(){
-        return $this->parent->is_active();
-    }
 
 }
