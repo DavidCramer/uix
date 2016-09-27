@@ -33,8 +33,7 @@ class autocomplete extends \uix\ui\control\select{
      * @access protected
      */
     protected function enqueue_active_assets(){
-
-        //parent::enqueue_active_assets();
+        
         echo '<style type="text/css">';
         echo '#select2-' . $this->id() . '-control-results .select2-results__option--highlighted[aria-selected] {background-color: ' . $this->base_color() . ';}';
         echo '</style>';
