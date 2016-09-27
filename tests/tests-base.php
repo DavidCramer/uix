@@ -435,7 +435,7 @@ class Test_UIX extends WP_UnitTestCase {
         $check_html = $uix->ui->box['saving']->child['checkbox']->render();
 
         $hash = md5( $check_html );
-        $this->assertSame( $hash, 'af7f15d5c82e701f254fb88bb2cf3795' );
+        $this->assertSame( $hash, '6ebe1a4425d8d05f029f46ca673c8c96' );
 
 
         // text classes

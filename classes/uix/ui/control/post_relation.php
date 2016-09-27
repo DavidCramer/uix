@@ -48,12 +48,12 @@ class post_relation extends \uix\ui\control{
         $this->struct = array_merge( $defaults, $this->struct );
 
         $data = uix()->request_vars( 'post' );
+
         if( !empty( $data['uixId'] ) && $data['uixId'] === $this->id() )
-            $this->do_lookup($data['_value']);
+            $this->do_lookup( $data );
 
     }
-    public function do_lookup(){
-        $data = uix()->request_vars( 'post' );
+    public function do_lookup( $data ){
 
         $defaults = array(
             'post_type' => 'post',
@@ -168,7 +168,8 @@ class post_relation extends \uix\ui\control{
 
         $input .= '<div class="uix-post-relation-footer"><button class="button button-small uix-add-relation" type="button">' . esc_html( $this->struct['add_label'] ) . '</button></div>';
         $input .= '<div class="uix-post-relation-panel">';
-        $input .= '<input type="search" class="uix-ajax" data-method="POST" data-uix-id="' . esc_attr( $this->id() ) . '" data-event="input paginate" data-before="uix_related_post_before" data-callback="uix_related_post_handler" data-target="#' . esc_attr( $this->id() ) . '-search-results">';
+        $input .= '<span class="uix-post-relation-spinner spinner"></span>';
+        $input .= '<input type="search" class="uix-ajax" data-load-element="_parent" data-delay="250" data-method="POST" data-uix-id="' . esc_attr( $this->id() ) . '" data-event="input paginate" data-before="uix_related_post_before" data-callback="uix_related_post_handler" data-target="#' . esc_attr( $this->id() ) . '-search-results">';
 
         $input .= '<div class="uix-post-relation-results" id="' . esc_attr( $this->id() ) . '-search-results">';
 
@@ -184,7 +185,7 @@ class post_relation extends \uix\ui\control{
     public function render_item( $item ){
         $input = null;
 
-        if( $post = get_post( $item ) ){
+        if( get_post( $item ) ){
 
             $input .= '<div class="uix-post-relation-item">';
             $input .= '<span class="uix-post-relation-remover dashicons dashicons-no-alt"></span>';
