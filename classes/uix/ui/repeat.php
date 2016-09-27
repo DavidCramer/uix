@@ -196,11 +196,8 @@ class repeat extends panel {
      * @return string The object ID
      */
     public function id(){
-        $id = 'uix-' . $this->slug;
-        if( !empty( $this->parent ) )
-            $id = $this->parent->id() . '-' . $this->slug;
 
-        return $id . '-' . $this->instance;
+        return parent::id() . '-' . $this->instance;
     }
 
     /**
