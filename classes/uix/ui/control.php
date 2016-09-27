@@ -67,9 +67,44 @@ class control extends \uix\data\data{
         if( isset( $data[ $this->id() ] ) )
             $this->set_data( $data[ $this->id() ] );
 
+        // base attributes defined
+        $this->attributes['name']      =  $this->name();
+        $this->attributes['id']        =  $this->id() . '-control';
 
     }
-    
+
+    /**
+     * Handy method for setting data-* attributes using the setup parameter
+     * @since  1.0.0
+     * @access public
+     */
+    public function set_config() {
+
+        foreach( $this->struct['config'] as $key=>$setting )
+            $this->attributes['data-' . $key ] = $setting;
+
+    }
+
+
+
+    /**
+     * Gets the attributes for the control.
+     *
+     * @since  1.0.0
+     * @access public
+     * @return array Attributes for the input field
+     */
+    public function set_attributes() {
+
+        if( !empty( $this->struct['config'] ) )
+            $this->set_config();
+
+        $this->attributes['class']     =  implode( ' ', $this->classes() );
+
+        parent::set_attributes();
+
+    }
+
     /**
      * Define core page styles
      *
@@ -102,31 +137,12 @@ class control extends \uix\data\data{
      */
     public function classes() {
 
-        $classes = array(
+        return array(
             'widefat'
         );
 
-        return $classes;
     }
 
-
-    /**
-     * Gets the attributes for the control.
-     *
-     * @since  1.0.0
-     * @access public
-     * @return array Attributes for the input field
-     */
-    public function set_attributes() {
-
-        $this->attributes['name']      =  $this->name();
-        $this->attributes['class']     =  implode( ' ', $this->classes() );
-
-        parent::set_attributes();
-
-        $this->attributes['id']        =  $this->id() . '-control';
-
-    }
 
     /**
      * Returns the main input field for rendering

@@ -2,9 +2,11 @@
 var uix_edit_state = false;
 
 (function($){
-    jQuery( document ).ready( function(){
-        var spinner,
-            trigger;
+
+    $( document ).on( 'uix.init', init_uix_ajax );
+
+    function init_uix_ajax(){
+        var spinner;
         $('.uix-ajax').baldrick({
             'request': window.location.href,
             before : function( el, ev ){
@@ -36,6 +38,11 @@ var uix_edit_state = false;
                 uix_edit_state = false;
             }
         });
+    };
+
+    jQuery( document ).ready( function() {
+
+
 
         $('form.uix-ajax').each( function(){
             var form = $( this );

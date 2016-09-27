@@ -407,7 +407,8 @@ abstract class uix{
      */
     public function set_attributes(){
 
-        $this->attributes[ 'id' ] = $this->id();
+        if( empty( $this->attributes[ 'id' ] ) )
+            $this->attributes[ 'id' ] = $this->id();
 
         if( !empty( $this->struct['attributes'] ) )
             $this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );

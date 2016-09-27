@@ -53,14 +53,14 @@ class select extends \uix\ui\control{
      */
     public function input(){
         
-        $input      = '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>';
+        $input      = '<select ' . $this->build_attributes() . '>';
 
         if( !isset( $this->struct['value'] ) )
             $input .= '<option></option>';
 
         $input .= $this->build_options();
 
-        $input .= '</' . esc_html( $this->type ) . '>';
+        $input .= '</select>';
 
         return $input;
     }
@@ -73,7 +73,7 @@ class select extends \uix\ui\control{
      * @access public
      * @return string
      */
-    private function build_options(){
+    public function build_options(){
         $input = '';
         $value      = $this->get_data();
 

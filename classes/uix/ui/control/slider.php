@@ -5,15 +5,15 @@
  * @package   controls
  * @author    David Cramer
  * @license   GPL-2.0+
- * @link
+ * @link      https://github.com/IonDen/ion.rangeSlider
  * @copyright 2016 David Cramer
  */
 namespace uix\ui\control;
 
 /**
  * Implementaion of io.rangeSlider
- * @link https://github.com/IonDen/ion.rangeSlider
  *
+ * @link http://ionden.com/a/plugins/ion.rangeSlider/en.html
  * @since 1.0.0
  */
 class slider extends \uix\ui\control\text{
@@ -28,7 +28,7 @@ class slider extends \uix\ui\control\text{
     public $type = 'slider';
 
     /**
-     * Define core UIX styles - override to register core ( common styles for uix type )
+     * Define Sliders styles and Scripts
      *
      * @since 1.0.0
      * @access public
@@ -56,7 +56,7 @@ class slider extends \uix\ui\control\text{
      * @access protected
      */
     protected function enqueue_active_assets(){
-        parent::enqueue_active_assets();
+
         if( !empty( $this->struct['base_color'] ) ){
             echo '<style type="text/css">';
 
@@ -69,6 +69,24 @@ class slider extends \uix\ui\control\text{
         }
 
     }
+
+    /**
+     * sets the classes for the control input
+     *
+     * @since  1.0.0
+     * @access public
+     * @return array
+     */
+    public function classes() {
+
+        $classes = array(
+            'uix-slider'
+        );
+
+        return $classes;
+    }
+
+
     /**
      * Gets the attributes for the control.
      *
@@ -77,27 +95,13 @@ class slider extends \uix\ui\control\text{
      */
     public function set_attributes() {
 
-        parent::set_attributes();
-
         $this->attributes['data-type']                    = 'single';
         $this->attributes['data-input-values-separator']  = ';';
-        $this->attributes['class']                        = 'uix-slider';
 
-        if( !empty( $this->struct['config'] ) )
-            $this->set_config();
-    }
+        parent::set_attributes();
 
-    /**
-     * Gets the slider config for the control.
-     * @link http://ionden.com/a/plugins/ion.rangeSlider/en.html
-     * @since  1.0.0
-     * @access public
-     */
-    public function set_config() {
-
-        foreach( $this->struct['config'] as $key=>$setting )
-            $this->attributes['data-' . $key ] = $setting;
 
     }
+
 
 }

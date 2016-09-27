@@ -86,7 +86,6 @@ class toggle extends \uix\ui\control{
      * @access protected
      */
     protected function enqueue_active_assets(){
-        parent::enqueue_active_assets();
 
         echo '<style type="text/css">';
 
