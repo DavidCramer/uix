@@ -175,7 +175,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 
         $post = get_post( $post_id );
 
-        $this->assertEmpty( $post->no_update );
+
 
         do_action( 'add_meta_boxes', 'employee', $post );
 

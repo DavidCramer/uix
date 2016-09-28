@@ -302,8 +302,7 @@ class Test_UIX extends WP_UnitTestCase {
         $this->assertSame( $panel->id(), 'uix-test_panel' );
         // check child
         $this->assertEmpty( $panel->child );
-        // check data
-        $this->assertEmpty( $panel->get_data() );
+
 
         return $panel;
     }
@@ -399,7 +398,7 @@ class Test_UIX extends WP_UnitTestCase {
 
         $html = $notice->render();
         $hash = md5( $html );
-        $this->assertSame( $hash, '296f357277a9065d01fd0acb102c2c65');
+        $this->assertSame( $hash, 'd838c2b84a6e72ad8c19b086be5e3588');
 
     }
 
