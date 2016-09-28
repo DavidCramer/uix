@@ -69,7 +69,7 @@ class panel extends \uix\data\data{
      *
      * @since 1.0.0
      * @see \uix\load
-     * @return array Array of sections data structured by the controls
+     * @return array|null Array of sections data structured by the controls or null if none.
      */
     public function get_data(){
 
