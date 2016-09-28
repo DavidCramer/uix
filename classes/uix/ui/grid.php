@@ -68,7 +68,7 @@ class grid extends section {
         if( !empty( $this->child ) ){
             foreach( $this->child as $child ) {
                 if( null !== $child->get_data() )
-                    $data = array_merge( $data, $child->get_data() );
+                    $data += $child->get_data();
             }
         }
 

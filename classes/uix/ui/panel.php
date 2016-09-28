@@ -75,16 +75,16 @@ class panel extends \uix\data\data{
 
         if( empty( $this->data ) ){
 
-            $data[$this->slug] = array();
-            if (!empty($this->child)){
-                foreach ($this->child as $child){
-                    if (null !== $child->get_data()){
-                        $data[$this->slug] += $child->get_data();
-                    }
-                }
+            $data = array(
+                $this->slug => array()
+            );
+
+            foreach ($this->child as $child){
+                if ( null !== $child->get_data() )
+                    $data[$this->slug] += $child->get_data();
             }
 
-            if (empty($data))
+            if( empty( $data ) )
                 $data = null;
 
             $this->data = $data;
