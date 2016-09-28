@@ -75,7 +75,7 @@ class select extends \uix\ui\control{
      */
     public function build_options(){
         $input = '';
-        $value      = $this->get_data();
+        $value      = $this->get_value();
 
         if( !empty( $this->struct['choices'] ) ){
             foreach( $this->struct['choices'] as $option_value => $option_label) {

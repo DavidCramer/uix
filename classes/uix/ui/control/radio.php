@@ -52,7 +52,7 @@ class radio extends \uix\ui\control{
     public function input(){
         
         $input      = '';
-        $values     = (array) $this->get_data();
+        $values     = (array) $this->get_value();
         $id         = $this->id();
 
         foreach ($this->struct['choices'] as $option_value => $option_label) {

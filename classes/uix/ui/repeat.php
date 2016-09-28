@@ -37,6 +37,15 @@ class repeat extends panel {
     public $instance = 0;
 
     /**
+     * total instances of this object
+     *
+     * @since 1.0.0
+     * @access public
+     * @var      int|string
+     */
+    public $instances = 0;
+
+    /**
      * The templates to render in the footer
      *
      * @since 1.0.0
@@ -69,6 +78,7 @@ class repeat extends panel {
         parent::set_assets();
     }
 
+
     /**
      * Compares the key of submitted fields to match instances
      *
@@ -89,10 +99,15 @@ class repeat extends panel {
      * @access private
      * @param $index
      */
-    private function push_instance_setup($index ){
-        $this->instance = $index;
-        foreach( $this->child as $child )
+    private function push_instance_setup( $index ){
+        $this->instances = $this->instance = $index;
+        if( !isset( $this->data[ $this->instance ] ) )
+            $this->data[ $this->instance ] = array();
+
+        foreach( $this->child as $child ){
             $child->setup();
+            $this->data[ $this->instance ] += $child->get_data();
+        }
     }
 
     /**
@@ -130,11 +145,14 @@ class repeat extends panel {
         if( !empty( $submit_data ) ){
             $instances = array_filter( array_keys( $submit_data ), array( $this, 'compare_var_key' ) );
             $instances = array_map( array( $this, 'build_instance_count' ), $instances );
-            array_map( array( $this, 'push_instance_setup'), array_unique( $instances ) );
+            array_map( array( $this, 'push_instance_setup' ), array_unique( $instances ) );
         }
         $this->instance = 0; // reset instance;
     }
-
+    public function setup(){
+        parent::setup();
+        $this->prepare_data();
+    }
     /**
      * Sets the data for all children
      *
@@ -142,30 +160,53 @@ class repeat extends panel {
      * @access public
      */
     public function get_data(){
-        $this->prepare_data();
-        $data = array();
-        if( !empty( $this->child ) ){
-            foreach( $this->child as $child ) {
 
-                while( null !== $child->get_data() ){
-
-                    $data[ $this->instance ][$child->slug] = $child->get_data();
-
-                    $this->instance++;
-
-                }
-                $this->instance = 0;
-            }
-        }
-
+        if( empty( $this->data ) )
+            $this->data = $this->set_instance_data();
 
         if( empty( $data ) )
             $data = null;
 
-        return $data;
-
+        return $this->data;
 
     }
+
+
+    /**
+     * @return array
+     */
+    public function set_instance_data(){
+        $data = array();
+        $this->instance = 0;
+        while( $this->instance < $this->instances ){
+
+            if( !isset( $data[ $this->instance ] ) )
+                $data[ $this->instance ] = array();
+
+            if( null !== $this->get_instance_data() )
+                $data[ $this->instance ] += $this->get_instance_data();
+
+            $this->instance++;
+        }
+        $this->instance = 0;
+
+        return $data;
+    }
+    /**
+     * @return array
+     */
+    public function get_instance_data(){
+        $data = array();
+        foreach ( $this->child as $child ){
+            if( method_exists( $child, 'get_data' ) ){
+                if( null !== $child->get_data() )
+                    $data += $child->get_data();
+            }
+        }
+
+        return $data;
+    }
+
 
     /**
      * Sets the data for all children
@@ -174,17 +215,18 @@ class repeat extends panel {
      * @access public
      */
     public function set_data( $data ){
+        if( !empty( $data[ $this->parent->slug ] ) ){
+            $this->instance = 0;
 
-        foreach( (array) $data as $instance_data ){
-
-            foreach( $this->child as $child ){
-                if( isset( $instance_data[ $child->slug ] ) )
-                    $child->set_data( $instance_data[ $child->slug ] );
+            foreach ( $data[ $this->parent->slug ] as $instance => $instance_data){
+                foreach ( $this->child as $child ){
+                    $child->set_data($instance_data);
+                }
+                $this->instance++;
             }
-            $this->instance++;
-
+            $this->instances = $this->instance;
+            $this->instance = 0;
         }
-        $this->instance = 0;
 
     }
 

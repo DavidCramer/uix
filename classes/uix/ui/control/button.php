@@ -54,7 +54,7 @@ class button extends template{
     public function get_data(){
         $data = null;
         if( !empty( $this->struct['value'] ) )
-            $data = $this->struct['value'];
+            $data[ $this->slug ] = $this->struct['value'];
 
         return $data;
     }

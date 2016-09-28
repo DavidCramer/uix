@@ -69,6 +69,17 @@ class box extends panel implements \uix\data\save, \uix\data\load{
         parent::set_assets();
     }
 
+    /**
+     * set the object's data
+     * @since 1.0.0
+     * @access public
+     * @param mixed $data the data to be set
+     */
+    public function set_data( $data ){
+
+        parent::set_data( $data[ $this->slug ] );
+
+    }
 
     /**
      * save data to database
@@ -88,7 +99,11 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @return mixed $data Requested data of the object
      */
     public function load_data(){
-        return get_option( $this->store_key(), $this->get_data() );
+        $data = get_option( $this->store_key() );
+        if( empty( $data ) )
+            $data = $this->get_data();
+
+        return $data;
     }
 
     /**

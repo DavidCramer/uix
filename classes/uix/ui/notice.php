@@ -95,10 +95,10 @@ class notice extends \uix\data\data{
         $output = null;
 
         $this->attributes['class'] = implode( ' ', $this->classes );
-
+        $note = $this->get_data();
         $output .= '<div ' . $this->build_attributes() . '>';
         $output .= '<p>';
-        $output .= $this->get_data();
+        $output .= $note[ $this->slug ];
         $output .= '</p>';
         $output .= $this->dismiss();
         $output .= '</div>';

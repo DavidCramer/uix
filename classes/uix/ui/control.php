@@ -55,17 +55,22 @@ class control extends \uix\data\data{
      * @access public
      */
     public function setup() {
+
         // run parents to setup sanitization filters
         parent::setup();
+
+        $value = array( $this->slug, '' );
+
         $data = uix()->request_vars( 'post' );
 
-        $this->set_data('');
-
         if( !empty( $this->struct['value'] ) )
-            $this->set_data( $this->struct['value'] );
+            $value[ $this->slug ] = $this->struct['value'];
 
-        if( isset( $data[ $this->id() ] ) )
-            $this->set_data( $data[ $this->id() ] );
+        if( isset( $data[ $this->id() ] ) ){
+            $value[$this->slug] = $data[$this->id()];
+        }
+
+        $this->set_data( $value );
 
         // base attributes defined
         $this->attributes['name']      =  $this->name();
@@ -127,6 +132,23 @@ class control extends \uix\data\data{
         return $this->id();
     }
 
+    /**
+     * get this controls value
+     *
+     * @since 1.0.0
+     * @access public
+     * @return mixed the controls value
+     */
+    public function get_value(){
+        $value = null;
+        $data = $this->get_data();
+
+        if( null !== $data )
+            $value = $data[ $this->slug ];
+
+        return $value;
+    }
+
 
     /**
      * Gets the classes for the control input
@@ -154,7 +176,7 @@ class control extends \uix\data\data{
      */
     public function input(){
 
-        return '<input type="' . esc_attr( $this->type ) . '" value="' . esc_attr( $this->get_data() ) . '" ' . $this->build_attributes() . '>';
+        return '<input type="' . esc_attr( $this->type ) . '" value="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
     }    
 
     /**

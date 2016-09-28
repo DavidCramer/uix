@@ -90,7 +90,7 @@ class post_relation extends \uix\ui\control{
                 $return['html'] .= '</div>';
 
             }
-
+            wp_reset_postdata();
 
             $return['html'] .= '<div class="uix-post-relation-pager">';
             if( $the_query->max_num_pages > 1 ){
@@ -155,7 +155,7 @@ class post_relation extends \uix\ui\control{
     public function input(){
 
 
-        $data = (array) $this->get_data();
+        $data = (array) $this->get_value();
         $input  = '<div ' . $this->build_attributes() . '>';
 
         foreach( $data as $item ){
@@ -212,6 +212,15 @@ class post_relation extends \uix\ui\control{
             "src"       => $this->url . 'assets/controls/post-relation/js/post-relation' . UIX_ASSET_DEBUG . '.js',
             "in_footer" => true
         );
+        $this->assets['script']['baldrick'] = array(
+            'src' => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+            'deps' => array( 'jquery' ),
+        );
+        $this->assets['script']['uix-ajax'] = array(
+            'src' => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
+            'deps' => array( 'baldrick' ),
+        );
+        $this->assets['style']['uix-ajax'] =  $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css';
 
         parent::set_assets();
     }

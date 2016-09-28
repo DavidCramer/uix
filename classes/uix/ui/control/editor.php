@@ -41,7 +41,7 @@ class editor extends \uix\ui\control\textarea{
 
         ob_start();
 
-        wp_editor( $this->get_data(), 'control-' . $this->id(), $settings );
+        wp_editor( $this->get_value(), 'control-' . $this->id(), $settings );
 
         return ob_get_clean();
 

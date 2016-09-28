@@ -53,7 +53,7 @@ class textarea extends \uix\ui\control{
      */
     public function input(){
 
-        return '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>' . esc_textarea( $this->get_data() ) . '</' . esc_html( $this->type ) . '>';
+        return '<' . esc_html( $this->type ) . ' ' . $this->build_attributes() . '>' . esc_textarea( $this->get_value() ) . '</' . esc_html( $this->type ) . '>';
     }    
 
 }

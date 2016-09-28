@@ -64,15 +64,16 @@ class grid extends section {
      * @return array Array of sections data structured by the controls
      */
     public function get_data(){
-
-        $data = parent::get_data();
-        if( $this->is_row_column() && null !== $data ){
-            $new_data = array();
-            foreach ( (array) $data as $inner){
-                $new_data = array_merge($new_data, $inner);
+        $data = array();
+        if( !empty( $this->child ) ){
+            foreach( $this->child as $child ) {
+                if( null !== $child->get_data() )
+                    $data = array_merge( $data, $child->get_data() );
             }
-            $data = $new_data;
         }
+
+        if( empty( $data ) )
+            $data = null;
 
         return $data;
     }

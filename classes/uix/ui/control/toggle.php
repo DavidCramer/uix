@@ -123,7 +123,7 @@ class toggle extends \uix\ui\control{
      */
     public function input(){
         
-        $value          = $this->get_data();
+        $value          = $this->get_value();
         $status_class   = '';
         if( !empty( $value ) )
             $status_class = ' active';        

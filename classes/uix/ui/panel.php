@@ -72,18 +72,27 @@ class panel extends \uix\data\data{
      * @return array Array of sections data structured by the controls
      */
     public function get_data(){
-        $data = array();
-        if( !empty( $this->child ) ){
-            foreach( $this->child as $child ) {
-                if( null !== $child->get_data() )
-                    $data[ $child->slug ] = $child->get_data();
+
+        if( empty( $this->data ) ){
+
+            $data[$this->slug] = array();
+            if (!empty($this->child)){
+                foreach ($this->child as $child){
+                    if (null !== $child->get_data()){
+                        $data[$this->slug] += $child->get_data();
+                    }
+                }
             }
+
+            if (empty($data))
+                $data = null;
+
+            $this->data = $data;
         }
 
-        if( empty( $data ) )
-            $data = null;
 
-        return $data;
+
+        return $this->data;
     }
 
     /**
@@ -93,11 +102,11 @@ class panel extends \uix\data\data{
      * @access public
      */    
     public function set_data( $data ){
-        if( empty( $this->child ) ){ return; }
 
         foreach( $this->child as $child ){
-            if( isset( $data[ $child->slug ] ) )
-                $child->set_data( $data[ $child->slug ] );
+            if( method_exists( $child, 'set_data' ) )
+                $child->set_data( $data );
+
         }
 
     }

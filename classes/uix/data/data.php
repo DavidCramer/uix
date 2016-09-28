@@ -20,7 +20,7 @@ abstract class data extends \uix\ui\uix{
      * @access private
      * @var     array
      */
-    private $data = array();
+    protected $data = array();
 
     /**
      * Sets the objects sanitization filter
@@ -43,7 +43,10 @@ abstract class data extends \uix\ui\uix{
      * @param mixed $data the data to be set
      */
     public function set_data( $data ){
-        $this->data[ $this->id() ] = apply_filters( 'uix_' . $this->slug . '_sanitize_' . $this->type, $data, $this );
+
+        if( isset( $data[ $this->slug ] ) )
+            $this->data[$this->id()][$this->slug] = apply_filters('uix_' . $this->slug . '_sanitize_' . $this->type, $data[$this->slug], $this);
+
     }
 
     /**
