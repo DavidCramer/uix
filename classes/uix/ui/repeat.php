@@ -164,9 +164,6 @@ class repeat extends panel {
         if( empty( $this->data ) )
             $this->data = $this->set_instance_data();
 
-        if( empty( $data ) )
-            $data = null;
-
         return $this->data;
 
     }
