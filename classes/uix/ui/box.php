@@ -42,7 +42,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
             $this->save_data();
         }else{
             // load data normally
-            $this->set_data( $this->load_data() );
+            $this->set_data( array( $this->slug => $this->load_data() ) );
         }
     }
 
@@ -87,11 +87,7 @@ class box extends panel implements \uix\data\save, \uix\data\load{
      * @return mixed $data Requested data of the object
      */
     public function load_data(){
-        $data = array(
-            $this->slug => get_option( $this->store_key(), $this->get_data() )
-        );
-
-        return $data;
+        return get_option( $this->store_key(), $this->get_data() );
     }
 
     /**
