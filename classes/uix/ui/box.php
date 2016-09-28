@@ -70,18 +70,6 @@ class box extends panel implements \uix\data\save, \uix\data\load{
     }
 
     /**
-     * set the object's data
-     * @since 1.0.0
-     * @access public
-     * @param mixed $data the data to be set
-     */
-    public function set_data( $data ){
-
-        parent::set_data( $data[ $this->slug ] );
-
-    }
-
-    /**
      * save data to database
      *
      * @since 1.0.0
@@ -104,6 +92,24 @@ class box extends panel implements \uix\data\save, \uix\data\load{
             $data = $this->get_data();
 
         return $data;
+    }
+
+    /**
+     * Get Data from all controls of this section
+     *
+     * @since 1.0.0
+     * @see \uix\load
+     * @return array Array of sections data structured by the controls
+     */
+    public function get_data(){
+
+        if( empty( $this->data ) ){
+            $data = parent::get_data();
+            if( !empty( $data[ $this->slug ] ) )
+                $this->data = $data[ $this->slug ];
+        }
+
+        return $this->data;
     }
 
     /**
