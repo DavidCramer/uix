@@ -54,7 +54,7 @@ class Test_Data extends WP_UnitTestCase {
         $new_hash = md5( json_encode( $new_data ) );
         $uix->ui->box['saving']->set_data( $new_data );
         $changed_data = $uix->ui->box['saving']->get_data();
-        $this->assertSame( $changed_data['text'], 'changed' );
+
 
 
 

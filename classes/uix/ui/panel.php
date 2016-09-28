@@ -103,10 +103,12 @@ class panel extends \uix\data\data{
      */    
     public function set_data( $data ){
 
-        foreach( $this->child as $child ){
-            if( method_exists( $child, 'set_data' ) )
-                $child->set_data( $data );
+        if( !empty( $data[ $this->slug ] ) ){
+            foreach ($this->child as $child){
+                if (method_exists($child, 'set_data'))
+                    $child->set_data($data[$this->slug]);
 
+            }
         }
 
     }

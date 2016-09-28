@@ -212,18 +212,17 @@ class repeat extends panel {
      * @access public
      */
     public function set_data( $data ){
-        if( !empty( $data[ $this->parent->slug ] ) ){
-            $this->instance = 0;
 
-            foreach ( $data[ $this->parent->slug ] as $instance => $instance_data){
-                foreach ( $this->child as $child ){
-                    $child->set_data($instance_data);
-                }
-                $this->instance++;
+        $this->instance = 0;
+
+        foreach ( $data as $instance => $instance_data){
+            foreach ( $this->child as $child ){
+                $child->set_data($instance_data);
             }
-            $this->instances = $this->instance;
-            $this->instance = 0;
+            $this->instance++;
         }
+        $this->instances = $this->instance;
+        $this->instance = 0;
 
     }
 
