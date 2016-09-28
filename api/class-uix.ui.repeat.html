@@ -165,7 +165,7 @@
 				1.0.0<br>
 				<b>See:</b>
 				\uix\uix<br>
-			<b>Located at</b> <a href="source-class-uix.ui.repeat.html#13-314" title="Go to source code">classes/uix/ui/repeat.php</a>
+			<b>Located at</b> <a href="source-class-uix.ui.repeat.html#13-352" title="Go to source code">classes/uix/ui/repeat.php</a>
 		<br>
 	</div>
 
@@ -185,7 +185,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_assets">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#58-70" title="Go to source code">set_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#67-79" title="Go to source code">set_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Define core page style</p>
@@ -220,7 +220,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_prepare_data">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#121-136" title="Go to source code">prepare_data</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#136-151" title="Go to source code">prepare_data</a>( )</code>
 
 			<div class="description short">
 				<p>prepares Data for extraction and saving</p>
@@ -246,18 +246,57 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="setup" id="_setup">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setup">#</a>
+			<code><a href="source-class-uix.ui.repeat.html#152-155" title="Go to source code">setup</a>( )</code>
+
+			<div class="description short">
+				<p>Sets the objects sanitization filter</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the objects sanitization filter</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>See</h4>
+					<div class="list">
+							\uix\uix<br>
+					</div>
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-uix.data.data.html#_setup">uix\data\data::setup</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="get_data" id="_get_data">
 
 			<td class="attributes"><code>
 				 public 
-				array
+				array|null
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get_data">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#138-168" title="Go to source code">get_data</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#156-169" title="Go to source code">get_data</a>( )</code>
 
 			<div class="description short">
 				<p>Sets the data for all children</p>
@@ -270,7 +309,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						array<br>Array of sections data structured by the controls
+						array|null<br>Array of sections data structured by the controls or null if none.
 					</div>
 
 
@@ -281,6 +320,72 @@
 
 					<h4>Overrides</h4>
 					<div class="list"><code><a href="class-uix.ui.panel.html#_get_data">uix\ui\panel::get_data</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_instance_data" id="_set_instance_data">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_instance_data">#</a>
+			<code><a href="source-class-uix.ui.repeat.html#172-191" title="Go to source code">set_instance_data</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_instance_data" id="_get_instance_data">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_instance_data">#</a>
+			<code><a href="source-class-uix.ui.repeat.html#192-205" title="Go to source code">get_instance_data</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
 
 			</div>
 			</div></td>
@@ -296,7 +401,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set_data">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#170-189" title="Go to source code">set_data</a>( <span>mixed <var>$data</var></span> )</code>
+			<code><a href="source-class-uix.ui.repeat.html#208-227" title="Go to source code">set_data</a>( <span>mixed <var>$data</var></span> )</code>
 
 			<div class="description short">
 				<p>Sets the data for all children</p>
@@ -336,7 +441,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_id">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#191-201" title="Go to source code">id</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#229-239" title="Go to source code">id</a>( )</code>
 
 			<div class="description short">
 				<p>uix object id</p>
@@ -375,7 +480,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enqueue_active_assets">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#203-216" title="Go to source code">enqueue_active_assets</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#241-254" title="Go to source code">enqueue_active_assets</a>( )</code>
 
 			<div class="description short">
 				<p>Enqueues specific tabs assets for the active pages</p>
@@ -410,7 +515,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#218-248" title="Go to source code">render</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#256-286" title="Go to source code">render</a>( )</code>
 
 			<div class="description short">
 				<p>Render the complete section</p>
@@ -449,7 +554,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render_repeatable_more">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#251-273" title="Go to source code">render_repeatable_more</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#289-311" title="Go to source code">render_repeatable_more</a>( )</code>
 
 			<div class="description short">
 				<p>Render the add more button and template</p>
@@ -486,7 +591,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render_repeatable">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#275-291" title="Go to source code">render_repeatable</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#313-329" title="Go to source code">render_repeatable</a>( )</code>
 
 			<div class="description short">
 				<p>Render the internal section</p>
@@ -523,7 +628,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_render_repeatable_script">#</a>
-			<code><a href="source-class-uix.ui.repeat.html#293-311" title="Go to source code">render_repeatable_script</a>( )</code>
+			<code><a href="source-class-uix.ui.repeat.html#331-349" title="Go to source code">render_repeatable_script</a>( )</code>
 
 			<div class="description short">
 				<p>Render the script footer template</p>
@@ -567,12 +672,6 @@
 				<code><a href="class-uix.ui.panel.html#_panel_section">panel_section()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_render_template">render_template()</a></code>, 
 				<code><a href="class-uix.ui.panel.html#_wrapper_class_names">wrapper_class_names()</a></code>
-			</p>
-		</div>
-		<div class="panel panel-default">
-	        <div class="panel-heading"><h3>Methods inherited from <a href="class-uix.data.data.html#methods">uix\data\data</a></h3></div>
-			<p class="elementList">
-				<code><a href="class-uix.data.data.html#_setup">setup()</a></code>
 			</p>
 		</div>
 		<div class="panel panel-default">
@@ -665,6 +764,35 @@
 				</div>
 			</td>
 		</tr>
+		<tr data-order="instances" id="$instances">
+			<td class="attributes"><code>
+				public  
+				integer|string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-uix.ui.repeat.html#39-46" title="Go to source code"><var>$instances</var></a>
+
+				<div class="description short">
+					<p>total instances of this object</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>total instances of this object</p>
+
+						<h4>Since</h4>
+						<div class="list">
+								1.0.0<br>
+						</div>
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$instances" class="anchor">#</a>
+					<code><span class="php-num">0</span></code>
+				</div>
+			</td>
+		</tr>
 		<tr data-order="templates" id="$templates">
 			<td class="attributes"><code>
 				public  
@@ -672,7 +800,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-uix.ui.repeat.html#39-46" title="Go to source code"><var>$templates</var></a>
+					<a href="source-class-uix.ui.repeat.html#48-55" title="Go to source code"><var>$templates</var></a>
 
 				<div class="description short">
 					<p>The templates to render in the footer</p>
@@ -701,7 +829,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-uix.ui.repeat.html#48-55" title="Go to source code"><var>$button_label</var></a>
+					<a href="source-class-uix.ui.repeat.html#57-64" title="Go to source code"><var>$button_label</var></a>
 
 				<div class="description short">
 					<p>Button Label</p>
@@ -726,6 +854,12 @@
 			</table>
 		</div>
 
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from <a href="class-uix.data.data.html#properties">uix\data\data</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-uix.data.data.html#$data"><var>$data</var></a></code>
+			</p>
+		</div>
 		<div class="panel panel-default">
             <div class="panel-heading"><h3>Properties inherited from <a href="class-uix.ui.uix.html#properties">uix\ui\uix</a></h3></div>
 			<p class="elementList">
