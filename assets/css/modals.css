@@ -162,8 +162,10 @@ body{
     position: relative;
 }
 .uix-modal-body .uix-modal-sections {
+    box-sizing: padding-box;
     height: 100%;
     overflow: auto;
+    padding: 12px;
 }
 .uix-modal-content > .uix-has-tabs.uix-panel-inside{
     border: none;
