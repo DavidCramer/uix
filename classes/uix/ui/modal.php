@@ -96,10 +96,13 @@ class modal extends panel{
 
         $this->set_modal_config();
 
+
+
         if( !empty( $this->struct['description'] ) ){
             $this->attributes['data-title'] = $this->struct['description'];
             unset( $this->struct['description'] );
         }
+
         if( !empty( $this->struct['attributes'] ) )
             $this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );
 
@@ -107,6 +110,12 @@ class modal extends panel{
     }
 
     private function set_modal_config(){
+
+        if( !empty( $this->struct['width'] ) )
+            $this->attributes['data-width'] = $this->struct['width'];
+
+        if( !empty( $this->struct['height'] ) )
+            $this->attributes['data-height'] = $this->struct['height'];
 
         if( !empty( $this->struct['config'] ) ){
             $attributes = array();

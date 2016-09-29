@@ -196,6 +196,7 @@ body{
 .uix-modal-wrap .notice.error {
     box-shadow: 0 5px 21px rgba(0, 0, 0, 0.3);
     left: 0;
+    margin: 5px 8px;
     position: absolute;
     right: 0;
     top: 37px;
@@ -206,8 +207,8 @@ body{
     position: relative;
 }
 .uix-modal-wrap.processing > .uix-modal-body{
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 70px;
+    min-height: 70px;
 }
 .uix-modal-wrap.processing > .uix-modal-body > .uix-modal-content{
     opacity: 0.5;

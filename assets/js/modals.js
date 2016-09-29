@@ -372,6 +372,8 @@
                       } );
                   }
             }
+        }else{
+            uixModals[ modalId ].modal.removeClass('processing');
         }
 
         // set position;
@@ -446,8 +448,8 @@
             },
             callback : function( obj ){
 
-                modal.modal.removeClass('processing');
                 obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
+                modal.modal.removeClass('processing');
 
                 if ( typeof obj.data === 'object' ) {
                     if( obj.data.success ) {
@@ -458,7 +460,8 @@
                             if( obj.data.data.redirect ){
                                 window.location = obj.data.data.redirect;
                             }
-                        }else{
+                        }else if( typeof obj.data.data === 'boolean' && obj.data.data === true ){
+
                             if( submit.length ) {
                                 modal.flush = false;
                             }
@@ -471,11 +474,16 @@
                             notice.appendTo( modal.body );
                             var height = notice.height();
                             notice.height(0).animate( { height: height }, 100 );
+                        }else{
+                            closeModal();
                         }
                     }
                 }else{
                     closeModal();
                 }
+            },
+            complete : function () {
+
             }
         });
     });
