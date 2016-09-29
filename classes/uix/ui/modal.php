@@ -69,6 +69,7 @@ class modal extends panel{
      * @return string HTML of rendered box
      */
     public function set_footers(){
+
         if( !empty( $this->child ) ){
             foreach ($this->child as $child_slug=>$child){
                 if ( in_array($child->type, array('footer') ) ){
@@ -86,7 +87,7 @@ class modal extends panel{
      */
     public function set_attributes(){
 
-        $this->attributes = array(
+        $this->attributes += array(
             'data-modal'    =>  $this->id(),
             'data-content'  =>  '#' . $this->id() . '-tmpl',
             'data-margin'   =>  12,
