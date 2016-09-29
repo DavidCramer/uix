@@ -63,5 +63,19 @@ abstract class data extends \uix\ui\uix{
         return $data;
     }
 
+    /**
+     * get the object's value
+     * @since 1.0.0
+     * @access public
+     * @return mixed $data
+     */
+    public function get_value(){
+        $data = $this->get_data();
+        if( isset( $data[ $this->slug ] ) )
+            $data = $data[ $this->slug ];
+
+        return $data;
+    }
+
 
 }
