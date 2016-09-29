@@ -483,7 +483,7 @@
                 }
             },
             complete : function () {
-
+                $(document).trigger('uix.init');
             }
         });
     });
@@ -500,8 +500,10 @@
         $('[data-modal][data-autoload]').each( function(){
             $( this ).uixModal();
         });
-    })  
-
+    })
+    $(window).on( 'modal.open', function( e ) {
+        $(document).trigger('uix.init');
+    });
     $(window).load( function(){
         $(window).trigger('modal.init');
     });
