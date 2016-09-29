@@ -230,3 +230,15 @@ body{
     opacity: 1;
     visibility: visible;
 }
+
+.uix-modal-wrap .uix-post-relation-panel {
+    border: 1px solid #ddd;
+    border-top:0;
+    display: none;
+    padding: 6px;
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    left: 12px;
+    position: absolute;
+    right: 12px;
+}
