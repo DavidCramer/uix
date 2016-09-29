@@ -45,6 +45,7 @@ class modal extends panel{
      */
     public $templates = null;
 
+
     /**
      * Sets the controls data
      *
@@ -52,15 +53,13 @@ class modal extends panel{
      * @see \uix\uix
      * @access public
      */
-    public function init(){
-        // run parents to setup sanitization filters
-        parent::init();
+    public function is_submitted(){
         $data = uix()->request_vars('post');
-        if (isset($data['uixNonce_' . $this->id()]) && wp_verify_nonce($data['uixNonce_' . $this->id()], $this->id())){
-            wp_send_json_success( $this->get_data() );
-        }
+        return isset( $data['uixNonce_' . $this->id()] ) && wp_verify_nonce( $data['uixNonce_' . $this->id()], $this->id() );
     }
-        /**
+
+
+    /**
      * Render the footer template
      *
      * @since 1.0.0
@@ -95,6 +94,8 @@ class modal extends panel{
             'class'         =>  'button',
         );
 
+        $this->set_modal_config();
+
         if( !empty( $this->struct['description'] ) ){
             $this->attributes['data-title'] = $this->struct['description'];
             unset( $this->struct['description'] );
@@ -105,6 +106,18 @@ class modal extends panel{
 
     }
 
+    private function set_modal_config(){
+
+        if( !empty( $this->struct['config'] ) ){
+            $attributes = array();
+            foreach( $this->struct['config'] as $att => $value )
+                $attributes[ 'data-' . $att ] = $value;
+
+            $this->attributes['data-config'] = json_encode( $attributes );
+        }
+
+    }
+
     /**
      * Enqueues specific tabs assets for the active pages
      *
@@ -112,7 +125,11 @@ class modal extends panel{
      * @access protected
      */
     protected function enqueue_active_assets(){
-        echo '<style>h3#' . $this->id() . '_uixModalLable { background: ' . $this->base_color() . '; }</style>';
+        echo '<style>';
+        echo 'h3#' . $this->id() . '_uixModalLable { background: ' . $this->base_color() . '; }';
+        echo '#' . $this->id() . '_uixModal.uix-modal-wrap > .uix-modal-body:after {background: url(' . $this->url . 'assets/svg/loading.php?base_color=' . urlencode( str_replace('#', '', $this->base_color() ) ) . ') no-repeat center center;}';
+        echo '</style>';
+
         parent::enqueue_active_assets();
     }
 
@@ -168,6 +185,7 @@ class modal extends panel{
     public function render_modal_template(){
         unset( $this->struct['label'] );
         $output = '<script type="text/html" id="' . esc_attr( $this->id() ) . '-tmpl">';
+        $output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
         $output .= parent::render();
         $output .= '</script>';
         $output .= $this->render_footer_template();

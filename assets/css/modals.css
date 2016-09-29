@@ -192,3 +192,40 @@ body{
     margin: 3px 6px 0 0;
     width: auto;
 }
+
+.uix-modal-wrap .notice.error {
+    box-shadow: 0 5px 21px rgba(0, 0, 0, 0.3);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 37px;
+}
+
+
+.uix-modal-wrap.processing > .uix-modal-body{
+    position: relative;
+}
+.uix-modal-wrap.processing > .uix-modal-body{
+    min-width: 200px;
+    min-height: 200px;
+}
+.uix-modal-wrap.processing > .uix-modal-body > .uix-modal-content{
+    opacity: 0.5;
+}
+.uix-modal-wrap > .uix-modal-body:after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 70px;
+    width: 70px;
+    margin: -35px 0 0 -35px;
+    z-index: 100001;
+    opacity: 0;
+    visibility: hidden;
+
+}
+.uix-modal-wrap.processing > .uix-modal-body:after {
+    opacity: 1;
+    visibility: visible;
+}

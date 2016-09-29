@@ -246,15 +246,20 @@
         }else{
             uixModals[ modalId ].config = defaults;
         }
-        //add in wrapper
-        uixModals[ modalId ].modal = $('<' + modalElement + '>', {
+        var options = {
             id                  : modalId + '_uixModal',
             tabIndex            : -1,
             "ariaLabelled-by"   : modalId + '_uixModalLable',
             "method"            : 'post',
             "enctype"           : 'multipart/form-data',
-            "class"             : "uix-modal-wrap" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
-        });
+            "class"             : "uix-modal-wrap processing" + ( defaults.sticky ? ' uix-sticky-modal ' + defaults.sticky[0] + '-' + defaults.sticky[1] : '' )
+        };
+        if( trigger.data( 'config' ) ){
+            $.extend( options, trigger.data( 'config' ) );
+        }
+        //add in wrapper
+        uixModals[ modalId ].modal = $('<' + modalElement + '>', options );
+
 
         // push active
         if( !defaults.sticky ){ activeModals.push( modalId ); }
@@ -355,10 +360,16 @@
                         uixModals[ modalId ].content.append( contentElement.html() );
                         contentElement.show();
                     }else{
-                        uixModals[ modalId ].content.html( defaults.content );
+                        console.log( $.get(contentElement) );
+                        uixModals[ modalId ].content.html( $.get(contentElement) );
                     }
+                    uixModals[ modalId ].modal.removeClass('processing');
                   } catch (err) {
-                    uixModals[ modalId ].content.html( defaults.content );
+                      uixModals[ modalId ].footer.hide();
+                      uixModals[ modalId ].content.load( defaults.content, function(){
+                          uixModals[ modalId ].modal.removeClass('processing');
+                          uixModals[ modalId ].footer.show();
+                      } );
                   }
             }
         }
@@ -409,20 +420,61 @@
             modal.flush = true;
         }
 
+        var notice = $('<div class="notice error"></div>'),
+            message = $('<p></p>'),
+            dismiss = $( '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>' );
+
+        message.appendTo( notice );
+        dismiss.appendTo( notice );
+
+        dismiss.on('click', function(){
+            notice.animate( { height: 0 }, 100, function(){
+                notice.css('height', '');
+                message.html();
+                notice.detach();
+            });
+        });
+
         modal.modal.attr('data-load-element', '_parent' ).baldrick({
             request : window.location.href,
             before : function( el, e ){
-                $( el ).find( '[type="submit"],button' ).prop( 'disabled', true );
+                if( submit.length ){
+                    submit.prop( 'disabled', true );
+                    modal.modal.addClass('processing');
+                }
+                notice.detach();
             },
             callback : function( obj ){
-                obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
-                if( submit.length ) {
-                    modal.flush = false;
-                    if (obj.data.success) {
-                        closeModal();
-                    } else {
 
+                modal.modal.removeClass('processing');
+                obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
+
+                if ( typeof obj.data === 'object' ) {
+                    if( obj.data.success ) {
+
+                        if( typeof obj.data.data === 'string' ){
+                            obj.data = obj.data.data;
+                        }else if( typeof obj.data.data === 'object' ){
+                            if( obj.data.data.redirect ){
+                                window.location = obj.data.data.redirect;
+                            }
+                        }else{
+                            if( submit.length ) {
+                                modal.flush = false;
+                            }
+                        }
+                        closeModal();
+                    }else{
+                        if( typeof obj.data.data === 'string' ){
+                            message.html( obj.data.data );
+
+                            notice.appendTo( modal.body );
+                            var height = notice.height();
+                            notice.height(0).animate( { height: height }, 100 );
+                        }
                     }
+                }else{
+                    closeModal();
                 }
             }
         });

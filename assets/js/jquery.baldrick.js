@@ -19,18 +19,19 @@
 		target			: function(opts, params, e){
 			if(opts.params.target){
 
-				if(opts.params.target.is('textarea,input') && typeof opts.data === 'object'){
-					opts.params.target.val( JSON.stringify(opts.data) ).trigger('change');
-				}else{
-					opts.params.target[opts.params.targetInsert](opts.data);
-				}
 				if(typeof opts.params.callback === 'string'){
 					if(typeof window[opts.params.callback] === 'function'){
-						return window[opts.params.callback](opts, e);
+                        window[opts.params.callback](opts, e);
 					}
 				}else if(typeof opts.params.callback === 'function'){
-					return opts.params.callback(opts, e);
+                    opts.params.callback(opts, e);
 				}
+
+                if(opts.params.target.is('textarea,input') && typeof opts.data === 'object'){
+                    opts.params.target.val( JSON.stringify(opts.data) ).trigger('change');
+                }else if( typeof opts.data === 'string' ){
+                    opts.params.target[opts.params.targetInsert](opts.data);
+                }
 			}
 		},
 		request_data : function(obj){
