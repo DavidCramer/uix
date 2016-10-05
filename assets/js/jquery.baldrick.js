@@ -17,17 +17,18 @@
 			return opts;
 		},
 		target			: function(opts, params, e){
+
+            if(typeof opts.params.callback === 'string'){
+                if(typeof window[opts.params.callback] === 'function'){
+                    window[opts.params.callback](opts, e);
+                }
+            }else if(typeof opts.params.callback === 'function'){
+                opts.params.callback(opts, e);
+            }
+
 			if(opts.params.target){
 
-				if(typeof opts.params.callback === 'string'){
-					if(typeof window[opts.params.callback] === 'function'){
-                        window[opts.params.callback](opts, e);
-					}
-				}else if(typeof opts.params.callback === 'function'){
-                    opts.params.callback(opts, e);
-				}
-
-                if(opts.params.target.is('textarea,input') && typeof opts.data === 'object'){
+                if( typeof opts.data === 'object' && opts.params.target.is('textarea,input') ){
                     opts.params.target.val( JSON.stringify(opts.data) ).trigger('change');
                 }else if( typeof opts.data === 'string' ){
                     opts.params.target[opts.params.targetInsert](opts.data);

@@ -451,16 +451,16 @@
                 obj.params.trigger.find( '[type="submit"],button' ).prop( 'disabled', false );
                 modal.modal.removeClass('processing');
 
-                if ( typeof obj.data === 'object' ) {
-                    if( obj.data.success ) {
+                if ( typeof obj.rawData === 'object' ) {
+                    if( obj.rawData.success ) {
 
-                        if( typeof obj.data.data === 'string' ){
-                            obj.data = obj.data.data;
-                        }else if( typeof obj.data.data === 'object' ){
-                            if( obj.data.data.redirect ){
-                                window.location = obj.data.data.redirect;
+                        if( typeof obj.rawData.data === 'string' ){
+                            obj.rawData = obj.rawData.data;
+                        }else if( typeof obj.rawData.data === 'object' ){
+                            if( obj.rawData.data.redirect ){
+                                window.location = obj.rawData.data.redirect;
                             }
-                        }else if( typeof obj.data.data === 'boolean' && obj.data.data === true ){
+                        }else if( typeof obj.rawData.data === 'boolean' && obj.rawData.data === true ){
 
                             if( submit.length ) {
                                 modal.flush = false;
@@ -468,9 +468,9 @@
                         }
                         closeModal();
                     }else{
-                        if( typeof obj.data.data === 'string' ){
-                            message.html( obj.data.data );
-
+                        obj.params.target = false;
+                        if( typeof obj.rawData.data === 'string' ){
+                            message.html( obj.rawData.data );
                             notice.appendTo( modal.body );
                             var height = notice.height();
                             notice.height(0).animate( { height: height }, 100 );
