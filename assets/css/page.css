@@ -81,7 +81,7 @@ form.uix-page > .uix-page-inside{
     margin: 0 -20px 0 -11px;
 
 }
-form.uix-page.uix-half-page > .uix-page-inside > .uix-page-sections{
+form.uix-page.uix-half-page > .uix-page-inside > .uix-page-sections > .uix-section{
     max-width: 850px;
 }
 form.uix-page > .uix-has-tabs.uix-page-inside{

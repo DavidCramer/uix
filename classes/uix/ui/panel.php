@@ -76,7 +76,7 @@ class panel extends \uix\data\data{
         if( empty( $this->data ) ){
 
             $data = array(
-                $this->slug => array()
+                $this->slug => !empty( $this->struct['data'] ) ? $this->struct['data'] : array()
             );
 
             foreach ($this->child as $child){
@@ -89,7 +89,6 @@ class panel extends \uix\data\data{
 
             $this->data = $data;
         }
-
 
 
         return $this->data;
