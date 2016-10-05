@@ -46,7 +46,7 @@ var uix_edit_state = false;
 
         $('form.uix-ajax').each( function(){
             var form = $( this );
-            if( !form.find('button[type="submit"]').length ){
+            if( form.data('autosave') ){
                 form.on('change', '[name]', function( e ){
                     $(this).addClass('ajax-triggered');
                     form.trigger( 'submit' );
