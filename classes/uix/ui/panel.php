@@ -109,6 +109,7 @@ class panel extends \uix\data\data{
                     $child->set_data($data[$this->slug]);
 
             }
+            $this->data = $data;
         }
 
     }
