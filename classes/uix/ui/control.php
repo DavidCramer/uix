@@ -62,25 +62,18 @@ class control extends \uix\data\data {
 
 		// run parents to setup sanitization filters
 		parent::setup();
-
 		$value = array( $this->slug, '' );
-
 		$data = uix()->request_vars( 'post' );
-
 		if ( ! empty( $this->struct['value'] ) ) {
 			$value[ $this->slug ] = $this->struct['value'];
 		}
-
 		if ( isset( $data[ $this->id() ] ) ) {
 			$value[ $this->slug ] = $data[ $this->id() ];
 		}
-
 		$this->set_data( $value );
-
 		// base attributes defined
 		$this->attributes['name'] = $this->name();
 		$this->attributes['id']   = $this->id() . '-control';
-
 	}
 
 	/**

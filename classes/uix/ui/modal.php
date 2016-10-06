@@ -88,25 +88,27 @@ class modal extends panel {
 
 	}
 
+	/**
+	 * Sets the wrappers data attributes
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
 	private function set_modal_config() {
 
 		if ( ! empty( $this->struct['width'] ) ) {
 			$this->attributes['data-width'] = $this->struct['width'];
 		}
-
 		if ( ! empty( $this->struct['height'] ) ) {
 			$this->attributes['data-height'] = $this->struct['height'];
 		}
-
 		if ( ! empty( $this->struct['config'] ) ) {
 			$attributes = array();
 			foreach ( $this->struct['config'] as $att => $value ) {
 				$attributes[ 'data-' . $att ] = $value;
 			}
-
 			$this->attributes['data-config'] = json_encode( $attributes );
 		}
-
 	}
 
 	/**
