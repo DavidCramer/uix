@@ -76,23 +76,23 @@ p.search-box {
     background-color: #e0e0e0;
     color: #8f8f8f;
 }
-form.uix-page > .uix-page-inside{
+.uix-page > .uix-page-inside{
     overflow: visible;
     margin: 0 -20px 0 -11px;
 
 }
-form.uix-page.uix-half-page > .uix-page-inside > .uix-page-sections > .uix-section{
+.uix-page.uix-half-page > .uix-page-inside > .uix-page-sections > .uix-section{
     max-width: 850px;
 }
-form.uix-page > .uix-has-tabs.uix-page-inside{
+.uix-page > .uix-has-tabs.uix-page-inside{
     background-color: transparent;
 }
 
-form.uix-page .uix-panel-inside{
+.uix-page .uix-panel-inside{
     margin-bottom: 8px;
 }
 
-form.uix-page > .uix-page-inside > ul.uix-page-tabs {
+.uix-page > .uix-page-inside > ul.uix-page-tabs {
     background: #f7f7f7 none repeat scroll 0 0;
     border-radius: 0 0 0 3px;
     box-shadow: 0 1px 2px rgba(0, 2, 0, 0.05), 0 2px 2px rgba(0, 2, 0, 0.03) inset,0 -3px 0 #d4d4d4 inset;
@@ -101,14 +101,14 @@ form.uix-page > .uix-page-inside > ul.uix-page-tabs {
     float: none;
 }
 
-form.uix-page > .uix-page-inside > .uix-page-tabs li {
+.uix-page > .uix-page-inside > .uix-page-tabs li {
   display: inline-block;
   line-height: 20px;
   margin: 0;
   padding: 0;
   position: relative;
 }
-form.uix-page > .uix-page-inside > .uix-page-tabs > li > a {
+.uix-page > .uix-page-inside > .uix-page-tabs > li > a {
     display: inline-block;
     padding: 6px 12px;
     text-decoration: none;
@@ -117,25 +117,25 @@ form.uix-page > .uix-page-inside > .uix-page-tabs > li > a {
     box-shadow: 0 -3px 0 #d4d4d4 inset;
 }
 
-form.uix-page > .uix-page-inside > .uix-page-tabs > li > a.active,
-form.uix-page > .uix-page-inside > .uix-page-tabs > li > a:hover{
+.uix-page > .uix-page-inside > .uix-page-tabs > li > a.active,
+.uix-page > .uix-page-inside > .uix-page-tabs > li > a:hover{
     background: #ffffff none repeat scroll 0 0;
     
 }
-form.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child.active ,
-form.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child,
-form.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child > a,
-form.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child:hover {
+.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child.active ,
+.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child,
+.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child > a,
+.uix-page > .uix-page-inside > .uix-page-tabs > li:first-child:hover {
     border-radius: 0 0 0 3px;
 }
-form.uix-page > .uix-page-inside > .uix-page-tabs li[aria-selected="true"] a {
+.uix-page > .uix-page-inside > .uix-page-tabs li[aria-selected="true"] a {
   background-color: #fff;
   box-shadow: 0 -3px 0 #ccc inset;
   color: #555;
   position: relative;
   font-weight: inherit;
 }
-form.uix-page > .uix-page-inside.uix-has-tabs {
+.uix-page > .uix-page-inside.uix-has-tabs {
     border: 0;
     box-shadow: none;
     border: 0;
@@ -146,7 +146,7 @@ form.uix-page > .uix-page-inside.uix-has-tabs {
 .uix-page-inside > .uix-page-sections > .uix-section > .uix-section-heading {
     padding: 0 12px;
 }
-form.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
+.uix-page > .uix-page-inside.uix-has-tabs > .uix-page-sections {
     border-left: none;
     float: none;
     margin: 0;  

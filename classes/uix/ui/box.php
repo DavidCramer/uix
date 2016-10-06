@@ -29,6 +29,16 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	public $type = 'box';
 
 	/**
+	 * The wrapper element of the object
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @var      string
+	 */
+	public $element = 'form';
+
+
+	/**
 	 * Sets the controls data
 	 *
 	 * @since 1.0.0
@@ -44,6 +54,10 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 			// load data normally
 			$this->set_data( array( $this->slug => $this->load_data() ) );
 		}
+		// set the wrapper element based on static or not
+		if ( ! empty( $this->struct['static'] ) ) {
+			$this->element = 'div';
+		}
 	}
 
 	/**
@@ -53,6 +67,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 * @access public
 	 */
 	public function save_data() {
+
 		return update_option( $this->store_key(), $this->get_data() );
 	}
 
@@ -131,35 +146,42 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	public function set_attributes() {
 
 		$action = uix()->request_vars( 'server' );
-		$this->attributes += array(
+		$attributes = array(
 			'enctype'  => 'multipart/form-data',
 			'method'   => 'POST',
 			'class'    => 'uix-ajax uix-' . $this->type,
 			'data-uix' => $this->slug,
 			'action'   => $action['REQUEST_URI'],
 		);
+		if ( ! empty( $this->struct['static'] ) ) {
+
+			$attributes = array(
+				'class'    => 'uix-' . $this->type,
+				'data-uix' => $this->slug,
+			);
+		}
+
+		$this->attributes += $attributes;
 
 		parent::set_attributes();
 
 	}
 
 	/**
-	 * Render the box
+	 * Render the main structure based on save or not
 	 *
 	 * @since 1.0.0
 	 * @access public
-	 * @return string HMTL of rendered page
+	 * @return string HTML of rendered page
 	 */
 	public function render() {
 		$output = null;
 
-		$output .= '<form ' . $this->build_attributes() . '>';
-
+		$output .= '<' . esc_attr( $this->element ) . ' ' . $this->build_attributes() . '>';
 		$output .= $this->render_header();
 		$output .= parent::render();
 		$output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
-
-		$output .= '</form>';
+		$output .= '</' . esc_attr( $this->element ) . '>';
 
 		return $output;
 	}
