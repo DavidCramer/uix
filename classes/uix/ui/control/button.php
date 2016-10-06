@@ -15,64 +15,63 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class button extends template{
-    
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'button';
+class button extends template {
 
-    /**
-     * Gets the classes for the control input
-     *
-     * @since  1.0.0
-     * @access public
-     * @return array
-     */
-    public function classes() {
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'button';
 
-        $classes = array(
-            'button'
-        );
+	/**
+	 * Gets the classes for the control input
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
+	public function classes() {
 
-        if( !empty( $this->struct['attributes']['class'] ) )
-            $classes = (array) $this->struct['attributes']['class'];
+		$classes = array(
+			'button',
+		);
 
-        return $classes;
-    }
+		if ( ! empty( $this->struct['attributes']['class'] ) ) {
+			$classes = (array) $this->struct['attributes']['class'];
+		}
 
-    /**
-     * Only if a button is given a value, then return it. this helps to determin which control was clicked.
-     * @since 1.0.0
-     * @access public
-     * @return mixed $data
-     */
-    public function get_data(){
-        $data = null;
-        if( !empty( $this->struct['value'] ) )
-            $data[ $this->slug ] = $this->struct['value'];
+		return $classes;
+	}
 
-        return $data;
-    }
+	/**
+	 * Only if a button is given a value, then return it. this helps to determin which control was clicked.
+	 * @since 1.0.0
+	 * @access public
+	 * @return mixed $data
+	 */
+	public function get_data() {
+		$data = null;
+		if ( ! empty( $this->struct['value'] ) ) {
+			$data[ $this->slug ] = $this->struct['value'];
+		}
 
-    /**
-     * Returns the main input field for rendering
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public
-     * @return string Input field HTML striung
-     */
-    public function input(){
+		return $data;
+	}
 
-        return '<button ' . $this->build_attributes() . '>' . esc_html( $this->struct['label'] ) . '</button>';
-    }
+	/**
+	 * Returns the main input field for rendering
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string Input field HTML striung
+	 */
+	public function input() {
 
-
-
+		return '<button ' . $this->build_attributes() . '>' . esc_html( $this->struct['label'] ) . '</button>';
+	}
 
 }

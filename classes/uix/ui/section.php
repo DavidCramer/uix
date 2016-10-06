@@ -18,53 +18,52 @@ namespace uix\ui;
  */
 class section extends panel {
 
-    /**
-     * The type of object
-     *
-     * @since 1.0.0
-     * @access public
-     * @var      string
-     */
-    public $type = 'section';
+	/**
+	 * The type of object
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @var      string
+	 */
+	public $type = 'section';
 
 
+	/**
+	 * Define core page style
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function set_assets() {
 
-    /**
-     * Define core page style
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function set_assets() {
+		$this->assets['style']['sections'] = $this->url . 'assets/css/sections' . UIX_ASSET_DEBUG . '.css';
 
-        $this->assets['style']['sections']   =  $this->url . 'assets/css/sections' . UIX_ASSET_DEBUG . '.css';
+		parent::set_assets();
+	}
 
-        parent::set_assets();
-    }
+	/**
+	 * Render the complete section
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @return string|null HTML of rendered notice
+	 */
+	public function render() {
 
-    /**
-     * Render the complete section
-     *
-     * @since 1.0.0
-     * @access public
-     * @return string|null HTML of rendered notice
-     */
-    public function render(){
+		if ( ! isset( $this->struct['active'] ) ) {
+			$this->struct['active'] = 'true';
+		}
 
-        if( !isset( $this->struct['active'] ) )
-            $this->struct['active'] = 'true';
+		$output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">' . $this->description();
 
-        $output = '<div id="' . esc_attr( $this->id() ) . '" class="uix-section" aria-hidden="' . esc_attr( $this->struct['active'] ) . '">' . $this->description();
+		$output .= '<div class="uix-section-content">';
 
-        $output .='<div class="uix-section-content">';
+		$output .= $this->render_template();
+		$output .= $this->render_children();
 
-        $output .= $this->render_template();
-        $output .= $this->render_children();
+		$output .= '</div></div>';
 
-        $output .= '</div></div>';
-
-        return $output;
-    }
-
+		return $output;
+	}
 
 }

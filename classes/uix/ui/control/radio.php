@@ -15,61 +15,62 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class radio extends \uix\ui\control{
+class radio extends \uix\ui\control {
 
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'radio';
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'radio';
 
-    /**
-     * Gets the attributes for the control.
-     *
-     * @since  1.0.0
-     * @access public
-     */
-    public function set_attributes() {
-        parent::set_attributes();
+	/**
+	 * Gets the attributes for the control.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 */
+	public function set_attributes() {
+		parent::set_attributes();
 
-        $this->attributes['type'] = $this->type;
-        unset( $this->attributes['id'] );
+		$this->attributes['type'] = $this->type;
+		unset( $this->attributes['id'] );
 
-    }
+	}
 
 
-    /**
-     * Returns the main input field for rendering
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public
-     * @return string 
-     */
-    public function input(){
-        
-        $input      = '';
-        $values     = (array) $this->get_value();
-        $id         = $this->id();
+	/**
+	 * Returns the main input field for rendering
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string
+	 */
+	public function input() {
 
-        foreach ($this->struct['choices'] as $option_value => $option_label) {
-            $sel        = null;
-            $option_id  = $id . '-' . sanitize_key( $option_value );
-            if( in_array( $option_value, $values ) )
-                $sel = ' checked="checked"';
+		$input  = '';
+		$values = (array) $this->get_value();
+		$id     = $this->id();
 
-            $input .= '<div class="uix-' . esc_attr( $this->type ) . '">';
-                $input .= '<label for="' . $option_id . '">';
-                $input .= '<input id="' . $option_id . '" ' . $this->build_attributes() . ' value="' . esc_attr( $option_value ) . '"' . $sel . '>';
-                $input .= esc_html( $option_label );
-                $input .= '</label>';
-            $input .= '</div>';
-        }
+		foreach ( $this->struct['choices'] as $option_value => $option_label ) {
+			$sel       = null;
+			$option_id = $id . '-' . sanitize_key( $option_value );
+			if ( in_array( $option_value, $values ) ) {
+				$sel = ' checked="checked"';
+			}
 
-        return $input;
-    }  
+			$input .= '<div class="uix-' . esc_attr( $this->type ) . '">';
+			$input .= '<label for="' . $option_id . '">';
+			$input .= '<input id="' . $option_id . '" ' . $this->build_attributes() . ' value="' . esc_attr( $option_value ) . '"' . $sel . '>';
+			$input .= esc_html( $option_label );
+			$input .= '</label>';
+			$input .= '</div>';
+		}
+
+		return $input;
+	}
 
 }

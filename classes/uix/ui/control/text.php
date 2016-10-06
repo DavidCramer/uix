@@ -15,31 +15,31 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class text extends \uix\ui\control{
-    
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'text';
+class text extends \uix\ui\control {
 
-    /**
-     * Gets the classes for the control input
-     *
-     * @since  1.0.0
-     * @access public
-     * @return array
-     */
-    public function classes() {
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'text';
 
-        $classes = array(
-            'regular-text'
-        );
+	/**
+	 * Gets the classes for the control input
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
+	public function classes() {
 
-        return $classes;
-    }
+		$classes = array(
+			'regular-text',
+		);
+
+		return $classes;
+	}
 
 }

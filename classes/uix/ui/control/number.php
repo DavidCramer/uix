@@ -15,15 +15,15 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class number extends \uix\ui\control{
-    
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'number';
+class number extends \uix\ui\control {
+
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'number';
 
 }

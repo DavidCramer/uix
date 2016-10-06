@@ -15,30 +15,30 @@ namespace uix\ui\control;
  * @todo Remove all labels and wrappers.
  * @since 1.0.0
  */
-class hidden extends \uix\ui\control{
-    
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'hidden';
+class hidden extends \uix\ui\control {
 
-    /**
-     * Render the Control
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public
-     * @return string HTML of rendered control
-     */
-    public function render(){
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'hidden';
 
-        $output = $this->input();
+	/**
+	 * Render the Control
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string HTML of rendered control
+	 */
+	public function render() {
 
-        return $output;
-    }
+		$output = $this->input();
+
+		return $output;
+	}
 
 }

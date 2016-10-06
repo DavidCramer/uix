@@ -15,15 +15,15 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class email extends \uix\ui\control{
+class email extends \uix\ui\control {
 
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'email';
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'email';
 
 }

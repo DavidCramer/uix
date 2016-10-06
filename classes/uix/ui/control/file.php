@@ -15,14 +15,14 @@ namespace uix\ui\control;
  * @todo Make it actually work.
  * @since 1.0.0
  */
-class file extends \uix\ui\control{
-    
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'file';
+class file extends \uix\ui\control {
+
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'file';
 }

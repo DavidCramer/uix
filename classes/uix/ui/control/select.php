@@ -15,78 +15,81 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class select extends \uix\ui\control{
+class select extends \uix\ui\control {
 
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'select';
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'select';
 
 
-    /**
-     * Gets the classes for the control input
-     *
-     * @since  1.0.0
-     * @access public
-     * @return array
-     */
-    public function classes() {
+	/**
+	 * Gets the classes for the control input
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
+	public function classes() {
 
-        $classes = array( 
-            'select-field'
-        );
-        
-        return $classes;
-    }
+		$classes = array(
+			'select-field',
+		);
 
-    /**
-     * Returns the main input field for rendering
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public
-     * @return string 
-     */
-    public function input(){
-        
-        $input      = '<select ' . $this->build_attributes() . '>';
+		return $classes;
+	}
 
-        if( !isset( $this->struct['value'] ) )
-            $input .= '<option></option>';
+	/**
+	 * Returns the main input field for rendering
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string
+	 */
+	public function input() {
 
-        $input .= $this->build_options();
+		$input = '<select ' . $this->build_attributes() . '>';
 
-        $input .= '</select>';
+		if ( ! isset( $this->struct['value'] ) ) {
+			$input .= '<option></option>';
+		}
 
-        return $input;
-    }
+		$input .= $this->build_options();
 
-    /**
-     * Builds the set of options to select
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public
-     * @return string
-     */
-    public function build_options(){
-        $input = '';
-        $value      = $this->get_value();
+		$input .= '</select>';
 
-        if( !empty( $this->struct['choices'] ) ){
-            foreach( $this->struct['choices'] as $option_value => $option_label) {
-                $sel = null;
-                if( $option_value == $value )
-                    $sel = ' selected="selected"';
+		return $input;
+	}
 
-                $input .= '<option value="' . esc_attr( $option_value ) . '"' . $sel . '>' . esc_html( $option_label ) . '</option>';
-            }
-        }
-        return $input;
-    }
+	/**
+	 * Builds the set of options to select
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string
+	 */
+	public function build_options() {
+		$input = '';
+		$value = $this->get_value();
+
+		if ( ! empty( $this->struct['choices'] ) ) {
+			foreach ( $this->struct['choices'] as $option_value => $option_label ) {
+				$sel = null;
+				if ( $option_value == $value ) {
+					$sel = ' selected="selected"';
+				}
+
+				$input .= '<option value="' . esc_attr( $option_value ) . '"' . $sel . '>' . esc_html( $option_label ) . '</option>';
+			}
+		}
+
+		return $input;
+	}
 
 }

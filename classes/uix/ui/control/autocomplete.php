@@ -15,68 +15,68 @@ namespace uix\ui\control;
  *
  * @since 1.0.0
  */
-class autocomplete extends \uix\ui\control\select{
-    
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'autocomplete';
+class autocomplete extends \uix\ui\control\select {
 
-    /**
-     * Sets styling colors
-     *
-     * @since 1.0.0
-     * @access protected
-     */
-    protected function enqueue_active_assets(){
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'autocomplete';
 
-        echo '<style type="text/css">';
-        echo '#select2-' . $this->id() . '-control-results .select2-results__option--highlighted[aria-selected] {background-color: ' . $this->base_color() . ';}';
-        echo '</style>';
+	/**
+	 * Gets the classes for the control input
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
+	public function classes() {
 
-    }
-    
-    /**
-     * Gets the classes for the control input
-     *
-     * @since  1.0.0
-     * @access public
-     * @return array
-     */
-    public function classes() {
+		return array(
+			'uix-select2',
+		);
 
-        return array(
-            'uix-select2'
-        );
+	}
 
-    }
+	/**
+	 * register scritps and styles
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function set_assets() {
 
-    /**
-     * register scritps and styles
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function set_assets() {
+		// Initilize core styles
+		$this->assets['style']['select2'] = $this->url . 'assets/controls/autocomplete/css/select2' . UIX_ASSET_DEBUG . '.css';
 
-        // Initilize core styles
-        $this->assets['style']['select2']        = $this->url . 'assets/controls/autocomplete/css/select2' . UIX_ASSET_DEBUG . '.css';
+		// Initilize core scripts
+		$this->assets['script']['select2']      = array(
+			'src'       => $this->url . 'assets/controls/autocomplete/js/select2' . UIX_ASSET_DEBUG . '.js',
+			'in_footer' => true,
+		);
+		$this->assets['script']['select2-init'] = array(
+			'src'       => $this->url . 'assets/controls/autocomplete/js/select2-init' . UIX_ASSET_DEBUG . '.js',
+			'in_footer' => true,
+		);
 
-        // Initilize core scripts
-        $this->assets['script']['select2']  = array(
-            "src"       => $this->url . 'assets/controls/autocomplete/js/select2' . UIX_ASSET_DEBUG . '.js',
-            "in_footer" => true
-        );
-        $this->assets['script']['select2-init']  = array(
-            "src"       => $this->url . 'assets/controls/autocomplete/js/select2-init' . UIX_ASSET_DEBUG . '.js',
-            "in_footer" => true
-        );
+		parent::set_assets();
+	}
 
-        parent::set_assets();
-    }
+	/**
+	 * Sets styling colors
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
+	protected function enqueue_active_assets() {
+
+		echo '<style type="text/css">';
+		echo '#select2-' . $this->id() . '-control-results .select2-results__option--highlighted[aria-selected] {background-color: ' . $this->base_color() . ';}';
+		echo '</style>';
+
+	}
 
 }

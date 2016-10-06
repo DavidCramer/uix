@@ -11,40 +11,41 @@
 namespace uix\ui\control;
 
 /**
- * WordPress Content Editor 
+ * WordPress Content Editor
  *
  * @since 1.0.0
  */
-class editor extends \uix\ui\control\textarea{
+class editor extends \uix\ui\control\textarea {
 
-    /**
-     * The type of object
-     *
-     * @since       1.0.0
-     * @access public
-     * @var         string
-     */
-    public $type = 'editor';
+	/**
+	 * The type of object
+	 *
+	 * @since       1.0.0
+	 * @access public
+	 * @var         string
+	 */
+	public $type = 'editor';
 
-    /**
-     * Returns the main input field for rendering
-     *
-     * @since 1.0.0
-     * @see \uix\ui\uix
-     * @access public 
-     */
-    public function input(){
+	/**
+	 * Returns the main input field for rendering
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 */
+	public function input() {
 
-        $settings = array( 'textarea_name' => $this->name() );
-        if( !empty( $this->struct['settings'] ) && is_array( $this->struct['settings'] ) )
-            $settings = array_merge( $this->struct['settings'], $settings );
+		$settings = array( 'textarea_name' => $this->name() );
+		if ( ! empty( $this->struct['settings'] ) && is_array( $this->struct['settings'] ) ) {
+			$settings = array_merge( $this->struct['settings'], $settings );
+		}
 
-        ob_start();
+		ob_start();
 
-        wp_editor( $this->get_value(), 'control-' . $this->id(), $settings );
+		wp_editor( $this->get_value(), 'control-' . $this->id(), $settings );
 
-        return ob_get_clean();
+		return ob_get_clean();
 
-    }    
+	}
 
 }
