@@ -101,27 +101,37 @@ class post_relation extends \uix\ui\control {
 		if ( $the_query->have_posts() ) {
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
-
-				$return .= '<div class="uix-post-relation-item">';
-				$return .= '<span class="uix-post-relation-add dashicons dashicons-plus" data-id="' . esc_html( $this->id() ) . '"></span>';
+				$return .= '<div class="uix-post-relation-item"><span class="uix-post-relation-add dashicons dashicons-plus" data-id="' . esc_html( $this->id() ) . '"></span>';
 				$return .= '<span class="uix-relation-name">' . get_the_title() . '</span>';
 				$return .= '<input class="uix-post-relation-id" type="hidden" name="' . esc_html( $this->name() ) . '[]" value="' . esc_attr( get_the_ID() ) . '" disabled="disabled">';
 				$return .= '</div>';
 			}
 			wp_reset_postdata();
 			$return .= '<div class="uix-post-relation-pager">';
-			if ( $the_query->max_num_pages > 1 ) {
-				$return .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $args['paged'] - 1 ) . '">';
-				$return .= '<span class="dashicons dashicons-arrow-left-alt2"></span>';
-				$return .= '</button>';
-				$return .= '<span class="uix-post-relation-count">' . $args['paged'] . ' ' . esc_html__( 'of', 'uix' ) . ' ' . $the_query->max_num_pages . '</span>';
-				$return .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $args['paged'] + 1 ) . '">';
-				$return .= '<span class="dashicons dashicons-arrow-right-alt2"></span>';
-				$return .= '</button>';
-			}
+			$return .= $this->pagination( $the_query );
 			$return .= '</div>';
 		} else {
 			$return .= '<div class="uix-post-relation-no-results">' . esc_html__( 'Nothing found', 'uix' ) . '</div>';
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Creates the pagination options if there are more entries
+	 *
+	 * @return string
+	 */
+	public function pagination( $the_query ) {
+		$return = null;
+		if ( $the_query->max_num_pages > 1 ) {
+			$return .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $the_query->query['paged'] - 1 ) . '">';
+			$return .= '<span class="dashicons dashicons-arrow-left-alt2"></span>';
+			$return .= '</button>';
+			$return .= '<span class="uix-post-relation-count">' . $the_query->query['paged'] . ' ' . esc_html__( 'of', 'uix' ) . ' ' . $the_query->max_num_pages . '</span>';
+			$return .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $the_query->query['paged'] + 1 ) . '">';
+			$return .= '<span class="dashicons dashicons-arrow-right-alt2"></span>';
+			$return .= '</button>';
 		}
 
 		return $return;
