@@ -75,6 +75,8 @@ class modal extends panel {
 			'class'        => 'button',
 		);
 
+		$this->set_modal_size();
+
 		$this->set_modal_config();
 
 		if ( ! empty( $this->struct['description'] ) ) {
@@ -89,12 +91,12 @@ class modal extends panel {
 	}
 
 	/**
-	 * Sets the wrappers data attributes
+	 * Sets the modals defined size
 	 *
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function set_modal_config() {
+	private function set_modal_size() {
 
 		if ( ! empty( $this->struct['width'] ) ) {
 			$this->attributes['data-width'] = $this->struct['width'];
@@ -102,6 +104,18 @@ class modal extends panel {
 		if ( ! empty( $this->struct['height'] ) ) {
 			$this->attributes['data-height'] = $this->struct['height'];
 		}
+
+	}
+
+
+	/**
+	 * Sets the wrappers data attributes
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+	private function set_modal_config() {
+
 		if ( ! empty( $this->struct['config'] ) ) {
 			$attributes = array();
 			foreach ( $this->struct['config'] as $att => $value ) {

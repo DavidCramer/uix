@@ -126,16 +126,32 @@ class repeat extends panel {
 	 *
 	 * @since 1.0.0
 	 * @access public
-	 * @return string|null HTML of rendered notice
+	 * @return string|null HTML of rendered repeatable
 	 */
 	public function render() {
 
 		add_action( 'admin_footer', array( $this, 'render_repeatable_script' ) );
 		add_action( 'wp_footer', array( $this, 'render_repeatable_script' ) );
 
-		$data = $this->get_data();
-
 		$output = '<div data-uix-template="' . esc_attr( $this->id() ) . '" ' . $this->build_attributes() . '>';
+		$output .= $this->render_instances();
+		$output .= '</div>';
+
+		$output .= $this->render_repeatable_more();
+
+		return $output;
+	}
+
+	/**
+	 * Render each instance from data
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @return string|null HTML of rendered instances
+	 */
+	private function render_instances() {
+		$data = $this->get_data();
+		$output = null;
 		foreach ( (array) $data as $instance_id ) {
 			if ( ! isset( $this->struct['active'] ) ) {
 				$this->struct['active'] = 'true';
@@ -146,9 +162,6 @@ class repeat extends panel {
 			$this->instance ++;
 
 		}
-		$output .= '</div>';
-
-		$output .= $this->render_repeatable_more();
 
 		return $output;
 	}
