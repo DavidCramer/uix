@@ -57,25 +57,7 @@ class post_relation extends \uix\ui\control {
 
 	public function do_lookup( $data ) {
 
-		$defaults = array(
-			'post_type'      => 'post',
-			'posts_per_page' => 10,
-			'paged'          => 1,
-		);
-
-		if ( ! empty( $data['_value'] ) ) {
-			$defaults['s'] = $data['_value'];
-		}
-
-		$args = array_merge( $defaults, $this->struct['query'] );
-
-		if ( ! empty( $data['page'] ) ) {
-			$args['paged'] = (int) $data['page'];
-		}
-
-		if ( ! empty( $data['selected'] ) ) {
-			$args['post__not_in'] = explode( ',', $data['selected'] );
-		}
+		$args = $this->build_args( $data );
 
 		$the_query = new \WP_Query( $args );
 
@@ -90,6 +72,35 @@ class post_relation extends \uix\ui\control {
 	}
 
 	/**
+	 * Builds the query args for the post lookup
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array Args for the query
+	 */
+	public function build_args( $data ) {
+		$defaults = array(
+			'post_type'      => 'post',
+			'posts_per_page' => 10,
+			'paged'          => 1,
+		);
+		if ( ! empty( $data['_value'] ) ) {
+			$defaults['s'] = $data['_value'];
+		}
+
+		$args = array_merge( $defaults, $this->struct['query'] );
+
+		if ( ! empty( $data['page'] ) ) {
+			$args['paged'] = (int) $data['page'];
+		}
+		if ( ! empty( $data['selected'] ) ) {
+			$args['post__not_in'] = explode( ',', $data['selected'] );
+		}
+
+		return $args;
+	}
+
+	/**
 	 * Processes the query and returns the row html
 	 *
 	 * @since  1.0.0
@@ -99,7 +110,7 @@ class post_relation extends \uix\ui\control {
 	public function process_query( $the_query ) {
 		$return = null;
 		if ( $the_query->have_posts() ) {
-			while ( $the_query->have_posts() ) {
+			while ( $the_query->have_posts() ){
 				$the_query->the_post();
 				$return .= '<div class="uix-post-relation-item"><span class="uix-post-relation-add dashicons dashicons-plus" data-id="' . esc_html( $this->id() ) . '"></span>';
 				$return .= '<span class="uix-relation-name">' . get_the_title() . '</span>';
