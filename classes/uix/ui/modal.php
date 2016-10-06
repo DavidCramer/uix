@@ -74,20 +74,15 @@ class modal extends panel {
 			'data-element' => 'form',
 			'class'        => 'button',
 		);
-
 		$this->set_modal_size();
-
 		$this->set_modal_config();
-
 		if ( ! empty( $this->struct['description'] ) ) {
 			$this->attributes['data-title'] = $this->struct['description'];
 			unset( $this->struct['description'] );
 		}
-
 		if ( ! empty( $this->struct['attributes'] ) ) {
 			$this->attributes = array_merge( $this->attributes, $this->struct['attributes'] );
 		}
-
 	}
 
 	/**

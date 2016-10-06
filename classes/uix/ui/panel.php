@@ -52,26 +52,36 @@ class panel extends \uix\data\data {
 	public function get_data() {
 
 		if ( empty( $this->data ) ) {
-
-			$data = array(
-				$this->slug => ! empty( $this->struct['data'] ) ? $this->struct['data'] : array(),
+			$this->data = array(
+				$this->slug => $this->get_child_data(),
 			);
-
-			foreach ( $this->child as $child ) {
-				if ( null !== $child->get_data() ) {
-					$data[ $this->slug ] += $child->get_data();
-				}
-			}
-
-			if ( empty( $data ) ) {
-				$data = null;
-			}
-
-			$this->data = $data;
 		}
 
 		return $this->data;
 	}
+
+	/**
+	 * Sets the data for all children
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @return array data of the child objects.
+	 */
+	private function get_child_data() {
+
+		$data = array();
+		foreach ( $this->child as $child ) {
+			if ( null !== $child->get_data() ) {
+				$data += $child->get_data();
+			}
+		}
+		if ( ! empty( $this->struct['data'] ) ) {
+			$data = array_merge( $this->struct['data'], $data );
+		}
+
+		return $data;
+	}
+
 
 	/**
 	 * Sets the data for all children
