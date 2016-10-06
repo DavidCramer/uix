@@ -227,7 +227,7 @@ abstract class uix {
 	}
 
 	/**
-	 * setup actions and hooks - ovveride to add specific hooks. use parent::actions() to keep admin head
+	 * setup actions and hooks - override to add specific hooks. use parent::actions() to keep admin head
 	 *
 	 * @since 1.0.0
 	 * @access protected
@@ -319,6 +319,19 @@ abstract class uix {
 	}
 
 	/**
+	 * Register UIX depend js and css and call set assets
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
+	protected function core_assets() {
+		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
+		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css' );
+		// set assets . methods at before this point can set assets, after this not so much.
+		$this->set_assets();
+	}
+
+	/**
 	 * enqueue core assets
 	 *
 	 * @since 1.0.0
@@ -330,13 +343,8 @@ abstract class uix {
 		if ( ! $this->is_active() ) {
 			return;
 		}
-
 		// register uix core asset
-		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
-		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css' );
-
-		// set assets . methods at before this point can set assets, after this not so much.
-		$this->set_assets();
+		$this->core_assets();
 
 		/**
 		 * do object initilisation
@@ -347,7 +355,6 @@ abstract class uix {
 
 		// push assets to ui manager
 		uix()->set_assets( $this->assets );
-
 		// done enqueuing - dpo inline or manual enqueue.
 		$this->enqueue_active_assets();
 	}

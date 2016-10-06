@@ -83,40 +83,48 @@ class post_relation extends \uix\ui\control {
 			'html'          => '',
 			'found_posts'   => $the_query->found_posts,
 			'max_num_pages' => $the_query->max_num_pages,
+			'html'          => $this->process_query( $the_query ),
 		);
+
+		wp_send_json( $return );
+	}
+
+	/**
+	 * Processes the query and returns the row html
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return string HTML of processed results
+	 */
+	public function process_query( $the_query ) {
+		$return = null;
 		if ( $the_query->have_posts() ) {
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
 
-				$return['html'] .= '<div class="uix-post-relation-item">';
-				$return['html'] .= '<span class="uix-post-relation-add dashicons dashicons-plus" data-id="' . esc_html( $this->id() ) . '"></span>';
-				$return['html'] .= '<span class="uix-relation-name">' . get_the_title() . '</span>';
-				$return['html'] .= '<input class="uix-post-relation-id" type="hidden" name="' . esc_html( $this->name() ) . '[]" value="' . esc_attr( get_the_ID() ) . '" disabled="disabled">';
-				$return['html'] .= '</div>';
-
+				$return .= '<div class="uix-post-relation-item">';
+				$return .= '<span class="uix-post-relation-add dashicons dashicons-plus" data-id="' . esc_html( $this->id() ) . '"></span>';
+				$return .= '<span class="uix-relation-name">' . get_the_title() . '</span>';
+				$return .= '<input class="uix-post-relation-id" type="hidden" name="' . esc_html( $this->name() ) . '[]" value="' . esc_attr( get_the_ID() ) . '" disabled="disabled">';
+				$return .= '</div>';
 			}
-
 			wp_reset_postdata();
-
-			$return['html'] .= '<div class="uix-post-relation-pager">';
+			$return .= '<div class="uix-post-relation-pager">';
 			if ( $the_query->max_num_pages > 1 ) {
-				$return['html'] .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $args['paged'] - 1 ) . '">';
-				$return['html'] .= '<span class="dashicons dashicons-arrow-left-alt2"></span>';
-				$return['html'] .= '</button>';
-
-				$return['html'] .= '<span class="uix-post-relation-count">' . $args['paged'] . ' ' . esc_html__( 'of', 'uix' ) . ' ' . $the_query->max_num_pages . '</span>';
-
-				$return['html'] .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $args['paged'] + 1 ) . '">';
-				$return['html'] .= '<span class="dashicons dashicons-arrow-right-alt2"></span>';
-				$return['html'] .= '</button>';
+				$return .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $args['paged'] - 1 ) . '">';
+				$return .= '<span class="dashicons dashicons-arrow-left-alt2"></span>';
+				$return .= '</button>';
+				$return .= '<span class="uix-post-relation-count">' . $args['paged'] . ' ' . esc_html__( 'of', 'uix' ) . ' ' . $the_query->max_num_pages . '</span>';
+				$return .= '<button type="button" class="uix-post-relation-page button button-small" data-page="' . esc_attr( $args['paged'] + 1 ) . '">';
+				$return .= '<span class="dashicons dashicons-arrow-right-alt2"></span>';
+				$return .= '</button>';
 			}
-			$return['html'] .= '</div>';
-
+			$return .= '</div>';
 		} else {
-			$return['html'] .= '<div class="uix-post-relation-no-results">' . esc_html__( 'Nothing found', 'uix' ) . '</div>';
+			$return .= '<div class="uix-post-relation-no-results">' . esc_html__( 'Nothing found', 'uix' ) . '</div>';
 		}
 
-		wp_send_json( $return );
+		return $return;
 	}
 
 	/**
@@ -148,23 +156,16 @@ class post_relation extends \uix\ui\control {
 		$input = '<div ' . $this->build_attributes() . '>';
 
 		foreach ( $data as $item ) {
-
 			$input .= $this->render_item( $item );
-
 		}
 
 		$input .= '</div>';
 
 		$input .= '<div class="uix-post-relation-footer"><button class="button button-small uix-add-relation" type="button">' . esc_html( $this->struct['add_label'] ) . '</button></div>';
-		$input .= '<div class="uix-post-relation-panel">';
-		$input .= '<span class="uix-post-relation-spinner spinner"></span>';
+		$input .= '<div class="uix-post-relation-panel"><span class="uix-post-relation-spinner spinner"></span>';
 		$input .= '<input type="search" class="uix-ajax" data-load-element="_parent" data-delay="250" data-method="POST" data-uix-id="' . esc_attr( $this->id() ) . '" data-event="input paginate" data-before="uix_related_post_before" data-callback="uix_related_post_handler" data-target="#' . esc_attr( $this->id() ) . '-search-results">';
-
 		$input .= '<div class="uix-post-relation-results" id="' . esc_attr( $this->id() ) . '-search-results">';
-
-		$input .= '</div>';
-
-		$input .= '</div>';
+		$input .= '</div></div>';
 
 		return $input;
 	}

@@ -64,10 +64,10 @@ class panel extends \uix\data\data {
 	 * Sets the data for all children
 	 *
 	 * @since 1.0.0
-	 * @access private
+	 * @access protected
 	 * @return array data of the child objects.
 	 */
-	private function get_child_data() {
+	protected function get_child_data() {
 
 		$data = array();
 		foreach ( $this->child as $child ) {

@@ -62,18 +62,11 @@ class grid extends section {
 	 *
 	 * @since 1.0.0
 	 * @see \uix\load
-	 * @return array Array of sections data structured by the controls
+	 * @return array|null Array of sections data structured by the controls
 	 */
 	public function get_data() {
-		$data = array();
-		if ( ! empty( $this->child ) ) {
-			foreach ( $this->child as $child ) {
-				if ( null !== $child->get_data() ) {
-					$data += $child->get_data();
-				}
-			}
-		}
 
+		$data = $this->get_child_data();
 		if ( empty( $data ) ) {
 			$data = null;
 		}
