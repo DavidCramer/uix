@@ -129,17 +129,13 @@ class metabox extends panel {
 	public function create_metabox( $post ) {
 
 		$this->post = $post;
-
-		$pre_data = $this->get_data();
 		$data     = array(
 			$this->slug => array(),
 		);
 		foreach ( (array) $this->child as $child ) {
 			$data[ $this->slug ][ $child->slug ] = get_post_meta( $post->ID, $child->slug, true );
 		}
-
 		$this->set_data( $data );
-
 		echo $this->render();
 
 	}
