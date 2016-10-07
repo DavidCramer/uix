@@ -131,11 +131,11 @@ class metabox extends panel {
 		$this->post = $post;
 
 		$pre_data = $this->get_data();
-		$data     = array();
-		foreach ( (array) $pre_data as $pkey => $pvalue ) {
-			foreach ( (array) $pvalue as $key => $value ) {
-				$data[ $pkey ][ $key ] = get_post_meta( $post->ID, $key, true );
-			}
+		$data     = array(
+			$this->slug => array(),
+		);
+		foreach ( (array) $this->child as $child ) {
+			$data[ $this->slug ][ $child->slug ] = get_post_meta( $post->ID, $child->slug, true );
 		}
 
 		$this->set_data( $data );
