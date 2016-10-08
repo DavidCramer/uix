@@ -1,5 +1,6 @@
 .uix-control {
     margin-bottom: 12px;
+    box-sizing: border-box;
 }
 .uix-control > label {
     display: block;
