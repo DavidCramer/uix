@@ -75,6 +75,23 @@ class grid extends section {
 	}
 
 	/**
+	 * Sets the data for all children
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function set_data( $data ) {
+
+		foreach ( $this->child as $child ) {
+			if ( method_exists( $child, 'set_data' ) ) {
+				$child->set_data( $data );
+			}
+		}
+		$this->data = $data;
+
+	}
+
+	/**
 	 * Get Data from all controls of this section
 	 *
 	 * @since 1.0.0
