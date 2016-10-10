@@ -29,11 +29,20 @@ body{
     background-color: #FFFFFF;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
     display: block;
-    position: relative;
+    position: absolute;
     margin: 0 auto;
     z-index: 100105;
 }
-
+.uix-modal-blocker {
+    background: #fff none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
 .uix-modal-wrap.uix-animate{
     transform:  translate(0,0) !important;
 }

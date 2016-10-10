@@ -28,9 +28,11 @@
 
 			if(opts.params.target){
 
-                if( typeof opts.data === 'object' && opts.params.target.is('textarea,input') ){
-                    opts.params.target.val( JSON.stringify(opts.data) ).trigger('change');
-                }else if( typeof opts.data === 'string' ){
+				if( typeof opts.params.target === 'function' ){
+					opts.params.target( opts.data, opts );
+				}else if( typeof opts.data === 'object' && opts.params.target.is('textarea,input') ) {
+					opts.params.target.val(JSON.stringify(opts.data)).trigger('change');
+				}else if( typeof opts.data === 'string' ){
                     opts.params.target[opts.params.targetInsert](opts.data);
                 }
 			}
@@ -247,7 +249,7 @@
 					method : (tr.data('method')			? tr.data('method')				: (tr.attr('method')		? tr.attr('method') :(defaults.method ? defaults.method : 'GET'))),
 					dataType : (tr.data('type')			? tr.data('type')				: (defaults.dataType		? defaults.dataType : false)),
 					timeout : (tr.data('timeout')		? tr.data('timeout')			: 30000),
-					target : (tr.data('target')			? ( tr.data('target') === '_parent' ? tr.parent() : ( tr.data('target') === '_self' ? $(tr) : $(tr.data('target')) ) )			: (defaults.target			? $(defaults.target) : $('<html>'))),
+					target : (tr.data('target')			? ( tr.data('target') === '_parent' ? tr.parent() : ( tr.data('target') === '_self' ? $(tr) : ( typeof window[tr.data('target')] === 'function' ? window[tr.data('target')] : ( typeof tr.data('target') === 'function' ? tr.data('target') : $(tr.data('target')) ) ) ) )			: (defaults.target			? $(defaults.target) : $('<html>'))),
 					targetInsert : (tr.data('targetInsert')	? (tr.data('targetInsert') === 'replace' ? 'replaceWith' : tr.data('targetInsert'))	: (defaults.targetInsert ? (defaults.targetInsert === 'replace' ? 'replaceWith': defaults.targetInsert) : 'html')),
 					loadClass : (tr.data('loadClass')		? tr.data('loadClass')			: (defaults.loadClass		? defaults.loadClass : 'loading')),
 					activeClass : (tr.data('activeClass')	? tr.data('activeClass')		: (defaults.activeClass		? defaults.activeClass : 'active')),
@@ -258,7 +260,7 @@
 					resultSelector : false,
 					event : ev
 				};
-				params.url			= (tr.data('request')		? ( tr.data('request') )			: (defaults.request			? defaults.request : params.callback));
+				params.url			= (tr.data('request')		? ( ( tr.data('request') === '_self' ? tr : tr.data('request') ) )			: (defaults.request			? defaults.request : params.callback));
 				params.loadElement	= (tr.data('loadElement')	? (tr.data('loadElement') === '_parent' ? tr.parent() :$(tr.data('loadElement')))		: (defaults.loadElement		? ($(defaults.loadElement) ? $(defaults.loadElement) : params.target) : params.target));
 
 				params = do_helper('params', params);

@@ -110,7 +110,7 @@ class repeat extends panel {
 
 		$this->instance = 0;
 
-		foreach ( $data as $instance => $instance_data ) {
+		foreach ( ( array ) $data as $instance => $instance_data ) {
 			foreach ( $this->child as $child ) {
 				$child->set_data( $instance_data );
 			}

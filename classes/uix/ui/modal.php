@@ -72,6 +72,8 @@ class modal extends panel {
 			'data-content' => '#' . $this->id() . '-tmpl',
 			'data-margin'  => 12,
 			'data-element' => 'form',
+			'data-width'   => '480',
+			'data-height'  => '550',
 			'class'        => 'button',
 		);
 		$this->set_modal_size();
@@ -117,6 +119,7 @@ class modal extends panel {
 				$attributes[ 'data-' . $att ] = $value;
 			}
 			$this->attributes['data-config'] = json_encode( $attributes );
+
 		}
 	}
 
@@ -180,21 +183,34 @@ class modal extends panel {
 	}
 
 	/**
-	 * Render the Control
+	 * Render the template code in script tags
 	 *
 	 * @since 1.0.0
 	 * @see \uix\ui\uix
 	 * @access public
-	 * @return string HTML of rendered box
+	 * @return string HTML of rendered template in script tags
 	 */
 	public function render_modal_template() {
 		unset( $this->struct['label'] );
-		$output = '<script type="text/html" id="' . esc_attr( $this->id() ) . '-tmpl">';
-		$output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
-		$output .= parent::render();
+		$output = '<script data-height="' . esc_attr( $this->attributes['data-height'] ) . '" data-width="' . esc_attr( $this->attributes['data-width'] ) . '" type="text/html" id="' . esc_attr( $this->id() ) . '-tmpl">';
+		$output .= $this->modal_template();
 		$output .= '</script>';
 		$output .= $this->render_footer_template();
 
+		return $output;
+	}
+	/**
+	 * Render the template code
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string HTML of rendered template
+	 */
+	public function modal_template() {
+		$data = $this->get_data();
+		$output = wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
+		$output .= parent::render();
 		return $output;
 	}
 

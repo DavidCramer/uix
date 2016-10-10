@@ -1,17 +1,19 @@
 !(function ($) {
 
-    $.fn.uixLayout = function(opts) {
+    $.fn.uixLayout = function (opts) {
 
-        return this.each(function() {
+        return this.each(function () {
 
-            var grid = $( this );
+            var grid = $(this);
             var grid_object;
             var current_input = $('#' + grid.prop('id') + '-control');
+            var current_modal;
             var active_column;
             var grid_active = false;
             var sort_column_handle;
             var sort_column;
             var sort_column_container;
+
 
             grid.addClass('_uix_grid_init');
 
@@ -22,7 +24,7 @@
                 // is current template parsable , or not
                 var input_value = current_input.val();
 
-                if( input_value.length ) {
+                if (input_value.length) {
 
                     try {
                         var serialization = JSON.parse(input_value);
@@ -39,9 +41,8 @@
                                             if (column_struct.contents && column_struct.contents.length) {
                                                 for (var co = 0; co < column_struct.contents.length; co++) {
                                                     var content = column_struct.contents[co],
-                                                        component = add_component(content.type, container);
+                                                        component = add_component(content.type, container, content.config );
 
-                                                    set_component(component, content.config);
                                                 }
                                             }
                                         }
@@ -61,16 +62,24 @@
                 grid.find('.uix-loading').remove();
             }
 
-            var add_component = function (type, container) {
-                var component_base = $('.uix-grid-element[data-type="' + type + '"]');
-                var component = $('<div class="uix-component component-' + type + '" data-type="' + component_base.data('type') + '" data-label="' + component_base.data('label') + '"><div class="uix-component-toolbar"><span class="dashicons dashicons-admin-generic"></span> ' + component_base.data('label') + '<span class="dashicons dashicons-no remove-component right"></span></div></div>'),
-                    template = $('#item-content-' + type + '-tmpl');
+            var create_component = function (type, data) {
+
+                var component = $('<div class="uix-component component-' + type + '" data-type="' + type + '" data-label="' + type + '"><div class="uix-component-toolbar"><span class="dashicons dashicons-admin-generic uix-component-edit"></span> ' + type + '<span class="dashicons dashicons-no remove-component right"></span></div></div>'),
+                    template = Handlebars.compile( $( '#' + grid.prop('id') + '-' + type ).html() );
+
+                // load component template
+                component.append( template( data ) );
+                component.data('config', data );
+
+                return component;
+            }
+
+            var add_component = function (type, container, data) {
+
+                var component = create_component( type, data );
 
                 component.appendTo(container);
-                // load component template
-                if (template.length) {
-                    component.append(template.html());
-                }
+
                 save_current_edit();
                 return component;
             }
@@ -142,6 +151,8 @@
                 save_current_edit();
             }
 
+
+
             // save current edit
             var save_current_edit = function () {
                 var config = {
@@ -168,7 +179,7 @@
                                 var component = $(components[co]);
                                 component_struct.push({
                                     type: component.data('type'),
-                                    //config : component.data()
+                                    config : component.data('config'),
                                 });
                             }
                         }
@@ -229,12 +240,78 @@
             });
 
 
+            // trigger component modal
+            var component_editor = function () {
+                var clicked = $( this ),
+                    template_ele = $( '#' + clicked.data('id') + '-tmpl' ),
+                    template = Handlebars.compile( template_ele.html() ),
+                    component_modal = $.uixModal({
+                        modal: clicked.data('id'),
+                        title: clicked.data('label'),
+                        width : template_ele.data('width'),
+                        height: template_ele.data('height'),
+                        footer: ' ',
+                        focus: true,
+                    });
+
+
+                component_modal.content.html( template( {} ) );
+                if( ! clicked.data('setup') ){
+                    component_modal.modal.addClass('processing');
+                    component_modal.footer.hide();
+                    component_modal.modal.submit();
+                }else{
+                    component_modal.footer.html( $( '#' + clicked.data('id') + '-footer-tmpl' ).html() );
+                }
+                component_modal.modal.on('modal.complete', function(){
+                    add_component( clicked.data('type') , active_column, component_modal.data );
+                    current_modal.closeModal();
+                });
+                $(document).trigger('uix.init');
+            }
+            grid.on('click', '.uix-component-edit', function () {
+                var clicked = $(this),
+                    component = clicked.closest('.uix-component'),
+                    template_ele = $( '#' + grid.prop('id') + '-' + component.data('type') + '-tmpl' ),
+                    template = Handlebars.compile( template_ele.html() );
+
+                var component_modal = $.uixModal({
+                    modal: grid.prop('id') + '-' + component.data('type'),
+                    title: component.data('label'),
+                    footer: '#' + grid.prop('id') + '-' + component.data('type') + '-footer-tmpl',
+                    width : template_ele.data('width'),
+                    height: template_ele.data('height'),
+                    focus: true,
+                });
+
+                component_modal.content.html( template( component.data('config') ) );
+                component_modal.positionModals();
+                component_modal.modal.on('modal.complete', function(){
+                    var updated = create_component( component.data('type') , component_modal.data );
+                    component.replaceWith( updated );
+                    component_modal.closeModal();
+                });
+                $(document).trigger('uix.init');
+            });
+
             grid.on('click', '.add-component', function () {
                 var clicked = $(this),
-                    active_column = clicked.parent(),
-                    trigger = $('#module-inserter');
+                    template_ele = $('#' + grid.prop('id') + '-components'),
+                    template = Handlebars.compile( template_ele.html() );
 
-                console.log(active_column);
+                active_column = clicked.parent();
+
+                current_modal = $.uixModal({
+                    modal: 'uix_component',
+                    title: 'Insert',
+                    width : 550,
+                    height: 445,
+                    focus: true,
+                });
+                current_modal.content.html( template( {} ) );
+                current_modal.title.css('background', grid.data('color') );
+                $( current_modal.content ).on('click', '.uix-component-trigger', component_editor );
+                current_modal.positionModals();
             });
 
             grid.on('click', '.column-remover', function () {
@@ -375,7 +452,7 @@
                     });
                     // dropable
                     sort_column = row.find(".column").droppable({
-                        accept: '.tab-components',
+                        accept: '.uix-uixbuilder-layout-layout_grid-first_row-0-settings-conditions-mini',
                         greedy: true,
                         hoverClass: "drop-hover",
                         drop: function (event, ui) {
@@ -392,26 +469,26 @@
             }
 
             /// components
-            /*$(".uix-components").draggable({
-             cursor: "move",
-             appendTo: "body",
-             cursorAt: {top: 15},
-             helper: function (event) {
-             var item = $(event.target);
-             return $('<div class="uix-component-helper" data-type="' + item.data('type') + '" data-label="' + item.data('label') + '">' + item.html() + '</div>');
-             }
-             });*/
+            $(".uix-uixbuilder-layout-layout_grid-first_row-0-settings-conditions-mini").draggable({
+                cursor: "move",
+                appendTo: "body",
+                cursorAt: {top: 15},
+                helper: function (event) {
+                    var item = $(event.target);
+                    return $('<div class="uix-component-helper" data-type="' + item.data('type') + '" data-label="' + item.data('label') + '">' + item.html() + '</div>');
+                }
+            });
 
             // init
             init_builder();
-            $( document ).trigger( 'grid.init' );
+            $(document).trigger('grid.init');
         });
     };
 
 
     // init
-    $(window).load(function() {
-        $( document ).on( 'uix.init', function(){
+    $(window).load(function () {
+        $(document).on('uix.init', function () {
             $('.uix-control-layout').not('._uix_grid_init').uixLayout();
         });
     });

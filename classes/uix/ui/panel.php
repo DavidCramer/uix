@@ -180,10 +180,10 @@ class panel extends \uix\data\data {
 
 		if ( $this->child_count() > 1 ) {
 			$wrapper_class_names[] = 'uix-has-tabs';
-		}
 
-		if ( ! empty( $this->struct['top_tabs'] ) ) {
-			$wrapper_class_names[] = 'uix-top-tabs';
+			if ( ! empty( $this->struct['top_tabs'] ) ) {
+				$wrapper_class_names[] = 'uix-top-tabs';
+			}
 		}
 
 		return implode( ' ', $wrapper_class_names );

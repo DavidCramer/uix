@@ -59,7 +59,9 @@ abstract class data extends \uix\ui\uix {
 	 * @return mixed $data
 	 */
 	public function get_data() {
-		$data = null;
+		$data = array(
+			$this->slug => null,
+		);
 		if ( isset( $this->data[ $this->id() ] ) ) {
 			$data = $this->data[ $this->id() ];
 		}
