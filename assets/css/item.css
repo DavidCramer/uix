@@ -3,7 +3,7 @@
     min-height: 70px;
     position: relative;
 }
-.uix-control-item:after {
+.uix-control-item.processing:after {
     content: " ";
     position: absolute;
     top: 50%;
@@ -16,7 +16,7 @@
     visibility: hidden;
 
 }
-.uix-control-item:after {
+.uix-control-item.processing:after {
     opacity: 1;
     visibility: visible;
 }
