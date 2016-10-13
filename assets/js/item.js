@@ -75,6 +75,7 @@ var uix_item_control_modal, uix_item_control_modal_handler;
                 }
             input.val( JSON.stringify( configs ) ).trigger('change');
         }
+        $( document ).trigger('uix.save');
     }
 
     $( document ).on( 'click', '.uix-item-edit', function( ){
