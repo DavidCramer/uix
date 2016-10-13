@@ -32,7 +32,7 @@ class Test_Data extends WP_UnitTestCase {
 		$data = $uix->ui->box['saving']->get_data();
 		$hash = md5( json_encode( $data ) );
 
-		$this->assertSame( $hash, '6ccfc9ecc1051475882fe0a0fef00b5f' );
+		$this->assertSame( $hash, '9a0f8eb7f633dca09385c45f6ccc259e' );
 
 		$new_data = array(
 			'checkbox'  => array( 'one', 'two' ),
