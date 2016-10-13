@@ -73,7 +73,7 @@ var uix_item_control_modal, uix_item_control_modal_handler;
                     var item = $( items[ c ] );
                     configs.push( item.data('config') );
                 }
-            input.val( JSON.stringify( configs ) );
+            input.val( JSON.stringify( configs ) ).trigger('change');
         }
     }
 
