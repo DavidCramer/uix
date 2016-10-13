@@ -110,7 +110,7 @@ class repeat extends panel {
 
 		$this->instance = 0;
 
-		foreach ( ( array ) $data as $instance => $instance_data ) {
+		foreach ( (array) $data as $instance => $instance_data ) {
 			foreach ( $this->child as $child ) {
 				$child->set_data( $instance_data );
 			}
@@ -143,6 +143,18 @@ class repeat extends panel {
 	}
 
 	/**
+	 * uix object id
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @return string The object ID
+	 */
+	public function id() {
+
+		return parent::id() . '-' . $this->instance;
+	}
+
+	/**
 	 * Render each instance from data
 	 *
 	 * @since 1.0.0
@@ -150,7 +162,7 @@ class repeat extends panel {
 	 * @return string|null HTML of rendered instances
 	 */
 	private function render_instances() {
-		$data = $this->get_data();
+		$data   = $this->get_data();
 		$output = null;
 		foreach ( (array) $data as $instance_id ) {
 			if ( ! isset( $this->struct['active'] ) ) {
@@ -326,18 +338,6 @@ class repeat extends panel {
 		array_pop( $id_parts );
 
 		return $id_parts;
-	}
-
-	/**
-	 * uix object id
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return string The object ID
-	 */
-	public function id() {
-
-		return parent::id() . '-' . $this->instance;
 	}
 
 	/**
