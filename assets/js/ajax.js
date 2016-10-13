@@ -47,12 +47,12 @@ var uix_edit_state = false;
         $('form.uix-ajax').each( function(){
             var form = $( this );
             if( form.data('autosave') ){
-                form.on('change', '[name]', function( e ){
-                    $(this).addClass('ajax-triggered');
+                $( document ).on('uix.save', function(){
                     form.trigger( 'submit' );
                 })
-                $( document ).on('uix.init', function(){
-                    form.trigger( 'submit' );
+                form.on('change', '[name]', function( e ){
+                    $(this).addClass('ajax-triggered');
+                    $( document ).trigger('uix.save');
                 })
             }else{
                 form.on( 'change', '[name]', function(){
