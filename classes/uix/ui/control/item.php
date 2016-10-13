@@ -129,7 +129,7 @@ class item extends \uix\ui\control {
 	 */
 	public function set_assets() {
 
-
+		$this->assets['style']['item'] = $this->url . 'assets/css/item' . UIX_ASSET_DEBUG . '.css';
 		$this->assets['script']['handlebars']          = array(
 			'src' => $this->url . 'assets/js/handlebars-latest' . UIX_ASSET_DEBUG . '.js',
 		);
@@ -173,7 +173,7 @@ class item extends \uix\ui\control {
 
 		$output = $this->child['config']->render();
 
-		$output .= '<div id="' . esc_attr( $this->id() ) . '" data-color="' . esc_attr( $this->base_color() ) . '" data-for="' . esc_attr( $this->id() ) . '-control" class="uix-control uix-control-' . esc_attr( $this->type ) . ' ' . esc_attr( $this->id() ) . '">';
+		$output .= '<div id="' . esc_attr( $this->id() ) . '" data-color="' . esc_attr( $this->base_color() ) . '" data-for="' . esc_attr( $this->id() ) . '-control" class="processing uix-control uix-control-' . esc_attr( $this->type ) . ' ' . esc_attr( $this->id() ) . '">';
 		$output .= '</div>';
 		$output .= $this->input();
 
@@ -268,6 +268,7 @@ class item extends \uix\ui\control {
 		echo '.' . $this->id() . ' .dashicons.dashicons-plus-alt{ color: ' . $this->base_color() . ' !important;}';
 		echo '.' . $this->id() . ' .column-handle{background-color: ' . $this->base_color() . ' !important;}';
 		echo '.' . $this->id() . ' .uix-component-toolbar{background-color: ' . $this->base_color() . ' !important;}';
+		echo '.' . $this->id() . '.processing:after {background: url(' . $this->url . 'assets/svg/loading.php?base_color=' . urlencode( str_replace( '#', '', $this->base_color() ) ) . ') no-repeat center center;}';
 		echo '</style>';
 
 	}

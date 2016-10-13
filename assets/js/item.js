@@ -132,6 +132,7 @@ var uix_item_control_modal, uix_item_control_modal_handler;
                         item.appendTo( holder );
                     }
                 }
+                holder.removeClass('processing');
             });
         });
     });
