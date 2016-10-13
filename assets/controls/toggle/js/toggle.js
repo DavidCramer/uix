@@ -8,7 +8,11 @@
                 allcount    = parent.find( '.uix-control .switch > input' ).not( toggleAll ).length,
                 tottlecount = parent.find( '.uix-control .switch > input:checked' ).not( toggleAll ).length;
 
-            if( clicked.is(':checked') || clicked.data('value').length ){
+            if( clicked.data('value') ){
+                clicked.prop( 'checked', true );
+                clicked.data('value', false );
+            }
+            if( clicked.is(':checked') ){
                 clicked.parent().addClass( 'active' );
                 if( allcount === tottlecount ){
                    toggleAll.prop( 'checked', true ).parent().addClass( 'active' );
