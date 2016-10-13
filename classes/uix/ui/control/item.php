@@ -51,6 +51,7 @@ class item extends \uix\ui\control {
 				'description' => __( 'Setup Item', 'uix' ),
 				'callback'    => 'wp_send_json_success',
 				'attributes'  => array(
+					'class' => 'page-title-action',
 					'data-content' => 'uix_item_control_modal',
 				),
 				'height'      => 540,
@@ -59,7 +60,7 @@ class item extends \uix\ui\control {
 					'target'        => 'uix_item_control_modal_handler',
 					'control'       => $this->id(),
 				),
-				'template'    => '{{json this}} <button type="button" class="uix-item-edit button button-small">' . esc_html__( 'Edit', 'uix' ) . '</button>',
+				'template'    => '{{json this}} <button type="button" class="uix-item-edit button button-small">' . esc_html__( 'Edit', 'uix' ) . '</button> | <button type="button" class="uix-item-remove button button-small">' . esc_html__( 'Remove', 'uix' ) . '</button>',
 				'footer'      => array(
 					'id'      => $this->slug . '_foot',
 					'control' => array(
@@ -92,7 +93,7 @@ class item extends \uix\ui\control {
 		$this->struct['modal']['config']['view'] = $this->struct['modal']['config']['template'];
 		unset( $this->struct['modal']['config']['template'] );
 
-		add_action( 'uix_control_item_submit_' . $this->slug, $this->struct['modal']['config']['callback'] );
+		add_action( 'uix_control_item_submit_' . $this->slug, $this->struct['modal']['config']['callback'], 100 );
 		parent::setup();
 		$this->handle_submit();
 

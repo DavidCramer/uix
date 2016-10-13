@@ -495,7 +495,7 @@
                         obj.params.target = false;
                         if( typeof obj.rawData.data === 'string' ){
                             message.html( obj.rawData.data );
-                            notice.appendTo( modal.body );
+                            notice.appendTo( uixModals[ modalId ].body );
                             var height = notice.height();
                             notice.height(0).animate( { height: height }, 100 );
                         }else{
