@@ -8,7 +8,7 @@
                 allcount    = parent.find( '.uix-control .switch > input' ).not( toggleAll ).length,
                 tottlecount = parent.find( '.uix-control .switch > input:checked' ).not( toggleAll ).length;
 
-            if( clicked.is(':checked') ){
+            if( clicked.is(':checked') || clicked.data('value').length ){
                 clicked.parent().addClass( 'active' );
                 if( allcount === tottlecount ){
                    toggleAll.prop( 'checked', true ).parent().addClass( 'active' );
@@ -22,9 +22,9 @@
             }
 
         } );
-
-        $( '.uix-control .switch' ).trigger( 'change' );
-
+        $( document ).on( 'uix.init', function() {
+            $('.uix-control .toggle-checkbox').trigger('change');
+        });
         $( document ).on('change', '[data-toggle-all="true"]', function(e){
             var clicked = $( this ),
                 parent = clicked.closest( '.uix-section-content' );

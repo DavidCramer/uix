@@ -36,6 +36,12 @@
                     },
                     {
                         expand: true,
+                        cwd: 'assets/svg',
+                        src: '**',
+                        dest: '../assets/svg/'
+                    },
+                    {
+                        expand: true,
                         cwd: 'assets/controls',
                         src: '**',
                         dest: '../assets/controls/'

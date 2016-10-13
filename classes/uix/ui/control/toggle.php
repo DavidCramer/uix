@@ -112,7 +112,7 @@ class toggle extends \uix\ui\control {
 		}
 
 		$input = '<label class="switch setting_toggle_alert' . esc_attr( $status_class ) . '" data-for="' . esc_attr( $this->id() ) . '-control">';
-		$input .= '<input type="checkbox" value="1" ' . $this->build_attributes() . ' ' . checked( 1, $value, false ) . '>';
+		$input .= '<input type="checkbox" value="1" ' . $this->build_attributes() . ' data-value="' . esc_attr( $this->get_value() ) . '">';
 		$input .= '<span class="toggle-on dashicons ' . esc_attr( $this->icons['on'] ) . '"></span>';
 		$input .= '<span class="toggle-off dashicons ' . esc_attr( $this->icons['off'] ) . '"></span>';
 		$input .= '<div class="box"></div>';
