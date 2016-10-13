@@ -48,7 +48,7 @@ class item extends \uix\ui\control {
 		$this->struct['modal'] = array(
 			'config' => array(
 				'label'       => __( 'Add Item', 'uix' ),
-				//'description' => __( 'Add Item', 'uix' ),
+				'description' => __( 'Setup Item', 'uix' ),
 				'callback'    => 'wp_send_json_success',
 				'attributes'  => array(
 					'data-content' => 'uix_item_control_modal',
@@ -56,7 +56,7 @@ class item extends \uix\ui\control {
 				'height'      => 540,
 				'width'       => 380,
 				'config'      => array(
-					'target'        => 'uix_item_control_modal_handler',//'#' . $this->id(),
+					'target'        => 'uix_item_control_modal_handler',
 					'control'       => $this->id(),
 				),
 				'template'    => '{{json this}} <button type="button" class="uix-item-edit button button-small">' . esc_html__( 'Edit', 'uix' ) . '</button>',
@@ -117,7 +117,6 @@ class item extends \uix\ui\control {
 				unset( $data['config_foot'] ); // default footer has no values. override to include values in it.
 			}
 			do_action( 'uix_control_item_submit_' . $this->slug, $data );
-			exit;
 		}
 	}
 
