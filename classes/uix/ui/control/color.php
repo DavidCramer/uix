@@ -61,4 +61,17 @@ class color extends \uix\ui\control\text {
 
 	}
 
+	/**
+	 * Returns the main input field for rendering
+	 *
+	 * @since 1.0.0
+	 * @see \uix\ui\uix
+	 * @access public
+	 * @return string Input field HTML string
+	 */
+	public function input() {
+
+		return '<input type="text" value="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
+	}
+
 }
