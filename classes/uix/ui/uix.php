@@ -356,7 +356,7 @@ abstract class uix {
 		// push assets to ui manager
 		uix()->set_assets( $this->assets );
 		// done enqueuing - dpo inline or manual enqueue.
-		$this->enqueue_active_assets();
+		$this->set_active_styles();
 	}
 
 	/**
@@ -379,8 +379,8 @@ abstract class uix {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
-	}
+	protected function set_active_styles() {}
+
 
 	/**
 	 * Build Attributes for the input control

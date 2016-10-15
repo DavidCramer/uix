@@ -301,13 +301,11 @@ class repeat extends panel {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
+	protected function set_active_styles() {
 
-		parent::enqueue_active_assets();
-
-		echo '<style type="text/css">';
-		echo '#' . $this->id() . ' .uix-repeat{ box-shadow: 1px 0 0 ' . $this->base_color() . ' inset, -37px 0 0 #f5f5f5 inset, -38px 0 0 #ddd inset, 0 2px 3px rgba(0, 0, 0, 0.05); };';
-		echo '</stype>';
+		parent::set_active_styles();
+		$style = '#' . $this->id() . ' .uix-repeat{ box-shadow: 1px 0 0 ' . $this->base_color() . ' inset, -37px 0 0 #f5f5f5 inset, -38px 0 0 #ddd inset, 0 2px 3px rgba(0, 0, 0, 0.05); };';
+		uix_share()->set_active_styles( $style );
 	}
 
 	/**

@@ -331,19 +331,9 @@ class panel extends \uix\data\data {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
-
-		?>
-		<style type="text/css">
-		#panel-<?php echo $this->id(); ?> > .uix-panel-tabs > li[aria-selected="true"] a {
-			box-shadow: 3px 0 0 <?php echo $this->base_color(); ?> inset;
-		}
-
-		#panel-<?php echo $this->id(); ?>.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {
-			box-shadow: 0 3px 0 <?php echo $this->base_color(); ?> inset;
-		}
-
-		</style>
-		<?php
+	protected function set_active_styles() {
+		$style = '#panel-' . $this->id() . ' > .uix-panel-tabs > li[aria-selected="true"] a {box-shadow: 3px 0 0 ' . $this->base_color() . ' inset;}';
+		$style .= '#panel-' . $this->id() . '.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {	box-shadow: 0 3px 0 ' . $this->base_color() . ' inset;}';
+		uix_share()->set_active_styles( $style );
 	}
 }

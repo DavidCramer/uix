@@ -90,20 +90,21 @@ class post_type extends uix {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
-		// output the styles
-		echo '<style type="text/css">';
-		echo '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color() . ' !important;}';
+	protected function set_active_styles() {
 
-		echo '#wpbody-content .wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 ' . $this->base_color() . 'inset;}';
+		// Set active styles
+		$styles .= '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color() . ' !important;}';
 
-		echo '#wpbody-content .wrap > h1 a.page-title-action:hover { background: ' . $this->base_color() . ';';
-		echo 'border-color: ' . $this->base_color() . ';}';
+		$styles = '#wpbody-content .wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 ' . $this->base_color() . 'inset;}';
 
-		echo '#wpbody-content .wrap > h1 a.page-title-action:focus {';
-		echo 'box-shadow: 0 0 2px ' . $this->base_color() . ';';
-		echo 'border-color: ' . $this->base_color() . ';}';
-		echo '</style>';
+		$styles = '#wpbody-content .wrap > h1 a.page-title-action:hover { background: ' . $this->base_color() . ';';
+		$styles = 'border-color: ' . $this->base_color() . ';}';
+
+		$styles = '#wpbody-content .wrap > h1 a.page-title-action:focus {';
+		$styles = 'box-shadow: 0 0 2px ' . $this->base_color() . ';';
+		$styles = 'border-color: ' . $this->base_color() . ';}';
+
+		uix_share()->set_active_styles( $styles );
 	}
 
 }

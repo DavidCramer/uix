@@ -302,13 +302,12 @@ class layout extends \uix\ui\control {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
+	protected function set_active_styles() {
 
-		echo '<style type="text/css">';
-		echo '.' . $this->id() . ' .dashicons.dashicons-plus-alt{ color: ' . $this->base_color() . ' !important;}';
-		echo '.' . $this->id() . ' .column-handle{background-color: ' . $this->base_color() . ' !important;}';
-		echo '.' . $this->id() . ' .uix-component-toolbar{background-color: ' . $this->base_color() . ' !important;}';
-		echo '</style>';
+		$style = '.' . $this->id() . ' .dashicons.dashicons-plus-alt{ color: ' . $this->base_color() . ' !important;}';
+		$style .= '.' . $this->id() . ' .column-handle{background-color: ' . $this->base_color() . ' !important;}';
+		$style .= '.' . $this->id() . ' .uix-component-toolbar{background-color: ' . $this->base_color() . ' !important;}';
 
+		uix_share()->set_active_styles( $style );
 	}
 }

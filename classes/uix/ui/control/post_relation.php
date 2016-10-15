@@ -240,14 +240,12 @@ class post_relation extends \uix\ui\control {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
+	protected function set_active_styles() {
 
-		echo '<style type="text/css">';
-		echo '.' . $this->id() . ' .uix-post-relation-item .uix-post-relation-add:hover{color: ' . $this->base_color() . ';}';
-		echo '.' . $this->id() . ' .uix-post-relation-item .uix-post-relation-remover:hover {color: ' . $this->base_color() . ';}';
+		$style = '.' . $this->id() . ' .uix-post-relation-item .uix-post-relation-add:hover{color: ' . $this->base_color() . ';}';
+		$style .= '.' . $this->id() . ' .uix-post-relation-item .uix-post-relation-remover:hover {color: ' . $this->base_color() . ';}';
 
-		echo '</style>';
-
+		uix_share()->set_active_styles( $style );
 	}
 
 }

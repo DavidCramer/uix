@@ -68,6 +68,8 @@ class ui{
 		 * @param ui $this Current instance of this class
 		 */
 		do_action( 'uix_register', $this );
+		// init the share object
+		uix_share();
 
 		// go over each locations
 		foreach ( $this->locations as $type => $paths ) {

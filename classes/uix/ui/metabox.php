@@ -237,19 +237,18 @@ class metabox extends panel {
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function enqueue_active_assets() {
+	protected function set_active_styles() {
 
-		echo '<style type="text/css">';
-		echo '#' . $this->id() . '.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a,';
-		echo '#side-sortables #' . $this->id() . ' > .uix-panel-tabs > li[aria-selected="true"] a {';
-		echo 'box-shadow: 0 3px 0 ' . $this->base_color() . ' inset; }';
+		$style = '#' . $this->id() . '.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a,';
+		$style .= '#side-sortables #' . $this->id() . ' > .uix-panel-tabs > li[aria-selected="true"] a {';
+		$style .= 'box-shadow: 0 3px 0 ' . $this->base_color() . ' inset; }';
 
-		echo '#' . $this->id() . ' > .uix-panel-tabs > li[aria-selected="true"] a {';
-		echo 'box-shadow: 3px 0 0 ' . $this->base_color() . ' inset;}';
+		$style .= '#' . $this->id() . ' > .uix-panel-tabs > li[aria-selected="true"] a {';
+		$style .= 'box-shadow: 3px 0 0 ' . $this->base_color() . ' inset;}';
 
-		$this->chromeless();
+		$style .= $this->chromeless();
 
-		echo '</style>';
+		uix_share()->set_active_styles( $style );
 
 	}
 
@@ -260,15 +259,15 @@ class metabox extends panel {
 	 * @access protected
 	 */
 	protected function chromeless() {
-
+		$style = null;
 		if ( ! empty( $this->struct['chromeless'] ) ) {
-			echo '#metabox-' . $this->id() . '{background: transparent none repeat scroll 0 0;border: 0 none;';
-			echo 'box-shadow: none;margin: 0 0 20px;padding: 0;}';
-			echo '#metabox-' . $this->id() . ' .handlediv.button-link,';
-			echo '#metabox-' . $this->id() . ' .hndle {display: none;}';
-			echo '#metabox-' . $this->id() . ' > .inside {padding: 0;}';
+			$style .= '#metabox-' . $this->id() . '{background: transparent none repeat scroll 0 0;border: 0 none;';
+			$style .= 'box-shadow: none;margin: 0 0 20px;padding: 0;}';
+			$style .= '#metabox-' . $this->id() . ' .handlediv.button-link,';
+			$style .= '#metabox-' . $this->id() . ' .hndle {display: none;}';
+			$style .= '#metabox-' . $this->id() . ' > .inside {padding: 0;}';
 		}
-
+		return $style;
 	}
 
 }

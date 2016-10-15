@@ -48,3 +48,14 @@ function uix() {
 	// init UI
 	return \uix\ui::get_instance( $request_data );
 }
+
+/**
+ * UIX Helper to minipulate the overall UI instance.
+ *
+ * @since 1.0.0
+ */
+function uix_share() {
+	// init UI
+	return \uix\share\share::get_instance();
+}
+
