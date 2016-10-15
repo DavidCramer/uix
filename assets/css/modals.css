@@ -251,3 +251,35 @@ body{
     position: absolute;
     right: 12px;
 }
+.uix-modal-body .notice, .uix-modal-body div.error, .uix-modal-body div.updated {
+    background: #fff none repeat scroll 0 0;
+    border-left: 4px solid #fff;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    margin: 5px 15px 2px;
+    padding: 1px 12px;
+    border-left-color: #dc3232;
+}
+.uix-modal-body .notice-error, .uix-modal-body div.error {
+    border-left-color: #dc3232;
+}
+.uix-modal-body .notice-dismiss::before {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: #b4b9be;
+    content: "";
+    display: block;
+    font: 400 16px/20px dashicons;
+    height: 20px;
+    text-align: center;
+    width: 20px;
+}
+.uix-modal-body .notice-dismiss {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #b4b9be;
+    cursor: pointer;
+    margin: 0;
+    padding: 9px;
+    position: absolute;
+    right: 1px;
+    top: 0;
+}
