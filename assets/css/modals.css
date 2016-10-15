@@ -283,3 +283,14 @@ body{
     right: 1px;
     top: 0;
 }
+.uix-modal-body .screen-reader-text, .uix-modal-body .screen-reader-text span, .uix-modal-body .ui-helper-hidden-accessible {
+    border: 0 none;
+    clip: rect(0px, 0px, 0px, 0px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    overflow-wrap: normal !important;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
