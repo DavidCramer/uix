@@ -326,7 +326,7 @@ abstract class uix {
 	 */
 	protected function core_assets() {
 		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
-		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', 'dashicons' );
+		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
 		// set assets . methods at before this point can set assets, after this not so much.
 		$this->set_assets();
 	}
