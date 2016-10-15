@@ -93,16 +93,16 @@ class post_type extends uix {
 	protected function set_active_styles() {
 
 		// Set active styles
-		$styles .= '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color() . ' !important;}';
+		$styles = '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color() . ' !important;}';
 
-		$styles = '#wpbody-content .wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 ' . $this->base_color() . 'inset;}';
+		$styles .= '#wpbody-content .wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 ' . $this->base_color() . 'inset;}';
 
-		$styles = '#wpbody-content .wrap > h1 a.page-title-action:hover { background: ' . $this->base_color() . ';';
-		$styles = 'border-color: ' . $this->base_color() . ';}';
+		$styles .= '#wpbody-content .wrap > h1 a.page-title-action:hover { background: ' . $this->base_color() . ';';
+		$styles .= 'border-color: ' . $this->base_color() . ';}';
 
-		$styles = '#wpbody-content .wrap > h1 a.page-title-action:focus {';
-		$styles = 'box-shadow: 0 0 2px ' . $this->base_color() . ';';
-		$styles = 'border-color: ' . $this->base_color() . ';}';
+		$styles .= '#wpbody-content .wrap > h1 a.page-title-action:focus {';
+		$styles .= 'box-shadow: 0 0 2px ' . $this->base_color() . ';';
+		$styles .= 'border-color: ' . $this->base_color() . ';}';
 
 		uix_share()->set_active_styles( $styles );
 	}
