@@ -51,7 +51,24 @@
   margin-bottom: 3px;
 }
 
-
+.uix-section .page-title-action, .uix-section .page-title-action:active,
+.uix-title .page-title-action, .uix-title .page-title-action:active {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #0073aa;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 4px;
+    outline: 0 none;
+    padding: 4px 8px;
+    position: relative;
+    text-decoration: none;
+    text-shadow: none;
+    top: -3px;
+}
 
 @media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
     .uix-has-tabs .uix-sections {
