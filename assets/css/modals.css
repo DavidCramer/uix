@@ -294,3 +294,7 @@ body{
     position: absolute;
     width: 1px;
 }
+.uix-modal-body .notice p, .uix-modal-body .notice-title, .uix-modal-body div.error p, .uix-modal-body div.updated p {
+    margin: 0.5em 0;
+    padding: 2px;
+}
