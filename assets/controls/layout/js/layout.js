@@ -357,10 +357,10 @@
             function destroy_grid() {
 
                 if (grid_active) {
-                    grid.find('.column-handle').draggable("destroy").remove();
-                    grid.find('.column').droppable("destroy");
-                    grid.find('.column-container').sortable("destroy");
-                    grid.sortable("destroy");
+                    //grid.find('.column-handle').draggable("destroy").remove();
+                    //grid.find('.column').droppable("destroy");
+                    //grid.find('.column-container').sortable("destroy");
+                    //grid.sortable("destroy");
                     grid_active = false;
                 }
             }
