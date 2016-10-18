@@ -48,4 +48,18 @@ class editor extends \uix\ui\control\textarea {
 
 	}
 
+	/**
+	 * Define core UIX scripts - override to register core ( common scripts for uix type )
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function set_assets() {
+
+		// set scripts
+		$this->assets['script']['editor-init']      = $this->url . 'assets/controls/editor/js/editor' . UIX_ASSET_DEBUG . '.js';
+
+		parent::set_assets();
+	}
+
 }
