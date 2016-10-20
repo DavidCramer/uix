@@ -21,8 +21,11 @@ var uix_item_control_modal, uix_item_control_modal_handler;
             data = obj.trigger.data('default');
         }
 
-        html = template( data );
-
+        html = $( template( data ) );
+        html.find('[data-default]').each( function(){
+            var field = $( this );
+            field.val( field.data('default') );
+        });
         $('.uix-modal-footer [data-state="' + state + '"]').remove();
 
         return html;

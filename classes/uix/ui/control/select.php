@@ -53,7 +53,7 @@ class select extends \uix\ui\control {
 	 */
 	public function input() {
 
-		$input = '<select ' . $this->build_attributes() . '>';
+		$input = '<select ' . $this->build_attributes() . ' data-default="' . esc_attr( $this->get_value() ) . '">';
 
 		if ( ! isset( $this->struct['value'] ) ) {
 			$input .= '<option></option>';
