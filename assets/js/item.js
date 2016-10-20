@@ -26,7 +26,7 @@ var uix_item_control_modal, uix_item_control_modal_handler;
             var field = $( this );
             field.val( field.data('default') );
         });
-        $('.uix-modal-footer [data-state="' + state + '"]').remove();
+        $('#' + obj.modal + '_uixModal .uix-modal-footer [data-state="' + state + '"]').remove();
 
         return html;
     }
