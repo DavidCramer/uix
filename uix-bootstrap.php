@@ -15,9 +15,6 @@ if ( defined( 'WPINC' ) ) {
 	if ( ! defined( 'UIX_CORE' ) ) {
 		define( 'UIX_CORE', __FILE__ );
 		define( 'UIX_PATH', plugin_dir_path( __FILE__ ) );
-		/**
-		 *
-		 */
 		define( 'UIX_URL', plugin_dir_url( __FILE__ ) );
 		define( 'UIX_VER', '1.0.0' );
 	}
