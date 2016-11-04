@@ -105,5 +105,26 @@ var uix_related_post_handler,
             }
         });
 
+        $( document ).on('uix.init', function(){
+            var relations = $( '.uix-post-relation' );
+            relations.each( function(){
+                var input = $( this ),
+                    limit = input.data('limit'),
+                    panel = input.parent().find('.uix-post-relation-footer'),
+                    items;
+
+                if( limit ){
+                    limit = parseFloat( limit );
+                    items = input.find('.uix-post-relation-item');
+
+                    if( items.length >= limit && limit > 0 ){
+                        panel.hide();
+                    }else{
+                        panel.show();
+                    }
+                }
+            });
+        });
+
     });
 })( jQuery )

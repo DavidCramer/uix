@@ -10,6 +10,7 @@
 
             if( clicked.data('value') ){
                 clicked.prop( 'checked', true );
+                console.log( clicked.is(':checked') + ' - ' + clicked.prop('name')  );
                 clicked.data('value', false );
             }
             if( clicked.is(':checked') ){
@@ -33,7 +34,12 @@
             var clicked = $( this ),
                 parent = clicked.closest( '.uix-section-content' );
 
-            parent.find('.uix-control .switch > input').not( this ).prop('checked', this.checked ).trigger('change');
+            if( !clicked.data('init') ) {
+                // ignore the first init as this will disable all in the group.
+                clicked.data('init', true );
+            } else {
+                parent.find('.uix-control .switch > input').not(this).prop('checked', this.checked).trigger('change');
+            }
         });
 
     });

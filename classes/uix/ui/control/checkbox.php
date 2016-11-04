@@ -26,18 +26,15 @@ class checkbox extends \uix\ui\control\radio {
 	 */
 	public $type = 'checkbox';
 
-
 	/**
-	 * Gets the attributes for the control.
+	 * Create and Return the control's input name
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
+	 * @return string The control name
 	 */
-	public function set_attributes() {
-		parent::set_attributes();
-
-		$this->attributes['name'] .= '[]';
-
+	public function name() {
+		return parent::name() . '[]';
 	}
 
 }

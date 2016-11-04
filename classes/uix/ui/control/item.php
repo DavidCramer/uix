@@ -101,6 +101,7 @@ class item extends \uix\ui\control {
 		$data          = $this->child['config']->get_data();
 		$this->child['config']->struct['attributes']['data-default'] = json_encode( $data );
 		$data_template = $this->drill_in( $data );
+
 		$this->child['config']->set_data( $data_template );
 
 	}

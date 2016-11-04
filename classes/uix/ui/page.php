@@ -174,7 +174,7 @@ class page extends box implements \uix\data\save {
 	}
 
 	/**
-	 * Adds settings page to adminh
+	 * Adds settings page to admin
 	 *
 	 * @since 1.0.0
 	 * @access private
