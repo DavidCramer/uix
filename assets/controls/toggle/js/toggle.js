@@ -8,11 +8,6 @@
                 allcount    = parent.find( '.uix-control .switch > input' ).not( toggleAll ).length,
                 tottlecount = parent.find( '.uix-control .switch > input:checked' ).not( toggleAll ).length;
 
-            if( clicked.data('value') ){
-                clicked.prop( 'checked', true );
-                console.log( clicked.is(':checked') + ' - ' + clicked.prop('name')  );
-                clicked.data('value', false );
-            }
             if( clicked.is(':checked') ){
                 clicked.parent().addClass( 'active' );
                 if( allcount === tottlecount ){
@@ -28,18 +23,20 @@
 
         } );
         $( document ).on( 'uix.init', function() {
-            $('.uix-control .toggle-checkbox').trigger('change');
+            $('.toggle-checkbox').each( function(){
+                var box = $( this ),
+                    val = box.data('value');
+
+                if( val === 1 ){
+                    box.prop( 'checked', true ).data('value', null).parent().addClass('active');
+                }
+            });
+            //$('.uix-control .toggle-checkbox').trigger('change');
         });
         $( document ).on('change', '[data-toggle-all="true"]', function(e){
             var clicked = $( this ),
                 parent = clicked.closest( '.uix-section-content' );
-
-            if( !clicked.data('init') ) {
-                // ignore the first init as this will disable all in the group.
-                clicked.data('init', true );
-            } else {
                 parent.find('.uix-control .switch > input').not(this).prop('checked', this.checked).trigger('change');
-            }
         });
 
     });

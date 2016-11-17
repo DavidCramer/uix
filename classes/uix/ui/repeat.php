@@ -133,7 +133,7 @@ class repeat extends panel {
 		add_action( 'admin_footer', array( $this, 'render_repeatable_script' ) );
 		add_action( 'wp_footer', array( $this, 'render_repeatable_script' ) );
 
-		$output = '<div data-uix-template="' . esc_attr( $this->id() ) . '" ' . $this->build_attributes() . '>';
+		$output = '<div data-instance="{{json this}}" data-uix-template="' . esc_attr( $this->id() ) . '" ' . $this->build_attributes() . '>';
 		$output .= $this->render_instances();
 		$output .= '</div>';
 
@@ -241,6 +241,7 @@ class repeat extends panel {
 	 * @return string|null HTML of rendered object
 	 */
 	public function render_repeatable() {
+
 		$output = '<div class="uix-repeat">';
 		$output .= $this->render_template();
 		if ( ! empty( $this->child ) ) {

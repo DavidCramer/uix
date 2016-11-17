@@ -68,6 +68,10 @@ class metabox extends panel {
 	public function set_assets() {
 
 		$this->assets['style']['metabox'] = $this->url . 'assets/css/metabox' . UIX_ASSET_DEBUG . '.css';
+		$this->assets['script']['baldrick'] = array(
+			'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+			'deps' => array( 'jquery' ),
+		);
 		parent::set_assets();
 	}
 

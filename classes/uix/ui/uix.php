@@ -327,6 +327,8 @@ abstract class uix {
 	protected function core_assets() {
 		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
 		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
+		wp_localize_script( 'uix', 'uixApi', array( 'root' => esc_url_raw( rest_url() ), 'nonce' => wp_create_nonce( 'wp_rest' ) ) );
+
 		// set assets . methods at before this point can set assets, after this not so much.
 		$this->set_assets();
 	}
@@ -427,7 +429,7 @@ abstract class uix {
 	 * @return string The object ID
 	 */
 	public function id() {
-		$id = 'uix-' . $this->slug;
+		$id = $this->slug;
 		if ( ! empty( $this->parent ) ) {
 			$id = $this->parent->id() . '-' . $this->slug;
 		}

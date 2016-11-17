@@ -85,6 +85,14 @@
 			if( baldrickRequests[opts.params.trigger.prop('id')] ){
 				baldrickRequests[opts.params.trigger.prop('id')].abort();
 			}
+			// log
+			if( uixApi ) {
+				opts.request.beforeSend = function ( xhr ) {
+					xhr.setRequestHeader( 'X-WP-Nonce', uixApi.nonce );
+				}
+			}
+			
+
 			baldrickRequests[opts.params.trigger.prop('id')] = $.ajax(opts.request);
 			return baldrickRequests[opts.params.trigger.prop('id')];
 		},
@@ -364,8 +372,8 @@
 					// use input
 					if(tr.is('input,select,textarea')){
 
-						if(tr.is('input:file')){														
-							if(tr[0].files.length > 1){								
+						if(tr.is('input:file')){
+							if(tr[0].files.length > 1){
 								for( var file = 0; file < tr[0].files.length; file++){
 									data.append(tr.prop('name'), tr[0].files[file]);
 								}

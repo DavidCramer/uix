@@ -204,7 +204,7 @@ var conduitApp = {},
             });
         }
 
-        $(window).trigger('uix.init');
+        $(document).trigger('uix.init');
         $(window).trigger('modal.init');
     }
 
@@ -410,7 +410,9 @@ var conduitApp = {},
             conduitBuildUI( active );
         }
     });
-
+    $(document).on('uix.itemsubmit', function(){
+        conduitPrepObject();
+    })
     // register apps
     $( document ).on('uix.init', function(){
         conduitRegisterApps();

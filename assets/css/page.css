@@ -110,7 +110,7 @@ p.search-box {
 }
 .uix-page > .uix-page-inside > .uix-page-tabs > li > a {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 3px 12px 8px;
     text-decoration: none;
     color: #808080;
     border: 0;

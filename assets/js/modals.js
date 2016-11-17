@@ -231,13 +231,7 @@
         defaults.trigger = trigger;
         if( !uixBackdrop && ! defaults.sticky ){
             uixBackdrop = $('<div>', {"class" : "uix-backdrop"});
-            if( ! defaults.focus ){
-                uixBackdrop.on('click', function( e ){
-                    if( e.target == this ){
-                        closeModal();
-                    }
-                });
-            }
+
             pageBody.append( uixBackdrop );
             uixBackdrop.hide();
         }
@@ -412,7 +406,7 @@
         // others in place?
         if( activeModals.length > 1 ){
             if( activeModals[ ( activeModals.length - 2 ) ] !== modalId ){
-                uixModals[ activeModals[ ( activeModals.length - 2 ) ] ].modal.prepend( '<div class="uix-modal-blocker"></div>' ).animate( {opacity : 0.6 }, 100 );
+                uixModals[ activeModals[ ( activeModals.length - 2 ) ] ].modal.prepend( '<div class="uix-modal-blocker"></div>' ).animate( {opacity : 1 }, 100 );
                 uixModals[ modalId ].modal.hide().fadeIn( 200 );
                 //uixModals[ activeModals[ ( activeModals.length - 2 ) ] ].modal.fadeOut( 200, function(){
                   //  uixModals[ modalId ].modal.fadeIn( 2200 );
@@ -462,6 +456,7 @@
         uixModals[ modalId ].modal.attr('data-load-element', '_parent' ).baldrick({
             request : window.location.href,
             before : function( el, e ){
+                $(document).trigger('uix.itemsubmit');
                 submit = uixModals[ modalId ].modal.find('button[type="submit"]');
                 if( submit.length ){
                     submit.prop( 'disabled', true );

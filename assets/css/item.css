@@ -20,3 +20,8 @@
     opacity: 1;
     visibility: visible;
 }
+.uix-control.uix-control-item {
+    overflow: hidden;
+    padding-bottom: 12px;
+    position: relative;
+}

@@ -87,6 +87,12 @@ class item extends \uix\ui\control {
 
 		if ( ! empty( $this->struct['config'] ) ) {
 			$this->struct['modal']['config'] = array_merge( $this->struct['modal']['config'], $this->struct['config'] );
+			if ( ! empty( $this->struct['config']['add_text'] ) ) {
+				$this->struct['modal']['config']['footer']['control']['add_item']['label'] = $this->struct['config']['add_text'];
+			}
+			if ( ! empty( $this->struct['config']['update_text'] ) ) {
+				$this->struct['modal']['config']['footer']['control']['update_item']['label'] = $this->struct['config']['update_text'];
+			}
 			unset( $this->struct['config'] ); // remove so no clashing
 		}
 
@@ -94,6 +100,7 @@ class item extends \uix\ui\control {
 		unset( $this->struct['modal']['config']['template'] );
 
 		add_action( 'uix_control_item_submit_' . $this->slug, $this->struct['modal']['config']['callback'], 100 );
+
 		parent::setup();
 		$this->handle_submit();
 
@@ -169,13 +176,11 @@ class item extends \uix\ui\control {
 	public function render() {
 		add_action( 'admin_footer', array( $this, 'render_footer_script' ) );
 		add_action( 'wp_footer', array( $this, 'render_footer_script' ) );
-
+		$output = null;
 		$this->templates .= $this->item_template();
-
-		$output = $this->child['config']->render();
-
 		$output .= '<div id="' . esc_attr( $this->id() ) . '" data-color="' . esc_attr( $this->base_color() ) . '" data-for="' . esc_attr( $this->id() ) . '-control" class="processing uix-control uix-control-' . esc_attr( $this->type ) . ' ' . esc_attr( $this->id() ) . '">';
 		$output .= '</div>';
+		$output .= $this->child['config']->render();
 		$output .= $this->input();
 
 
@@ -237,7 +242,7 @@ class item extends \uix\ui\control {
 	/**
 	 * builds the handlebars based structure for template render
 	 *
-	 * @param array $array the dat astructure to drill into
+	 * @param array $array the data structure to drill into
 	 * @param string $tag , the final tag to replace the data with.
 	 *
 	 * @since 1.0.0
@@ -245,6 +250,7 @@ class item extends \uix\ui\control {
 	 * @return array array of the data structure
 	 */
 	public function drill_in( $array, $tag = '{{@root' ) {
+
 		$back = array();
 		foreach ( $array as $key => $value ) {
 			if ( is_array( $value ) && ! empty( $value ) ) {

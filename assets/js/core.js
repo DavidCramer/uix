@@ -3,10 +3,19 @@ var UIX = {};
 (function() {
 
     jQuery( document ).ready( function( $ ){
-        jQuery( window ).load( function() {
+
+       $( document ).on('uix.init', function() {
+           $('[data-default]').each(function () {
+                var field = $(this);
+                field.val(field.data('default'));
+            });
+        });
+
+       $( window ).load( function() {
             // main init
             $(document).trigger('uix.init');
         });
     });
+
 
 })( window );
