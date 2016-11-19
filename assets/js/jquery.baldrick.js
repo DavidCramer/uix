@@ -407,7 +407,10 @@
 					// convert param.data to json
 					if(params.data){
 						atts = $.extend(atts, params.data);
-					}					
+					}
+					if( tr.prop('name') ){
+						atts[ tr.prop('name') ] = tr.val();
+					}
 					data = atts;
 					params.requestData = $.extend(tr.data(), params.requestData);
 				}
