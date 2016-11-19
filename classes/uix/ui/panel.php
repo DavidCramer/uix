@@ -124,6 +124,9 @@ class panel extends \uix\data\data {
 			$output .= $this->panel_section();
 
 			$output .= '</div>';
+		} else {
+			// sections
+			$output .= $this->panel_section();
 		}
 
 		$output .= $this->render_template();
@@ -163,7 +166,26 @@ class panel extends \uix\data\data {
 	 * @return string|null HTML of rendered description
 	 */
 	public function is_section_object( $section ) {
-		return ! in_array( $section->type, array( 'help', 'header', 'footer' ) );
+		$types = explode( '\\', get_class( $section ) );
+		$excl = array( 'help', 'header', 'footer', 'control' );
+		$merge = array_merge( $types, $excl );
+		$unique = array_unique( $merge );
+		return count( $merge ) === count( $unique );
+	}
+
+	/**
+	 * Check if child is a control object
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param uix Object to test if it is to be rendered in a section
+	 *
+	 * @return string|null HTML of rendered description
+	 */
+	public function is_control_object( $object ) {
+
+		return (bool) strpos( get_class( $object ), 'control' );
 	}
 
 	/**
@@ -291,7 +313,7 @@ class panel extends \uix\data\data {
 		$hidden = 'false';
 		foreach ( $this->child as $section ) {
 
-			if ( ! $this->is_section_object( $section ) ) {
+			if ( ! $this->is_section_object( $section ) && ! $this->is_control_object( $section ) ) {
 				continue;
 			}
 

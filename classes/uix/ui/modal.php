@@ -132,6 +132,10 @@ class modal extends panel {
 	 */
 	public function set_assets() {
 
+		$this->assets['script']['baldrick'] = array(
+			'src'  => $this->url . 'assets/js/jquery.baldrick' . WP_FORUMS_ASSET_DEBUG . '.js',
+			'deps' => array( 'jquery' ),
+		);
 		$this->assets['script']['modals'] = array(
 			'src'  => $this->url . 'assets/js/modals' . UIX_ASSET_DEBUG . '.js',
 			'deps' => array( 'baldrick' ),
