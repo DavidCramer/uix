@@ -69,7 +69,6 @@ class layout extends \uix\ui\control {
 	 */
 	public function register_components() {
 
-		$components = array();
 		foreach ( $this->struct['component'] as $component_id => $component_struct ) {
 
 			if ( ! empty( $component_struct['id'] ) ) {
@@ -278,7 +277,7 @@ class layout extends \uix\ui\control {
 	 * builds the handlebars based structure for template render
 	 *
 	 * @param array $array the dat astructure to drill into
-	 * @param string $tag, the final tag to replace the data with.
+	 * @param string $tag the final tag to replace the data with.
 	 * @since 1.0.0
 	 * @access public
 	 * @return array array of the data structure

@@ -213,7 +213,7 @@ class modal extends panel {
 	 * @return string HTML of rendered template
 	 */
 	public function modal_template() {
-		$data   = $this->get_data();
+		$this->get_data(); // init data
 		$output = wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
 		$output .= parent::render();
 
