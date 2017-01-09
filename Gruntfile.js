@@ -17,6 +17,12 @@
                         dest: '../<%= pkg.namespace %>-bootstrap.php'
                     },
                     {
+                        expand: false,
+                        cwd: './',
+                        src: 'uix-plugin.php',
+                        dest: '../<%= pkg.namespace %>-plugin.php'
+                    },
+                    {
                         expand: true,
                         cwd: 'includes',
                         src: '**',
