@@ -319,21 +319,6 @@ abstract class uix {
 	}
 
 	/**
-	 * Register UIX depend js and css and call set assets
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 */
-	protected function core_assets() {
-		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
-		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
-		wp_localize_script( 'uix', 'uixApi', array( 'root' => esc_url_raw( rest_url() ), 'nonce' => wp_create_nonce( 'wp_rest' ) ) );
-
-		// set assets . methods at before this point can set assets, after this not so much.
-		$this->set_assets();
-	}
-
-	/**
 	 * enqueue core assets
 	 *
 	 * @since 1.0.0
@@ -353,7 +338,14 @@ abstract class uix {
 		 *
 		 * @param object current uix instance
 		 */
-		do_action( 'uix_admin_enqueue_scripts' . $this->type, $this );
+		do_action( 'uix_admin_enqueue_scripts_' . $this->type, $this );
+
+		/**
+		 * do object initilisation for specific slug
+		 *
+		 * @param object current uix instance
+		 */
+		do_action( 'uix_admin_enqueue_scripts_' . $this->type . '_' . $this->slug, $this );
 
 		// push assets to ui manager
 		uix()->set_assets( $this->assets );
@@ -376,12 +368,30 @@ abstract class uix {
 	}
 
 	/**
+	 * Register UIX depend js and css and call set assets
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
+	protected function core_assets() {
+		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
+		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
+		wp_localize_script( 'uix', 'uixApi', array( 'root'  => esc_url_raw( rest_url() ),
+		                                            'nonce' => wp_create_nonce( 'wp_rest' ),
+		) );
+
+		// set assets . methods at before this point can set assets, after this not so much.
+		$this->set_assets();
+	}
+
+	/**
 	 * runs after assets have been enqueued
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	protected function set_active_styles() {}
+	protected function set_active_styles() {
+	}
 
 
 	/**
@@ -469,15 +479,21 @@ abstract class uix {
 	 * @access public
 	 */
 	protected function base_color() {
+		$color = '#D84315';
 		if ( empty( $this->struct['base_color'] ) ) {
 			if ( ! empty( $this->parent ) ) {
-				return $this->parent->base_color();
+				$color = $this->parent->base_color();
 			}
 		} else {
-			return $this->struct['base_color'];
+			$color = $this->struct['base_color'];
 		}
 
-		return '#D84315';
+		/**
+		 * do object initilisation for specific slug
+		 *
+		 * @param object current uix instance
+		 */
+		return apply_filters( 'uix_base_color_' . $this->type . '_' . $this->slug, $color );
 
 	}
 }
