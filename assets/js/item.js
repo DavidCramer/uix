@@ -15,6 +15,7 @@ var uix_item_control_modal, uix_item_control_modal_handler;
             data = {config: current_items[ obj.modal ].data('config')};
             state = 'add';
         } else {
+            current_items[obj.modal] = false;
             flush_current = false;
             state = 'update';
             data = obj.trigger.data('default');
