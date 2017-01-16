@@ -125,7 +125,7 @@ class item extends \uix\ui\control {
 			if ( isset( $data['config_foot'] ) ) {
 				unset( $data['config_foot'] ); // default footer has no values. override to include values in it.
 			}
-			do_action( 'uix_control_item_submit_' . $this->slug, $data );
+			do_action( 'uix_control_item_submit_' . $this->slug, $data, $this );
 		}
 	}
 
