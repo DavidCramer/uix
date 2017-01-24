@@ -27,7 +27,12 @@ function uix_autoload_class( $class ) {
 		$class_file = UIX_PATH . 'classes/' . $name . '.php';
 		if ( file_exists( $class_file ) ) {
 			include_once $class_file;
+			return;
 		}
+	}
+	$name = str_replace( '_', '-', strtolower( $name ) );
+	if ( file_exists( UIX_PATH . 'classes/' . $name . '.php' ) ) {
+		include_once UIX_PATH . 'classes/' . $name . '.php';
 	}
 }
 
