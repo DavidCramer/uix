@@ -49,26 +49,26 @@ class item extends \uix\ui\control {
 			'config' => array(
 				'label'       => __( 'Add Item', 'uix' ),
 				'description' => __( 'Setup Item', 'uix' ),
-				'callback'    => 'wp_send_json_success',
+				'callback'    => array( $this, 'send_item_json' ),
 				'attributes'  => array(
-					'class' => 'page-title-action',
+					'class'        => 'page-title-action',
 					'data-content' => 'uix_item_control_modal',
 				),
 				'height'      => 540,
 				'width'       => 380,
 				'config'      => array(
-					'target'        => 'uix_item_control_modal_handler',
-					'control'       => $this->id(),
+					'target'  => 'uix_item_control_modal_handler',
+					'control' => $this->id(),
 				),
 				'template'    => '{{json this}} <button type="button" class="uix-item-edit button button-small">' . esc_html__( 'Edit', 'uix' ) . '</button> | <button type="button" class="uix-item-remove button button-small">' . esc_html__( 'Remove', 'uix' ) . '</button>',
 				'footer'      => array(
 					'id'      => $this->slug . '_foot',
 					'control' => array(
-						'add_item' => array(
+						'add_item'    => array(
 							'label'      => __( 'Add', 'uix' ),
 							'type'       => 'button',
 							'attributes' => array(
-								'type' => 'submit',
+								'type'       => 'submit',
 								'data-state' => 'add',
 							),
 						),
@@ -76,7 +76,7 @@ class item extends \uix\ui\control {
 							'label'      => __( 'Update', 'uix' ),
 							'type'       => 'button',
 							'attributes' => array(
-								'type' => 'submit',
+								'type'       => 'submit',
 								'data-state' => 'update',
 							),
 						),
@@ -102,15 +102,62 @@ class item extends \uix\ui\control {
 		add_action( 'uix_control_item_submit_' . $this->slug, $this->struct['modal']['config']['callback'], 100 );
 
 		parent::setup();
-		$this->handle_submit();
 
 		// set data for templates
-		$data          = $this->child['config']->get_data();
-		$this->child['config']->struct['attributes']['data-default'] = json_encode( $data );
-		$data_template = $this->drill_in( $data );
+		if ( ! $this->child['config']->is_submitted() ) {
+			$data                                                        = $this->child['config']->get_data();
+			$this->child['config']->struct['attributes']['data-default'] = json_encode( $data );
+			$data_template                                               = $this->drill_in( $data );
 
-		$this->child['config']->set_data( $data_template );
+			$this->child['config']->set_data( $data_template );
+		}
 
+	}
+
+	/**
+	 * builds the handlebars based structure for template render
+	 *
+	 * @param array $array the data structure to drill into
+	 * @param string $tag , the final tag to replace the data with.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @return array array of the data structure
+	 */
+	public function drill_in( $array, $tag = '{{@root' ) {
+
+		$back = array();
+		foreach ( $array as $key => $value ) {
+			if ( is_array( $value ) && ! empty( $value ) ) {
+				$back[ $key ] = $this->drill_in( $value, $tag . '.' . $key );
+			} else {
+				$back[ $key ] = $tag . '.' . $key . '}}';
+			}
+		}
+
+		return $back;
+	}
+
+	/**
+	 * Sends the items json code back to the browser
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function send_item_json() {
+		// send to browser
+		wp_send_json_success( $this->child['config']->get_value() );
+	}
+
+	/**
+	 * All objects loaded - application method for finishing off loading objects
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function init() {
+		$this->handle_submit();
+		parent::init();
 	}
 
 	/**
@@ -137,7 +184,7 @@ class item extends \uix\ui\control {
 	 */
 	public function set_assets() {
 
-		$this->assets['style']['item'] = $this->url . 'assets/css/item' . UIX_ASSET_DEBUG . '.css';
+		$this->assets['style']['item']                 = $this->url . 'assets/css/item' . UIX_ASSET_DEBUG . '.css';
 		$this->assets['script']['handlebars']          = array(
 			'src' => $this->url . 'assets/js/handlebars-latest' . UIX_ASSET_DEBUG . '.js',
 		);
@@ -145,7 +192,7 @@ class item extends \uix\ui\control {
 			'src'  => $this->url . 'assets/js/handlebars.baldrick' . UIX_ASSET_DEBUG . '.js',
 			'deps' => array( 'baldrick' ),
 		);
-		$this->assets['script']['item']          = array(
+		$this->assets['script']['item']                = array(
 			'src' => $this->url . 'assets/js/item' . UIX_ASSET_DEBUG . '.js',
 		);
 		parent::set_assets();
@@ -240,27 +287,19 @@ class item extends \uix\ui\control {
 	}
 
 	/**
-	 * builds the handlebars based structure for template render
-	 *
-	 * @param array $array the data structure to drill into
-	 * @param string $tag , the final tag to replace the data with.
+	 * Render the script footer template
 	 *
 	 * @since 1.0.0
+	 * @see \uix\ui\uix
 	 * @access public
-	 * @return array array of the data structure
 	 */
-	public function drill_in( $array, $tag = '{{@root' ) {
-
-		$back = array();
-		foreach ( $array as $key => $value ) {
-			if ( is_array( $value ) && ! empty( $value ) ) {
-				$back[ $key ] = $this->drill_in( $value, $tag . '.' . $key );
-			} else {
-				$back[ $key ] = $tag . '.' . $key . '}}';
-			}
+	public function render_footer_script() {
+		$output = null;
+		if ( ! empty( $this->templates ) ) {
+			$output .= $this->templates;
 		}
 
-		return $back;
+		echo $output;
 	}
 
 	/**
@@ -278,20 +317,5 @@ class item extends \uix\ui\control {
 
 		uix_share()->set_active_styles( $style );
 
-	}
-	/**
-	 * Render the script footer template
-	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
-	 * @access public
-	 */
-	public function render_footer_script() {
-		$output = null;
-		if ( ! empty( $this->templates ) ) {
-			$output .= $this->templates;
-		}
-
-		echo $output;
 	}
 }
