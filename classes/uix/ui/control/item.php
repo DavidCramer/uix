@@ -124,7 +124,7 @@ class item extends \uix\ui\control {
 	 * @access public
 	 * @return array array of the data structure
 	 */
-	public function drill_in( $array, $tag = '{{@root' ) {
+	public function drill_in( $array, $tag = '{{json @root' ) {
 
 		$back = array();
 		foreach ( $array as $key => $value ) {
