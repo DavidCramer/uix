@@ -303,7 +303,7 @@ class Test_UIX extends WP_UnitTestCase {
 		// check slug
 		$this->assertSame( $panel->slug, 'test_panel' );
 		// check id
-		$this->assertSame( $panel->id(), 'uix-test_panel' );
+		$this->assertSame( $panel->id(), 'test_panel' );
 		// check child
 		$this->assertEmpty( $panel->child );
 
@@ -416,7 +416,7 @@ class Test_UIX extends WP_UnitTestCase {
 		$radio_atts = $uix->ui->box['saving']->child['radio']->attributes;
 
 		$test_atts = array(
-			'name'  => 'uix-saving-radio',
+			'name'  => 'saving-radio',
 			'class' => 'widefat',
 			'type'  => 'radio',
 		);
@@ -427,7 +427,7 @@ class Test_UIX extends WP_UnitTestCase {
 		$check_atts = $uix->ui->box['saving']->child['checkbox']->attributes;
 
 		$test_atts = array(
-			'name'  => 'uix-saving-checkbox[]',
+			'name'  => 'saving-checkbox[]',
 			'class' => 'widefat',
 			'type'  => 'checkbox',
 		);
@@ -438,7 +438,7 @@ class Test_UIX extends WP_UnitTestCase {
 		$check_html = $uix->ui->box['saving']->child['checkbox']->render();
 
 		$hash = md5( $check_html );
-		$this->assertSame( $hash, '6ebe1a4425d8d05f029f46ca673c8c96' );
+		$this->assertSame( $hash, '403d644acdca6eb4676e14eba3e3e3d3' );
 
 		// text classes
 		$text_classes = $uix->ui->box['saving']->child['text']->classes();

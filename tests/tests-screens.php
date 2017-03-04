@@ -179,7 +179,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 			'template' => __DIR__ . '/ui/box/include_template.php',
 		) );
 
-		$this->assertSame( $uix->render(), 'THIS IS A TEMPLATE' );
+		$this->assertSame( $uix->render(), '<div class="uix-panel-sections uix-sections"></div>THIS IS A TEMPLATE' );
 	}
 
 	function test_post_type_as_hookname() {
@@ -289,7 +289,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 			'type' => 'hidden',
 		) );
 		$this->assertSame( $hidden->type, 'hidden' );
-		$this->assertSame( '<input type="hidden" value="" name="uix-hidden_field" id="uix-hidden_field-control" class="widefat">', $hidden->render() );
+		$this->assertSame( '<input type="hidden" value="" name="hidden_field" id="hidden_field-control" class="widefat">', $hidden->render() );
 
 
 		$number = uix()->add( 'control', 'number_field', array(
@@ -316,7 +316,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 			),
 		) );
 		$this->assertSame( $button->type, 'button' );
-		$this->assertSame( '<button name="uix-button_field" id="uix-button_field-control" class="special">button</button>', $button->render() );
+		$this->assertSame( '<button name="button_field" id="button_field-control" class="special">button</button>', $button->render() );
 
 
 		ob_start();

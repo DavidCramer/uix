@@ -56,9 +56,6 @@ class editor extends \uix\ui\control\textarea {
 	 */
 	public function set_assets() {
 
-		// set scripts
-		$this->assets['script']['editor-init']      = $this->url . 'assets/controls/editor/js/editor' . UIX_ASSET_DEBUG . '.js';
-
 		parent::set_assets();
 	}
 
