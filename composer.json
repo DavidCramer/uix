@@ -1,24 +1,29 @@
- {
-    "name": "desertsnowman/uix",
-    "description": "UI framework for WordPress Plugins",
-    "type": "wordpress-framework",
-    "keywords": [
-        "wordpress",
-        "UI",
-        "framework"
-    ],
-    "license": "GPL-2.0+",
-    "authors": [
-        {
-            "name": "David Cramer",
-            "homepage": "http://cramer.co.za",
-            "role": "Developer"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-          "uix\\": "classes/uix"
-        },
-        "files" : [ "uix-bootstrap.php" ]
+{
+  "name": "desertsnowman/uix",
+  "description": "UI framework for WordPress Plugins",
+  "type": "wordpress-framework",
+  "keywords": [
+    "wordpress",
+    "UI",
+    "framework"
+  ],
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "David Cramer",
+      "homepage": "http://cramer.co.za",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "uix\\": "classes/uix"
+    },
+    "files": [
+      "uix-bootstrap.php"
+    ]
+  }
 }
