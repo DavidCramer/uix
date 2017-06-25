@@ -54,7 +54,7 @@ class metabox extends panel {
 		// do parent
 		parent::setup();
 		if ( ! isset( $this->struct['screen'] ) ) {
-			$this->struct['screen'] = null;
+			$this->struct['screen'] = ( $this->parent ? $this->parent->slug : null );
 		}
 	}
 
@@ -103,7 +103,6 @@ class metabox extends panel {
 
 		// metabox defaults
 		$defaults = array(
-			'screen'   => null,
 			'context'  => 'advanced',
 			'priority' => 'default',
 		);
