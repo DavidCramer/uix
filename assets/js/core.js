@@ -1,4 +1,12 @@
-var UIX = {};
+import Vue from 'vue';
+
+//let UIX = UIX ? UIX : {};
+
+new Vue({
+	el: 'form[data-uix]',
+	data: UIX
+});
+
 
 (function() {
 

@@ -99,6 +99,10 @@ class control extends \uix\data\data {
 			$this->set_config();
 		}
 
+		if( null !== $this->parent ) {
+			$this->attributes['v-model'] = $this->path();
+		}
+
 		$this->attributes['class'] = implode( ' ', $this->classes() );
 
 		parent::set_attributes();

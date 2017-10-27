@@ -1,4 +1,4 @@
- {
+{
   "name": "uix",
   "version": "1.0.0",
   "description": "UIX Example Plugin",
@@ -11,13 +11,14 @@
   "bugs": {
     "url": "https://github.com/Desertsnowman/uix/issues"
   },
+  "scripts": {
+    "webpack": "cross-env NODE_ENV=development webpack --progress --watch --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-curl": "~2.2.0",
-    "grunt-contrib-cssmin": "~0.6.2",
-    "grunt-contrib-clean": "~0.7.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-rename" : "^0.1.4"
+    "cross-env": "^5.1.0",
+    "laravel-mix": "^1.5.1",
+    "vue": "^2.5.2",
+    "vue-resource": "^1.3.4"
   }
 }

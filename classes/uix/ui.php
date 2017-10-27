@@ -355,6 +355,12 @@ class ui{
 			}
 
 			$args = $this->build_asset_args( $item );
+			if( 'style' === $type ){
+				$args['in_footer'] = false;
+			}else{
+				// add uix dep
+				$args['deps'][] = 'uix';
+			}
 			$enqueue_type( $key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
 
 		}
@@ -379,16 +385,13 @@ class ui{
 			'src'       => $asset,
 			'deps'      => array(),
 			'ver'       => false,
-			'in_footer' => false,
+			'in_footer' => true,
 			'media'     => false,
 		);
 
 		if ( is_array( $asset ) ) {
 			$args = array_merge( $args, $asset );
 		}
-
-		// add uix dep
-		$args['deps'][] = 'uix';
 
 		return $args;
 	}

@@ -47,6 +47,22 @@ class button extends template {
 	}
 
 	/**
+	 * Sets the attributes for the control.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 */
+	public function set_attributes() {
+
+		parent::set_attributes();
+
+		if( isset( $this->attributes['v-model'] ) ){
+			unset( $this->attributes['v-model'] );
+		}
+
+	}
+
+	/**
 	 * Only if a button is given a value, then return it. this helps to determin which control was clicked.
 	 * @since 1.0.0
 	 * @access public

@@ -183,6 +183,14 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 		$output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
 		$output .= '</' . esc_attr( $this->element ) . '>';
 
+		if( null === $this->parent ){
+			wp_localize_script( 'uix', 'UIX', array(
+				'data' => $this->get_data(),
+				'root'  => esc_url_raw( rest_url() ),
+				'nonce' => wp_create_nonce( 'wp_rest' ),
+			) );
+		}
+
 		return $output;
 	}
 
