@@ -75,7 +75,7 @@ class layout extends \uix\ui\control {
 				$component_id = $component_struct['id'];
 			}
 
-			$component_struct += $this->base_component();
+			$component_struct += $this->base_component( $component_id );
 
 			if ( ! empty( $component_struct['setup'] ) ) {
 				$component_struct['section'] = $component_struct['setup'];
@@ -300,15 +300,19 @@ class layout extends \uix\ui\control {
 	 *
 	 * @since  3.0.0
 	 * @access private
+	 *
+	 * @param string $id The id for this component.
+	 *
+	 * @return array
 	 */
-	private function base_component() {
+	private function base_component( $id ) {
 		return array(
 			'attributes' => array(
 				'data-master' => true,
 				'style'       => 'margin:6px 0 0 6px;',
 			),
 			'footer'     => array(
-				'id'      => $component_id . '_foot',
+				'id'      => $id . '_foot',
 				'control' => array(
 					'set_component' => array(
 						'label'      => 'Send to Layout',
