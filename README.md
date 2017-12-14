@@ -1,6 +1,6 @@
 # UIX
 
-[![Travis](https://api.travis-ci.org/DavidCramer/UIX.svg?branch=master)](https://travis-ci.org/DavidCramer/uix/)
+[![Travis](https://api.travis-ci.org/DavidCramer/uix.svg?branch=develop)](https://travis-ci.org/DavidCramer/uix/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/DavidCramer/uix.svg)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=master)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/DavidCramer/uix.svg)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=master)
 
