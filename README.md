@@ -1,8 +1,8 @@
 # UIX
 
-[![Travis](https://api.travis-ci.org/Pyrometric/UIX.svg?branch=master)](https://travis-ci.org/Pyrometric/uix/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/Pyrometric/uix.svg)](https://scrutinizer-ci.com/g/Pyrometric/uix/?branch=master)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/Pyrometric/uix.svg)](https://scrutinizer-ci.com/g/Pyrometric/uix/?branch=master)
+[![Travis](https://api.travis-ci.org/DavidCramer/UIX.svg?branch=master)](https://travis-ci.org/DavidCramer/uix/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/DavidCramer/uix.svg)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=master)
+[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/DavidCramer/uix.svg)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=master)
 
 
 UIX is a small framework for creating user interfaces ( Post Types, Settings Pages, and Metaboxes ) and config structures with the least code possible. It only handles the UI. The program logic is up to you.
@@ -34,7 +34,7 @@ In your main plugin file include the composer autoloader: `require_once( 'vendor
 #### Grunt
 
 The problem with both the include and composer is versioning. The Grunt installer overcomes this by "installing" the library under your plugins namespace.
-Get the [UIX-WP starter plugin]( https://github.com/Desertsnowman/uix-wp ) and copy it a folder in your plugins directory.
+Get the [UIX-WP starter plugin]( https://github.com/DavidCramer/uix-wp ) and copy it a folder in your plugins directory.
 Edit the `package.json` file with the details of your plugin. Pay close attention to the `namespace` and the `prefix` as these are very important.
 
 Once thats done, run `npm install` and wait. The latest version will be pulled from this repo, and the `uix` namespace rewritten under your own plugin.
