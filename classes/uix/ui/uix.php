@@ -8,6 +8,7 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
@@ -21,7 +22,7 @@ abstract class uix {
 	/**
 	 * The type of UI object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -30,7 +31,7 @@ abstract class uix {
 	/**
 	 * Config Structure of object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      array
 	 */
@@ -39,7 +40,7 @@ abstract class uix {
 	/**
 	 * Set this object type assets
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      array
 	 */
@@ -49,18 +50,18 @@ abstract class uix {
 	);
 
 	/**
-	 * object slug
-	 * @access public
-	 * @since 1.0.0
+	 * Object slug
 	 *
+	 * @access public
+	 * @since  1.0.0
 	 * @var      string
 	 */
 	public $slug;
 
 	/**
-	 * array of child objects
+	 * Array of child objects
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      array
 	 */
@@ -69,7 +70,7 @@ abstract class uix {
 	/**
 	 * Objects parent
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      object/uix
 	 */
@@ -78,7 +79,7 @@ abstract class uix {
 	/**
 	 * List of attributes to apply to the wrapper element
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var array
 	 */
@@ -87,7 +88,7 @@ abstract class uix {
 	/**
 	 * Base URL of this class
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @var      string
 	 */
@@ -96,7 +97,7 @@ abstract class uix {
 	/**
 	 * List of core object scripts ( common scripts )
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @var      array
 	 */
@@ -105,7 +106,7 @@ abstract class uix {
 	/**
 	 * List of core object styles ( common styles )
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @var      array
 	 */
@@ -114,28 +115,28 @@ abstract class uix {
 	/**
 	 * UIX constructor
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 *
-	 * @param string $slug Object slug
-	 * @param array $object Objects structure array
-	 * @param uix $parent Parent UIX Object
+	 * @param string $slug   Object slug.
+	 * @param array  $object Objects structure array.
+	 * @param uix    $parent Parent UIX Object.
 	 */
 	protected function __construct( $slug, $object, $parent = null ) {
 
-		// set the slug
+		// set the slug.
 		$this->slug = $slug;
-		// set the object
+		// set the object.
 		$this->struct = $object;
-		// set parent if given
+		// set parent if given.
 		$this->parent = $parent;
 		// Set the root URL for this plugin.
 		$this->set_url();
-		// do setup
+		// do setup.
 		$this->setup();
-		// Set required assets
+		// Set required assets.
 		$this->set_assets();
-		// start internal actions to allow for automating post init
+		// start internal actions to allow for automating post init.
 		$this->actions();
 
 	}
@@ -143,7 +144,7 @@ abstract class uix {
 	/**
 	 * Detects the root of the plugin folder and sets the URL
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_url() {
@@ -153,18 +154,18 @@ abstract class uix {
 
 		if ( false !== strpos( $this_url, '/' ) ) {
 			$url_path = explode( '/', $this_url );
-			// generic 3 path depth: classes/namespace/ui|data
+			// generic 3 path depth: classes/namespace/ui|data.
 			array_splice( $url_path, count( $url_path ) - 3 );
 			$this_url = implode( '/', $url_path );
 		}
-		// setup the base URL
+		// setup the base URL.
 		$this->url = trailingslashit( $plugins_url . '/' . $this_url );
 	}
 
 	/**
 	 * Autoload Children - Checks structure for nested structures
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function setup() {
@@ -177,17 +178,18 @@ abstract class uix {
 	}
 
 	/**
-	 * process type key child
+	 * Process type key child
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
+	 *
+	 * @param string $type The type of child object.
 	 */
 	public function process_child( $type ) {
 
 		if ( isset( $this->struct[ $type ]['id'] ) ) {
 			$this->{$type}( $this->struct[ $type ]['id'], $this->struct[ $type ] );
 		} else {
-
 			$this->process_children( $type );
 		}
 
@@ -196,7 +198,7 @@ abstract class uix {
 	/**
 	 * Process all children under type key
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function process_children( $type ) {
@@ -212,9 +214,10 @@ abstract class uix {
 	}
 
 	/**
-	 * Define core UIX styles - override to register core ( common styles for uix type )
+	 * Define core UIX styles - override to register core ( common styles for
+	 * uix type )
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
@@ -227,24 +230,25 @@ abstract class uix {
 	}
 
 	/**
-	 * setup actions and hooks - override to add specific hooks. use parent::actions() to keep admin head
+	 * setup actions and hooks - override to add specific hooks. use
+	 * parent::actions() to keep admin head
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function actions() {
 
-		// init uix after loaded
+		// init uix after loaded.
 		add_action( 'init', array( $this, 'init' ) );
 
-		// set location
+		// set location.
 		$location = 'wp_print_styles';
 
 		if ( is_admin() ) {
 			$location = 'admin_enqueue_scripts';
 		}
 
-		// init UIX headers
+		// init UIX headers.
 		add_action( $location, array( $this, 'enqueue_core' ) );
 
 	}
@@ -252,11 +256,11 @@ abstract class uix {
 	/**
 	 * Register the UIX objects
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @param string $slug Object slug
-	 * @param array $object object structure array
+	 * @param string $slug   Object slug
+	 * @param array  $object object structure array
 	 *
 	 * @return object|\uix object instance
 	 */
@@ -270,20 +274,19 @@ abstract class uix {
 	/**
 	 * All objects loaded - application method for finishing off loading objects
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
-	public function init() {
-	}
+	public function init() {}
 
 	/**
 	 * Magic caller for adding child objects
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 *
 	 * @param string $type Type of object to attempt to create
-	 * @param array $args arguments for the caller
+	 * @param array  $args arguments for the caller
 	 *
 	 * @return UIX|null
 	 */
@@ -305,7 +308,7 @@ abstract class uix {
 	/**
 	 * Create a slug for the object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 *
 	 * @param string $slug The slug to be checked and created
 	 *
@@ -321,7 +324,7 @@ abstract class uix {
 	/**
 	 * enqueue core assets
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function enqueue_core() {
@@ -356,7 +359,8 @@ abstract class uix {
 	/**
 	 * Determin if a UIX object should be active for this screen
 	 * Intended to be ovveridden
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function is_active() {
@@ -370,14 +374,15 @@ abstract class uix {
 	/**
 	 * Register UIX depend js and css and call set assets
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function core_assets() {
 		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
 		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
-		wp_localize_script( 'uix', 'uixApi', array( 'root'  => esc_url_raw( rest_url() ),
-		                                            'nonce' => wp_create_nonce( 'wp_rest' ),
+		wp_localize_script( 'uix', 'uixApi', array(
+			'root'  => esc_url_raw( rest_url() ),
+			'nonce' => wp_create_nonce( 'wp_rest' ),
 		) );
 
 		// set assets . methods at before this point can set assets, after this not so much.
@@ -387,7 +392,7 @@ abstract class uix {
 	/**
 	 * runs after assets have been enqueued
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {
@@ -416,7 +421,7 @@ abstract class uix {
 	/**
 	 * Sets the wrappers attributes
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_attributes() {
@@ -434,7 +439,7 @@ abstract class uix {
 	/**
 	 * uix object id
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string The object ID
 	 */
@@ -450,7 +455,7 @@ abstract class uix {
 	/**
 	 * Render the UIX object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string HTML of rendered object
 	 */
@@ -459,7 +464,7 @@ abstract class uix {
 	/**
 	 * Render the child objects
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null
 	 */
@@ -475,7 +480,7 @@ abstract class uix {
 	/**
 	 * Base color helper
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	protected function base_color() {

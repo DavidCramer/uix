@@ -29,6 +29,7 @@ before_script:
 script:
   - phpenv config-rm xdebug.ini
   - phpunit
+  - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then phpunit --coverage-clover=coverage.clover; else phpunit; fi
 
 after_script:
     - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi

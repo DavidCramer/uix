@@ -10,7 +10,7 @@
  */
 class Test_Data extends WP_UnitTestCase {
 
-	public function test_submit_data() {
+	public static function setUpBeforeClass() {
 		$uix     = uix();
 		$control = $uix->add( 'control', 'test_field', array(
 			'type'  => 'text',
@@ -21,7 +21,6 @@ class Test_Data extends WP_UnitTestCase {
 		$_POST['uix-text-test_field'] = 'fake submit';
 		$control->setup();
 		$new_data = $control->get_data();
-
 	}
 
 	public function test_box_data() {
@@ -51,12 +50,6 @@ class Test_Data extends WP_UnitTestCase {
 		$new_hash = md5( json_encode( $new_data ) );
 		$uix->ui->box['saving']->set_data( $new_data );
 		$changed_data = $uix->ui->box['saving']->get_data();
-
-	}
-
-	public function test_store_key() {
-
-		$uix = uix();
 
 	}
 
