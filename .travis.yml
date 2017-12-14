@@ -1,26 +1,41 @@
 language: php
 
+sudo: false
+dist: trusty
+
 php:
-    - 5.3
-    - 5.5
-    - 7.0
+  - 5.6
+  - 7.0
+  - 7.1
 
 env:
-    - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=latest WP_MULTISITE=0
+
 
 matrix:
   fast_finish: true
 
+
 before_script:
-    - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
+      composer global require "phpunit/phpunit=5.7.*"
+    else
+      composer global require "phpunit/phpunit=4.8.*"
+    fi
 
 script:
-  - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then phpunit --coverage-clover=coverage.clover; else phpunit; fi
+  - phpenv config-rm xdebug.ini
+  - phpunit
 
 after_script:
-    - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-    - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+    - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+    - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
 branches:
     only:
         - master
-        - 1.0.x
+        - develop
+notifications:
+    slack: tricodia:PiW2y9QPGF6Kgph7exqlQ92T

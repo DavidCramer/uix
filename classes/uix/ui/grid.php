@@ -96,7 +96,7 @@ class grid extends section {
 	 *
 	 * @since 1.0.0
 	 * @see \uix\load
-	 * @return array Array of sections data structured by the controls
+	 * @return bool
 	 */
 	public function is_row_column() {
 		return ! empty( $this->struct['row'] ) || ! empty( $this->struct['column'] );

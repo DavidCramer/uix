@@ -8,11 +8,13 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
- * Unlike metaboxes, the box can be rendered via code and will enqueue assets on the page where its declared.
- * A box also has save on a submission. Data is saved as an array structure based on the tree of child objects.
+ * Unlike metaboxes, the box can be rendered via code and will enqueue assets
+ * on the page where its declared. A box also has save on a submission. Data is
+ * saved as an array structure based on the tree of child objects.
  *
  * @package uix\ui
  * @author  David Cramer
@@ -22,7 +24,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * The type of object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -31,7 +33,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * The wrapper element of the object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -41,8 +43,8 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * Sets the controls data
 	 *
-	 * @since 1.0.0
-	 * @see \uix\uix
+	 * @since  1.0.0
+	 * @see    \uix\uix
 	 * @access public
 	 */
 	public function init() {
@@ -63,7 +65,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * save data to database
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function save_data() {
@@ -73,7 +75,8 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 
 	/**
 	 * get the objects data store key
-	 * @since 1.0.0
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 * @return string $store_key the defined option name for this UIX object
 	 */
@@ -89,7 +92,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 * Get Data from all controls of this section
 	 *
 	 * @since 1.0.0
-	 * @see \uix\load
+	 * @see   \uix\load
 	 * @return array Array of sections data structured by the controls
 	 */
 	public function get_data() {
@@ -107,7 +110,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * Get data
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return mixed $data Requested data of the object
 	 */
@@ -118,8 +121,8 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * set metabox styles
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 */
 	public function set_assets() {
@@ -140,12 +143,12 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * Sets the wrappers attributes
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_attributes() {
 
-		$action = uix()->request_vars( 'server' );
+		$action     = uix()->request_vars( 'server' );
 		$attributes = array(
 			'enctype'  => 'multipart/form-data',
 			'method'   => 'POST',
@@ -170,7 +173,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	/**
 	 * Render the main structure based on save or not
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string HTML of rendered page
 	 */
@@ -180,6 +183,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 		$output .= '<' . esc_attr( $this->element ) . ' ' . $this->build_attributes() . '>';
 		$output .= $this->render_header();
 		$output .= parent::render();
+		$output .= $this->render_footer();
 		$output .= wp_nonce_field( $this->id(), 'uixNonce_' . $this->id(), true, false );
 		$output .= '</' . esc_attr( $this->element ) . '>';
 
@@ -187,18 +191,47 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	}
 
 	/**
-	 * Render the page
+	 * Render the header if set.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
-	 * @return string HMTL of rendered page
+	 * @return string HTML of rendered page
 	 */
 	public function render_header() {
+
+		return $this->render_child_type( 'header' );
+
+	}
+
+	/**
+	 * Render a child of type footer.
+	 *
+	 * @since  3.0.0
+	 * @access public
+	 * @return string HTML of rendered page
+	 */
+	public function render_footer() {
+
+		return $this->render_child_type( 'footer' );
+
+	}
+
+	/**
+	 * Render a child type.
+	 *
+	 * @since  3.0.0
+	 * @access public
+	 *
+	 * @param string $type The type of child to render.
+	 *
+	 * @return string HTML of rendered page
+	 */
+	public function render_child_type( $type ) {
 
 		$output = null;
 		if ( ! empty( $this->child ) ) {
 			foreach ( $this->child as $child ) {
-				if ( 'header' == $child->type ) {
+				if ( $type === $child->type ) {
 					$output .= $child->render();
 				}
 			}

@@ -1,8 +1,8 @@
 # UIX
 
-[![Travis](https://img.shields.io/travis/Desertsnowman/uix.svg?branch=master)](https://travis-ci.org/Desertsnowman/uix/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/Desertsnowman/uix.svg)](https://scrutinizer-ci.com/g/Desertsnowman/uix/?branch=master)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/Desertsnowman/uix.svg)](https://scrutinizer-ci.com/g/Desertsnowman/uix/?branch=master)
+[![Travis](https://api.travis-ci.org/Pyrometric/UIX.svg?branch=master)](https://travis-ci.org/Pyrometric/uix/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/Pyrometric/uix.svg)](https://scrutinizer-ci.com/g/Pyrometric/uix/?branch=master)
+[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/Pyrometric/uix.svg)](https://scrutinizer-ci.com/g/Pyrometric/uix/?branch=master)
 
 
 UIX is a small framework for creating user interfaces ( Post Types, Settings Pages, and Metaboxes ) and config structures with the least code possible. It only handles the UI. The program logic is up to you.
