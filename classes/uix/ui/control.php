@@ -233,10 +233,11 @@ class control extends \uix\data\data {
 	}
 
 	/**
-	 * checks if the current control is active
+	 * Checks if the current control is active.
 	 *
 	 * @since  1.0.0
 	 * @access public
+	 * @return bool
 	 */
 	public function is_active() {
 		if ( ! empty( $this->parent ) ) {
