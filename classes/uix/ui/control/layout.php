@@ -8,6 +8,7 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui\control;
 
 use uix\ui\modal;
@@ -23,7 +24,7 @@ class layout extends \uix\ui\control {
 	 * The type of object
 	 *
 	 * @since       1.0.0
-	 * @access public
+	 * @access      public
 	 * @var         string
 	 */
 	public $type = 'layout';
@@ -32,7 +33,7 @@ class layout extends \uix\ui\control {
 	 * The component modals
 	 *
 	 * @since       1.0.0
-	 * @access public
+	 * @access      public
 	 * @var         array
 	 */
 	public $modals = array();
@@ -40,12 +41,12 @@ class layout extends \uix\ui\control {
 	/**
 	 * Autoload Children - Checks structure for nested structures
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function setup() {
 
-		// create components
+		// create components.
 		if ( ! empty( $this->struct['component'] ) ) {
 			$this->register_components();
 		}
@@ -60,11 +61,10 @@ class layout extends \uix\ui\control {
 		parent::setup();
 	}
 
-
 	/**
-	 * register components for layout
+	 * Register components for layout.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function register_components() {
@@ -75,24 +75,7 @@ class layout extends \uix\ui\control {
 				$component_id = $component_struct['id'];
 			}
 
-			$component_struct += array(
-				'attributes' => array(
-					'data-master' => true,
-					'style'       => 'margin:6px 0 0 6px;',
-				),
-				'footer'     => array(
-					'id'      => $component_id . '_foot',
-					'control' => array(
-						'set_component' => array(
-							'label'      => 'Send to Layout',
-							'type'       => 'button',
-							'attributes' => array(
-								'type' => 'submit',
-							),
-						),
-					),
-				),
-			);
+			$component_struct += $this->base_component( $component_id );
 
 			if ( ! empty( $component_struct['setup'] ) ) {
 				$component_struct['section'] = $component_struct['setup'];
@@ -105,18 +88,19 @@ class layout extends \uix\ui\control {
 	}
 
 	/**
-	 * Define core UIX scripts - override to register core ( common scripts for uix type )
+	 * Define core UIX scripts - override to register core ( common scripts for
+	 * uix type )
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
 
-		// set style
+		// set style.
 		$this->assets['style']['layout']      = $this->url . 'assets/controls/layout/css/layout' . UIX_ASSET_DEBUG . '.css';
 		$this->assets['style']['layout-grid'] = $this->url . 'assets/controls/layout/css/layout-grid' . UIX_ASSET_DEBUG . '.css';
 
-		// push to register script
+		// push to register script.
 		$this->assets['script']['layout']              = array(
 			'src'       => $this->url . 'assets/controls/layout/js/layout' . UIX_ASSET_DEBUG . '.js',
 			'deps'      => array(
@@ -134,7 +118,7 @@ class layout extends \uix\ui\control {
 			'deps' => array( 'baldrick' ),
 		);
 
-		// modals
+		// modals.
 		$this->assets['script']['modals'] = array(
 			'src'  => $this->url . 'assets/js/modals' . UIX_ASSET_DEBUG . '.js',
 			'deps' => array( 'baldrick' ),
@@ -161,8 +145,8 @@ class layout extends \uix\ui\control {
 	/**
 	 * Render the Control
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string HTML of rendered control
 	 */
@@ -182,7 +166,7 @@ class layout extends \uix\ui\control {
 	/**
 	 * Returns the label for the control
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string label of control
 	 */
@@ -198,8 +182,8 @@ class layout extends \uix\ui\control {
 	/**
 	 * Returns the main input field for rendering
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string Input field HTML striung
 	 */
@@ -210,8 +194,8 @@ class layout extends \uix\ui\control {
 	/**
 	 * Render component templates
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string HTML of templates for components
 	 */
@@ -243,8 +227,8 @@ class layout extends \uix\ui\control {
 	/**
 	 * Render the modal template
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string HTML of modals templates
 	 */
@@ -276,9 +260,10 @@ class layout extends \uix\ui\control {
 	/**
 	 * builds the handlebars based structure for template render
 	 *
-	 * @param array $array the dat astructure to drill into
-	 * @param string $tag the final tag to replace the data with.
-	 * @since 1.0.0
+	 * @param array  $array the dat astructure to drill into
+	 * @param string $tag   the final tag to replace the data with.
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 * @return array array of the data structure
 	 */
@@ -298,7 +283,7 @@ class layout extends \uix\ui\control {
 	/**
 	 * Sets styling colors
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {
@@ -308,5 +293,36 @@ class layout extends \uix\ui\control {
 		$style .= '.' . $this->id() . ' .uix-component-toolbar{background-color: ' . $this->base_color() . ' !important;}';
 
 		uix_share()->set_active_styles( $style );
+	}
+
+	/**
+	 * Base component structures.
+	 *
+	 * @since  3.0.0
+	 * @access private
+	 *
+	 * @param string $id The id for this component.
+	 *
+	 * @return array
+	 */
+	private function base_component( $id ) {
+		return array(
+			'attributes' => array(
+				'data-master' => true,
+				'style'       => 'margin:6px 0 0 6px;',
+			),
+			'footer'     => array(
+				'id'      => $id . '_foot',
+				'control' => array(
+					'set_component' => array(
+						'label'      => 'Send to Layout',
+						'type'       => 'button',
+						'attributes' => array(
+							'type' => 'submit',
+						),
+					),
+				),
+			),
+		);
 	}
 }

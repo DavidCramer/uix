@@ -8,6 +8,7 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui\control;
 
 /**
@@ -21,24 +22,24 @@ class date extends \uix\ui\control\text {
 	 * The type of object
 	 *
 	 * @since       1.0.0
-	 * @access public
+	 * @access      public
 	 * @var         string
 	 */
 	public $type = 'date';
 
-
 	/**
-	 * Define core UIX scripts - override to register core ( common scripts for uix type )
+	 * Define core UIX scripts - override to register core ( common scripts for
+	 * uix type )
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
 
-		// set style
-		$this->assets['style']['date']       = $this->url . 'assets/controls/datepicker/flatpickr.min.css';
-		$this->assets['style']['date-theme'] = $this->url . 'assets/controls/datepicker/flatpickr.airbnb.min.css';
-		$this->assets['script']['date']      = $this->url . 'assets/controls/datepicker/flatpickr.min.js';
+		// set style.
+		$this->assets['style']['date']       = '//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css';
+		$this->assets['style']['date-theme'] = '//cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.min.css';
+		$this->assets['script']['date']      = '//cdn.jsdelivr.net/npm/flatpickr';
 		$this->assets['script']['date-init'] = $this->url . 'assets/controls/datepicker/flatpickr-init.js';
 
 		parent::set_assets();
@@ -59,20 +60,20 @@ class date extends \uix\ui\control\text {
 	/**
 	 * Returns the main input field for rendering
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string Input field HTML string
 	 */
 	public function input() {
 
-		return '<input type="text" value="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
+		return '<input type="text" data-default-date="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
 	}
 
 	/**
 	 * Enqueues specific tabs assets for the active pages
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {

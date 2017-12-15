@@ -8,6 +8,7 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
@@ -21,7 +22,7 @@ class control extends \uix\data\data {
 	 * The type of object
 	 *
 	 * @since       1.0.0
-	 * @access public
+	 * @access      public
 	 * @var         string
 	 */
 	public $type = 'control';
@@ -29,11 +30,11 @@ class control extends \uix\data\data {
 	/**
 	 * Register the UIX objects
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @param string $slug Object slug
-	 * @param array $object object structure array
+	 * @param string $slug   Object slug
+	 * @param array  $object object structure array
 	 *
 	 * @return object|\uix object instance
 	 */
@@ -54,16 +55,16 @@ class control extends \uix\data\data {
 	/**
 	 * Sets the controls data
 	 *
-	 * @since 1.0.0
-	 * @see \uix\uix
+	 * @since  1.0.0
+	 * @see    \uix\uix
 	 * @access public
 	 */
 	public function setup() {
 
 		// run parents to setup sanitization filters
 		parent::setup();
-		$value = array( $this->slug, '' );
-		$data = uix()->request_vars( 'post' );
+		$value = [ $this->slug, '' ];
+		$data  = uix()->request_vars( 'post' );
 		if ( ! empty( $this->struct['value'] ) ) {
 			$value[ $this->slug ] = $this->struct['value'];
 		}
@@ -79,7 +80,7 @@ class control extends \uix\data\data {
 	/**
 	 * Create and Return the control's input name
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string The control name
 	 */
@@ -107,6 +108,7 @@ class control extends \uix\data\data {
 
 	/**
 	 * Handy method for setting data-* attributes using the setup parameter
+	 *
 	 * @since  1.0.0
 	 * @access public
 	 */
@@ -127,16 +129,16 @@ class control extends \uix\data\data {
 	 */
 	public function classes() {
 
-		return array(
+		return [
 			'widefat',
-		);
+		];
 
 	}
 
 	/**
 	 * Define core page styles
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
@@ -147,8 +149,8 @@ class control extends \uix\data\data {
 	/**
 	 * Render the Control
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string HTML of rendered control
 	 */
@@ -170,7 +172,7 @@ class control extends \uix\data\data {
 	/**
 	 * Returns the label for the control
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string label of control
 	 */
@@ -186,8 +188,8 @@ class control extends \uix\data\data {
 	/**
 	 * Returns the main input field for rendering
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 * @return string Input field HTML striung
 	 */
@@ -197,9 +199,9 @@ class control extends \uix\data\data {
 	}
 
 	/**
-	 * get this controls value
+	 * Get this controls value.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return mixed the controls value
 	 */
@@ -217,7 +219,7 @@ class control extends \uix\data\data {
 	/**
 	 * Returns the description for the control
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string description string
 	 */
@@ -231,10 +233,11 @@ class control extends \uix\data\data {
 	}
 
 	/**
-	 * checks if the current control is active
+	 * Checks if the current control is active.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
+	 * @return bool
 	 */
 	public function is_active() {
 		if ( ! empty( $this->parent ) ) {
