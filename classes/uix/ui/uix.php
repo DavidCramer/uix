@@ -35,7 +35,7 @@ abstract class uix {
 	 * @access public
 	 * @var      array
 	 */
-	public $struct = array();
+	public $struct = [];
 
 	/**
 	 * Set this object type assets
@@ -44,10 +44,10 @@ abstract class uix {
 	 * @access public
 	 * @var      array
 	 */
-	public $assets = array(
-		'script' => array(),
-		'style'  => array(),
-	);
+	public $assets = [
+		'script' => [],
+		'style'  => [],
+	];
 
 	/**
 	 * Object slug
@@ -65,7 +65,7 @@ abstract class uix {
 	 * @access public
 	 * @var      array
 	 */
-	public $child = array();
+	public $child = [];
 
 	/**
 	 * Objects parent
@@ -83,7 +83,7 @@ abstract class uix {
 	 * @access public
 	 * @var array
 	 */
-	public $attributes = array();
+	public $attributes = [];
 
 	/**
 	 * Base URL of this class
@@ -101,7 +101,7 @@ abstract class uix {
 	 * @access protected
 	 * @var      array
 	 */
-	protected $scripts = array();
+	protected $scripts = [];
 
 	/**
 	 * List of core object styles ( common styles )
@@ -110,7 +110,7 @@ abstract class uix {
 	 * @access protected
 	 * @var      array
 	 */
-	protected $styles = array();
+	protected $styles = [];
 
 	/**
 	 * UIX constructor
@@ -239,7 +239,7 @@ abstract class uix {
 	protected function actions() {
 
 		// init uix after loaded.
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', [ $this, 'init' ] );
 
 		// set location.
 		$location = 'wp_print_styles';
@@ -249,7 +249,7 @@ abstract class uix {
 		}
 
 		// init UIX headers.
-		add_action( $location, array( $this, 'enqueue_core' ) );
+		add_action( $location, [ $this, 'enqueue_core' ] );
 
 	}
 
@@ -277,7 +277,8 @@ abstract class uix {
 	 * @since  1.0.0
 	 * @access public
 	 */
-	public function init() {}
+	public function init() {
+	}
 
 	/**
 	 * Magic caller for adding child objects
@@ -379,11 +380,11 @@ abstract class uix {
 	 */
 	protected function core_assets() {
 		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
-		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
-		wp_localize_script( 'uix', 'uixApi', array(
+		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', [ 'dashicons' ] );
+		wp_localize_script( 'uix', 'uixApi', [
 			'root'  => esc_url_raw( rest_url() ),
 			'nonce' => wp_create_nonce( 'wp_rest' ),
-		) );
+		] );
 
 		// set assets . methods at before this point can set assets, after this not so much.
 		$this->set_assets();
@@ -407,10 +408,10 @@ abstract class uix {
 	 * @return string Attributes string for applying to an element
 	 */
 	public function build_attributes() {
-		// setup attributes
+		// setup attributes.
 		$this->set_attributes();
 
-		$attributes = array();
+		$attributes = [];
 		foreach ( $this->attributes as $att => $value ) {
 			$attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
 		}
