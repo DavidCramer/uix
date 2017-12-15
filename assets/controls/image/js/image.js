@@ -5,11 +5,13 @@
         // Uploading files
         var file_frame;
         var field;
+        var preview_size;
         jQuery(document).on('click', '.uix-image-control-button', function (event) {
 
             event.preventDefault();
 
             field = $(this).data('target');
+            preview_size = $(this).data('size');
 
             // If the media frame already exists, reopen it.
             if (file_frame) {
@@ -31,9 +33,12 @@
             file_frame.on('select', function () {
                 // We set multiple to false so only get one image from the uploader
                 attachment = file_frame.state().get('selection').first().toJSON();
-
+                var url = attachment.url;
+                if (attachment.sizes[preview_size]) {
+                    url = attachment.sizes[preview_size].url;
+                }
                 // Do something with attachment.id and/or attachment.url here
-                $('#' + field + '-wrap').html('<img src="' + attachment.url + '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' + field + '"><span class="dashicons dashicons-no"></span></a>');
+                $('#' + field + '-wrap').html('<img src="' + url + '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' + field + '"><span class="dashicons dashicons-no"></span></a>');
                 $('#' + field + '-control').val(attachment.id);
 
             });

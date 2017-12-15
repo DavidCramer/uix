@@ -70,14 +70,15 @@ class image extends \uix\ui\control {
 	 */
 	public function input() {
 
-		$output      = '<input type="hidden" value="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
-		$button_text = isset( $this->struct['add_label'] ) ? $this->struct['add_label'] : __( 'Select Image', 'uix' );
-		$output      .= '<div class="uix-image-control-wrapper" id="' . esc_attr( $this->id() ) . '-wrap">';
+		$output       = '<input type="hidden" value="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
+		$button_text  = isset( $this->struct['add_label'] ) ? $this->struct['add_label'] : __( 'Select Image', 'uix' );
+		$preview_size = isset( $this->struct['preview_size'] ) ? $this->struct['preview_size'] : 'medium';
+		$output       .= '<div class="uix-image-control-wrapper" id="' . esc_attr( $this->id() ) . '-wrap">';
 		if ( null !== $this->get_value() ) {
-			$output .= $this->get_preview();
+			$output .= $this->get_preview( $preview_size );
 		}
 		$output .= '</div>';
-		$output .= '<button type="button" data-target="' . esc_attr( $this->id() ) . '" class="button button-small uix-image-control-button">' . esc_html( $button_text ) . '</button>';
+		$output .= '<button type="button" data-size="' . esc_attr( $preview_size ) . '" data-target="' . esc_attr( $this->id() ) . '" class="button button-small uix-image-control-button">' . esc_html( $button_text ) . '</button>';
 
 		return $output;
 	}
@@ -87,10 +88,13 @@ class image extends \uix\ui\control {
 	 *
 	 * @since  1.0.0
 	 * @access public
+	 *
+	 * @param string $preview_size The size of the preview.
+	 *
 	 * @return string HTML of rendered preview
 	 */
-	private function get_preview() {
-		$data   = wp_get_attachment_image_src( $this->get_value(), 'medium' );
+	private function get_preview( $preview_size ) {
+		$data   = wp_get_attachment_image_src( $this->get_value(), $preview_size );
 		$return = null;
 		if ( ! empty( $data ) ) {
 			$return = '<img src="' . esc_attr( $data[0] ) . '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' . $this->id() . '"><span class="dashicons dashicons-no"></span></a>';
