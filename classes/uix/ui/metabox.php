@@ -130,10 +130,10 @@ class metabox extends panel {
 	 * @return int|bool the post ID or false if not exit.
 	 */
 	private function get_post_id() {
-		global $post;
 		$post_id = get_queried_object_id();
-		if ( empty( $post_id ) && is_object( $post ) ) {
-			if ( isset( $post->ID ) ) {
+		if ( empty( $post_id ) ) {
+			$post = get_post();
+			if ( $post instanceof \WP_Post ) {
 				$post_id = $post->ID;
 			}
 		}
@@ -153,7 +153,6 @@ class metabox extends panel {
 
 		$post_id = $this->get_post_id();
 
-		//$this->data = get_post_meta( $post_id, $this->slug, true );
 		$this->data = [
 			$this->slug => [],
 		];
