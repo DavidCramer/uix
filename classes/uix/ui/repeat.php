@@ -77,6 +77,21 @@ class repeat extends panel {
 	}
 
 	/**
+	 * Define core repeat styles ans scripts
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 */
+	public function set_assets() {
+
+		$this->assets['script'][ $this->type ] = $this->url . 'assets/js/' . $this->type . UIX_ASSET_DEBUG . '.js';
+		$this->assets['style'][ $this->type ]  = $this->url . 'assets/css/' . $this->type . UIX_ASSET_DEBUG . '.css';
+
+		parent::set_assets();
+
+	}
+
+	/**
 	 * Prepares Data for extraction and saving
 	 *
 	 * @since  1.0.0
