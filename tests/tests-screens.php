@@ -4,9 +4,17 @@
  * @group admin
  */
 class Tests_Admin_includesScreen extends WP_UnitTestCase {
+
 	var $core_screens = array(
-		'index.php'                            => array( 'base' => 'dashboard', 'id' => 'dashboard' ),
-		'edit.php'                             => array( 'base' => 'edit', 'id' => 'edit-post', 'post_type' => 'post' ),
+		'index.php'                            => array(
+			'base' => 'dashboard',
+			'id'   => 'dashboard',
+		),
+		'edit.php'                             => array(
+			'base'      => 'edit',
+			'id'        => 'edit-post',
+			'post_type' => 'post',
+		),
 		'post-new.php'                         => array(
 			'action'    => 'add',
 			'base'      => 'post',
@@ -126,16 +134,16 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 
 
 	function test_help_tabs() {
-		/*
-		$page = uix()->ui->page['childpage'];
+
+		$page = $this->get_page();
 		$page->add_settings_page();
 		set_current_screen( $page->screen_hook_suffix );
 		$page->child['default-help']->render();
-		$tab = rand_str();
+		$tab      = rand_str();
 		$tab_args = array(
-			'title' => 'first help',
-			'id' => 'default-help',
-			'content' => 'first help content',
+			'title'    => 'first help',
+			'id'       => 'default-help',
+			'content'  => 'first help content',
 			'callback' => false,
 			'priority' => 10,
 		);
@@ -143,14 +151,13 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 		$screen = get_current_screen();
 
 		$this->assertEquals( $screen->get_help_tab( 'default-help' ), $tab_args );
-		*/
+
 	}
 
 
 	function test_page_screen() {
 
-		/*
-		$page = uix()->ui->page['uixdemo'];
+		$page = $this->get_page();
 		$page->add_settings_page();
 		set_current_screen( $page->screen_hook_suffix );
 
@@ -170,7 +177,6 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 
 		$GLOBALS['current_screen'] = $screen;
 
-		*/
 	}
 
 	function test_panel_template() {
@@ -361,6 +367,46 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 		$this->assertTrue( is_string( $html ) );
 
 
+	}
+
+	public function test_actions() {
+
+		set_current_screen( 'edit.php' );
+		$page = $this->get_page( 'actions-test' );
+		$page->add_settings_page();
+		set_current_screen( $page->screen_hook_suffix );
+
+		$this->assertSame( 10, has_action( 'admin_enqueue_scripts', [
+			$page,
+			'enqueue_core',
+		] ) );
+
+		$out = $page->render();
+		$this->assertSame( 57, strpos( $out, 'uix-ajax uix-page wrap uix-half-page' ) );
+
+	}
+
+	public function get_page( $key = 'store_key_test' ) {
+		return uix()->add( 'page', $key, array(
+			'page_title' => 'Test Key',
+			'menu_title' => 'Test Key',
+			'store_key'  => 'wooter-storage',
+			'header'     => array(
+				'head' => array(
+					'attributes' => array(
+						'id' => 'test-id-head',
+					),
+					'label'      => 'Wooter',
+					'version'    => 'tooter',
+				),
+			),
+			'help'       => array(
+				'default-help' => array(
+					'title'   => 'first help',
+					'content' => 'first help content',
+				),
+			),
+		) );
 	}
 
 }

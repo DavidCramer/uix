@@ -40,7 +40,9 @@ class footer extends section {
 
 		$output = $this->render_template();
 		if ( ! empty( $this->child ) ) {
+			$output .= '<div class="uix-' . esc_attr( $this->type ) . '" ' . $this->build_attributes() . '>';
 			$output .= $this->render_children();
+			$output .= '</div>';
 		}
 
 		return $output;

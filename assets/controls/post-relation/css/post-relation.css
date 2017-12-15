@@ -1,3 +1,6 @@
+div.uix-control-input{
+    position: relative;
+}
 .uix-post-relation {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
@@ -40,7 +43,7 @@
 .uix-post-relation-footer {
     background: #f6f6f6;
     box-shadow: 0 0 0 1px #ddd inset;
-    box-sizing: padding-box;
+    box-sizing: border-box;
     display: inline-block;
     margin-top: -1px;
     padding: 6px;

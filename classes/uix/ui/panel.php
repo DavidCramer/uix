@@ -8,10 +8,12 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
- * UIX panel. a holder to contain sections. a panel with multiple sections creates a tabbed interface to switch between sections areas.
+ * UIX panel. a holder to contain sections. a panel with multiple sections
+ * creates a tabbed interface to switch between sections areas.
  *
  * @package uix\ui
  * @author  David Cramer
@@ -21,7 +23,7 @@ class panel extends \uix\data\data {
 	/**
 	 * The type of object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -30,7 +32,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Define core panel styles ans scripts
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
@@ -46,8 +48,9 @@ class panel extends \uix\data\data {
 	 * Get Data from all controls of this section
 	 *
 	 * @since 1.0.0
-	 * @see \uix\load
-	 * @return array|null Array of sections data structured by the controls or null if none.
+	 * @see   \uix\load
+	 * @return array|null Array of sections data structured by the controls or
+	 *                    null if none.
 	 */
 	public function get_data() {
 
@@ -63,7 +66,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Sets the data for all children
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @return array data of the child objects.
 	 */
@@ -86,7 +89,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Sets the data for all children
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_data( $data ) {
@@ -105,7 +108,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Render the panel
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function render() {
@@ -137,7 +140,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Determines the number of useable children for tab display
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return int Number of tabable children
 	 */
@@ -158,7 +161,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Check if child is a section object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 *
 	 * @param uix Object to test if it is to be rendered in a section
@@ -166,17 +169,18 @@ class panel extends \uix\data\data {
 	 * @return string|null HTML of rendered description
 	 */
 	public function is_section_object( $section ) {
-		$types = explode( '\\', get_class( $section ) );
-		$excl = array( 'help', 'header', 'footer', 'control' );
-		$merge = array_merge( $types, $excl );
+		$types  = explode( '\\', get_class( $section ) );
+		$excl   = array( 'help', 'header', 'footer', 'control' );
+		$merge  = array_merge( $types, $excl );
 		$unique = array_unique( $merge );
+
 		return count( $merge ) === count( $unique );
 	}
 
 	/**
 	 * Check if child is a control object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 *
 	 * @param uix Object to test if it is to be rendered in a section
@@ -191,7 +195,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Returns the class names for the tab wrapper
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function wrapper_class_names() {
@@ -214,7 +218,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Render the panels label
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null rendered html of label
 	 */
@@ -230,7 +234,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Render the panels Description
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered description
 	 */
@@ -246,7 +250,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Render the panels navigation tabs
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null Html of rendered navigation tabs
 	 */
@@ -272,9 +276,9 @@ class panel extends \uix\data\data {
 	/**
 	 * Render the tabs label
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 *
-	 * @param object $child Child object to render tab for.
+	 * @param object $child  Child object to render tab for.
 	 * @param string $active Set the tabactive or not.
 	 *
 	 * @access private
@@ -300,7 +304,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Render the panels Description
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered description
 	 */
@@ -318,8 +322,8 @@ class panel extends \uix\data\data {
 			}
 
 			$section->struct['active'] = $hidden;
-			$output .= $section->render();
-			$hidden = 'true';
+			$output                    .= $section->render();
+			$hidden                    = 'true';
 		}
 
 		$output .= '</div>';
@@ -330,7 +334,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Render a template based object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered template
 	 */
@@ -350,7 +354,7 @@ class panel extends \uix\data\data {
 	/**
 	 * Enqueues specific tabs assets for the active pages
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {

@@ -7,6 +7,7 @@
  * @author    David Cramer
  * @license   GPL-2.0+
  * @link      http://cramer.co.za
+ * @group uix-base
  */
 class Test_UIX extends WP_UnitTestCase {
 
@@ -356,7 +357,6 @@ class Test_UIX extends WP_UnitTestCase {
 	public function test_control_scripts_styles() {
 		global $wp_scripts, $wp_styles;
 
-		$this->assertEmpty( $wp_scripts );
 		$this->assertFalse( isset( $wp_styles->registered['slider-control'] ) );
 		$uix = uix();
 
@@ -402,7 +402,7 @@ class Test_UIX extends WP_UnitTestCase {
 
 		$html = $notice->render();
 		$hash = md5( $html );
-		//$this->assertSame( $hash, 'd838c2b84a6e72ad8c19b086be5e3588');
+		$this->assertSame( $hash, '434add83f3e626415228cde38219ad46');
 
 	}
 

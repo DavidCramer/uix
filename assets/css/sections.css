@@ -1,54 +1,62 @@
 .uix-sections {
-  width: 100%;
+    width: 100%;
 }
-.uix-has-tabs > .uix-sections{
-  border-left: 1px solid #eee;
-  float: left;
-  margin-left: -1px; 
-  width: calc(100% - 181px);
+
+.uix-has-tabs > .uix-sections {
+    border-left: 1px solid #eee;
+    float: left;
+    margin-left: -1px;
+    width: calc(100% - 181px);
 }
-.uix-has-tabs.uix-top-tabs > .uix-sections{
-  float: none;
-  width: 100%;
-  border: none;
-}
-#side-sortables .uix-sections{
+
+.uix-has-tabs.uix-top-tabs > .uix-sections {
     float: none;
     width: 100%;
     border: none;
 }
+
+#side-sortables .uix-sections {
+    float: none;
+    width: 100%;
+    border: none;
+}
+
 .uix-has-tabs .uix-section {
-  display: none;
+    display: none;
 }
+
 .uix-has-tabs .uix-section[aria-hidden="false"] {
-  display: block;
+    display: block;
 }
+
 .uix-section > h3 {
 
-  font-size: 14px;
-  line-height: 1.4;
-  margin: 0;
-  padding: 10px 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 10px 12px;
 }
 
-.uix-has-tabs .uix-section-content{
+.uix-has-tabs .uix-section-content {
     padding: 8px 12px 8px;
 }
 
 .uix-section > .uix-section-content > .uix-control {
-  margin-bottom: 21px;
+    margin-bottom: 21px;
 }
+
 .uix-section > .uix-section-content > .uix-control-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 3px;
+    display: block;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
+
 .uix-section > .uix-section-content > .uix-control-description {
-  color: #808080;
-  display: block;
-  font-style: oblique;
-  font-weight: 400;
-  margin-bottom: 3px;
+    color: #808080;
+    display: block;
+    font-style: oblique;
+    font-weight: 400;
+    margin-bottom: 3px;
 }
 
 .uix-section .page-title-action, .uix-section .page-title-action:active,
@@ -68,9 +76,16 @@
     text-shadow: none;
     top: -3px;
 }
-
+.uix-footer{
+    background-color: #f9f9f9;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    border-top: 0;
+    padding: 12px;
+    text-align: right;
+}
 @media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
     .uix-has-tabs .uix-sections {
-      width: calc(100% - 48px);
+        width: calc(100% - 48px);
     }
 }

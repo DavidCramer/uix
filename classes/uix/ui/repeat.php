@@ -8,20 +8,21 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
  * A repetable container for repeatable areas.
  *
  * @since 1.0.0
- * @see \uix\uix
+ * @see   \uix\uix
  */
 class repeat extends panel {
 
 	/**
 	 * The type of object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -30,7 +31,7 @@ class repeat extends panel {
 	/**
 	 * The instance of this object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      int|string
 	 */
@@ -39,7 +40,7 @@ class repeat extends panel {
 	/**
 	 * total instances of this object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      int|string
 	 */
@@ -48,7 +49,7 @@ class repeat extends panel {
 	/**
 	 * The templates to render in the footer
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -57,7 +58,7 @@ class repeat extends panel {
 	/**
 	 * Button Label
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -65,37 +66,53 @@ class repeat extends panel {
 
 
 	/**
-	 * Define core page style
+	 * Setup and prepare data.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
-	public function set_assets() {
-
-		$this->assets['script']['repeat'] = $this->url . 'assets/js/repeat' . UIX_ASSET_DEBUG . '.js';
-		$this->assets['style']['repeat']  = $this->url . 'assets/css/repeat' . UIX_ASSET_DEBUG . '.css';
-
-		parent::set_assets();
-	}
-
 	public function setup() {
 		parent::setup();
 		$this->prepare_data();
 	}
 
 	/**
-	 * prepares Data for extraction and saving
+	 * Define core repeat styles ans scripts
 	 *
-	 * @since 1.0.0
-	 * @see \uix\uix
+	 * @since  1.0.0
+	 * @access public
+	 */
+	public function set_assets() {
+
+		$this->assets['script'][ $this->type ] = $this->url . 'assets/js/' . $this->type . UIX_ASSET_DEBUG . '.js';
+		$this->assets['style'][ $this->type ]  = $this->url . 'assets/css/' . $this->type . UIX_ASSET_DEBUG . '.css';
+
+		parent::set_assets();
+
+	}
+
+	/**
+	 * Prepares Data for extraction and saving
+	 *
+	 * @since  1.0.0
+	 * @see    \uix\uix
 	 * @access public
 	 */
 	public function prepare_data() {
 		$submit_data = uix()->request_vars( 'post' );
 		if ( ! empty( $submit_data ) ) {
-			$instances = array_filter( array_keys( $submit_data ), array( $this, 'compare_var_key' ) );
-			$instances = array_map( array( $this, 'build_instance_count' ), $instances );
-			array_map( array( $this, 'push_instance_setup' ), array_unique( $instances ) );
+			$instances = array_filter( array_keys( $submit_data ), [
+				$this,
+				'compare_var_key',
+			] );
+			$instances = array_map( [
+				$this,
+				'build_instance_count',
+			], $instances );
+			array_map( [
+				$this,
+				'push_instance_setup',
+			], array_unique( $instances ) );
 		}
 		$this->instance = 0; // reset instance;
 	}
@@ -103,7 +120,7 @@ class repeat extends panel {
 	/**
 	 * Sets the data for all children
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function set_data( $data ) {
@@ -124,14 +141,17 @@ class repeat extends panel {
 	/**
 	 * Render the complete section
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered repeatable
 	 */
 	public function render() {
 
-		add_action( 'admin_footer', array( $this, 'render_repeatable_script' ) );
-		add_action( 'wp_footer', array( $this, 'render_repeatable_script' ) );
+		add_action( 'admin_footer', [
+			$this,
+			'render_repeatable_script',
+		] );
+		add_action( 'wp_footer', [ $this, 'render_repeatable_script' ] );
 
 		$output = '<div data-instance="{{json this}}" data-uix-template="' . esc_attr( $this->id() ) . '" ' . $this->build_attributes() . '>';
 		$output .= $this->render_instances();
@@ -145,7 +165,7 @@ class repeat extends panel {
 	/**
 	 * uix object id
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string The object ID
 	 */
@@ -157,7 +177,7 @@ class repeat extends panel {
 	/**
 	 * Render each instance from data
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 * @return string|null HTML of rendered instances
 	 */
@@ -181,7 +201,7 @@ class repeat extends panel {
 	/**
 	 * Sets the data for all children
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function get_data() {
@@ -198,12 +218,12 @@ class repeat extends panel {
 	 * @return array
 	 */
 	public function set_instance_data() {
-		$data           = array();
+		$data           = [];
 		$this->instance = 0;
 		while ( $this->instance < $this->instances ) {
 
 			if ( ! isset( $data[ $this->instance ] ) ) {
-				$data[ $this->instance ] = array();
+				$data[ $this->instance ] = [];
 			}
 
 			if ( null !== $this->get_instance_data() ) {
@@ -221,7 +241,7 @@ class repeat extends panel {
 	 * @return array
 	 */
 	public function get_instance_data() {
-		$data = array();
+		$data = [];
 		foreach ( $this->child as $child ) {
 			if ( method_exists( $child, 'get_data' ) ) {
 				if ( null !== $child->get_data() ) {
@@ -236,7 +256,7 @@ class repeat extends panel {
 	/**
 	 * Render the internal section
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered object
 	 */
@@ -257,7 +277,7 @@ class repeat extends panel {
 	/**
 	 * Render the add more button and template
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered object
 	 */
@@ -281,8 +301,8 @@ class repeat extends panel {
 	/**
 	 * Render the script footer template
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 */
 	public function render_repeatable_script() {
@@ -299,7 +319,7 @@ class repeat extends panel {
 	/**
 	 * Enqueues specific tabs assets for the active pages
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {
@@ -312,8 +332,8 @@ class repeat extends panel {
 	/**
 	 * Compares the key of submitted fields to match instances
 	 *
-	 * @since 1.0.0
-	 * @see \uix\uix
+	 * @since  1.0.0
+	 * @see    \uix\uix
 	 * @access private
 	 *
 	 * @param string $key Key to compare
@@ -329,6 +349,7 @@ class repeat extends panel {
 
 	/**
 	 * Breaks apart the ID to get the base parts without the instance number
+	 *
 	 * @access private
 	 * @return array
 	 */
@@ -340,7 +361,9 @@ class repeat extends panel {
 	}
 
 	/**
-	 * Pushes the children to initilize setup in order to capture the instance data
+	 * Pushes the children to initilize setup in order to capture the instance
+	 * data
+	 *
 	 * @access private
 	 *
 	 * @param $index
@@ -348,7 +371,7 @@ class repeat extends panel {
 	private function push_instance_setup( $index ) {
 		$this->instances = $this->instance = $index;
 		if ( ! isset( $this->data[ $this->instance ] ) ) {
-			$this->data[ $this->instance ] = array();
+			$this->data[ $this->instance ] = [];
 		}
 
 		foreach ( $this->child as $child ) {
@@ -359,6 +382,7 @@ class repeat extends panel {
 
 	/**
 	 * Removes the instance number from the submission key
+	 *
 	 * @access private
 	 *
 	 * @param $key

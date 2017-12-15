@@ -48,15 +48,4 @@ class editor extends \uix\ui\control\textarea {
 
 	}
 
-	/**
-	 * Define core UIX scripts - override to register core ( common scripts for uix type )
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 */
-	public function set_assets() {
-
-		parent::set_assets();
-	}
-
 }

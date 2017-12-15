@@ -1,26 +1,37 @@
 language: php
-
+sudo: false
+dist: trusty
 php:
-    - 5.3
-    - 5.5
-    - 7.0
-
+  - 5.6
+  - 7.0
+  - 7.1
 env:
-    - WP_VERSION=latest WP_MULTISITE=0
-
+  - WP_VERSION=latest WP_MULTISITE=0
 matrix:
   fast_finish: true
-
 before_script:
-    - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-
+  - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
+      composer global require "phpunit/phpunit=5.7.*"
+    else
+      composer global require "phpunit/phpunit=4.8.*"
+    fi
 script:
-  - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then phpunit --coverage-clover=coverage.clover; else phpunit; fi
-
+  - phpenv config-rm xdebug.ini
+  - phpunit
+  - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then phpunit --coverage-clover=coverage.clover;
+    else phpunit; fi
 after_script:
-    - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-    - if [[ $TRAVIS_PHP_VERSION = '5.5' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then wget https://scrutinizer-ci.com/ocular.phar;
+    fi
+  - if [[ $TRAVIS_PHP_VERSION = '7.1' ]]; then php ocular.phar code-coverage:upload
+    --format=php-clover coverage.clover; fi
 branches:
-    only:
-        - master
-        - 1.0.x
+  only:
+    - develop
+    - master
+notifications:
+  slack:
+    secure: TRH32jJ3TdPN5pOCsd0Gb7lxl7Tq1pfigKKC7RR1APJNc8H+4iIp50T2hSGYw0fKL5VXXwiitHrm91iHMFUcxdnbJGkhpsMF+ZyBK6MqdYSNauAMwL/klRZh7XSTwssE7ggQH7apu1VyTt32j7A9eEne+sDnNWMhC+HLFxkc23ye4lpSIw1WYfVeCqkCeTjSeS3WoXFsiPNjv2EX4H7XsUwfNUcc7fsdVzvGc3KvaxO6Yvm1pNd4TrMk3G6e7kKMbEOQJyfGHiApYXOxWb6t6WwFqqVB3XWU/5DZfhS/F2yKE78z6gHr1p9LKEpkAxSpExa+AqLiaoo0f258kGq7DP8kZ7J0Mxe3192Qk+Zfr9/+iD8IWgiiS/Dz8yTc9mogsIhdghD77Gn0alM42gvUst9mBM/adNJdAgpTEgZG9Zbc+B+aD+LDepGF4dC8nFKRh0eU/yoKNvJq2EqMNMr3wijMppFtuLOdPcC+HQpPLsnIRhLEZXWPmPnGBGSs53h+/9eWD7Bm6SvMiujICCZEmRdQ9QHYYeUyR0C2kc75x5o1+mcLP+LEUWe0b95BMFjaLcl9khqzEsUnm2M964pMV4DqOQiV/kgEqOQWDDmExCspkK76R3sC++/93lm6FjyOpL0RTCY67jXTSl0r6c7ccqJnfWxSQLuD5h8Pev3XUcE=

@@ -35,7 +35,7 @@ abstract class uix {
 	 * @access public
 	 * @var      array
 	 */
-	public $struct = array();
+	public $struct = [];
 
 	/**
 	 * Set this object type assets
@@ -44,28 +44,28 @@ abstract class uix {
 	 * @access public
 	 * @var      array
 	 */
-	public $assets = array(
-		'script' => array(),
-		'style'  => array(),
-	);
+	public $assets = [
+		'script' => [],
+		'style'  => [],
+	];
 
 	/**
-	 * object slug
+	 * Object slug
+	 *
 	 * @access public
 	 * @since  1.0.0
-	 *
 	 * @var      string
 	 */
 	public $slug;
 
 	/**
-	 * array of child objects
+	 * Array of child objects
 	 *
 	 * @since  1.0.0
 	 * @access public
 	 * @var      array
 	 */
-	public $child = array();
+	public $child = [];
 
 	/**
 	 * Objects parent
@@ -83,7 +83,7 @@ abstract class uix {
 	 * @access public
 	 * @var array
 	 */
-	public $attributes = array();
+	public $attributes = [];
 
 	/**
 	 * Base URL of this class
@@ -101,7 +101,7 @@ abstract class uix {
 	 * @access protected
 	 * @var      array
 	 */
-	protected $scripts = array();
+	protected $scripts = [];
 
 	/**
 	 * List of core object styles ( common styles )
@@ -110,7 +110,7 @@ abstract class uix {
 	 * @access protected
 	 * @var      array
 	 */
-	protected $styles = array();
+	protected $styles = [];
 
 	/**
 	 * UIX constructor
@@ -118,25 +118,25 @@ abstract class uix {
 	 * @since  1.0.0
 	 * @access protected
 	 *
-	 * @param string $slug   Object slug
-	 * @param array  $object Objects structure array
-	 * @param uix    $parent Parent UIX Object
+	 * @param string $slug   Object slug.
+	 * @param array  $object Objects structure array.
+	 * @param uix    $parent Parent UIX Object.
 	 */
 	protected function __construct( $slug, $object, $parent = null ) {
 
-		// set the slug
+		// set the slug.
 		$this->slug = $slug;
-		// set the object
+		// set the object.
 		$this->struct = $object;
-		// set parent if given
+		// set parent if given.
 		$this->parent = $parent;
 		// Set the root URL for this plugin.
 		$this->set_url();
-		// do setup
+		// do setup.
 		$this->setup();
-		// Set required assets
+		// Set required assets.
 		$this->set_assets();
-		// start internal actions to allow for automating post init
+		// start internal actions to allow for automating post init.
 		$this->actions();
 
 	}
@@ -154,11 +154,11 @@ abstract class uix {
 
 		if ( false !== strpos( $this_url, '/' ) ) {
 			$url_path = explode( '/', $this_url );
-			// generic 3 path depth: classes/namespace/ui|data
+			// generic 3 path depth: classes/namespace/ui|data.
 			array_splice( $url_path, count( $url_path ) - 3 );
 			$this_url = implode( '/', $url_path );
 		}
-		// setup the base URL
+		// setup the base URL.
 		$this->url = trailingslashit( $plugins_url . '/' . $this_url );
 	}
 
@@ -178,17 +178,18 @@ abstract class uix {
 	}
 
 	/**
-	 * process type key child
+	 * Process type key child
 	 *
 	 * @since  1.0.0
 	 * @access public
+	 *
+	 * @param string $type The type of child object.
 	 */
 	public function process_child( $type ) {
 
 		if ( isset( $this->struct[ $type ]['id'] ) ) {
 			$this->{$type}( $this->struct[ $type ]['id'], $this->struct[ $type ] );
 		} else {
-
 			$this->process_children( $type );
 		}
 
@@ -213,7 +214,8 @@ abstract class uix {
 	}
 
 	/**
-	 * Define core UIX styles - override to register core ( common styles for uix type )
+	 * Define core UIX styles - override to register core ( common styles for
+	 * uix type )
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -228,25 +230,26 @@ abstract class uix {
 	}
 
 	/**
-	 * setup actions and hooks - override to add specific hooks. use parent::actions() to keep admin head
+	 * setup actions and hooks - override to add specific hooks. use
+	 * parent::actions() to keep admin head
 	 *
 	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function actions() {
 
-		// init uix after loaded
-		add_action( 'init', array( $this, 'init' ) );
+		// init uix after loaded.
+		add_action( 'init', [ $this, 'init' ] );
 
-		// set location
+		// set location.
 		$location = 'wp_print_styles';
 
 		if ( is_admin() ) {
 			$location = 'admin_enqueue_scripts';
 		}
 
-		// init UIX headers
-		add_action( $location, array( $this, 'enqueue_core' ) );
+		// init UIX headers.
+		add_action( $location, [ $this, 'enqueue_core' ] );
 
 	}
 
@@ -357,6 +360,7 @@ abstract class uix {
 	/**
 	 * Determin if a UIX object should be active for this screen
 	 * Intended to be ovveridden
+	 *
 	 * @since  1.0.0
 	 * @access public
 	 */
@@ -375,12 +379,12 @@ abstract class uix {
 	 * @access protected
 	 */
 	protected function core_assets() {
-		wp_register_script( 'uix', $this->url . 'assets/dist/js/core.js', array(), UIX_VER, true );
-		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', array( 'dashicons' ) );
-		wp_localize_script( 'uix', 'uixApi', array(
+		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
+		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', [ 'dashicons' ] );
+		wp_localize_script( 'uix', 'uixApi', [
 			'root'  => esc_url_raw( rest_url() ),
 			'nonce' => wp_create_nonce( 'wp_rest' ),
-		) );
+		] );
 
 		// set assets . methods at before this point can set assets, after this not so much.
 		$this->set_assets();
@@ -404,10 +408,10 @@ abstract class uix {
 	 * @return string Attributes string for applying to an element
 	 */
 	public function build_attributes() {
-		// setup attributes
+		// setup attributes.
 		$this->set_attributes();
 
-		$attributes = array();
+		$attributes = [];
 		foreach ( $this->attributes as $att => $value ) {
 			$attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
 		}
@@ -447,21 +451,6 @@ abstract class uix {
 		}
 
 		return $id;
-	}
-
-	/** build the uix data path
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return string The object ID
-	 */
-	public function path() {
-		$path = 'data';
-		if ( ! empty( $this->parent ) ) {
-			$path = $this->parent->path() . '.' . $this->slug;
-		}
-
-		return $path;
 	}
 
 	/**

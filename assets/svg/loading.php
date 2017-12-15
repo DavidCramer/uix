@@ -1,6 +1,10 @@
 <?php
 header( 'Content-type: image/svg+xml' );
-$color = '#' . strip_tags( $_GET['base_color'] );
+if ( empty( $_GET['base_color'] ) ) {
+	$base_color = '#' . stripslashes( $_GET['base_color'] );
+} else {
+	$color = '#7CB342';
+}
 if ( ! preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
 	$color = '#7CB342';
 }
