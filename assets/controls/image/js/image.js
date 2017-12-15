@@ -39,7 +39,7 @@
                 }
                 // Do something with attachment.id and/or attachment.url here
                 $('#' + field + '-wrap').html('<img src="' + url + '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' + field + '"><span class="dashicons dashicons-no"></span></a>');
-                $('#' + field + '-control').val(attachment.id);
+                $('#' + field + '-control').val(attachment.id).trigger('change');
 
             });
 
