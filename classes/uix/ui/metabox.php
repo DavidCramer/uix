@@ -8,10 +8,12 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
  * Metabox class for adding metaboxes to post types in the post editor
+ *
  * @package uix\ui
  * @author  David Cramer
  */
@@ -20,7 +22,7 @@ class metabox extends panel {
 	/**
 	 * The type of object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -29,7 +31,7 @@ class metabox extends panel {
 	/**
 	 * Holds the current post object
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      WP_Post
 	 */
@@ -38,7 +40,7 @@ class metabox extends panel {
 	/**
 	 * Status of the metabox to determin if assets should be loaded
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var      bool
 	 */
@@ -47,7 +49,7 @@ class metabox extends panel {
 	/**
 	 * Setup submission data
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function setup() {
@@ -61,26 +63,26 @@ class metabox extends panel {
 	/**
 	 * set metabox styles
 	 *
-	 * @since 1.0.0
-	 * @see \uix\ui\uix
+	 * @since  1.0.0
+	 * @see    \uix\ui\uix
 	 * @access public
 	 */
 	public function set_assets() {
 
-		$this->assets['style']['metabox'] = $this->url . 'assets/css/metabox' . UIX_ASSET_DEBUG . '.css';
-		$this->assets['script']['baldrick'] = array(
+		$this->assets['style']['metabox']   = $this->url . 'assets/css/metabox' . UIX_ASSET_DEBUG . '.css';
+		$this->assets['script']['baldrick'] = [
 			'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'jquery' ),
-		);
+			'deps' => [ 'jquery' ],
+		];
 		parent::set_assets();
 	}
 
 	/**
 	 * Checks the screen object to determin if the metabox should load assets
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
-	 * @uses "current_screen" hook
+	 * @uses   "current_screen" hook
 	 *
 	 * @param screen $screen The current screen object;
 	 */
@@ -95,24 +97,24 @@ class metabox extends panel {
 	/**
 	 * Add metaboxes to screen
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
-	 * @uses "add_meta_boxes" hook
+	 * @uses   "add_meta_boxes" hook
 	 */
 	public function add_metaboxes() {
 
 		// metabox defaults
-		$defaults = array(
+		$defaults = [
 			'context'  => 'advanced',
 			'priority' => 'default',
-		);
+		];
 
 		$metabox = array_merge( $defaults, $this->struct );
 
 		add_meta_box(
 			'metabox-' . $this->id(),
 			$metabox['name'],
-			array( $this, 'create_metabox' ),
+			[ $this, 'create_metabox' ],
 			$metabox['screen'],
 			$metabox['context'],
 			$metabox['priority']
@@ -123,8 +125,8 @@ class metabox extends panel {
 	/**
 	 * Callback for the `add_meta_box` that sets the metabox data and renders it
 	 *
-	 * @since 1.0.0
-	 * @uses "add_meta_box" function
+	 * @since  1.0.0
+	 * @uses   "add_meta_box" function
 	 * @access public
 	 *
 	 * @param wp_post $post Current post for the metabox
@@ -132,12 +134,10 @@ class metabox extends panel {
 	public function create_metabox( $post ) {
 
 		$this->post = $post;
-		$data     = array(
-			$this->slug => array(),
-		);
-		foreach ( (array) $this->child as $child ) {
-			$data[ $this->slug ][ $child->slug ] = get_post_meta( $post->ID, $child->slug, true );
-		}
+		$data       = [
+			$this->slug => [],
+		];
+		$data       = get_post_meta( $post->ID, $this->slug, true );
 		$this->set_data( $data );
 		echo $this->render();
 
@@ -146,7 +146,7 @@ class metabox extends panel {
 	/**
 	 * Render the Metabox
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return string HTML of rendered metabox
 	 */
@@ -158,12 +158,12 @@ class metabox extends panel {
 	/**
 	 * Saves a metabox data
 	 *
-	 * @uses "save_post" hook
-	 * @since 1.0.0
+	 * @uses   "save_post" hook
+	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @param int $post_id ID of the current post being saved
-	 * @param wp_post $post Current post being saved
+	 * @param int     $post_id ID of the current post being saved
+	 * @param wp_post $post    Current post being saved
 	 */
 	public function save_meta( $post_id, $post ) {
 
@@ -186,8 +186,10 @@ class metabox extends panel {
 	}
 
 	/**
-	 * Determin which metaboxes are used for the current screen and set them active
-	 * @since 1.0.0
+	 * Determin which metaboxes are used for the current screen and set them
+	 * active
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function is_active() {
@@ -197,11 +199,11 @@ class metabox extends panel {
 	/**
 	 * Save the meta data for the post
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 *
 	 * @param string $slug slug of the meta_key
-	 * @param mixed $data Data to be saved
+	 * @param mixed  $data Data to be saved
 	 */
 	private function save_meta_data( $slug, $data ) {
 
@@ -218,7 +220,7 @@ class metabox extends panel {
 	/**
 	 * setup actions and hooks to add metaboxes and save metadata
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function actions() {
@@ -226,18 +228,18 @@ class metabox extends panel {
 		// run parent to keep init and enqueuing assets
 		parent::actions();
 		// set screen activation
-		add_action( 'current_screen', array( $this, 'set_active_status' ), 25 );
+		add_action( 'current_screen', [ $this, 'set_active_status' ], 25 );
 		// add metaboxes
-		add_action( 'add_meta_boxes', array( $this, 'add_metaboxes' ), 25 );
+		add_action( 'add_meta_boxes', [ $this, 'add_metaboxes' ], 25 );
 		// save metabox
-		add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
+		add_action( 'save_post', [ $this, 'save_meta' ], 10, 2 );
 
 	}
 
 	/**
 	 * Enqueues specific tabs assets for the active pages
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {
@@ -258,7 +260,7 @@ class metabox extends panel {
 	/**
 	 * Writes script required to make a metabox `chromeless`
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 */
 	protected function chromeless() {
@@ -270,6 +272,7 @@ class metabox extends panel {
 			$style .= '#metabox-' . $this->id() . ' .hndle {display: none;}';
 			$style .= '#metabox-' . $this->id() . ' > .inside {padding: 0;}';
 		}
+
 		return $style;
 	}
 

@@ -101,18 +101,18 @@ class repeat extends panel {
 	public function prepare_data() {
 		$submit_data = uix()->request_vars( 'post' );
 		if ( ! empty( $submit_data ) ) {
-			$instances = array_filter( array_keys( $submit_data ), array(
+			$instances = array_filter( array_keys( $submit_data ), [
 				$this,
 				'compare_var_key',
-			) );
-			$instances = array_map( array(
+			] );
+			$instances = array_map( [
 				$this,
 				'build_instance_count',
-			), $instances );
-			array_map( array(
+			], $instances );
+			array_map( [
 				$this,
 				'push_instance_setup',
-			), array_unique( $instances ) );
+			], array_unique( $instances ) );
 		}
 		$this->instance = 0; // reset instance;
 	}
@@ -147,11 +147,11 @@ class repeat extends panel {
 	 */
 	public function render() {
 
-		add_action( 'admin_footer', array(
+		add_action( 'admin_footer', [
 			$this,
 			'render_repeatable_script',
-		) );
-		add_action( 'wp_footer', array( $this, 'render_repeatable_script' ) );
+		] );
+		add_action( 'wp_footer', [ $this, 'render_repeatable_script' ] );
 
 		$output = '<div data-instance="{{json this}}" data-uix-template="' . esc_attr( $this->id() ) . '" ' . $this->build_attributes() . '>';
 		$output .= $this->render_instances();
@@ -218,12 +218,12 @@ class repeat extends panel {
 	 * @return array
 	 */
 	public function set_instance_data() {
-		$data           = array();
+		$data           = [];
 		$this->instance = 0;
 		while ( $this->instance < $this->instances ) {
 
 			if ( ! isset( $data[ $this->instance ] ) ) {
-				$data[ $this->instance ] = array();
+				$data[ $this->instance ] = [];
 			}
 
 			if ( null !== $this->get_instance_data() ) {
@@ -241,7 +241,7 @@ class repeat extends panel {
 	 * @return array
 	 */
 	public function get_instance_data() {
-		$data = array();
+		$data = [];
 		foreach ( $this->child as $child ) {
 			if ( method_exists( $child, 'get_data' ) ) {
 				if ( null !== $child->get_data() ) {
@@ -371,7 +371,7 @@ class repeat extends panel {
 	private function push_instance_setup( $index ) {
 		$this->instances = $this->instance = $index;
 		if ( ! isset( $this->data[ $this->instance ] ) ) {
-			$this->data[ $this->instance ] = array();
+			$this->data[ $this->instance ] = [];
 		}
 
 		foreach ( $this->child as $child ) {
