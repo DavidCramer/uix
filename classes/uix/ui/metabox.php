@@ -151,14 +151,19 @@ class metabox extends panel {
 	 */
 	public function get_data() {
 
-		$post_id = $this->get_post_id();
-
-		$this->data = [
-			$this->slug => [],
-		];
+		$post_id    = $this->get_post_id();
+		$this->data = get_post_meta( $post_id, $this->slug, true );
+		if ( false === $this->data ) {
+			$this->data = [
+				$this->slug => [],
+			];
+		}
 		if ( ! empty( $this->child ) ) {
 			foreach ( $this->child as $child ) {
-				$this->data[ $this->slug ][ $child->slug ] = get_post_meta( $post_id, $child->slug, true );
+				$has_child = get_post_meta( $post_id, $child->slug, true );
+				if ( false !== $has_child ) {
+					$this->data[ $this->slug ][ $child->slug ] = $has_child;
+				}
 			}
 		}
 
