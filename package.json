@@ -1,23 +1,20 @@
- {
+{
   "name": "uix",
   "version": "1.0.0",
-  "description": "UIX Example Plugin",
+  "description": "UIX WordPress UI Framerwork.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Desertsnowman/uix"
+    "url": "https://github.com/DavidCramer/uix"
   },
   "author": "David Cramer",
   "license": "GPLv2+",
   "bugs": {
-    "url": "https://github.com/Desertsnowman/uix/issues"
+    "url": "https://github.com/DavidCramer/uix/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-curl": "~2.2.0",
-    "grunt-contrib-cssmin": "~0.6.2",
-    "grunt-contrib-clean": "~0.7.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-rename" : "^0.1.4"
+    "grunt": "1.0.1",
+    "grunt-contrib-uglify": "3.2.1",
+    "grunt-curl": "2.4.1",
+    "grunt-contrib-cssmin": "2.2.1"
   }
 }
