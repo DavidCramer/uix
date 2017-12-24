@@ -14,33 +14,10 @@ Important note is that UIX used namespacing so it is PHP 5.3+. It's also heavy i
 
 ### Installation
 
-There are three ways to use UIX; Include, Composer & Grunt.
+Currently using it as a WordPress plugin is the only reliable way to use it.
+- A Composer method will be included soon. 
+- Grunt process will be updated and be available again.
 
-#### Include
-
-Simply add it to a uix folder in the root of your plugin and include the `uix-bootstrap.php`
-and include it in your main plguin file like below:
-```php
-require_once( 'uix/uix-bootstrap.php' );
-```
-
-#### Composer
-
-Using composer, add the following to require property of your composer.json file: `"desertsnowman/uix": "dev-master"`
-then run `$ composer install`
-
-In your main plugin file include the composer autoloader: `require_once( 'vendor/autoload.php' );`
-
-#### Grunt
-
-The problem with both the include and composer is versioning. The Grunt installer overcomes this by "installing" the library under your plugins namespace.
-Get the [UIX-WP starter plugin]( https://github.com/DavidCramer/uix-wp ) and copy it a folder in your plugins directory.
-Edit the `package.json` file with the details of your plugin. Pay close attention to the `namespace` and the `prefix` as these are very important.
-
-Once thats done, run `npm install` and wait. The latest version will be pulled from this repo, and the `uix` namespace rewritten under your own plugin.
-So theres no chance of having a clashing version
-
-Then simply go to WordPress admin and activate the plugin.
 
 ## Registration
 

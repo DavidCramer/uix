@@ -8,30 +8,32 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix;
 
 /**
- * UI loader and handler class. This forms a single instance with UI objects attached
+ * UI loader and handler class. This forms a single instance with UI objects
+ * attached
  *
  * @package uix
  * @author  David Cramer
  */
-class ui{
+class ui {
 
 
 	/**
 	 * Array of definitions locations
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @var   array
 	 */
-	protected $locations = array();
+	protected $locations = [];
 
 	/**
 	 * Array of object instances
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @var   array
 	 */
@@ -40,16 +42,16 @@ class ui{
 	/**
 	 * Array of post and get data
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 * @var   array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * Holds instance
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 * @var      object/UI
 	 */
@@ -58,20 +60,18 @@ class ui{
 	/**
 	 * UI structure auto load
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function auto_load() {
 		/**
-		 * do UI loader locations
+		 * Do UI loader locations.
 		 *
 		 * @param ui $this Current instance of this class
 		 */
 		do_action( 'uix_register', $this );
-		// init the share object
 		uix_share();
 
-		// go over each locations
 		foreach ( $this->locations as $type => $paths ) {
 
 			if ( $this->is_callable( $type ) ) {
@@ -85,8 +85,8 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type The type of object to add
-	 * @param array $paths array of paths to process and add
+	 * @param string $type  The type of object to add.
+	 * @param array  $paths array of paths to process and add.
 	 */
 	private function process_paths( $type, $paths ) {
 
@@ -103,17 +103,21 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type The type of object to add
-	 * @param string $slug The objects slug to add
-	 * @param array $structure The objects structure
-	 * @param object $parent object
+	 * @param string $type      The type of object to add.
+	 * @param string $slug      The objects slug to add.
+	 * @param array  $structure The objects structure.
+	 * @param object $parent    object.
 	 *
 	 * @return object The instance of the object type or null if invalid
 	 */
 	public function add( $type, $slug, $structure, $parent = null ) {
 		$init = $this->get_register_callback( $type );
 		if ( null !== $init ) {
-			$object                     = call_user_func_array( $init, array( $slug, $structure, $parent ) );
+			$object                     = call_user_func_array( $init, [
+				$slug,
+				$structure,
+				$parent,
+			] );
 			$this->ui->{$type}[ $slug ] = $object;
 
 			return $object;
@@ -127,12 +131,13 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type The type of object to get register callback for
+	 * @param string $type The type of object to get register callback for.
 	 *
-	 * @return array|null Callback array for registering an object or null if invalid
+	 * @return array|null Callback array for registering an object or null if
+	 *                    invalid
 	 */
 	public function get_register_callback( $type ) {
-		$init = array( '\uix\ui\\' . $type, 'register' );
+		$init = [ '\uix\ui\\' . $type, 'register' ];
 		if ( ! is_callable( $init ) ) {
 			return null;
 		}
@@ -145,12 +150,12 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type The type of object to check
+	 * @param string $type The type of object to check.
 	 *
 	 * @return bool
 	 */
 	public function is_callable( $type ) {
-		$init = array( '\uix\ui\\' . $type, 'register' );
+		$init = [ '\uix\ui\\' . $type, 'register' ];
 
 		return is_callable( $init );
 	}
@@ -160,9 +165,9 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type The type of object to add
-	 * @param array $objects The objects structure
-	 * @param object $parent object
+	 * @param string $type    The type of object to add.
+	 * @param array  $objects The objects structure.
+	 * @param object $parent  parent object to attach to.
 	 */
 	public function add_objects( $type, array $objects, $parent = null ) {
 		foreach ( $objects as $slug => $struct ) {
@@ -175,10 +180,11 @@ class ui{
 
 	/**
 	 * Return an instance of this class.
+	 *
 	 * @codeCoverageIgnore
 	 * @since 1.0.0
 	 *
-	 * @param array $request_data Current REQUEST superglobals
+	 * @param array $request_data Current REQUEST superglobals.
 	 *
 	 * @return ui A single instance of this class
 	 */
@@ -202,17 +208,17 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array|string $arr path, or array of paths to structures to autoload
+	 * @param array|string $arr path, or array of paths to structures to
+	 *                          autoload.
 	 */
 	public function register( $arr ) {
-		// set error handler for catching file location errors
-		set_error_handler( array( $this, 'silent_warning' ), E_WARNING );
-		// determine how the structure works.
+
+		set_error_handler( [ $this, 'silent_warning' ], E_WARNING );
+
 		foreach ( (array) $arr as $key => $value ) {
 			$this->locations = array_merge_recursive( $this->locations, $this->get_files_from_folders( trailingslashit( $value ) ) );
 		}
 
-		// restore original handler
 		restore_error_handler();
 	}
 
@@ -221,7 +227,7 @@ class ui{
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type Request type to get
+	 * @param string $type Request type to get.
 	 *
 	 * @return array Request vars array
 	 */
@@ -233,10 +239,10 @@ class ui{
 	/**
 	 * Gets the file structures and converts it if needed
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 *
-	 * @param string $path The file path to load
+	 * @param string $path The file path to load.
 	 *
 	 * @return array|bool object structure array or false if invalid
 	 */
@@ -244,7 +250,7 @@ class ui{
 		ob_start();
 		$content    = include $path;
 		$has_output = ob_get_clean();
-		// did stuff output
+
 		if ( ! empty( $has_output ) ) {
 			$content = json_decode( $has_output, ARRAY_A );
 		}
@@ -256,16 +262,16 @@ class ui{
 	/**
 	 * Opens a location and gets the folders to check
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 *
-	 * @param string $path The file patch to examine and to fetch contents from
+	 * @param string $path The file patch to examine and to fetch contents from.
 	 *
 	 * @return array List of folders
 	 */
 	private function get_folder_contents( $path ) {
 
-		$items = array();
+		$items = [];
 		if ( $uid = opendir( $path ) ) {
 			while ( ( $item = readdir( $uid ) ) !== false ) {
 				if ( substr( $item, 0, 1 ) != '.' ) {
@@ -281,10 +287,10 @@ class ui{
 	/**
 	 * Opens a location and gets the file to load for each folder
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 *
-	 * @param string $path The file patch to examine and to fetch contents from
+	 * @param string $path The file patch to examine and to fetch contents from.
 	 *
 	 * @return array List of folders and files
 	 */
@@ -303,28 +309,30 @@ class ui{
 	/**
 	 * Handles E_WARNING error notices whan the file loader runs.
 	 *
-	 *
 	 * @since 1.0.0
+	 * @link  http://php.net/manual/en/function.set-error-handler.php
 	 *
-	 * @link http://php.net/manual/en/function.set-error-handler.php
-	 *
-	 * @param int $errno Contains the level of the error raised, as an integer.
-	 * @param string $errstr Contains the error message.
-	 * @param string $errfile Which contains the filename that the error was raised in.
-	 * @param int $errline which contains the line number the error was raised at.
+	 * @param int    $errno   Contains the level of the error raised, as an
+	 *                        integer.
+	 * @param string $errstr  Contains the error message.
+	 * @param string $errfile Which contains the filename that the error was
+	 *                        raised in.
+	 * @param int    $errline which contains the line number the error was
+	 *                        raised at.
 	 */
 	public function silent_warning( $errno, $errstr, $errfile, $errline ) {
-		$this->add( 'notice', 'notice_' . $errno . '-' . $errline, array(
+		$this->add( 'notice', 'notice_' . $errno . '-' . $errline, [
 			'description' => '<strong>' . __( 'Warning' ) . '</strong>: ' . $errstr . '<br>on ' . $errfile . ' line ' . $errline,
 			'state'       => 'warning',
-		) );
+		] );
 	}
 
 
 	/**
 	 * Sets assets to be enqueued for this instance.
 	 *
-	 * @param array $assets the asset to enqueue where the key is the type and the value the asset
+	 * @param array $assets the asset to enqueue where the key is the type and
+	 *                      the value the asset.
 	 */
 	public function set_assets( $assets ) {
 
@@ -334,17 +342,15 @@ class ui{
 	}
 
 	/**
-	 * enqueue a set of styles and scripts
+	 * Enqueue a set of styles and scripts.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
 	 *
-	 * @param array $set Array of assets to be enqueued
-	 * @param string $type The type of asset
+	 * @param array  $set  Array of assets to be enqueued.
+	 * @param string $type The type of asset.
 	 */
 	protected function enqueue( $set, $type ) {
-		// go over the set to see if it has styles or scripts
-
 		$enqueue_type = 'wp_enqueue_' . $type;
 
 		foreach ( $set as $key => $item ) {
@@ -355,12 +361,6 @@ class ui{
 			}
 
 			$args = $this->build_asset_args( $item );
-			if( 'style' === $type ){
-				$args['in_footer'] = false;
-			}else{
-				// add uix dep
-				$args['deps'][] = 'uix';
-			}
 			$enqueue_type( $key, $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
 
 		}
@@ -371,27 +371,28 @@ class ui{
 	/**
 	 * Checks the asset type
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 *
-	 * @param array|string $asset Asset structure, slug or path to build
+	 * @param array|string $asset Asset structure, slug or path to build.
 	 *
 	 * @return array Params for enqueuing the asset
 	 */
 	private function build_asset_args( $asset ) {
 
-		// setup default args for array type includes
-		$args = array(
+		$args = [
 			'src'       => $asset,
-			'deps'      => array(),
+			'deps'      => [],
 			'ver'       => false,
-			'in_footer' => true,
+			'in_footer' => false,
 			'media'     => false,
-		);
+		];
 
 		if ( is_array( $asset ) ) {
 			$args = array_merge( $args, $asset );
 		}
+
+		$args['deps'][] = 'uix';
 
 		return $args;
 	}

@@ -48,22 +48,22 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 * @access public
 	 */
 	public function init() {
-		// run parents to setup sanitization filters
+		// run parents to setup sanitation filters.
 		$data = uix()->request_vars( 'post' );
 		if ( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ) {
 			$this->save_data();
 		} else {
-			// load data normally
-			$this->set_data( array( $this->slug => $this->load_data() ) );
+			// load data normally.
+			$this->set_data( [ $this->slug => $this->load_data() ] );
 		}
-		// set the wrapper element based on static or not
+		// set the wrapper element based on static or not.
 		if ( ! empty( $this->struct['static'] ) ) {
 			$this->element = 'div';
 		}
 	}
 
 	/**
-	 * save data to database
+	 * Save data to database
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -74,7 +74,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	}
 
 	/**
-	 * get the objects data store key
+	 * Get the objects data store key
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -119,7 +119,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	}
 
 	/**
-	 * set metabox styles
+	 * Set metabox styles
 	 *
 	 * @since  1.0.0
 	 * @see    \uix\ui\uix
@@ -127,14 +127,14 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 */
 	public function set_assets() {
 
-		$this->assets['script']['baldrick'] = array(
+		$this->assets['script']['baldrick'] = [
 			'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'jquery' ),
-		);
-		$this->assets['script']['uix-ajax'] = array(
+			'deps' => [ 'jquery' ],
+		];
+		$this->assets['script']['uix-ajax'] = [
 			'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'baldrick' ),
-		);
+			'deps' => [ 'baldrick' ],
+		];
 		$this->assets['style']['uix-ajax']  = $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css';
 
 		parent::set_assets();
@@ -149,19 +149,19 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	public function set_attributes() {
 
 		$action     = uix()->request_vars( 'server' );
-		$attributes = array(
+		$attributes = [
 			'enctype'  => 'multipart/form-data',
 			'method'   => 'POST',
 			'class'    => 'uix-ajax uix-' . $this->type,
 			'data-uix' => $this->slug,
 			'action'   => $action['REQUEST_URI'],
-		);
+		];
 		if ( ! empty( $this->struct['static'] ) ) {
 
-			$attributes = array(
+			$attributes = [
 				'class'    => 'uix-' . $this->type,
 				'data-uix' => $this->slug,
-			);
+			];
 		}
 
 		$this->attributes += $attributes;
