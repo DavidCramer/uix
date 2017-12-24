@@ -9,25 +9,26 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\data;
 
 abstract class data extends \uix\ui\uix {
 
 	/**
-	 * object data
+	 * Object data
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 * @var     array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
-	 * Sets the objects sanitization filter
+	 * Sets the objects sanitation filter
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
-	 * @see \uix\uix
+	 * @see    \uix\uix
 	 */
 	public function setup() {
 		if ( ! empty( $this->struct['sanitize_callback'] ) ) {
@@ -38,8 +39,9 @@ abstract class data extends \uix\ui\uix {
 	}
 
 	/**
-	 * get the object's value
-	 * @since 1.0.0
+	 * Get the object's value
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 * @return mixed $data
 	 */
@@ -53,15 +55,16 @@ abstract class data extends \uix\ui\uix {
 	}
 
 	/**
-	 * get the object's data
-	 * @since 1.0.0
+	 * Get the object's data
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 * @return mixed $data
 	 */
 	public function get_data() {
-		$data = array(
+		$data = [
 			$this->slug => null,
-		);
+		];
 		if ( isset( $this->data[ $this->id() ] ) ) {
 			$data = $this->data[ $this->id() ];
 		}
@@ -70,11 +73,12 @@ abstract class data extends \uix\ui\uix {
 	}
 
 	/**
-	 * set the object's data
-	 * @since 1.0.0
+	 * Set the object's data
+	 *
+	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @param mixed $data the data to be set
+	 * @param mixed $data the data to be set.
 	 */
 	public function set_data( $data ) {
 

@@ -48,22 +48,22 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 * @access public
 	 */
 	public function init() {
-		// run parents to setup sanitization filters
+		// run parents to setup sanitation filters.
 		$data = uix()->request_vars( 'post' );
 		if ( isset( $data[ 'uixNonce_' . $this->id() ] ) && wp_verify_nonce( $data[ 'uixNonce_' . $this->id() ], $this->id() ) ) {
 			$this->save_data();
 		} else {
-			// load data normally
+			// load data normally.
 			$this->set_data( [ $this->slug => $this->load_data() ] );
 		}
-		// set the wrapper element based on static or not
+		// set the wrapper element based on static or not.
 		if ( ! empty( $this->struct['static'] ) ) {
 			$this->element = 'div';
 		}
 	}
 
 	/**
-	 * save data to database
+	 * Save data to database
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -74,7 +74,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	}
 
 	/**
-	 * get the objects data store key
+	 * Get the objects data store key
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -119,7 +119,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	}
 
 	/**
-	 * set metabox styles
+	 * Set metabox styles
 	 *
 	 * @since  1.0.0
 	 * @see    \uix\ui\uix
