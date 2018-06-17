@@ -121,10 +121,6 @@ class ui {
 			) );
 			$this->ui->{$type}[ $slug ] = $object;
 
-			if ( method_exists( $this->ui->{$type}[ $slug ], 'get_data' ) ) {
-				//$this->ui->{$type}[ $slug ]->get_data();
-			}
-
 			return $object;
 		}
 

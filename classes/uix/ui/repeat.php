@@ -153,21 +153,37 @@ class repeat extends panel {
 			$data = array_filter( $data[ $this->slug ] );
 
 			foreach ( (array) $data as $instance_id => $instance ) {
-				$this->instance = $instance_id;
-				$has_data       = array_filter( $instance );
-				if ( empty( $has_data ) ) {
-					continue;
-				}
-				if ( ! isset( $this->struct['active'] ) ) {
-					$this->struct['active'] = 'true';
-				}
-
-				$output .= $this->render_repeatable();
-
+				$output .= $this->render_instance( $instance_id, $instance );
 			}
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Render a single instance.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param int   $instance_id The current instance to render.
+	 * @param array $instance The data for the instance to check.
+	 *
+	 * @access public
+	 *
+	 * @return string The rendered html of the instance.
+	 */
+	public function render_instance( $instance_id, $instance ) {
+		$this->instance = $instance_id;
+		$has_data       = array_filter( $instance );
+		if ( ! empty( $has_data ) ) {
+			if ( ! isset( $this->struct['active'] ) ) {
+				$this->struct['active'] = 'true';
+			}
+
+			return $this->render_repeatable();
+		}
+
+		return '';
 	}
 
 	/**

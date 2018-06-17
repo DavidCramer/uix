@@ -418,8 +418,6 @@ abstract class uix {
 		$attributes = [];
 		foreach ( $this->attributes as $att => $value ) {
 			if ( is_array( $value ) ) {
-				// remove duplicates.
-				//$value = array_unique( $value );
 				$value = implode( ' ', $value );
 			}
 			$attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
