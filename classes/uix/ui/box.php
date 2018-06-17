@@ -154,23 +154,18 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 */
 	public function set_attributes() {
 
-		$action     = uix()->request_vars( 'server' );
-		$attributes = array(
+		$action                      = uix()->request_vars( 'server' );
+		$this->attributes           += array(
 			'enctype'  => 'multipart/form-data',
 			'method'   => 'POST',
-			'class'    => 'uix-ajax uix-' . $this->type,
+			'class'    => [ 'uix-ajax', 'uix-' . $this->type ],
 			'data-uix' => $this->slug,
 			'action'   => $action['REQUEST_URI'],
 		);
-		if ( ! empty( $this->struct['static'] ) ) {
-
-			$attributes = array(
-				'class'    => [ 'uix-' . $this->type ],
-				'data-uix' => $this->slug,
-			);
+		$this->attributes['class'][] = 'uix-' . $this->type;
+		if ( empty( $this->struct['static'] ) ) {
+			$this->attributes['class'][] = 'uix-ajax';
 		}
-
-		$this->attributes += $attributes;
 
 		parent::set_attributes();
 
