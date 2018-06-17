@@ -11,7 +11,12 @@
 
 // If this file is called directly, abort.
 if ( defined( 'WPINC' ) ) {
-
+	if( ! defined( UIX_CORE ) ) {
+		define( 'UIX_CORE', __FILE__ );
+		define( 'UIX_PATH', plugin_dir_path( __FILE__ ) );
+		define( 'UIX_URL', plugin_dir_url( __FILE__ ) );
+		define( 'UIX_VER', '3.0.0' );
+	}
 
 	if ( ! defined( 'UIX_ASSET_DEBUG' ) ) {
 		if ( ! defined( 'DEBUG_SCRIPTS' ) ) {
