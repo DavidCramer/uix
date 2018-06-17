@@ -165,7 +165,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 		if ( ! empty( $this->struct['static'] ) ) {
 
 			$attributes = array(
-				'class'    => 'uix-' . $this->type,
+				'class'    => [ 'uix-' . $this->type ],
 				'data-uix' => $this->slug,
 			);
 		}

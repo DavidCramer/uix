@@ -35,6 +35,8 @@ class grid extends section {
 	 * @access public
 	 */
 	public function setup() {
+
+		$this->struct['id'] = 'grid';
 		if ( ! empty( $this->struct['size'] ) ) {
 			$this->struct['size'] = explode( ' ', $this->struct['size'] );
 		} else {

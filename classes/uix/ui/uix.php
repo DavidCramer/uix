@@ -188,7 +188,9 @@ abstract class uix {
 	 * @param string $type The type of child object.
 	 */
 	public function process_child( $type ) {
-
+		if ( 'grid' === $type ) {
+			$this->struct[ $type ]['id'] = 'grid';
+		}
 		if ( isset( $this->struct[ $type ]['id'] ) ) {
 			$this->{$type}( $this->struct[ $type ]['id'], $this->struct[ $type ] );
 		} else {
