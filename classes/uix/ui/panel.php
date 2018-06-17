@@ -278,7 +278,7 @@ class panel extends \uix\data\data {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param object $child  Child object to render tab for.
+	 * @param object $child Child object to render tab for.
 	 * @param string $active Set the tabactive or not.
 	 *
 	 * @access private
@@ -360,6 +360,7 @@ class panel extends \uix\data\data {
 	protected function set_active_styles() {
 		$style = '#panel-' . $this->id() . ' > .uix-panel-tabs > li[aria-selected="true"] a {box-shadow: 3px 0 0 ' . $this->base_color() . ' inset;}';
 		$style .= '#panel-' . $this->id() . '.uix-top-tabs > .uix-panel-tabs > li[aria-selected="true"] a {	box-shadow: 0 3px 0 ' . $this->base_color() . ' inset;}';
+
 		uix_share()->set_active_styles( $style );
 	}
 }

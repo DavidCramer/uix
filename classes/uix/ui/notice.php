@@ -109,7 +109,7 @@ class notice extends \uix\data\data {
 	public function render() {
 		$output = null;
 
-		$this->attributes['class'] = implode( ' ', $this->classes );
+		$this->attributes['class'][] = implode( ' ', $this->classes );
 		$note                      = $this->get_data();
 		$output .= '<div ' . $this->build_attributes() . '>';
 		$output .= '<p>';

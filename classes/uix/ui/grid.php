@@ -8,6 +8,7 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui;
 
 /**
@@ -28,33 +29,18 @@ class grid extends section {
 	public $type = 'grid';
 
 	/**
-	 * List of attributes to apply to the wrapper element
+	 * All objects loaded - application method for finishing off loading objects
 	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @var array
-	 */
-	public $attributes = array( 'class' => 'uix-grid' );
-
-
-	/**
-	 * Set the grid params
-	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access public
 	 */
 	public function setup() {
-
-		if ( ! empty( $this->struct['row'] ) ) {
-			$this->struct['grid'] = $this->struct['row'];
+		if ( ! empty( $this->struct['size'] ) ) {
+			$this->struct['size'] = explode( ' ', $this->struct['size'] );
+		} else {
+			$this->struct['size'][] = 1;
 		}
-
-		if ( ! empty( $this->struct['column'] ) ) {
-			$this->struct['grid'] = $this->struct['column'];
-		}
-
 		parent::setup();
-
 	}
 
 	/**
@@ -91,16 +77,6 @@ class grid extends section {
 
 	}
 
-	/**
-	 * Get Data from all controls of this section
-	 *
-	 * @since 1.0.0
-	 * @see \uix\load
-	 * @return bool
-	 */
-	public function is_row_column() {
-		return ! empty( $this->struct['row'] ) || ! empty( $this->struct['column'] );
-	}
 
 	/**
 	 * Sets the wrappers attributes
@@ -110,12 +86,9 @@ class grid extends section {
 	 */
 	public function set_attributes() {
 
-		if ( ! empty( $this->struct['column'] ) ) {
-			$this->attributes['class'] = 'row';
-		}
-
 		if ( ! empty( $this->struct['size'] ) ) {
-			$this->attributes['class'] = $this->struct['size'];
+			$this->attributes['class'][] = 'uix-grid';
+			$this->attributes['class'][] = 'col-' . implode( '-', $this->struct['size'] );
 		}
 
 		parent::set_attributes();
@@ -138,7 +111,7 @@ class grid extends section {
 	}
 
 	/**
-	 * Define core header styles
+	 * Enqueues specific tabs assets for the active pages
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -148,6 +121,27 @@ class grid extends section {
 		$this->assets['style']['grid'] = $this->url . 'assets/css/grid' . UIX_ASSET_DEBUG . '.css';
 
 		parent::set_assets();
+	}
+
+	/**
+	 * Enqueues specific tabs assets for the active pages
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 */
+	protected function set_active_styles() {
+
+		if ( ! empty( $this->struct['size'] ) ) {
+			$str = '';
+			foreach ( $this->struct['size'] as $fr ) {
+				$str .= $fr . 'fr ';
+			}
+			$style = '.uix-grid.col-' . implode( '-', $this->struct['size'] ) . '{grid-template-columns:' . $str . ';}';
+			$style .= '@media screen and (max-width: 600px){';
+			$style .= '.uix-grid.col-' . implode( '-', $this->struct['size'] ) . '{grid-template-columns:1fr;}';
+			$style .= '}';
+			uix_share()->set_active_styles( $style );
+		}
 	}
 
 }

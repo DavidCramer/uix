@@ -171,7 +171,7 @@ class item extends \uix\ui\control {
 	public function set_attributes() {
 
 		parent::set_attributes();
-		$this->attributes['class'] = 'hidden';
+		$this->attributes['class'][] = 'hidden';
 		$this->attributes['value'] = '{{json this}}';
 
 	}

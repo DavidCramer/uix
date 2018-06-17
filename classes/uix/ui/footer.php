@@ -29,6 +29,19 @@ class footer extends section {
 
 
 	/**
+	 * Sets the wrappers attributes
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function set_attributes() {
+
+		$this->attributes['class'][] = 'uix-' . esc_attr( $this->type );
+
+		parent::set_attributes();
+	}
+
+	/**
 	 * Render the Control
 	 *
 	 * @since 1.0.0
@@ -40,7 +53,7 @@ class footer extends section {
 
 		$output = $this->render_template();
 		if ( ! empty( $this->child ) ) {
-			$output .= '<div class="uix-' . esc_attr( $this->type ) . '" ' . $this->build_attributes() . '>';
+			$output .= '<div ' . $this->build_attributes() . '>';
 			$output .= $this->render_children();
 			$output .= '</div>';
 		}

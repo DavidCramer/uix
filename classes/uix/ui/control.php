@@ -99,7 +99,7 @@ class control extends \uix\data\data {
 			$this->set_config();
 		}
 
-		$this->attributes['class'] = implode( ' ', $this->classes() );
+		$this->attributes['class'] += $this->classes();
 
 		parent::set_attributes();
 

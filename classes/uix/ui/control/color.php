@@ -57,7 +57,7 @@ class color extends \uix\ui\control\text {
 	public function set_attributes() {
 
 		parent::set_attributes();
-		$this->attributes['class'] = 'color-field';
+		$this->attributes['class'][] = 'color-field';
 
 	}
 

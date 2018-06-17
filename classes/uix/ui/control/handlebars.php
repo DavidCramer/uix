@@ -49,6 +49,21 @@ class handlebars extends \uix\ui\control {
 	}
 
 	/**
+	 * Gets the classes for the control input
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
+	public function classes() {
+
+		return [
+			'uix-tab-canvas',
+		];
+
+	}
+
+	/**
 	 * Render the Control
 	 *
 	 * @since 1.0.0
@@ -58,7 +73,7 @@ class handlebars extends \uix\ui\control {
 	 */
 	public function render() {
 
-		$output = '<div class="uix-tab-canvas" data-app="' . esc_attr( $this->name() ) . '" ' . esc_attr( $this->build_attributes() ) . '></div>';
+		$output = '<div data-app="' . esc_attr( $this->name() ) . '" ' . esc_attr( $this->build_attributes() ) . '></div>';
 		$output .= '<input type="hidden" name="' . esc_attr( $this->name() ) . '" value="' . esc_attr( $this->get_value() ) . '" data-data="' . esc_attr( $this->get_value() ) . '">';
 		add_action( 'admin_footer', array( $this, 'input' ) );
 		add_action( 'wp_footer', array( $this, 'input' ) );

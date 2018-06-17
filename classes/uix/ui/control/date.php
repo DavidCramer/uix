@@ -54,7 +54,7 @@ class date extends \uix\ui\control\text {
 	public function set_attributes() {
 
 		parent::set_attributes();
-		$this->attributes['class'] = 'flatpickr';
+		$this->attributes['class'][] = 'flatpickr';
 	}
 
 	/**

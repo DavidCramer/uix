@@ -44,8 +44,10 @@
             template.slideDown(100);
             //reset_repeatable_index( id );
 
-
             $(document).trigger('uix.init');
+	        setTimeout( function(){
+		        $(document).trigger('uix.save');
+	        }, 200 );
         });
 
         $(document).on('click', '.uix-remover', function (e) {
@@ -54,9 +56,11 @@
                 id = template.data('uixTemplate');
             $(this).parent().slideUp(100, function () {
                 $(this).remove();
+	            $(document).trigger('uix.init');
+	            setTimeout( function(){
+		            $(document).trigger('uix.save');
+	            }, 200 );
             });
-
-            $(document).trigger('uix.init');
             //reset_repeatable_index( id );
 
         })

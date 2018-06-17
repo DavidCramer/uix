@@ -83,7 +83,9 @@ abstract class uix {
 	 * @access public
 	 * @var array
 	 */
-	public $attributes = [];
+	public $attributes = [
+		'class' => [],
+	];
 
 	/**
 	 * Base URL of this class
@@ -118,7 +120,7 @@ abstract class uix {
 	 * @since  1.0.0
 	 * @access protected
 	 *
-	 * @param string $slug   Object slug.
+	 * @param string $slug Object slug.
 	 * @param array  $object Objects structure array.
 	 * @param uix    $parent Parent UIX Object.
 	 */
@@ -259,7 +261,7 @@ abstract class uix {
 	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @param string $slug   Object slug
+	 * @param string $slug Object slug
 	 * @param array  $object object structure array
 	 *
 	 * @return object|\uix object instance
@@ -413,6 +415,11 @@ abstract class uix {
 
 		$attributes = [];
 		foreach ( $this->attributes as $att => $value ) {
+			if ( is_array( $value ) ) {
+				// remove duplicates.
+				//$value = array_unique( $value );
+				$value = implode( ' ', $value );
+			}
 			$attributes[] = sprintf( '%s="%s"', esc_html( $att ), esc_attr( $value ) );
 		}
 

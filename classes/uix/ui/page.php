@@ -58,10 +58,10 @@ class page extends box implements \uix\data\save {
 
 		parent::set_attributes();
 
-		$this->attributes['class'] .= ' wrap';
+		$this->attributes['class'][] = 'uix-page wrap';
 
 		if ( empty( $this->struct['full_width'] ) ) {
-			$this->attributes['class'] .= ' uix-half-page';
+			$this->attributes['class'][] = ' uix-half-page';
 		}
 
 		if ( ! empty( $this->struct['attributes'] ) ) {
