@@ -71,7 +71,6 @@ class control extends \uix\data\data {
 		if ( isset( $data[ $this->id() ] ) ) {
 			$value[ $this->slug ] = $data[ $this->id() ];
 		}
-		$this->set_data( $value );
 		// base attributes defined
 		$this->attributes['name'] = $this->name();
 		$this->attributes['id']   = $this->id() . '-control';

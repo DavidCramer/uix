@@ -8,21 +8,20 @@
  * @link
  * @copyright 2016 David Cramer
  */
-
 namespace uix\ui;
 
 /**
  * A Grid system for layout control
  *
  * @since 1.0.0
- * @see   \uix\uix
+ * @see \uix\uix
  */
 class grid extends section {
 
 	/**
 	 * The type of object
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -31,25 +30,27 @@ class grid extends section {
 	/**
 	 * List of attributes to apply to the wrapper element
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @var array
 	 */
-	public $attributes = [ 'class' => 'uix-grid row' ];
+	public $attributes = array( 'class' => 'uix-grid' );
 
 
 	/**
 	 * Set the grid params
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function setup() {
-		if ( ! isset( $this->struct['row'] ) ) {
-			if ( empty( $this->parent->struct['row'] ) ) {
-				$this->struct['grid'] = $this->struct;
-				$this->struct['row']  = true;
-			}
+
+		if ( ! empty( $this->struct['row'] ) ) {
+			$this->struct['grid'] = $this->struct['row'];
+		}
+
+		if ( ! empty( $this->struct['column'] ) ) {
+			$this->struct['grid'] = $this->struct['column'];
 		}
 
 		parent::setup();
@@ -60,7 +61,7 @@ class grid extends section {
 	 * Get Data from all controls of this section
 	 *
 	 * @since 1.0.0
-	 * @see   \uix\load
+	 * @see \uix\load
 	 * @return array|null Array of sections data structured by the controls
 	 */
 	public function get_data() {
@@ -76,7 +77,7 @@ class grid extends section {
 	/**
 	 * Sets the data for all children
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function set_data( $data ) {
@@ -94,7 +95,7 @@ class grid extends section {
 	 * Get Data from all controls of this section
 	 *
 	 * @since 1.0.0
-	 * @see   \uix\load
+	 * @see \uix\load
 	 * @return bool
 	 */
 	public function is_row_column() {
@@ -104,10 +105,14 @@ class grid extends section {
 	/**
 	 * Sets the wrappers attributes
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function set_attributes() {
+
+		if ( ! empty( $this->struct['column'] ) ) {
+			$this->attributes['class'] = 'row';
+		}
 
 		if ( ! empty( $this->struct['size'] ) ) {
 			$this->attributes['class'] = $this->struct['size'];
@@ -119,12 +124,11 @@ class grid extends section {
 	/**
 	 * Render the complete section
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @return string|null HTML of rendered notice
 	 */
 	public function render() {
-
 
 		$output = '<div ' . $this->build_attributes() . '>';
 		$output .= $this->render_children();
@@ -136,12 +140,12 @@ class grid extends section {
 	/**
 	 * Define core header styles
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
 
-		$this->assets['style']['grid'] = $this->url . 'assets/css/flexboxgrid' . UIX_ASSET_DEBUG . '.css';
+		$this->assets['style']['grid'] = $this->url . 'assets/css/grid' . UIX_ASSET_DEBUG . '.css';
 
 		parent::set_assets();
 	}

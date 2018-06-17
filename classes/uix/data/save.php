@@ -9,24 +9,22 @@
  * @link
  * @copyright 2016 David Cramer
  */
-
 namespace uix\data;
 
 interface save {
 
 
 	/**
-	 * Save data to database
+	 * save data to database
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function save_data();
 
 	/**
-	 * Get the objects data store key
-	 *
-	 * @since  1.0.0
+	 * get the objects data store key
+	 * @since 1.0.0
 	 * @access public
 	 * @return string $store_key the defined option name for this UIX object
 	 */

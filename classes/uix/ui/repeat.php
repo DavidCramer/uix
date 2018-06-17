@@ -73,9 +73,16 @@ class repeat extends panel {
 	 */
 	public function setup() {
 		parent::setup();
+	}
+	/**
+	 * All objects loaded - application method for finishing off loading objects
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 */
+	public function init() {
 		$this->prepare_data();
 	}
-
 	/**
 	 * Define core repeat styles ans scripts
 	 *
@@ -101,18 +108,22 @@ class repeat extends panel {
 	public function prepare_data() {
 		$submit_data = uix()->request_vars( 'post' );
 		if ( ! empty( $submit_data ) ) {
+
+			$parent = $this->parent;
+
+			$id = $this->id();
 			$instances = array_filter( array_keys( $submit_data ), [
 				$this,
 				'compare_var_key',
 			] );
+
 			$instances = array_map( [
 				$this,
 				'build_instance_count',
 			], $instances );
-			array_map( [
-				$this,
-				'push_instance_setup',
-			], array_unique( $instances ) );
+			$instances = array_unique( $instances );
+			$this->push_instance_setup( $instances );
+
 		}
 		$this->instance = 0; // reset instance;
 	}
@@ -128,10 +139,14 @@ class repeat extends panel {
 		$this->instance = 0;
 
 		foreach ( (array) $data as $instance => $instance_data ) {
-			foreach ( $this->child as $child ) {
-				$child->set_data( $instance_data );
+			// Check that the data is a repeat item.
+			if ( is_int( $instance ) ) {
+				foreach ( $this->child as $child ) {
+					$child->set_data( $instance_data );
+				}
+				$this->instance ++;
 			}
-			$this->instance ++;
+
 		}
 		$this->instances = $this->instance;
 		$this->instance  = 0;
@@ -184,6 +199,8 @@ class repeat extends panel {
 	private function render_instances() {
 		$data   = $this->get_data();
 		$output = null;
+		$data   = array_filter( $data );
+
 		foreach ( (array) $data as $instance_id ) {
 			if ( ! isset( $this->struct['active'] ) ) {
 				$this->struct['active'] = 'true';
@@ -206,9 +223,9 @@ class repeat extends panel {
 	 */
 	public function get_data() {
 
-		if ( empty( $this->data ) ) {
-			$this->data = $this->set_instance_data();
-		}
+		//if ( empty( $this->data ) ) {
+			return $this->set_instance_data();
+		//}
 
 		return $this->data;
 
@@ -258,20 +275,44 @@ class repeat extends panel {
 	 *
 	 * @since  1.0.0
 	 * @access public
+	 * @param bool $reset Flag to indicate reset repeatbles.
 	 * @return string|null HTML of rendered object
 	 */
-	public function render_repeatable() {
+	public function render_repeatable( $reset = false ) {
 
 		$output = '<div class="uix-repeat">';
 		$output .= $this->render_template();
 		if ( ! empty( $this->child ) ) {
-			$output .= $this->render_children();
+			$output .= $this->render_children( $reset );
 		}
 
 		$output .= '<button type="button" class="button button-small uix-remover"><span class="dashicons dashicons-no"></span></button> </div>';
 
 		return $output;
 
+	}
+
+	/**
+	 * Render the child objects
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param bool $reset Flag to reset the instances of child repeatables.
+	 * @return string|null
+	 */
+	public function render_children( $reset = false ) {
+		$output = null;
+		foreach ( $this->child as $child ) {
+			if ( true === $reset && 'repeat' === $child->type ) {
+				$child->instances = 0;
+			}
+			if( 'repeat' === $child->type && $reset === false ){
+				$id = 1;
+			}
+			$output .= $child->render();
+		}
+
+		return $output;
 	}
 
 	/**
@@ -290,7 +331,7 @@ class repeat extends panel {
 		}
 
 		$this->instance  = '{{_inst_}}';
-		$this->templates = $this->render_repeatable();
+		$this->templates = $this->render_repeatable( true );
 		$this->instance  = 0;
 		$output          = '<div class="repeatable-footer"><button type="button" class="button" data-uix-repeat="' . esc_attr( $this->id() ) . '">' . esc_html( $label ) . '</button></div>';
 
@@ -343,8 +384,9 @@ class repeat extends panel {
 	private function compare_var_key( $key ) {
 		$id_parts = $this->id_base_parts();
 		$compare  = implode( '-', $id_parts ) . '-';
-
-		return substr( $key, 0, strlen( $compare ) ) == $compare;
+		$current  = substr( $key, 0, strlen( $compare ) );
+		$this_id = $this->id();
+		return $current == $compare;
 	}
 
 	/**
@@ -366,17 +408,22 @@ class repeat extends panel {
 	 *
 	 * @access private
 	 *
-	 * @param $index
+	 * @param $instances
 	 */
-	private function push_instance_setup( $index ) {
-		$this->instances = $this->instance = $index;
-		if ( ! isset( $this->data[ $this->instance ] ) ) {
-			$this->data[ $this->instance ] = [];
-		}
+	private function push_instance_setup( $instances ) {
 
-		foreach ( $this->child as $child ) {
-			$child->setup();
-			$this->data[ $this->instance ] += $child->get_data();
+		$this->instances = count( $instances );
+		$this->instance = 0;
+		while ( $this->instance < $this->instances ) {
+			if ( ! isset( $this->data[ $this->instance ] ) ) {
+				$this->data[ $this->instance ] = [];
+			}
+			$id = $this->id();
+			foreach ( $this->child as $child ) {
+				$child->setup();
+				$this->data[ $this->instance ] += $child->get_data();
+			}
+			$this->instance++;
 		}
 	}
 

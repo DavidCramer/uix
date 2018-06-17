@@ -53,7 +53,7 @@ class metabox extends panel {
 	 * @access public
 	 */
 	public function setup() {
-		// do parent.
+		// do parent
 		parent::setup();
 		if ( ! isset( $this->struct['screen'] ) ) {
 			$this->struct['screen'] = ( $this->parent ? $this->parent->slug : null );
@@ -103,7 +103,7 @@ class metabox extends panel {
 	 */
 	public function add_metaboxes() {
 
-		// metabox defaults.
+		// metabox defaults
 		$defaults = [
 			'context'  => 'advanced',
 			'priority' => 'default',
@@ -123,54 +123,6 @@ class metabox extends panel {
 	}
 
 	/**
-	 * Get the current post ID.
-	 *
-	 * @since 3.0.0
-	 * @see   \uix\load
-	 * @return int|bool the post ID or false if not exit.
-	 */
-	private function get_post_id() {
-		$post_id = get_queried_object_id();
-		if ( empty( $post_id ) ) {
-			$post = get_post();
-			if ( $post instanceof \WP_Post ) {
-				$post_id = $post->ID;
-			}
-		}
-
-		return $post_id;
-	}
-
-	/**
-	 * Get Data from all controls of this section
-	 *
-	 * @since 1.0.0
-	 * @see   \uix\load
-	 * @return array|null Array of sections data structured by the controls or
-	 *                    null if none.
-	 */
-	public function get_data() {
-
-		$post_id    = $this->get_post_id();
-		$this->data = get_post_meta( $post_id, $this->slug, true );
-		if ( false === $this->data ) {
-			$this->data = [
-				$this->slug => [],
-			];
-		}
-		if ( ! empty( $this->child ) ) {
-			foreach ( $this->child as $child ) {
-				$has_child = get_post_meta( $post_id, $child->slug, true );
-				if ( false !== $has_child ) {
-					$this->data[ $this->slug ][ $child->slug ] = $has_child;
-				}
-			}
-		}
-
-		return $this->data;
-	}
-
-	/**
 	 * Callback for the `add_meta_box` that sets the metabox data and renders it
 	 *
 	 * @since  1.0.0
@@ -182,7 +134,12 @@ class metabox extends panel {
 	public function create_metabox( $post ) {
 
 		$this->post = $post;
-		$data       = $this->get_data();
+		$data       = get_post_meta( $post->ID, $this->slug, true );
+		if ( empty( $data ) ) {
+			$data = [
+				$this->slug => [],
+			];
+		}
 		$this->set_data( $data );
 		echo $this->render();
 
@@ -213,14 +170,13 @@ class metabox extends panel {
 	public function save_meta( $post_id, $post ) {
 
 		$this->post = $post;
-		$data       = [
-			$this->slug => $this->get_child_data(),
-		];
+		$data       = $this->get_data();
 
 		if ( ! $this->is_active() || empty( $data ) ) {
 			return;
 		}
-		// save compiled data.
+
+		// save compiled data
 		update_post_meta( $post_id, $this->slug, $data );
 		$data = call_user_func_array( 'array_merge', $data );
 

@@ -15,20 +15,20 @@ namespace uix\data;
 abstract class data extends \uix\ui\uix {
 
 	/**
-	 * Object data
+	 * object data
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access private
 	 * @var     array
 	 */
-	protected $data = [];
+	protected $data = array();
 
 	/**
-	 * Sets the objects sanitation filter
+	 * Sets the objects sanitization filter
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
-	 * @see    \uix\uix
+	 * @see \uix\uix
 	 */
 	public function setup() {
 		if ( ! empty( $this->struct['sanitize_callback'] ) ) {
@@ -39,9 +39,8 @@ abstract class data extends \uix\ui\uix {
 	}
 
 	/**
-	 * Get the object's value
-	 *
-	 * @since  1.0.0
+	 * get the object's value
+	 * @since 1.0.0
 	 * @access public
 	 * @return mixed $data
 	 */
@@ -55,30 +54,33 @@ abstract class data extends \uix\ui\uix {
 	}
 
 	/**
-	 * Get the object's data
-	 *
-	 * @since  1.0.0
+	 * get the object's data
+	 * @since 1.0.0
 	 * @access public
 	 * @return mixed $data
 	 */
 	public function get_data() {
-		$data = [
+		$data        = array(
 			$this->slug => null,
-		];
-		if ( isset( $this->data[ $this->id() ] ) ) {
-			$data = $this->data[ $this->id() ];
+		);
+		$submit_data = uix()->request_vars( 'post' );
+		$id = $this->id();
+		if ( isset( $submit_data[ $id ] ) ) {
+			$this->data[ $id ][ $this->slug ] = $submit_data[ $id ];
+		}
+		if ( isset( $this->data[ $id ] ) ) {
+			$data = $this->data[ $id ];
 		}
 
 		return $data;
 	}
 
 	/**
-	 * Set the object's data
-	 *
-	 * @since  1.0.0
+	 * set the object's data
+	 * @since 1.0.0
 	 * @access public
 	 *
-	 * @param mixed $data the data to be set.
+	 * @param mixed $data the data to be set
 	 */
 	public function set_data( $data ) {
 

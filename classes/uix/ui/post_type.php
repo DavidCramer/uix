@@ -8,12 +8,10 @@
  * @link
  * @copyright 2016 David Cramer
  */
-
 namespace uix\ui;
 
 /**
  * UIX Post Type class for adding custom post types
- *
  * @package uix\ui
  * @author  David Cramer
  */
@@ -22,7 +20,7 @@ class post_type extends uix {
 	/**
 	 * The type of object
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 * @var      string
 	 */
@@ -31,7 +29,7 @@ class post_type extends uix {
 	/**
 	 * Define core UIX styling to identify UIX post types
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
@@ -42,7 +40,7 @@ class post_type extends uix {
 	/**
 	 * Render (register) the post type
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function render() {
@@ -54,10 +52,9 @@ class post_type extends uix {
 	}
 
 	/**
-	 * Determin which post types are active and set them active and render some
-	 * styling Intended to be ovveridden
-	 *
-	 * @since  1.0.0
+	 * Determin which post types are active and set them active and render some styling
+	 * Intended to be ovveridden
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function is_active() {
@@ -73,29 +70,29 @@ class post_type extends uix {
 	}
 
 	/**
-	 * Setup actions and hooks to register post types.
+	 * setup actions and hooks to register post types
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access protected
 	 */
 	protected function actions() {
 
-		// run parent actions ( keep 'admin_head' hook ).
+		// run parent actions ( keep 'admin_head' hook )
 		parent::actions();
-		// add settings page.
-		add_action( 'init', [ $this, 'render' ] );
+		// add settings page
+		add_action( 'init', array( $this, 'render' ) );
 
 	}
 
 	/**
 	 * Render the custom header styles
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @access protected
 	 */
 	protected function set_active_styles() {
 
-		// Set active styles.
+		// Set active styles
 		$styles = '.contextual-help-tabs .active {border-left: 6px solid ' . $this->base_color() . ' !important;}';
 
 		$styles .= '#wpbody-content .wrap > h1 {box-shadow: 0 0 2px rgba(0, 2, 0, 0.1), 11px 0 0 ' . $this->base_color() . 'inset;}';
