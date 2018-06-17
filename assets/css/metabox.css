@@ -10,7 +10,8 @@
     margin: 0;
 }
 .postbox.uix-chromeless .handlediv.button-link,
-.postbox.uix-chromeless .hndle {  
+.postbox.uix-chromeless .handlediv,
+.postbox.uix-chromeless .hndle {
     display: none;
 }
 .uix-backdrop {
@@ -123,7 +124,7 @@
     display: block;
     padding: 8px 12px;
     text-decoration: none;
-    text-overflow: ellipsis;  
+    text-overflow: ellipsis;
     overflow: hidden;
 }
 .uix-modal-body.has-tabs {

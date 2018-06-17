@@ -271,6 +271,7 @@ class metabox extends panel {
 			$style .= '#metabox-' . $this->id() . '{background: transparent none repeat scroll 0 0;border: 0 none;';
 			$style .= 'box-shadow: none;margin: 0 0 20px;padding: 0;}';
 			$style .= '#metabox-' . $this->id() . ' .handlediv.button-link,';
+			$style .= '#metabox-' . $this->id() . ' .handlediv,';
 			$style .= '#metabox-' . $this->id() . ' .hndle {display: none;}';
 			$style .= '#metabox-' . $this->id() . ' > .inside {padding: 0;}';
 		}
