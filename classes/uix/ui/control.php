@@ -33,7 +33,7 @@ class control extends \uix\data\data {
 	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @param string $slug   Object slug
+	 * @param string $slug Object slug
 	 * @param array  $object object structure array
 	 *
 	 * @return object|\uix object instance
@@ -63,13 +63,8 @@ class control extends \uix\data\data {
 
 		// run parents to setup sanitization filters
 		parent::setup();
-		$value = [ $this->slug, '' ];
-		$data  = uix()->request_vars( 'post' );
-		if ( ! empty( $this->struct['value'] ) ) {
-			$value[ $this->slug ] = $this->struct['value'];
-		}
-		if ( isset( $data[ $this->id() ] ) ) {
-			$value[ $this->slug ] = $data[ $this->id() ];
+		if ( ! isset( $this->struct['value'] ) ) {
+			$this->struct['value'] = null;
 		}
 		// base attributes defined
 		$this->attributes['name'] = $this->name();
@@ -205,10 +200,10 @@ class control extends \uix\data\data {
 	 * @return mixed the controls value
 	 */
 	public function get_value() {
-		$value = null;
+		$value = $this->struct['value'];
 		$data  = $this->get_data();
 
-		if ( null !== $data ) {
+		if ( null !== $data && null !== $data[ $this->slug ] ) {
 			$value = $data[ $this->slug ];
 		}
 

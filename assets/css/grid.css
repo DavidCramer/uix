@@ -3,6 +3,6 @@
     grid-gap: 10px;
 }
 
-.uix-grid:nth-child(1){
+.uix-grid{
     padding: 6px;
 }

@@ -73,12 +73,14 @@ class image extends \uix\ui\control {
 		$output       = '<input type="hidden" value="' . esc_attr( $this->get_value() ) . '" ' . $this->build_attributes() . '>';
 		$button_text  = isset( $this->struct['add_label'] ) ? $this->struct['add_label'] : __( 'Select Image', 'uix' );
 		$preview_size = isset( $this->struct['preview_size'] ) ? $this->struct['preview_size'] : 'medium';
+		$type         = isset( $this->struct['type'] ) ? $this->struct['type'] : 'id';
+		$size         = isset( $this->struct['size'] ) ? $this->struct['size'] : 'full';
 		$output       .= '<div class="uix-image-control-wrapper" id="' . esc_attr( $this->id() ) . '-wrap">';
 		if ( null !== $this->get_value() ) {
 			$output .= $this->get_preview( $preview_size );
 		}
 		$output .= '</div>';
-		$output .= '<button type="button" data-size="' . esc_attr( $preview_size ) . '" data-target="' . esc_attr( $this->id() ) . '" class="button button-small uix-image-control-button">' . esc_html( $button_text ) . '</button>';
+		$output .= '<button type="button" data-size="' . esc_attr( $size ) . '" data-type="' . esc_attr( $type ) . '" data-preview-size="' . esc_attr( $preview_size ) . '" data-target="' . esc_attr( $this->id() ) . '" class="button button-small uix-image-control-button">' . esc_html( $button_text ) . '</button>';
 
 		return $output;
 	}
@@ -94,13 +96,17 @@ class image extends \uix\ui\control {
 	 * @return string HTML of rendered preview
 	 */
 	private function get_preview( $preview_size ) {
-		$data   = wp_get_attachment_image_src( $this->get_value(), $preview_size );
-		$return = null;
-		if ( ! empty( $data ) ) {
-			$return = '<img src="' . esc_attr( $data[0] ) . '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' . $this->id() . '"><span class="dashicons dashicons-no"></span></a>';
+		if ( isset( $this->struct['return_type'] ) && 'url' === $this->struct['return_type'] ) {
+			$url = $this->get_value();
+		} else {
+			$data = wp_get_attachment_image_src( $this->get_value(), $preview_size );
+			if ( ! empty( $data ) ) {
+				$url = $data[0];
+			}
 		}
-
-		return $return;
-
+		$return = null;
+		if ( ! empty( $url ) ) {
+			$return = '<img src="' . esc_attr( $url ) . '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' . $this->id() . '"><span class="dashicons dashicons-no"></span></a>';
+		}
 	}
 }
