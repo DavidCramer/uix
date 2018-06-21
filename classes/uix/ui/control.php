@@ -63,8 +63,8 @@ class control extends \uix\data\data {
 
 		// run parents to setup sanitization filters
 		parent::setup();
-		if ( ! isset( $this->struct['value'] ) ) {
-			$this->struct['value'] = null;
+		if ( isset( $this->struct['value'] ) ) {
+			$this->set_value( $this->struct['value'] );
 		}
 		// base attributes defined
 		$this->attributes['name'] = $this->name();
@@ -200,9 +200,8 @@ class control extends \uix\data\data {
 	 * @return mixed the controls value
 	 */
 	public function get_value() {
-		$value = $this->struct['value'];
 		$data  = $this->get_data();
-
+		$value = null;
 		if ( null !== $data && null !== $data[ $this->slug ] ) {
 			$value = $data[ $this->slug ];
 		}

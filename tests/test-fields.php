@@ -43,7 +43,7 @@ class Test_Fields extends WP_UnitTestCase {
 
 			$out = $field->render();
 
-			$field->set_data( $slug );
+			$field->set_value( $slug );
 			$data  = $field->get_data();
 			$value = $slug;
 			if ( 'separator' === $control_type ) {

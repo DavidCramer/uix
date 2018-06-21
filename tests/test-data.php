@@ -92,7 +92,7 @@ class Test_Data extends WP_UnitTestCase {
 		$box->init();
 
 		$data = $box->get_data();
-		$this->assertSame( $data['box_input'], 'default' );
+		$this->assertSame( $data, array( 'box_input' => 'default' ) );
 
 		$nonce                                      = wp_create_nonce( $box->id() );
 		$_POST[ 'uixNonce_' . $box->id() ]          = $nonce;

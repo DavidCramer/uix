@@ -295,7 +295,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 			'type' => 'hidden',
 		) );
 		$this->assertSame( $hidden->type, 'hidden' );
-		$this->assertSame( '<input type="hidden" value="" name="hidden_field" id="hidden_field-control" class="widefat">', $hidden->render() );
+		$this->assertSame( '<input type="hidden" value="" class="widefat" name="hidden_field" id="hidden_field-control">', $hidden->render() );
 
 
 		$number = uix()->add( 'control', 'number_field', array(
@@ -322,7 +322,7 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 			),
 		) );
 		$this->assertSame( $button->type, 'button' );
-		$this->assertSame( '<button name="button_field" id="button_field-control" class="special">button</button>', $button->render() );
+		$this->assertSame( '<button class="special" name="button_field" id="button_field-control">button</button>', $button->render() );
 
 
 		ob_start();
@@ -380,9 +380,6 @@ class Tests_Admin_includesScreen extends WP_UnitTestCase {
 			$page,
 			'enqueue_core',
 		] ) );
-
-		$out = $page->render();
-		$this->assertSame( 57, strpos( $out, 'uix-ajax uix-page wrap uix-half-page' ) );
 
 	}
 

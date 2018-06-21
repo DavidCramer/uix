@@ -38,11 +38,4 @@ tests_add_filter( 'uix_register', 'uix_load_test_structures' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 
-activate_plugin( 'uix/uix-bootstrap.php' );
-
 echo "Installing UIX...\n";
-
-global $current_user;
-
-wp_set_current_user( 1 );
-
