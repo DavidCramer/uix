@@ -273,28 +273,44 @@ class ui {
 		$items = array();
 		$uid   = opendir( $path );
 		if ( $uid ) {
-			while ( true ) {
-				$item = readdir( $uid );
-				if ( false === $item ) {
-					break;
-				}
-				if ( substr( $item, 0, 1 ) !== '.' ) {
-					$items[ $item ] = $path . $item;
-				}
-			}
-			closedir( $uid );
+			return $this->load_folder_items( $uid, $path );
 		}
 
 		return $items;
 	}
 
 	/**
+	 * Load items from a folder
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param string $uid The folder name.
+	 * @param string $path The folder path.
+	 *
+	 * @return array List of items
+	 */
+	private function load_folder_items( $uid, $path ) {
+		$items = array();
+		while ( true ) {
+			$item = readdir( $uid );
+			if ( false === $item ) {
+				break;
+			}
+			if ( substr( $item, 0, 1 ) !== '.' ) {
+				$items[ $item ] = $path . $item;
+			}
+		}
+		closedir( $uid );
+		return $items;
+	}
+	/**
 	 * Opens a location and gets the file to load for each folder
 	 *
 	 * @since 1.0.0
 	 * @access private
 	 *
-	 * @param string $path The file patch to examine and to fetch contents from
+	 * @param string $path The file patch to examine and to fetch contents from.
 	 *
 	 * @return array List of folders and files
 	 */
