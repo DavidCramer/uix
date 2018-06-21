@@ -5,9 +5,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/davidcramer/uix/badge)](https://www.codefactor.io/repository/github/davidcramer/uix)
 [![Code Coverage](https://scrutinizer-ci.com/g/DavidCramer/uix/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=develop)
 
-
 UIX is a small framework for creating user interfaces ( Post Types, Settings Pages, and Metaboxes ) and config structures with the least code possible. It only handles the UI. The program logic is up to you.
-
 
 ## Documentation
 
