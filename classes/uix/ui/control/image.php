@@ -75,12 +75,29 @@ class image extends \uix\ui\control {
 		$preview_size = isset( $this->struct['preview_size'] ) ? $this->struct['preview_size'] : 'medium';
 		$type         = isset( $this->struct['type'] ) ? $this->struct['type'] : 'id';
 		$size         = isset( $this->struct['size'] ) ? $this->struct['size'] : 'full';
-		$output       .= '<div class="uix-image-control-wrapper" id="' . esc_attr( $this->id() ) . '-wrap">';
+		$output      .= $this->preview( $preview_size );
+		$output      .= '<button type="button" data-size="' . esc_attr( $size ) . '" data-type="' . esc_attr( $type ) . '" data-preview-size="' . esc_attr( $preview_size ) . '" data-target="' . esc_attr( $this->id() ) . '" class="button button-small uix-image-control-button">' . esc_html( $button_text ) . '</button>';
+
+		return $output;
+	}
+
+	/**
+	 * Returns code needed for the preview image.
+	 *
+	 * @since  3.0.0
+	 * @see    \uix\ui\uix
+	 * @access public
+	 *
+	 * @param string $preview_size The size of the preview image.
+	 *
+	 * @return string HTML string of the preview.
+	 */
+	public function preview( $preview_size ) {
+		$output = '<div class="uix-image-control-wrapper" id="' . esc_attr( $this->id() ) . '-wrap">';
 		if ( null !== $this->get_value() ) {
 			$output .= $this->get_preview( $preview_size );
 		}
 		$output .= '</div>';
-		$output .= '<button type="button" data-size="' . esc_attr( $size ) . '" data-type="' . esc_attr( $type ) . '" data-preview-size="' . esc_attr( $preview_size ) . '" data-target="' . esc_attr( $this->id() ) . '" class="button button-small uix-image-control-button">' . esc_html( $button_text ) . '</button>';
 
 		return $output;
 	}
@@ -93,20 +110,39 @@ class image extends \uix\ui\control {
 	 *
 	 * @param string $preview_size The size of the preview.
 	 *
-	 * @return string HTML of rendered preview
+	 * @return string HTML of rendered preview.
 	 */
 	private function get_preview( $preview_size ) {
-		if ( isset( $this->struct['return_type'] ) && 'url' === $this->struct['return_type'] ) {
-			$url = $this->get_value();
-		} else {
-			$data = wp_get_attachment_image_src( $this->get_value(), $preview_size );
-			if ( ! empty( $data ) ) {
-				$url = $data[0];
-			}
-		}
+		$url    = $this->get_url( $preview_size );
 		$return = null;
 		if ( ! empty( $url ) ) {
 			$return = '<img src="' . esc_attr( $url ) . '" class="uix-image-control-preview"><a href="#" class="uix-image-control-remove" data-target="' . $this->id() . '"><span class="dashicons dashicons-no"></span></a>';
 		}
+
+		return $return;
+	}
+
+	/**
+	 * Get the URL of the image of the control.
+	 *
+	 * @since  3.0.0
+	 * @access public
+	 *
+	 * @param string $size The size of image to get url for.
+	 *
+	 * @return string URL to the requested image.
+	 */
+	public function get_url( $size ) {
+		$url = null;
+		if ( isset( $this->struct['return_type'] ) && 'url' === $this->struct['return_type'] ) {
+			$url = $this->get_value();
+		} else {
+			$data = wp_get_attachment_image_src( $this->get_value(), $size );
+			if ( ! empty( $data ) ) {
+				$url = $data[0];
+			}
+		}
+
+		return $url;
 	}
 }
