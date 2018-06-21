@@ -210,6 +210,21 @@ class control extends \uix\data\data {
 		return $value;
 	}
 
+
+	/**
+	 * Set this controls value.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @param mixed $value The value to set this control to.
+	 *
+	 * @return mixed the controls value
+	 */
+	public function set_value( $value ) {
+		return $this->set_data( array( $this->slug => $value ) );
+	}
+
 	/**
 	 * Returns the description for the control
 	 *
