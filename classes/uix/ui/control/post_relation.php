@@ -8,6 +8,7 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui\control;
 
 /**
@@ -110,7 +111,7 @@ class post_relation extends \uix\ui\control {
 	public function process_query( $the_query ) {
 		$return = null;
 		if ( $the_query->have_posts() ) {
-			while ( $the_query->have_posts() ){
+			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
 				$return .= '<div class="uix-post-relation-item"><span class="uix-post-relation-add dashicons dashicons-plus" data-id="' . esc_html( $this->id() ) . '"></span>';
 				$return .= '<span class="uix-relation-name">' . get_the_title() . '</span>';
@@ -214,22 +215,27 @@ class post_relation extends \uix\ui\control {
 	 */
 	public function set_assets() {
 
-		// Initilize core styles
-		$this->assets['style']['post-relation'] = $this->url . 'assets/controls/post-relation/css/post-relation' . UIX_ASSET_DEBUG . '.css';
-
-		$this->assets['script']['post-relation'] = array(
-			'src'       => $this->url . 'assets/controls/post-relation/js/post-relation' . UIX_ASSET_DEBUG . '.js',
-			'in_footer' => true,
+		// Initilize core styles.
+		$this->assets = array(
+			'script' => array(
+				'post-relation' => array(
+					'src'       => $this->url . 'assets/controls/post-relation/js/post-relation' . UIX_ASSET_DEBUG . '.js',
+					'in_footer' => true,
+				),
+				'baldrick'      => array(
+					'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+					'deps' => array( 'jquery' ),
+				),
+				'uix-ajax'      => array(
+					'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
+					'deps' => array( 'baldrick' ),
+				),
+			),
+			'style'  => array(
+				'post-relation' => $this->url . 'assets/controls/post-relation/css/post-relation' . UIX_ASSET_DEBUG . '.css',
+				'uix-ajax'      => $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css',
+			),
 		);
-		$this->assets['script']['baldrick']      = array(
-			'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'jquery' ),
-		);
-		$this->assets['script']['uix-ajax']      = array(
-			'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'baldrick' ),
-		);
-		$this->assets['style']['uix-ajax']       = $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css';
 
 		parent::set_assets();
 	}

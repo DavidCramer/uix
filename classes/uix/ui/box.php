@@ -132,17 +132,21 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 * @access public
 	 */
 	public function set_assets() {
-
-		$this->assets['script']['baldrick'] = array(
-			'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'jquery' ),
+		$this->assets = array(
+			'script' => array(
+				'baldrick' => array(
+					'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+					'deps' => array( 'jquery' ),
+				),
+				'uix-ajax' => array(
+					'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
+					'deps' => array( 'baldrick' ),
+				),
+			),
+			'style'  => array(
+				'uix-ajax' => $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css',
+			),
 		);
-		$this->assets['script']['uix-ajax'] = array(
-			'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
-			'deps' => array( 'baldrick' ),
-		);
-		$this->assets['style']['uix-ajax']  = $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css';
-
 		parent::set_assets();
 	}
 
@@ -155,7 +159,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	public function set_attributes() {
 
 		$action                      = uix()->request_vars( 'server' );
-		$this->attributes           += array(
+		$this->attributes            += array(
 			'enctype'  => 'multipart/form-data',
 			'method'   => 'POST',
 			'class'    => [ 'uix-ajax', 'uix-' . $this->type ],

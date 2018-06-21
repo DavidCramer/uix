@@ -146,18 +146,6 @@ class metabox extends panel {
 	}
 
 	/**
-	 * Render the Metabox
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return string HTML of rendered metabox
-	 */
-	public function render() {
-		// render fields setup
-		return parent::render();
-	}
-
-	/**
 	 * Saves a metabox data
 	 *
 	 * @uses   "save_post" hook
