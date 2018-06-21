@@ -17,7 +17,7 @@ namespace uix\ui;
  * @package uix\ui
  * @author  David Cramer
  */
-abstract class uix {
+abstract class uix extends core\core {
 
 	/**
 	 * The type of UI object
@@ -95,24 +95,6 @@ abstract class uix {
 	 * @var      string
 	 */
 	protected $url;
-
-	/**
-	 * List of core object scripts ( common scripts )
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 * @var      array
-	 */
-	protected $scripts = [];
-
-	/**
-	 * List of core object styles ( common styles )
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 * @var      array
-	 */
-	protected $styles = [];
 
 	/**
 	 * UIX constructor
@@ -216,45 +198,6 @@ abstract class uix {
 	}
 
 	/**
-	 * Define core UIX styles - override to register core ( common styles for
-	 * uix type )
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 */
-	public function set_assets() {
-		if ( ! empty( $this->struct['style'] ) ) {
-			$this->assets['style'] = array_merge( $this->assets['style'], $this->struct['style'] );
-		}
-		if ( ! empty( $this->struct['script'] ) ) {
-			$this->assets['script'] = array_merge( $this->assets['script'], $this->struct['script'] );
-		}
-	}
-
-	/**
-	 * setup actions and hooks - override to add specific hooks. use
-	 * parent::actions() to keep admin head
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 */
-	protected function actions() {
-
-		// init uix after loaded.
-		add_action( 'init', [ $this, 'init' ] );
-		// set location.
-		$location = 'wp_print_styles';
-		if ( is_admin() ) {
-			$location = 'admin_enqueue_scripts';
-		}
-		// init UIX headers.
-		if ( ! $this->is_active() ) {
-			add_action( $location, [ $this, 'enqueue_core' ] );
-		}
-
-	}
-
-	/**
 	 * Register the UIX objects
 	 *
 	 * @since  1.0.0
@@ -324,37 +267,6 @@ abstract class uix {
 	}
 
 	/**
-	 * enqueue core assets
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 */
-	public function enqueue_core() {
-
-		// register uix core asset
-		$this->core_assets();
-
-		/**
-		 * do object initilisation
-		 *
-		 * @param object current uix instance
-		 */
-		do_action( 'uix_admin_enqueue_scripts_' . $this->type, $this );
-
-		/**
-		 * do object initilisation for specific slug
-		 *
-		 * @param object current uix instance
-		 */
-		do_action( 'uix_admin_enqueue_scripts_' . $this->type . '_' . $this->slug, $this );
-
-		// push assets to ui manager.
-		uix()->set_assets( $this->assets );
-		// done enqueuing - dpo inline or manual enqueue.
-		$this->set_active_styles();
-	}
-
-	/**
 	 * Determin if a UIX object should be active for this screen
 	 * Intended to be ovveridden
 	 *
@@ -366,36 +278,8 @@ abstract class uix {
 			return $this->parent->is_active();
 		}
 
-		return true; // base is_active will result in true;
+		return true; // base is_active will result in true.
 	}
-
-	/**
-	 * Register UIX depend js and css and call set assets
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 */
-	protected function core_assets() {
-		wp_register_script( 'uix', $this->url . 'assets/js/core' . UIX_ASSET_DEBUG . '.js' );
-		wp_register_style( 'uix', $this->url . 'assets/css/core' . UIX_ASSET_DEBUG . '.css', [ 'dashicons' ] );
-		wp_localize_script( 'uix', 'uixApi', [
-			'root'  => esc_url_raw( rest_url() ),
-			'nonce' => wp_create_nonce( 'wp_rest' ),
-		] );
-
-		// set assets . methods at before this point can set assets, after this not so much.
-		$this->set_assets();
-	}
-
-	/**
-	 * runs after assets have been enqueued
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 */
-	protected function set_active_styles() {
-	}
-
 
 	/**
 	 * Build Attributes for the input control
@@ -476,30 +360,5 @@ abstract class uix {
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Base color helper
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 */
-	protected function base_color() {
-		$color = '#D84315';
-		if ( empty( $this->struct['base_color'] ) ) {
-			if ( ! empty( $this->parent ) ) {
-				$color = $this->parent->base_color();
-			}
-		} else {
-			$color = $this->struct['base_color'];
-		}
-
-		/**
-		 * do object initilisation for specific slug
-		 *
-		 * @param object current uix instance
-		 */
-		return apply_filters( 'uix_base_color_' . $this->type . '_' . $this->slug, $color );
-
 	}
 }
