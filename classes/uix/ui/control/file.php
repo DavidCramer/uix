@@ -8,11 +8,11 @@
  * @link
  * @copyright 2016 David Cramer
  */
+
 namespace uix\ui\control;
 
 /**
  * File field ( type="file" )
- * @todo Make it actually work.
  * @since 1.0.0
  */
 class file extends \uix\ui\control {

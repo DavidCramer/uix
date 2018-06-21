@@ -132,21 +132,7 @@ class box extends panel implements \uix\data\save, \uix\data\load {
 	 * @access public
 	 */
 	public function set_assets() {
-		$this->assets = array(
-			'script' => array(
-				'baldrick' => array(
-					'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-					'deps' => array( 'jquery' ),
-				),
-				'uix-ajax' => array(
-					'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
-					'deps' => array( 'baldrick' ),
-				),
-			),
-			'style'  => array(
-				'uix-ajax' => $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css',
-			),
-		);
+		$this->set_ajax_assets();
 		parent::set_assets();
 	}
 

@@ -208,35 +208,18 @@ class post_relation extends \uix\ui\control {
 	}
 
 	/**
-	 * register scritps and styles
+	 * register scripts and styles
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function set_assets() {
-
-		// Initilize core styles.
-		$this->assets = array(
-			'script' => array(
-				'post-relation' => array(
-					'src'       => $this->url . 'assets/controls/post-relation/js/post-relation' . UIX_ASSET_DEBUG . '.js',
-					'in_footer' => true,
-				),
-				'baldrick'      => array(
-					'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
-					'deps' => array( 'jquery' ),
-				),
-				'uix-ajax'      => array(
-					'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
-					'deps' => array( 'baldrick' ),
-				),
-			),
-			'style'  => array(
-				'post-relation' => $this->url . 'assets/controls/post-relation/css/post-relation' . UIX_ASSET_DEBUG . '.css',
-				'uix-ajax'      => $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css',
-			),
+		$this->set_ajax_assets();
+		$this->assets['scripts']['post-relation'] = array(
+			'src'       => $this->url . 'assets/controls/post-relation/js/post-relation' . UIX_ASSET_DEBUG . '.js',
+			'in_footer' => true,
 		);
-
+		$this->assets['style']['post-relation']   = $this->url . 'assets/controls/post-relation/css/post-relation' . UIX_ASSET_DEBUG . '.css';
 		parent::set_assets();
 	}
 

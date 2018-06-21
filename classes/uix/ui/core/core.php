@@ -137,6 +137,30 @@ class core {
 	}
 
 	/**
+	 * Sets ajax assets.
+	 *
+	 * @since  3.0.0
+	 * @access protected
+	 */
+	protected function set_ajax_assets() {
+		$this->assets = array(
+			'script' => array(
+				'baldrick' => array(
+					'src'  => $this->url . 'assets/js/jquery.baldrick' . UIX_ASSET_DEBUG . '.js',
+					'deps' => array( 'jquery' ),
+				),
+				'uix-ajax' => array(
+					'src'  => $this->url . 'assets/js/ajax' . UIX_ASSET_DEBUG . '.js',
+					'deps' => array( 'baldrick' ),
+				),
+			),
+			'style'  => array(
+				'uix-ajax' => $this->url . 'assets/css/ajax' . UIX_ASSET_DEBUG . '.css',
+			),
+		);
+	}
+
+	/**
 	 * Base color helper
 	 *
 	 * @since  1.0.0
