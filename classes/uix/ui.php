@@ -271,9 +271,14 @@ class ui {
 	private function get_folder_contents( $path ) {
 
 		$items = array();
-		if ( $uid = opendir( $path ) ) {
-			while ( ( $item = readdir( $uid ) ) !== false ) {
-				if ( substr( $item, 0, 1 ) != '.' ) {
+		$uid   = opendir( $path );
+		if ( $uid ) {
+			while ( true ) {
+				$item = readdir( $uid );
+				if ( false === $item ) {
+					break;
+				}
+				if ( substr( $item, 0, 1 ) !== '.' ) {
 					$items[ $item ] = $path . $item;
 				}
 			}
