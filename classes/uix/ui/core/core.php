@@ -15,23 +15,16 @@ namespace uix\ui\core;
 class core {
 
 	/**
-	 * List of core object scripts ( common scripts )
+	 * Set this object type assets
 	 *
 	 * @since  1.0.0
-	 * @access protected
+	 * @access public
 	 * @var      array
 	 */
-	protected $scripts = [];
-
-	/**
-	 * List of core object styles ( common styles )
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 * @var      array
-	 */
-	protected $styles = [];
-
+	public $assets = [
+		'script' => [],
+		'style'  => [],
+	];
 
 	/**
 	 * setup actions and hooks - override to add specific hooks. use

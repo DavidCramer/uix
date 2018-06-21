@@ -38,18 +38,6 @@ abstract class uix extends core\core {
 	public $struct = [];
 
 	/**
-	 * Set this object type assets
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var      array
-	 */
-	public $assets = [
-		'script' => [],
-		'style'  => [],
-	];
-
-	/**
 	 * Object slug
 	 *
 	 * @access public
