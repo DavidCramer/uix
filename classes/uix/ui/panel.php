@@ -113,25 +113,13 @@ class panel extends \uix\data\data {
 	 */
 	public function render() {
 		$output = null;
-
 		if ( $this->child_count() > 0 ) {
-
 			$output .= '<div id="panel-' . esc_attr( $this->id() ) . '" class="uix-' . esc_attr( $this->type ) . '-inside ' . esc_attr( $this->wrapper_class_names() ) . '">';
-			// render a lable
-			$output .= $this->label();
-			// render a desciption
-			$output .= $this->description();
-			// render navigation tabs
-			$output .= $this->navigation();
-			// sections
-			$output .= $this->panel_section();
-
+			$output .= $this->label() . $this->description() . $this->navigation() . $this->panel_section();
 			$output .= '</div>';
 		} else {
-			// sections
 			$output .= $this->panel_section();
 		}
-
 		$output .= $this->render_template();
 
 		return $output;
@@ -311,7 +299,7 @@ class panel extends \uix\data\data {
 	public function panel_section() {
 		$output = null;
 
-		// render the section wrapper
+		// render the section wrapper.
 		$output .= '<div class="uix-' . esc_attr( $this->type ) . '-sections uix-sections">';
 
 		$hidden = 'false';
@@ -320,9 +308,8 @@ class panel extends \uix\data\data {
 			if ( ! $this->is_section_object( $section ) && ! $this->is_control_object( $section ) ) {
 				continue;
 			}
-
 			$section->struct['active'] = $hidden;
-			$output                    .= $section->render();
+			$output                   .= $section->render();
 			$hidden                    = 'true';
 		}
 

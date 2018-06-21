@@ -47,7 +47,21 @@ class item extends \uix\ui\control {
 	public function setup() {
 
 		$this->struct['modal'] = $this->get_base();
+		$this->config();
+		$this->struct['modal']['config']['view'] = $this->struct['modal']['config']['template'];
+		unset( $this->struct['modal']['config']['template'] );
+		add_action( 'uix_control_item_submit_' . $this->slug, $this->struct['modal']['config']['callback'], 100 );
+		parent::setup();
+		$this->set_submit();
+	}
 
+	/**
+	 * Process config if set.
+	 *
+	 * @since  3.0.0
+	 * @access public
+	 */
+	public function config() {
 		if ( ! empty( $this->struct['config'] ) ) {
 			$this->struct['modal']['config'] = array_merge( $this->struct['modal']['config'], $this->struct['config'] );
 			if ( ! empty( $this->struct['config']['add_text'] ) ) {
@@ -58,30 +72,13 @@ class item extends \uix\ui\control {
 			}
 			unset( $this->struct['config'] ); // remove so no clashing.
 		}
-
-		$this->struct['modal']['config']['view'] = $this->struct['modal']['config']['template'];
-		unset( $this->struct['modal']['config']['template'] );
-
-		add_action( 'uix_control_item_submit_' . $this->slug, $this->struct['modal']['config']['callback'], 100 );
-
-		parent::setup();
-
-		// set data for templates.
-		if ( ! $this->child['config']->is_submitted() ) {
-			$data                                                        = $this->child['config']->get_data();
-			$this->child['config']->struct['attributes']['data-default'] = json_encode( $data );
-			$data_template                                               = $this->drill_in( $data );
-
-			$this->child['config']->set_data( $data_template );
-		}
-
 	}
 
 	/**
 	 * Builds the handlebars based structure for template render
 	 *
 	 * @param array  $array the data structure to drill into.
-	 * @param string $tag   , the final tag to replace the data with.
+	 * @param string $tag , the final tag to replace the data with.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -124,12 +121,29 @@ class item extends \uix\ui\control {
 	}
 
 	/**
+	 * Setup data for a submission.
+	 *
+	 * @since  3.0.0
+	 * @access public
+	 */
+	public function set_submit() {
+		if ( ! $this->child['config']->is_submitted() ) {
+			$data = $this->child['config']->get_data();
+			$this->child['config']->struct['attributes']['data-default'] = wp_json_encode( $data );
+			$data_template = $this->drill_in( $data );
+
+			$this->child['config']->set_data( $data_template );
+		}
+	}
+
+	/**
 	 * Handles the new item create submission
 	 *
 	 * @since  1.0.0
 	 * @access public
 	 */
 	public function handle_submit() {
+
 		if ( isset( $this->child['config'] ) && $this->child['config']->is_submitted() ) {
 			$data = $this->child['config']->get_value();
 			if ( isset( $data['config_foot'] ) ) {
@@ -172,7 +186,7 @@ class item extends \uix\ui\control {
 
 		parent::set_attributes();
 		$this->attributes['class'][] = 'hidden';
-		$this->attributes['value'] = '{{json this}}';
+		$this->attributes['value']   = '{{json this}}';
 
 	}
 
