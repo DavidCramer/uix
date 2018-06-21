@@ -1,8 +1,8 @@
 # UIX
 
 [![Travis](https://api.travis-ci.org/DavidCramer/uix.svg?branch=develop)](https://travis-ci.org/DavidCramer/uix/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/DavidCramer/uix.svg)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=master)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/DavidCramer/uix.svg)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DavidCramer/uix/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=develop)
+[![Code Coverage](https://scrutinizer-ci.com/g/DavidCramer/uix/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=develop)
 
 
 UIX is a small framework for creating user interfaces ( Post Types, Settings Pages, and Metaboxes ) and config structures with the least code possible. It only handles the UI. The program logic is up to you.
