@@ -2,6 +2,7 @@
 
 [![Travis](https://api.travis-ci.org/DavidCramer/uix.svg?branch=develop)](https://travis-ci.org/DavidCramer/uix/)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DavidCramer/uix/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=develop)
+[![CodeFactor](https://www.codefactor.io/repository/github/davidcramer/uix/badge)](https://www.codefactor.io/repository/github/davidcramer/uix)
 [![Code Coverage](https://scrutinizer-ci.com/g/DavidCramer/uix/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/DavidCramer/uix/?branch=develop)
 
 
@@ -10,7 +11,7 @@ UIX is a small framework for creating user interfaces ( Post Types, Settings Pag
 
 ## Documentation
 
-Important note is that UIX used namespacing so it is PHP 5.3+. It's also heavy in development, so treat this as an `ALPHA`.
+Important note is that UIX used namespacing so it is PHP 5.3+. It's also heavy in development, so treat this as a `BETA`.
 
 ### Installation
 
