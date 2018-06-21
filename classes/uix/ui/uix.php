@@ -242,16 +242,15 @@ abstract class uix {
 
 		// init uix after loaded.
 		add_action( 'init', [ $this, 'init' ] );
-
 		// set location.
 		$location = 'wp_print_styles';
-
 		if ( is_admin() ) {
 			$location = 'admin_enqueue_scripts';
 		}
-
 		// init UIX headers.
-		add_action( $location, [ $this, 'enqueue_core' ] );
+		if ( ! $this->is_active() ) {
+			add_action( $location, [ $this, 'enqueue_core' ] );
+		}
 
 	}
 
@@ -332,10 +331,6 @@ abstract class uix {
 	 */
 	public function enqueue_core() {
 
-		// attempt to get a config
-		if ( ! $this->is_active() ) {
-			return;
-		}
 		// register uix core asset
 		$this->core_assets();
 
@@ -353,7 +348,7 @@ abstract class uix {
 		 */
 		do_action( 'uix_admin_enqueue_scripts_' . $this->type . '_' . $this->slug, $this );
 
-		// push assets to ui manager
+		// push assets to ui manager.
 		uix()->set_assets( $this->assets );
 		// done enqueuing - dpo inline or manual enqueue.
 		$this->set_active_styles();
