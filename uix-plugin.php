@@ -5,13 +5,12 @@
  * @package   uix
  * @author    David Cramer
  * @license   GPL-2.0+
- * @link
- * @copyright 2016 David Cramer
  * @wordpress-plugin
  * Plugin Name: UIX
- * Plugin URI:  http://cramer.co.za
- * Description: UI Framework for WordPress Plugins.
- * Version:     3.0.0
+ * Plugin URI:  https://github.com/DavidCramer/uix
+ * Description: React-based UI framework for WordPress plugins.
+ * Version:     4.0.0
+ * Requires PHP: 8.1
  * Author:      David Cramer
  * Author URI:  http://cramer.co.za
  * Text Domain: uix
@@ -20,15 +19,22 @@
  * Domain Path: /languages
  */
 
+declare(strict_types=1);
+
 // If this file is called directly, abort.
-if ( defined( 'WPINC' ) ) {
-
-	define( 'UIX_CORE', __FILE__ );
-	define( 'UIX_PATH', plugin_dir_path( __FILE__ ) );
-	define( 'UIX_URL', plugin_dir_url( __FILE__ ) );
-	define( 'UIX_VER', '3.0.0' );
-
-	// include uix bootstrap.
-	require_once UIX_PATH . 'uix-bootstrap.php';
-
+if ( ! defined( 'WPINC' ) ) {
+    die;
 }
+
+define( 'UIX_PLUGIN_FILE', __FILE__ );
+define( 'UIX_PATH', plugin_dir_path( __FILE__ ) );
+define( 'UIX_URL', plugin_dir_url( __FILE__ ) );
+define( 'UIX_VERSION', '4.0.0' );
+
+// Autoloader (Composer or bundled fallback).
+if ( file_exists( UIX_PATH . 'vendor/autoload.php' ) ) {
+    require_once UIX_PATH . 'vendor/autoload.php';
+}
+
+// Bootstrap via uix-bootstrap.php (included by Composer files[] autoload too).
+require_once UIX_PATH . 'uix-bootstrap.php';

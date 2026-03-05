@@ -1,2 +1,5 @@
 node_modules/
-assets/js/handlebars.min-latest.js
+assets/js/handlebars.min-latest.jsbuild/
+vendor/
+*.min.js
+*.min.css

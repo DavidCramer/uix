@@ -1,0 +1,181 @@
+/* UIX Classic Admin Styles */
+
+:root {
+    --uix-color: #0073aa;
+    --uix-border: #c3c4c7;
+    --uix-bg: #fff;
+    --uix-text: #1d2327;
+    --uix-muted: #646970;
+    --uix-radius: 4px;
+    --uix-spacing: 16px;
+}
+
+/* ── Page ─────────────────────────────────────────────────────────────── */
+
+.uix-page {
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+.uix-page__header {
+    border-bottom: 1px solid var(--uix-border);
+    padding-bottom: 12px;
+    margin-bottom: var(--uix-spacing);
+    box-shadow: 4px 0 0 var(--uix-color) inset;
+    padding-left: 12px;
+}
+
+.uix-page__title {
+    font-size: 23px;
+    font-weight: 400;
+    color: var(--uix-text);
+    margin: 0;
+}
+
+/* ── Section ──────────────────────────────────────────────────────────── */
+
+.uix-section {
+    background: var(--uix-bg);
+    border: 1px solid var(--uix-border);
+    border-radius: var(--uix-radius);
+    padding: var(--uix-spacing);
+    margin-bottom: var(--uix-spacing);
+}
+
+.uix-section__title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--uix-muted);
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--uix-border);
+}
+
+.uix-section__description {
+    color: var(--uix-muted);
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.uix-section__fields {
+    display: grid;
+    gap: 16px;
+}
+
+/* ── Controls ─────────────────────────────────────────────────────────── */
+
+.uix-control {
+    display: block;
+}
+
+.uix-control--separator hr {
+    border: none;
+    border-top: 1px solid var(--uix-border);
+    margin: 8px 0;
+}
+
+.uix-separator__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--uix-text);
+    margin: 0 0 4px;
+}
+
+/* ── Image/File controls ──────────────────────────────────────────────── */
+
+.uix-control--image__preview img {
+    border: 1px solid var(--uix-border);
+    border-radius: var(--uix-radius);
+}
+
+/* ── Repeat ───────────────────────────────────────────────────────────── */
+
+.uix-repeat__label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.uix-repeat__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    background: #f6f7f7;
+    border: 1px solid var(--uix-border);
+    border-radius: var(--uix-radius);
+    margin-bottom: 8px;
+}
+
+.uix-repeat__row-fields {
+    display: grid;
+    gap: 12px;
+}
+
+.uix-repeat__add {
+    margin-top: 4px !important;
+}
+
+/* ── Save bar ─────────────────────────────────────────────────────────── */
+
+.uix-save-bar {
+    padding: 12px 0;
+    border-top: 1px solid var(--uix-border);
+    margin-top: var(--uix-spacing);
+}
+
+.uix-save-bar--saved .uix-save-bar__status {
+    color: #2a8a2a;
+}
+
+.uix-save-bar--error .uix-save-bar__status {
+    color: #cc1818;
+}
+
+/* ── Loading ──────────────────────────────────────────────────────────── */
+
+.uix-loading {
+    min-height: 80px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: uix-shimmer 1.5s infinite;
+    border-radius: var(--uix-radius);
+}
+
+@keyframes uix-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+
+/* ── Metabox ──────────────────────────────────────────────────────────── */
+
+.uix-metabox__body {
+    padding: 0;
+}
+
+.uix-metabox__footer {
+    margin-top: 8px;
+}
+
+.uix-metabox .uix-section {
+    border: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.uix-metabox .uix-section__title {
+    display: none;
+}
+
+/* ── WP Components overrides ──────────────────────────────────────────── */
+
+.uix-page .components-panel__body {
+    border-left: 3px solid var(--uix-color);
+}
+
+.uix-page .components-range-control__thumb {
+    background: var(--uix-color) !important;
+}

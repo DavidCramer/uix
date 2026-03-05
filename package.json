@@ -1,20 +1,37 @@
 {
-  "name": "uix",
-  "version": "1.0.0",
-  "description": "UIX WordPress UI Framerwork.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DavidCramer/uix"
-  },
-  "author": "David Cramer",
-  "license": "GPLv2+",
-  "bugs": {
-    "url": "https://github.com/DavidCramer/uix/issues"
-  },
-  "devDependencies": {
-    "grunt": "1.0.1",
-    "grunt-contrib-uglify": "3.2.1",
-    "grunt-curl": "2.4.1",
-    "grunt-contrib-cssmin": "2.2.1"
-  }
+    "name": "uix",
+    "version": "4.0.0",
+    "description": "WordPress UI framework — React-based admin interfaces",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DavidCramer/uix"
+    },
+    "author": "David Cramer",
+    "license": "GPL-2.0+",
+    "bugs": {
+        "url": "https://github.com/DavidCramer/uix/issues"
+    },
+    "scripts": {
+        "build": "wp-scripts build",
+        "start": "wp-scripts start",
+        "lint:js": "wp-scripts lint-js",
+        "lint:style": "wp-scripts lint-style",
+        "packages-update": "wp-scripts packages-update"
+    },
+    "dependencies": {
+        "@wordpress/api-fetch": "^6.0.0",
+        "@wordpress/components": "^25.0.0",
+        "@wordpress/compose": "^6.0.0",
+        "@wordpress/data": "^9.0.0",
+        "@wordpress/element": "^5.0.0",
+        "@wordpress/hooks": "^3.0.0",
+        "@wordpress/i18n": "^4.0.0",
+        "@wordpress/notices": "^4.0.0",
+        "@wordpress/plugins": "^5.0.0"
+    },
+    "devDependencies": {
+        "@types/wordpress__components": "^19.0.0",
+        "@wordpress/scripts": "^27.0.0",
+        "typescript": "^5.0.0"
+    }
 }
